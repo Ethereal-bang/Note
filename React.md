@@ -1,5 +1,7 @@
 
 
+
+
 # React 配置
 
 + <span style="font-size:20px">学习用环境配置</span>
@@ -1050,6 +1052,8 @@ class Demo extends React.Component {
 
 #### React 中的事件处理
 
+<hr>
+
 + <span style="font-size:20px">通过 onXxx 属性指定事件处理函数</span>
     + React 使用的是自定义事件（*二次封装所以区分大小写如 `onClick`*），而不是原生 DOM 事件（*如 `onclick`*）。
     + React 中的事件是通过事件委托方式处理的，即委托给组件最外层的元素，更高效
@@ -1057,9 +1061,9 @@ class Demo extends React.Component {
 
 
 
-# 收集表单数据
+## 收集表单数据
 
-## 非受控组件
+### 非受控组件
 
 实现效果：表单点击提交后弹出用户名和密码，但不触发表单提交。
 
@@ -1091,7 +1095,7 @@ class Login extends React.Component{
 
 总结非受控组件：先用先取。
 
-## 受控组件
+### 受控组件
 
 同样的例子：
 
@@ -1140,17 +1144,39 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 ## 组件的生命周期
 
++ <span style="font-size:20px">生命周期图</span>
+
+    <hr>旧 React：
+
+    组件渲染有三个路线。
+
+    ![image-20210520131203496](https://i.loli.net/2021/05/20/8GDFzEgIUrSfy9q.png)
+
 + <span style="font-size:20px">关于生命周期的API</span>
 
-    组件的生命周期就是在特定的时间点执行：生命周期回调函数 / 生命周期钩子函数 
+    <hr>
+    组件的生命周期就是在特定的时间点执行：生命周期回调函数 / 生命周期钩子函数
 
-    + 组件挂载完毕：`componentDidMount()`
-    + 组件将要卸载：`componentWillUnmount()`
-+ 控制组件更新的”阀门“：`shouldComponentUpdata()`
-    + 组件更新完毕：`componentDidUpdate`
+    1.  初始化阶段：由`ReactDOM.render()`触发--初次渲染
+        + `constructor()`
+        + `componentWillMount()`
+        + `render()`
+        + **`componentDidMount()`**：组件挂载完毕，常用，一般用来初始化（*：如 开启定时器、发送网络请求、订阅消息*）
+
+    2. 更新阶段：由组件内部 `this.setState()`或父组件`render`触发
+
+        + `componentWillReceiveProps`：组件将要接收**新的** props，第一次传的 props 不算。
+
+        + `shouldComponentUpdata()`：控制组件更新的”阀门“，如果这个钩子返回`true`（*默认返回 `true`*），“阀门”开启，可以继续执行
+
+        + `componentWillUpdate()`
+        + `render`
+        + `componentDidUpdate`：组件更新完毕
+
+    3. 卸载组件：由`ReactDOM.unmountComponentAtNode()`触发
+        + **`componentwillUnmount()`**：常用，一般用来收尾（*：如 关闭定时器、取消订阅消息*）
+
     
-
-## getDerivedStateFromProps
 
 
 
