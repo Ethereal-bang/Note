@@ -685,6 +685,168 @@ f = open('/Users/michael/test.txt', 'r')
 
 
 
+# Python 笔试
+
+## 语法
+
++ **格式框架**
+
++ **注释**
+
+    3 个主要用途：
+
++ **命名与保留字**
+
+    命名规则：首字符不能数字，中间不能空格；大小写不同；不能与保留字相同。
+
++ **赋值语句**
+
+    单一语句、同步赋值`x, y = y, x`。
+
++ **input 函数**
+
+    统一按照字符串类型输出。
+
++ **eval 函数**
+
+    以 Python 表达式的方式解析并执行字符串并将结果输出。
+
+    ```python
+    eval("Hello")	// 报错
+    eval("'Hello'")	// 'Hello'
+    ```
+
++ **print 函数**
+
+    格式化输出。
+
+    ```python
+    print("转换后温度是{:.2f}C".format(C))
+    ```
+
+
+
+## 数据类型
+
++ <span style="font-size:20px">数字</span>
+
+    + 整数
+
+        四种进制表示：十进制、二进制、八进制、十六进制，除十进制外都需增加引导符号，分别为`0b`、`0o`、`0x`不区分大小写。
+
+    + 浮点数
+
+        要求所有浮点数必须带有小数部分，如`1.0`。
+
+        两种表示方法：十进制表示、科学计数法`4.3e-3`/`4.3E-3`表示 0.0043。
+
+        使用整数表达浮点数的方法是高精度运算的基本方法之一。
+
+    + 复数类型
+
+        a + bj，虚数通过`j`或`J`表示；实数和虚数部分都是浮点类型。
+
+        可以用`.real`和`.imag`获得实数部分和虚数部分。
+
+    + 数值运算操作符
+
+        ```python
+        +
+        -
+        *
+        x/y	 
+        x//y 	# 不大于 x 与 y 之商的最大整数
+        x%y		# x 与 y 之商的余数，也称模运算
+        -x		# x的负值
+        +x
+        x**y	# x 的 y 次幂
+        ```
+
+        操作符运算的结果可能隐式地改变数字类型，三种数字类型存在一种逐渐扩展的关系：整数->浮点数->复数。
+
+        增强赋值运算符如`x **= 3`。
+
+    + 内置的数值运算函数
+
+        ```python
+        abs(x)
+        divmod(x, y)	# 输出二元组形式 (x//y,  x%y)
+        pow(x, y[, z])
+        round(x[, ndigits])	# 对 x 四舍五入，保留 ndigits 位小数
+        max(x1, x2, ...)
+        min(x1, x2, ...)
+        ```
+
+    + 内置的数字类型转换函数
+
+        浮点数转换为整数类型时小数部分直接舍弃，复数不能直接转换为其他数据类型。
+
+        ```python
+        # 内置数字类型转换函数
+        int(x)
+        float(x)
+        complex(re[, im])	# 生成一个复数，实部 re，虚部 im
+        ```
+
++ <span style="font-size:20px">字符串类型</span>
+
+    转义字符`\`
+
+    + 基本的字符串操作符
+
+        ```python
+        x + y	# 连接两个字符串
+        x * n # 复制 n 次字符串
+        x in s	# x 是否是 s 的子串，返回布尔值
+        str[i]
+        str[N: M]	# 切片，不包含 M
+        ```
+
+    + 内置的字符串处理函数
+
+        ```python
+        len(x)
+        str(x)
+        chr(x)
+        ord(x)	# 返回单字符表示的 Unicode 编码
+        hex(x)	# 返回整数 x 对应十六进制数的小写形式字符串
+        oct(x)	#              八进制
+        ```
+
+    + 内置的字符串处理方法
+
+        ```python
+        str.lower()	# 返回副本
+        str.upper()
+        str.islower()	# 返回布尔值
+        str.isprintable()
+        str.isnumeric()
+        str.isspace()
+        # ...
+        ```
+
+    + format 方法的格式控制：==。。。==
+
++ <span style="font-size:20px">列表</span>
+
+    列表是包含多个对象引用的有序序列，属于序列类型。
+
+    与元组不同，列表的长度和内容都可变。
+
+    列表用`[]`表示，也可以用`list()`函数将元组或字符串转化成列表
+
+    + 列表类型的操作
+
+        除了序列类型的操作符和函数可应用于列表类型，列表还有额外的常用函数或方法
+
+        ```python
+        
+        
+        
+        ```
+
+        
+
 # 参考链接
 
 [Python 基础教程 | 菜鸟教程](https://www.runoob.com/python/python-tutorial.html)
@@ -695,4 +857,4 @@ f = open('/Users/michael/test.txt', 'r')
 
 [什么是序列，Python序列详解（包含序列类型和常用操作](http://c.biancheng.net/view/4312.html)
 
-[Python的序列切片_saltriver的专栏-CSND博客_](https://blog.csdn.net/saltriver/article/details/52194906)
+[Python的序列切片 saltriver的专栏-CSND博客_](https://blog.csdn.net/saltriver/article/details/52194906)

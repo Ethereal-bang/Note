@@ -1146,39 +1146,52 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 + <span style="font-size:20px">生命周期图</span>
 
-    <hr>旧 React：
+    <hr>
+
+    旧 React：
 
     组件渲染有三个路线。
 
     ![image-20210520131203496](https://i.loli.net/2021/05/20/8GDFzEgIUrSfy9q.png)
 
+    新 React：
+
+    将废弃`componentWillMount`、`componentWillRecieveProps`、`componentWillUpdate`三个钩子。
+
+    新增了`getDerivedStateFromProps`、`getSnapshotBeforeUpdate`。
+
+    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210524124359645.png" alt="image-20210524124359645" style="zoom:55%;" />
+
 + <span style="font-size:20px">关于生命周期的API</span>
 
     <hr>
-    组件的生命周期就是在特定的时间点执行：生命周期回调函数 / 生命周期钩子函数
-
+    
+组件的生命周期就是在特定的时间点执行：生命周期回调函数 / 生命周期钩子函数
+    
+    旧：
+    
+    
     1.  初始化阶段：由`ReactDOM.render()`触发--初次渲染
-        + `constructor()`
+    + `constructor()`
         + `componentWillMount()`
-        + `render()`
+    + `render()`
         + **`componentDidMount()`**：组件挂载完毕，常用，一般用来初始化（*：如 开启定时器、发送网络请求、订阅消息*）
-
-    2. 更新阶段：由组件内部 `this.setState()`或父组件`render`触发
-
-        + `componentWillReceiveProps`：组件将要接收**新的** props，第一次传的 props 不算。
-
+2.  更新阶段：由组件内部 `this.setState()`或父组件`render`触发
+    
+    + `componentWillReceiveProps`：组件将要接收**新的** props，第一次传的 props 不算。
+    
         + `shouldComponentUpdata()`：控制组件更新的”阀门“，如果这个钩子返回`true`（*默认返回 `true`*），“阀门”开启，可以继续执行
-
-        + `componentWillUpdate()`
+    
+    + `componentWillUpdate()`
         + `render`
         + `componentDidUpdate`：组件更新完毕
-
-    3. 卸载组件：由`ReactDOM.unmountComponentAtNode()`触发
+3.  卸载组件：由`ReactDOM.unmountComponentAtNode()`触发
         + **`componentwillUnmount()`**：常用，一般用来收尾（*：如 关闭定时器、取消订阅消息*）
-
     
-
-
+    新：
+    
+    1. `static getDerivedStateFromProps`：不常用，state 任何时候都取决于 props 时可以使用。
+    2. `getSnapshotBeforeUpdate`：
 
 # 参考链接
 

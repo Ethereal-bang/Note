@@ -168,7 +168,7 @@
   
   1. 关联一个远程库，使用命令` git remote add origin git@github.com:Ethereal-bang/qinfenfeng.git`，关联时`origin`是默认习惯命名
   2. 关联后，使用命令`git push -u origin main`第一次推送 master 分支的所有内容，Github 上即可以看到远程库的内容已和本地一模一样。
-  3. 此后，每次提交后如有必要都可以使用命令`git push origin main`把本地`main`分支的最新修改推送至 GitHub。
+  3. 此后，每次提交后如有必要都可以使用命令**`git push origin main`**把本地`main`分支的最新修改推送至 GitHub。
   
 + <span style="font-size:20px">解绑远程库</span>
 
