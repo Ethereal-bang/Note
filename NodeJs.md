@@ -31,6 +31,8 @@
 
 亲身安装过程：
 
+第一次：
+
 在一系列瞎搞失败后我选择重头来过。
 
 于是自认为彻底地删除掉了 node 及 npm 相关文件后再次操作。
@@ -39,7 +41,7 @@
 
 1. 首先在官网选择下载安装![image-20210304144212176](https://i.loli.net/2021/04/11/IeXKnA8HPwsNbm9.png) 这一版本。
 
-2. 将下载好的 node 安装在提前准备的文件夹里`E:\Npdejs\`
+2. 将下载好的 node 安装在提前准备的文件夹里`E:\Nodejs\`
 
 3. 参考 http://www.manongjc.com/detail/13-vpgpqsubgiktjmh.html 安装设置，保留默认安装设置，勾选了 Tools for Native Modules，也就是自动下载 本机模块工具。我也不是很懂，但上次没勾它就失败了，这次试试总没错。
 
@@ -98,6 +100,37 @@
 
 
 在命令行内输入`node`进入 Node.js 的交互环境。在交互环境下可以输入任意 JS 语句，回车后得到输出结果。退出交互环境则连按两次 ctrl + c。
+
+
+
+<hr>
+
+
+
+在创建 react 脚手架时出错，于是卸载了 node 重装。
+
+1. msi 后缀文件点击安装。
+2. 勾选了某个不太清楚的选项。
+3. 跳出一个命令行窗口，按几下提示安装完毕。
+4. `node -v`、`npm -v`测试安装成功
+
+
+
+5. 发现`D:\Develop\nodejs`文件夹下含有`node_global`和`node_cache`文件夹
+6. 设置系统环境变量`NODE_PATH`值为`D:\Develop\nodejs\node_global\node_modules`
+7. 命令行内执行`npm config set prefix "D:\Develop\nodejs\node_global"`和`npm config set cache "D:\Develop\nodejs\node_cache`
+8. 测试：执行`npm install express -g`后，`node_global\node_modules`文件夹出现`experss`
+9. 结果：依旧不能全局安装。
+
+
+
+<hr>
+
+
+
+[node环境变量配置 - CSDN](https://blog.csdn.net/jianleking/article/details/79130667)中的新方法，试验成功。
+
+
 
 
 
@@ -203,3 +236,4 @@ let greet = require('./hello');
 
 [Web/01-Node.js介绍 Github](https://github.com/qianguyihao/Web/blob/master/10-Node.js%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/01-Node.js%E4%BB%8B%E7%BB%8D.md#%E5%AE%98%E6%96%B9%E5%AE%9A%E4%B9%89)
 
+[node安装后的设置(node_global和node_cache) - CSDN](https://blog.csdn.net/weixin_42752574/article/details/104878811)
