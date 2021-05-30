@@ -381,7 +381,7 @@ input('')
 
 
 
-有无`eval`时，输入语句的区别：	==?==
+有无`eval`时，输入语句的区别：	
 
 ``` python
 a = input('name')
@@ -399,6 +399,12 @@ a, b, c = map(int, input().split())
 ```
 
 > [split()](https://www.runoob.com/python/att-string-split.html)
+>
+> ```python
+> >>>str = '12 34 56'
+> 
+> >>>str.split(' ', 1)	# ['12', '34 56']
+> ```
 
 
 
@@ -685,7 +691,7 @@ f = open('/Users/michael/test.txt', 'r')
 
 
 
-# Python 笔试
+# Python 考试
 
 ## 语法
 
@@ -827,9 +833,13 @@ f = open('/Users/michael/test.txt', 'r')
 
     + format 方法的格式控制：==。。。==
 
-+ <span style="font-size:20px">列表</span>
 
-    列表是包含多个对象引用的有序序列，属于序列类型。
+
+### 序列类型
+
++ <span style="font-size:20px">列表 []</span>
+
+    列表是包含多个对象引用(*元素类型可不一致*）的有序序列，属于序列类型。
 
     与元组不同，列表的长度和内容都可变。
 
@@ -840,12 +850,474 @@ f = open('/Users/michael/test.txt', 'r')
         除了序列类型的操作符和函数可应用于列表类型，列表还有额外的常用函数或方法
 
         ```python
+        li[i: j] = lt	# 用列表 lt 替换
+        li[i: j: k] = lt	# 替换，以 k 为步长
+        
+        del ls[i: j]
+
+        ls += lt
+        ls.extend(it)
+        
+        ls *= n
+        
+        ls.append(x)
+        ls.clear()	# 删除 ls 中所有元素
+        ls.copy()
+        ls.insert(i, x)	# 在 ls 的第 i 个位置增加元素 x
+        ls.pop(i)	# 列表的第 i 个位置取出并删除该元素
+        ls.remove(x)	# 删除列表出现的第一个 x
+        ls.reverse()
+        ```
         
         
         
+        可以通过赋给更多或更少元素实现对列表元素的插入或删除。
+        
+        ```python
+        # 列表元素的删除（只需 2 元素，给了 1 元素
+        >>>ls = list(range(5))	# [0, 1, 2, 3, 4]
+        >>>ls[0: 2] = ['new']	# ['new', 2, 3, 4]
+        
+        # 列表元素的插入（只需 2 元素，给了 3 元素
+        >>>ls = list(range(5))	# [0, 1, 2, 3, 4]
+        >>>ls[0, 2] = ['new1', 'new2', 'new3']	# ['new1', 'new2', 'new3', 3, 4]
+        ```
+    
+    
+    
+    遍历列表元素
+    
+    ```python
+    for e in ls:
+      print(e, end=" ")
+    ```
+
+
+
++ <span style="font-size:20px">元组 ()</span>
+
+    元组是包含 n 个数据项的**不可变**序列类型，用`,`和`()`表示，在不混淆语义情况下能省略`()`
+
+    应用：表达固定数据项、函数多返回值、多变量同步赋值、循环遍历
+
+    遍历：
+
+    ```python
+    import math
+    # 求多个坐标值到原点的距离
+    for x, y in ((1, 0), (2, 5), (3, 8)):
+      print(math.hypot(x, y))	
+    ```
+
+    
+
+### 集合类型 
+
++ <span style="font-size:20px">集合 {}</span>
+
+    与数学中集合的概念一致，无序，不可重复。元素类型只能是固定数据类型（*即不能包括列表、字典、集合类型。能够进行哈希运算 `hash` 的都可以作为集合元素*）。
+
+    
+
+    集合初始化，赋值语句
+
+    ```python
+    s = {4, "BIT", (10, "cs")}	# (10, "cs") 是元组类型
+    ```
+
+    还可以用**`set(x)`**函数来生成集合。
+
+    ```python
+    W = set("app")	# {'a', 'p', 'p'}
+    V = set(("cat", "dog"))	# {"cat", "dog"}
+    ```
+
+    
+
+    集合类型的操作符：
+
+    ```python
+    S-T	# 差集。返回新集合包括在集合 S 中，但不在 T 中的元素
+    S.difference(T)
+    
+    S&T	# 交集
+    S.intersection(T)
+    
+    S^T	# 补集。包括集合 S 和 T 中元素，但不包括同时在其中的元素
+    S.symmetric_difference(T)
+    
+    S|T	# 并集
+    S.union(T)
+    
+    S<=T	# 返回布尔值，若 S 与 T 相同或是它的子集返回 True
+    S.issubset(T)
+    
+    S>=T
+    S.issuperset(T)
+    ```
+
+    集合类型操作函数或方法：
+
+    ```python
+    S.add(x)
+    S.clear()
+    S.copy()
+    S.pop()	#随机返回集合 S 中一个元素，为空则产生异常
+    S.discard(x)	# 移除，不存在不报错
+    S.remove(x)	#不存在产生异常
+    S.isdisjoint(T)	# 若两集合无相同元素返回 True
+    len(S)
+    x in S
+    x not in S
+    ```
+
+    
+
+    主要应用场景：成员关系测试、元素去重、删除数据项
+
+
+
+### 映射类型
+
++ <span style="font-size:20px">字典 {}</span>
+
+    <hr>
+
+    字典是包含 n 个键值对的集合，可根据键索引内容
+
+    由于`{}`也可以表示集合，字典也具有和集合相似的性质，即键值对间没有顺序且不能重复。可以把字典看成元素是键值对的集合
+
+    字典最主要的**用法**：查找与特定键相对应的值，通过索引符号`[]`：
+
+    ```python
+    >>>D = {"中":"北", "美":"华"}
+    >>>D["中"]	# '北'
+    ```
+
+    > **索引**
+    >
+    > Python 中，字符串、列表、元组等都采用数字索引，字典采用字符索引
+
++ <span style='font-size:20px'>字典类型的操作</span>
+
+    使用`{}`创建空的字典，`[]`增加元素。
+
+    注意：直接使用`{}`是创建字典不是集合，生成空集合需要用`set()`
+
+    字典类型的函数和方法：
+
+    ```python
+    dict = {}
+    
+    dict.keys()
+    dict.values()
+    dict.get(<key>, <default>)	# 返回键的值，没有则返回默认值
+    dict.pop(<key>, <default>)
+    dict.popitem()	# 随机去一键值对以元组 (key, value) 形式返回
+    dict.clear()
+    del dict[<key>]
+    <key> in dict
+    ```
+
+    
+
++ 字典类型**遍历**：
+
+    ```python
+    for key in dict:
+      print(key)
+    ```
+
+    
+
+## 程序控制结构
+
+### 程序分支结构
+
++ <span style="font-size:20px">二分支结构</span>
+
+    <hr>
+
+    二分支结构有一种更简洁的表达方式：
+
+    ```python
+    >>>(a, b) = (3, 2)
+    >>>'A' if a>b else 'B'	# A
+    ```
+
+    
+
+### 程序循环结构
+
+Python 通过`for`、`while`提供遍历循环和无限循环的结构
+
++ <span style="font-size:20px">遍历循环：for 语句</span>
+
+    <hr>
+
+    ```python
+    for <循环变量> in <循环结构>:
+    	<语句块>
+    ```
+
+    for 语句的**循环次数**根据遍历结构中元素个数确定
+
+    **遍历结构**可以是字符串、文件、组合数据类型、range() 函数等
+
+    
+
+    还可以与**`else`**配合使用：
+
+    ```python
+    for s in "BIT":
+    	print("循环进行中：" + s)
+    else:
+      s = "循环正常结束"
+    print(s)
+    
+    '''
+    程序执行结果如下：
+    循环进行中：B
+    循环进行中：I
+    循环进行中：T
+    循环正常结束
+    '''
+    ```
+
+    这种模式的`else`只在循环正常执行并结束后执行，因此可以在`<语句块2>`中放置判断循环执行情况的语句。
+
++ <span style='font-size:20px'>无限循环：while 语句</span>
+
+    无限循环与**`else`**配合使用：
+
+    ```python
+    while <条件>:
+      <语句块1>
+    else:
+      <语句块2>
+    ```
+
+    这种情况`else`语句只在循环正常执行后才执行，因此可以在`<语句块2>`中放置判断循环执行情况的语句
+
++ <span style='font-size:20px'>break 和 continue</span>
+
+    与`else`：
+
+    循环`continue`后`else`语句依旧会执行，但`break`后`else`不会执行。
+
+
+
+## 函数
+
++ <span style='font-size:20px'>函数定义及调用</span>
+
+    <hr>
+
+    使用**`def`**保留字定义一个函数
+
+    ```python
+    def <函数名>(<参数列表>):
+      <函数体>
+      return <返回值类型>
+    ```
+
+    函数也可以没有`return`
+
+    
+
+    或是使用**`lambda`**定义匿名函数。
+
+    ```python
+    <函数名> = lambda <参数列表>: <表达式>
+    ```
+
+    `lambda`用于定义简单的、能在一行内表示的函数。
+
+    
+
+    函数调用要在定义之后，除非函数调用函数的情况
+
+
+
++ <span style='font-size:20px'>函数的参数传递</span>
+
+    + **可选参数和可变数量参数**
+
+        当函数调用时，如果没有传入对应的参数值，则使用函数定义时的默认值替代
+
+        ```python
+        def dup(str, times = 2):
+          print(str*times)
         ```
 
+        由于函数调用时需按顺序输入，所以可选参数必须在非可选参数之后。
+
+        也可以在函数定义时设计可变数量参数，通过在参数前增加`*`实现。调用时，这些参数被当作元组类型传递到函数中：
+
+        ```python
+        def add(a, *b):
+          for n in b:
+            a += n
+           return a
         
+        add(1, 3, 4)
+        ```
+
+
+
++ <span style='font-size:20px'>参数的位置和名称传递</span>
+
+    当参数较多时，**按照位置顺序的方式传递**给函数可读性较差。
+
+    因此可以采用**按形参名称传递**，参数间顺序可以改变：
+
+    ```python
+    result = func(x2 = 3, y2 = 4)
+    ```
+
+
+
++ <span style='font-size:20px'>函数的返回值</span>
+
+    <hr>
+
+    多个值以元组类型保存
+
+    
+
++ <span style="font-size:20px">函数对变量的作用</span>
+
+    <hr>
+
+    简单数据类型变量在用`global`声明后，作为全局变量使用
+
+    对于组合数据类型的全局变量，若在函数内部没有被真实创建的全局变量，则函数内部可以直接使用并修改值
+
+    函数内部真实创建了组合数据类型变量，无论是否有同名全局变量，都不修改其值
+
+    
+
+## 文件
+
++ <span style="font-size:20px">文件的打开和关闭</span>
+
+    <hr>
+
+    Python 对文本文件和二进制文件采用统一的操作步骤，即“打开-操作-关闭”。操作后需将文件关闭，释放对文件的控制使文件恢复存储状态，此时另一个进程将能操作这个文件。
+
+    通过内置的`open()`函数打开一个文件，并实现该文件与一个变量关联：
+
+    ```python
+    <变量名> = open(<文件名>, <打开模式>)
+    ```
+
+    七种基本的**打开模式**：
+
+    <table>
+      <tr>
+      	<th>文件的打开模式</th>
+      	<th>含义</th>
+      </tr>
+    	<tr>
+        <td>'r'</td>
+        <td>只读，不存在返回异常，默认值</td>
+    	</tr>
+    	<tr>
+        <td>'w'</td>
+        <td>覆盖写，不存在创建</td>
+    	</tr>
+    	<tr>
+        <td>'x'</td>
+        <td>创建写,存在返回异常</td>
+    	</tr>
+    	<tr>
+        <td>'a'</td>
+        <td>追加写,不存在创建</td>
+    	</tr>
+    	<tr>
+        <td>'b'</td>
+        <td>二进制文件模式</td>
+    	</tr>
+    	<tr>
+        <td>'t'</td>
+        <td>文本文件模式,默认值</td>
+    	</tr>
+    	<tr>
+        <td>'+'</td>
+        <td>与 r / w/ x/ a 一起使用,原功能基础上增加同时读写功能</td>
+    	</tr>
+    </table>
+
+    关闭：
+
+    ```python
+    <变量名>.close()
+    ```
+
+    
+
++ <span style="font-size:20px">文件的读写</span>
+
+    <hr>
+
+    四种常用**文件内容读取方法**：
+
+    <table>
+      <tr>
+      	<th>操作方法</th>
+      	<th>含义</th>
+      </tr>
+    	<tr>
+    		<td><>.readall</td>
+        <td>返回一个字符串或字节流</td>
+    	</tr>
+    	<tr>
+        <td><>.read(size=-1)</td>
+        <td>读入整个，若给出参数读入前 size 长度的字符串或字节流</td>
+    	</tr>
+    	<tr>
+        <td><>.readline(size=-1)</td>
+        <td>读入一行，若给出参数读入该行前 size 长度字符串或字节流</td>
+    	</tr>
+    	<tr>
+        <td><>.readlines(hint=-1)</td>
+        <td>读入所有行以没行作元素形成列表，若给参数读入 hint 行</td>
+    	</tr>
+    </table>
+
+    如果程序需逐行处理文件内容，建议采用以下格式：
+
+    ```python
+    fo = open(fname, 'r')
+    for line in fo:
+      # 处理一行数据
+    fo.close()
+    ```
+
+    三种**文件内容写入方法**：
+
+    <table>
+      <tr>
+      	<th>方法</th>
+        <th>含义</th>
+      </tr>
+      <tr>
+      	<td><>.writr(s)</td>
+        <td>向文件写入一个字符串或</td>
+      </tr>
+      <tr>
+      	<td><>.writelines(lines)</td>
+        <td>将元素全为字符串的列表写入文件，并不增加换行</td>
+      </tr>
+      <tr>
+      	<td><>.seek(offset)</td>
+        <td>改变当前文件操作指针位置，offset 的值：0——文件开头，1——当前位置，2——文件结尾</td>
+      </tr>
+    </table>
+
+    可以在写入文件后增加一条代码`fo.seek(0)`将文件操作指针返回到文件开始，即可显示写入的内容。
+
+
 
 # 参考链接
 

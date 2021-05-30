@@ -56,14 +56,19 @@
     7. 在`<head></head>`标签内插入以下 react 库：
 
         ``` html
-        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>	// 引入 react 核心库
-        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>	// 引入 react-dom
-        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>	// 引入 babel
-        ```
-
-    8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
-
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        
     
+            <script type="text/babel">
+        ```
+    ```
+    
+    8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
+    
+    
+    ```
 
 # JSX
 
@@ -1245,10 +1250,184 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 2. 切换到想创项目的目录后使用命令`create-react-app react_staging`（*其中 `react_staging` 是想取的名字（不能含中文）*）
 3. 最好[安装 Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)与 react 配合使用
 
-4. 在创建的文件夹路径下`yarn start`，浏览器弹出
-5. <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
+4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端输入`yarn start`，浏览器弹出
+
+    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
 
 
+
+# React Hooks
+
++ <span style="font-size:20px">Why hooks</span>
+
+    <hr>
+
+    + 现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
+
+        相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
+
+        但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
+
+        
+
+    + **类和函数的差异**：
+
+        类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
+
+        函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
+
+        
+
+    + **副效应**
+
+        函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
+
+        纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
+
+        
+
+    + **钩子的作用**
+
+        钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
+
+        由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。
+
+        + **`useState()`**：保存状态
+        + **`useContext()`***：保存上下文
+        + **`useRef()`**：保存引用
+        + ...
+
+        上面这些钩子都是引入某种特定的副效应，而 **`useEffect()`** 是通用的副效应钩子，找不到对应的钩子时就可以用它。
+
+
+
+## useEffect()
+
+### useEffect() 基本用法
+
+<hr>
+
+`useEffect()`本身是一个函数，由 React 框架提供，在函数内部调用即可。
+
+举例来说，如果想要组件加载之后，网页标题`document.title`会随之改变。那么改变网页标题这个操作就是组件的副效应，必须通过`useEffect()`来实现。
+
+``` react
+function Welcome(props) {
+  useEffect(() => {
+    document.title == '加载完成';
+  });
+  
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+上例中，`useEffect()`的参数是一个函数，它就是所要完成的副效应。组件加载之后，React 就会执行这个函数。
+
+
+
+`useEffect()`的**作用就是指定一个副效应函数**，**组件每渲染一次，该副效应函数就自动执行一次**。组件首次在网页 DOM 加载后，副效应函数也会执行。
+
+
+
+### useEffect() 的第二个参数
+
+<hr>
+
+有时，不需要`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，**使用一个数组指定副效应函数的依赖项，只有依赖项发生变化才会重新渲染**。
+
+
+
+```react
+function Welcome(props) {
+  useEffect(() => {
+    document.title = 'Hello, ${props.name}';
+  }, [props.name]);
+  
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+上面例子中，`useEffect()`的第二个参数是一个数组，指定了第一个参数（副效应函数）的依赖项（`props.name`）。只有该变量发生变化时，副效应函数才会执行。
+
+
+
+如果**第二个参数是空数组**，就表明无任何依赖项。副效应函数只在组件加载进入 DOM 后执行一次，后面组件重新渲染就不会再次执行
+
+
+
+### useEffect() 的用途
+
+<hr>
+
+常见用途有如下几种：
+
++ 获取数据（*data fetching*）
++ 事件监听或订阅（*setting up a subscription*）
++ 改变 DOM（*changing the DOM*）
++ 输出日志（*logging*）
+
+
+
+### useEffect() 的返回值
+
+<hr>
+
+副效应随组件加载而发生，那么组件卸载时，可能需要清理这些副效应。
+
+useEffect() 允许返回一个函数，在组件卸载时执行该函数，清理副效应。若不需清理副效应，useEffect() 不用返回任何值
+
+```react
+useEffect(() => {
+  const subscription = props.source.subscribe();
+  return () => {
+    subscription.unsubscribe();
+  };
+}, [props.source]);
+```
+
+上例，`useEffect()`在组件加载时订阅了一个事件，并且返回一清理函数，在组件卸载时取消订阅
+
+
+
+实际使用中，由于副效应函数默认是每次渲染都会执行，所以清理函数不仅会在组件卸载时执行一次，每次副效应函数重新执行前也会执行一次，用来清理上一次渲染的副效应
+
+
+
+### useEffect() 的注意点
+
+<hr>
+
+若有多个副效应，应该调用多个`useEffect()`，而不应该合并写一起
+
+
+
+## useState() 状态钩子
+
+useState() 用于为函数组件引入状态（*state*）。纯函数不能有状态，所以把状态放进钩子里面
+
+useState() 函数接受状态的初始值，作为**参数**。该函数**返回**一个数组，数组的第一个成员是一个变量，指向状态的当前值；第二个成员是函数，用来更新状态，约定是 set 前缀加上状态的变量名
+
+```react
+function Example() {
+  // 声明一个叫“count”的 state 变量
+  const [count, setCount] = useState(0);
+  
+  return (
+  	<div>
+    	<p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>	// ?
+      	Click me
+      </button>
+    </div>
+  )
+}
+```
+
+
+
+## useContext() 共享状态钩子
+
+如果需要在组件间共享状态，可以使用`useContext()`
 
 
 
