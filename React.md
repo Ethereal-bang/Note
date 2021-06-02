@@ -1250,9 +1250,141 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 2. 切换到想创项目的目录后使用命令`create-react-app react_staging`（*其中 `react_staging` 是想取的名字（不能含中文）*）
 3. 最好[安装 Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)与 react 配合使用
 
-4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端输入`yarn start`，浏览器弹出
+4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端（ ctrl + \` ）输入 yarn start，浏览器弹出
 
     <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
+
+
+
++ <span style="font-size:20px">react 脚手架项目结构</span>
+
+    + public --- 静态资源文件夹：
+
+        + favicon.icon ------ 网站页签图标
+        + **index.html-------主页面**
+
+        + logo192.png ------- logo图
+
+        + logo512.png ------- logo图
+
+        + manifest.json ----- 应用加壳的配置文件
+
+        + robots.txt -------- 爬虫协议文件
+
+    + src --- 源码文件夹：
+
+        + App.css
+        + **App.js --------- App组件**
+        + App.test.js
+        + index.css
+        + **index.js -------- 入口文件**
+        + logo.svg ------- logo图
+        + reportWebVitals.js --- 页面性能分析文件(需要web-vitals库的支持)
+        + setupTests.js ---- 组件单元测试的文件(需要jest-dom库的支持)
+
+
+
+## 创建简单组件
+
++ public 文件夹：
+
+    + `index.html`主页面：
+
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>React 脚手架</title>
+            
+        </head>
+        <body>
+            <div id="root"></div>
+        </body>
+        </html>
+        ```
+
++ src 文件夹：
+
+    + `index.js`入口文件：
+
+        ```jsx
+        // 引入 react 核心库
+        import React from 'react';
+        // 引入 ReactDom 
+        import ReactDOM from 'react-dom';
+        // 引入 App 组件
+        import App from './App'
+        
+        // 渲染 App 到页面
+        ReactDOM.render(<App/>, document.getElementById('root'));
+        ```
+
+    +  `App.js`App组件：
+
+        ```jsx
+        // 创建外壳组件（囊括其他组件
+        import React, {Component} from 'react'
+        import Hello from './components/Hello.jsx'
+        
+        // 创建并暴露 App 组件
+        export default class App extends Component {
+            render() {
+                return (
+                    <div>
+                        <Hello/>
+                    </div>
+                )
+            }
+        }
+        ```
+
+    + components 文件夹（*有多个组件时习惯新建该文件夹存放*）
+
+        + `Hello.jsx`：
+
+            ```jsx
+            import React, {Component} from 'react'
+            import './Hello.css'
+            
+            export default class Hello extends Component {
+                render() {
+                    return <h2>Hello, react</h2>
+                }
+            }
+            ```
+
+
+
+## 样式的模块化
+
+上例的`Hello.jsx`文件中，若有多个组件，每个组件的样式都通过这种方式引入的话会造成样式冲突：
+
+```jsx
+import './Hello.css'
+
+import './Welcome.css'
+```
+
+解决方法是样式模块化：
+
+```jsx
+import hello from './hello.module.css'
+
+export default class Hello extends Component {
+  render() {
+    return <h2 className={hello.title}>Hello, React</h2>
+  }
+}
+```
+
+
+
+
+
+
+
+
 
 
 

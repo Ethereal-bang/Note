@@ -1,3 +1,11 @@
+
+
++ <span style="font-size:20px">常用</span>
+
+    **`git status`**、**`git add a.txt`**、**`git commit -m " "`**、**`git push origin main`**
+
+
+
 # Git 安装
 
 1. 安装完成后在开始菜单找到 Git Bash，说明安装成功
