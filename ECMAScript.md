@@ -1875,11 +1875,19 @@ var regex = new RegExp('xyz', 'i');
 var regex = /xyz/i;
 ```
 
-？
+
 
 
 
 1. 参数是一个**正则表达式**，这时会返回一个**原则表达式的拷贝**
+
+    正则表达式解析： /[aeiou]$/i
+
+    （1） [aeiou]是字符类，表达式可以匹配这类的字符
+
+    （2） [aeiou]$：以元音字符类结束
+
+    （3） /[aeiou]$/i忽略大小写 ，匹配过程中大小写都符合
 
 ```
 var regex = new RegExp(/xyz/i);

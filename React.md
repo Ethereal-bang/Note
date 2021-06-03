@@ -1254,26 +1254,29 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
     <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
 
++ <span style='font-size:20px'>TypeScript 配置</span>
+
+    大体步骤同上，命令行内输入`npx create-react-app my-app-ts --template typescript`
+
 
 
 + <span style="font-size:20px">react 脚手架项目结构</span>
-
-    + public --- 静态资源文件夹：
-
-        + favicon.icon ------ 网站页签图标
++ public --- 静态资源文件夹：
+    
+    + favicon.icon ------ 网站页签图标
         + **index.html-------主页面**
-
-        + logo192.png ------- logo图
-
-        + logo512.png ------- logo图
-
-        + manifest.json ----- 应用加壳的配置文件
-
-        + robots.txt -------- 爬虫协议文件
-
-    + src --- 源码文件夹：
-
-        + App.css
+    
+    + logo192.png ------- logo图
+    
+    + logo512.png ------- logo图
+    
+    + manifest.json ----- 应用加壳的配置文件
+    
+    + robots.txt -------- 爬虫协议文件
+    
++ src --- 源码文件夹：
+    
+    + App.css
         + **App.js --------- App组件**
         + App.test.js
         + index.css
