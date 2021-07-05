@@ -661,7 +661,7 @@ ReactDOM.render(<Weather/>,document.getElementById('root'))
 
     现在，`Clock`组件被定义为 class，而不是函数
 
-    每次组件更新时`render`方法都会被调用==？==，但只要在相同的 DOM 节点中渲染`<Clock />`，就仅有一个`Clock`组件的 class 实例被创建使用。这就使得我们可以使用如 state 或生命周期方法等许多其他特性。
+    每次组件更新时`render`方法都会被调用，但只要在相同的 DOM 节点中渲染`<Clock />`，就仅有一个`Clock`组件的 class 实例被创建使用。这就使得我们可以使用如 state 或生命周期方法等许多其他特性。
 
 
 
@@ -753,45 +753,15 @@ ReactDOM.render(<Weather/>,document.getElementById('root'))
 
 
 
-+ <span style="font-size:20px">将生命周期方法添加到 Class 中</span>
-
-    在具有许多组件的应用程序中，当组件被销毁时释放所占用的资源非常重用
-
-    当`Clock`组件第一次被渲染到 DOM 中时，就设置一个计时器。这在 React 中被称为”挂载（*mount*）
-
-    同时，当 DOM 中`Clock`组件被删除的时候，应该清除计时器。这在 React 中被称为“卸载”（*unmount*）
-
-    可以为 class 组件声明一些特殊的方法，当组件挂载或卸载时就会去执行这些方法：
-
-    ``` jsx
-    class Clock extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {date: new Date()};
-        }
-        
-        componentDidMount() {}
-        
-        componentWillUnmount() {}
-        
-        render() {
-            return (
-              <div>
-            	<h1>Hello, world</h1>
-                <h2>It's {this.state.date.toLocaleTimeString()}.</h2>
-              </div>
-            );
-        }
-    }
-    ```
-
-    这些方法叫做“生命周期方法”
-
 
 
 ### props
 
-State 与 props 类似，但是 state 是私有的，并且完全受控于当前组件
+props 与 state 区别：
+
+props 是组件对外的接口，而 state 是组件对内的接口
+
+props 用于组件间数据传递，而 state 用于组件内部的数据传递
 
 
 
@@ -1262,7 +1232,7 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 + <span style="font-size:20px">react 脚手架项目结构</span>
 + public --- 静态资源文件夹：
-    
+  
     + favicon.icon ------ 网站页签图标
         + **index.html-------主页面**
     
@@ -1275,7 +1245,7 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
     + robots.txt -------- 爬虫协议文件
     
 + src --- 源码文件夹：
-    
+  
     + App.css
         + **App.js --------- App组件**
         + App.test.js
@@ -1359,7 +1329,15 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 
 
-## 样式的模块化
+## 样式的模块化（css in js    /   JSS）
+
++ <span style="font-size:20px">JSS 是什么</span>
+
+    一句话概括 CSS in JS，就是"行内样式"（*inline style*）和"行内脚本"（*inline script*）
+
+    JSS 就是将应用的 CSS 样式写在 JS 文件里面，而不是独立未一些`.css`，``.scss`或者`less`之类的文件，这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义
+
+
 
 上例的`Hello.jsx`文件中，若有多个组件，每个组件的样式都通过这种方式引入的话会造成样式冲突：
 
@@ -1369,23 +1347,88 @@ import './Hello.css'
 import './Welcome.css'
 ```
 
-解决方法是样式模块化：
+解决方法是样式模块化：利用对象（*styles*）的形式访问。
 
 ```jsx
-import hello from './hello.module.css'
+import styles from './hello.module.css'
 
 export default class Hello extends Component {
   render() {
-    return <h2 className={hello.title}>Hello, React</h2>
+    return <h2 className={styles.title}>Hello, React</h2>	
   }
 }
 ```
 
+同时，需添加一个 ts 样式声明文件
 
 
 
++ <span style='font-size:20px'>给 css 添加样式声明</span>
+
+    1. `npm install typescript-plugin-css-modules --save-dev`，将该插件安在`package.json`的`dev`依赖下，即只参与代码开发不参与最终上线打包的项目。安装完成在`package.json`中会出现：
+
+        ```json
+        "devDependencies": {
+            "typescript-plugin-css-modules": "^3.3.0"
+          }
+        ```
+
+    2. 在`tsconfig.json`中加入`"plugins": [{"name": "typescript-plugin-css-modules"}]`。
+
+    3. 在根目录下新建`.vscode`文件夹，在该文件夹内新建`settings.json`文件，保存如下代码：
+
+        ```json
+        {
+        	"typescript.tsdk": "node_modules/typescript/lib",
+        	"typescript.enablePromptUseWorkspaceTsdk": true
+        }
+        ```
+
+    4. 配置完成后在引用样式对象时会自动弹出提示，如图：<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210605141748402.png" alt="image-20210605141748402" style="zoom: 67%;" />
+
+    
+
+## 加载媒体与字体文件
+
++ <span style='font-size:20px'>加载图片</span>
+
+    <hr>
+
+    习惯上新建一个`assets`文件夹存放媒体资源，如图：
+
+    ![image-20210605144832793](https://i.loli.net/2021/06/05/O1kUzI2gt9loN5h.png)
+
+    引入媒体资源时，依旧使用`import`语句，例如：
+
+    ![image-20210605144927794](https://i.loli.net/2021/06/05/rgZLVAxdtqm1vbw.png)
+
+    因为 ts 已经对`.svg`等文件声明，因此无需像引入`.css`文件一样在`custom.d.ts`文件中重复声明
 
 
+
++ <span style='font-size:20px'>加载字体</span>
+
+    <hr>
+
+    将`.ttf`字体文件放入`fonts`文件夹，因为字体是全局样式，因此在`index.css`和`index.tsx`中设置及引用：
+
+    ```css
+    // index.css
+    @font-face {
+        font-family: 'Brush';
+        src: local('Brush'), url(./assets/fonts/Brush.ttf);
+    }
+    ```
+
+    ```css
+    // App.modules.css
+    h1 {
+          font-family: 'Brush';
+          font-size: 72px;
+    }
+    ```
+
+    
 
 
 
