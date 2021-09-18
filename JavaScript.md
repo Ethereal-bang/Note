@@ -22,7 +22,7 @@
 <script src="my.js"></script>
 ```
 
-<head>部分放入<script>标签
+放在`</body>`前。
 
 ## 注释
 
@@ -707,6 +707,12 @@ f1 == f2;   // false
 
 调用 **对象.方法名()** 
 
+> [**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
+>
+> 允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。在引用为空([nullish](https://developer.mozilla.org/zh-CN/docs/Glossary/Nullish) ) ([`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
+>
+> 当尝试访问可能不存在的对象属性时，可选链操作符将会使表达式更短、更简明。在探索一个对象的内容时，如果不能确定哪些属性必定存在，可选链操作符很有帮助
+
 ```
 console.log(star.name)     // 调用名字属性
 console.log(star['name'])  // 调用名字属性
@@ -1101,25 +1107,27 @@ DOM的对象
 
 ## 获取页面元素
 
-根据ID获取页面元素getElementById() 方法可以获取带有 ID 的元素对象
++ 根据ID获取页面元素：
 
-**document.getElementById(id);** 
+    **`document.getElementById("id")`**方法可以获取带有 ID 的元素对象
 
-**console.dir()** 可以打印我们获取的元素对象，更好的查看对象里面的属性和方法
+> **console.dir()** 
+>
+> `console.dir()`可以打印我们获取的元素对象，更好的查看对象里面的属性和方法
 
-根据标签名获取getElementsByTagName() 方法可以返回带有指定标签名的对象的**集合**
++ 根据标签名获取：
 
-​           **document.getElementsByTagName('标签名');** 
+    **`document.getElementsByTagName('标签名')`**方法可以返回带有指定标签名的对象的**集合**
 
-因为得到的是一个对象的集合，所以我们想要操作里面的元素就需要遍历。 
+    因为得到的是一个对象的集合，所以我们想要操作里面的元素就需要遍历。 
 
-- **document.querySelectorAll('选择器');**    **[更多用法](https://www.runoob.com/jsref/met-document-queryselectorall.html)**  根据 指定选择器 返回 指定选择器的所有元素对象集合
++ **`document.querySelectorAll('选择器')`**    **[更多用法](https://www.runoob.com/jsref/met-document-queryselectorall.html)**  根据 指定选择器 返回 指定选择器的所有元素对象集合
 
-选择器需要加符号  #/.
+    选择器需要加符号  `# / .`
 
-利用节点操作获取元素
++ 利用节点操作获取元素
 
-特殊元素的获取
++ 特殊元素的获取
 
 ```
 doucumnet.body  // 返回整个body

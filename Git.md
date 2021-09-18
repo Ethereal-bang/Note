@@ -1,5 +1,3 @@
-
-
 + <span style="font-size:20px">常用</span>
 
     **`git status`**、**`git add a.txt`**、**`git commit -m " "`**、**`git push origin main`**
@@ -117,37 +115,39 @@
 
     前面的一堆编码是`commit id`（*版本号*）
 
-+ <span style="font-size:20px">版本回退</span>
++ <span style="font-size:20px">版本回退 / 撤销变更</span>
 
     <hr>
+**版本表示**：`HEAD`表示当前版本，而上一个版本就是`HEAD^`，顺推下去上上个版本就是`HEAD^^`。往上 100 个版本还可以写成`HEAD~100`。
+    
+    
 
-    **版本表示**：`HEAD`表示当前版本，而上一个版本就是`HEAD^`，顺推下去上上个版本就是`HEAD^^`。往上 100 个版本还可以写成`HEAD~100`。
-
-    要将版本回退到上一个版本（*下例中的 `add distributed`版本*），就可以使用**`git reset`**命令：
-
-    ``` 
+要将版本回退到上一个版本（*下例中的 `add distributed`版本*），就可以使用**`git reset`**命令：
+    
+``` 
     $ git reset --hard HEAD^
     HEAD is now at e475afc add distributed
-    ```
+```
 
-    此时再**`git log`**时，最新的版本已经看不到了。
-
-    想要再返回刚才的版本，可以找到该版本的`commit id`后回退：
-
-    ```
+此时再**`git log`**时，最新的版本已经看不到了。
+    
+想要再返回刚才的版本，可以找到该版本的`commit id`后回退：
+    
+```
     $ git reset --hard 1094a
     HEAD is now at 83b0afe append GPL
-    ```
+```
 
-    版本号没必要写全，Git 会自动去找
-
-    找不到版本号记录时，还能使用**`git reflog`**查看命令历史，再找到 commit id
-
+版本号没必要写全，Git 会自动去找
     
+找不到版本号记录时，还能使用**`git reflog`**查看命令历史，再找到 commit id
+    
+
 
 + <span style="font-size:20px">管理修改</span>
 
     <hr>
+    
     + 场景一：乱改了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令`git checkout -- file`。
     + 场景二：不但乱改了工作区某个文件的内容，还添加了暂存区时，想丢弃修改。首先用命令`git reset HEAD <file>`回到场景一，再按场景一操作。
     + 场景三：已经提交了不合适的修改到版本库，想要撤销本次提交，使用版本回退，前提时没有推送到远程库。
@@ -221,7 +221,54 @@
 
 # 分支管理
 
-==。。。==
+## 提交及使用分支
+
+创建分支：`git branch <分支名>`
+
+切换分支：`git checkout <分支名>`
+
+创建新分支并切换：`git checkout -b <分支名>`
+
+
+
+## 合并分支
+
+两种方法：
+
+1. `git merge <分支名>`
+
+2. `git rebase <目标分支>`
+
+    取出一系列的提交记录并复制，创造更线性的提交历史
+
+
+
+# 在提交树上移动
+
+## 分离的 HEAD：让 HEAD 指向提交记录
+
+HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改变 HEAD 的指向开始的。
+
+1. `git checkout <提交记录的哈希值>`
+
+    > 实际应用中不得不使用`git log`查看提交记录的哈希值。哈希值在 GIT 中很长，因此只需要提供能唯一标识提交记录的前几个字符即可。
+
+### 相对引用：
+
+两种基本用法：
+
+1. 使用`^`向上移动 1 个提交记录
+2. 使用`~<num>`向上移动多个提交记录
+
+将操作符`^`加在引用名称的后面，标识让 GIT 寻找该指定提交记录的父提交，如`git checkout main^`：
+
+![image-20210729111204446](https://i.loli.net/2021/07/29/XME5RelrLqwaSBJ.png)
+
+可以配合 HEAD 向上一直移动。
+
+#### 强制修改分支位置
+
+使用相对移动最多的就是移动分支，可以直接使用`-f`选项让分支指向另一个提交
 
 
 
