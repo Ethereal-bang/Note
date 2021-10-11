@@ -1,103 +1,64 @@
-#  Vue基础
+#  Vue 基础
 
+## 安装
 
++ npm：
 
-## 创建一个Vue程序
+    ```
+    npm install vue
+    ```
 
-代码实现浏览器显示：`hello,vue`
++ `<script>`引入：
+
+    ```js
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    ```
+
+    
+
+## 声明式渲染
+
+Vue.js 的**核心**是允许采用简洁**模板语法来声明式地将数据渲染进 DOM**
+
+实现浏览器显示：`Hello Vue`
 
 步骤：
 
-1. 导入开发版本的`Vue.js`：https://cdn.jsdelivr.net/npm/vue/dist/vue.js
-2. 创建`Vue`实例对象，设置`el`和`data`属性
-3. 使用简介的**模板语法**把数据渲染到页面
+1. 创建`Vue`实例对象，设置`el`和`data`属性
+3. 使用简洁的**模板语法**把数据渲染到页面
 
 ```html
-<body>
-  <div id="app">
-    {{ message }}
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    var app = new Vue({	
-      el:"#app",	// #为id选择器
-      data:{
-        message:" hello,vue "
-      }
-    })
-  </script>
-</body>
+<div id="app">
+  {{ message }}
+</div>
 ```
 
-空格只是格式
+```js
+var app = new Vue({	
+  el: "#app",	// #为id选择器
+  data:{
+    message: "Hello Vue"
+  }
+})
+```
+
+
 
 
 
 ## el 挂载点
 
-Vue的**作用范围**：
++ Vue的**作用范围**：
 
-```html
-<body>
-  {{ message }}
-    
-  <div id="a">
-    {{ message }}
-    <span>{{ message }}</span>
-  </div>
-    
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    let app = new Vue({
-      el:"#a",
-      data:{
-        message:" Hello "
-      }
-    })
-  </script>  
-        
-</body>
-```
+    `Vue`会作用于`el`选项命中的元素及其内部的后代元素
 
-以上代码在浏览器中运行显示：
++ **选择器**：
 
-``` 
-{{ message }}
-Hello Hello
-```
-
-因此，`Vue`会作用于`el`选项命中的元素及其内部的后代元素
-
-
-
-是否**支持其他选择器**：
-
-```html
-<body>
-  {{ message }}
-    
-  <div id="a" class="b">
-    {{ message }}
-    <span>{{ message }}</span>
-  </div>
-    
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    let app = new Vue({
-      el:".b",
-      data:{
-        message:" Hello "
-      }
-    })
-  </script>  
-        
-</body>
-```
-
-浏览器中显示效果不变。
-
-因此，`el`属性支持其他选择器，但建议使用 ID 选择器
+    `el`属性支持其他**选择器**，但建议使用 ID 选择器
 
 
 
@@ -127,7 +88,7 @@ Hello Hello
             el:"#a",
             data:{
                 message:"Hello vue",
-           		Mike:{
+           			Mike:{
                     name:"Mike",
                     age:12
                 },
@@ -148,11 +109,11 @@ Hello Hello
 
 
 
-# Vue 的本地应用
-
-通过 Vue 提供的各种指令，对本地的数据进行操作
-
 ## v 指令
+
+通过 Vue 提供的各种指令，在渲染的 DOM 上应用特殊地响应式行为
+
+
 
 ### v-text	重置标签文本
 
@@ -461,7 +422,215 @@ Hello Hello
 
 
 
-## Vue 的网络应用
+## 组件化应用构建
+
+Vue 中，一个组件本质上是一个拥有预定义选项的 Vue 实例
+
+一个 Vue 应用由一个通过`new Vue`创建的**根 Vue 实例**，及可选的组件树组成
+
+
+
++ **注册组件**：
+
+    `template`是“模板”的意思。
+
+    ```js
+    Vue.component('todo-item', {
+      template: '<li>这是个待办项</li>'
+    })
+    
+    let app = new Vue(...)
+    ```
+
+    
+
++ **组件复用**：
+
+    ```js
+    <ol>
+      <!-- 创建一个 todo-item 组件的实例 -->
+      <todo-item></todo-item>
+    </ol>
+    ```
+
+    
+
++ **从父作用域将数据`props`传到子组件**：
+
+    修改组件的定义，使它能接受一个`prop`：
+
+    ```js
+    Vue.component('todo-item', {
+      // todo-item 组件现在接受一个"prop"，类似于一个自定义 attribute。
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+    ```
+
+    
+
++ **`v-bind`**将待办项传到**循环输出**的每个**组件**：
+
+    ```html
+    <div id="app">
+      <ol>
+      	<todo-item
+    			v-for="item in groceryList"
+          v-bind:todo="item"
+          v-bind:key="item.id"
+        ></todo-item>
+      </ol>
+    </div>
+    ```
+
+    ```vue
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+    
+    let app = new Vue({
+    	el: '#app',
+    	data: {
+    		groceryList: [
+    			{ id: 0, text: '素菜' },
+    			{ id: 1, text: '荤菜' },
+        ]
+      }
+    })
+    ```
+
+    
+
+# Vue 实例
+
+## 创建 Vue 实例
+
+每个 Vue 应用都是通过`new Vue`创建新的 Vue 实例开始：
+
+```vue
+let vm = new Vue({
+	// 选项
+})
+```
+
+创建 Vue 实例时，可传入一个**选项对象**，本章主要描述如何使用这些选项创建想要的行为
+
+
+
+所有的 Vue 组件都是 Vue 实例
+
+
+
+## 数据与方法
+
+Vue 实例被创建时，将`data`对象中所有 property 加入到 Vue 的**响应式系统**中——当 property 值发生改变，视图将产生“响应”，匹配更新为新的值
+
+```js
+// 数据对象
+let data = { a: 1 }
+
+// 该对象加入到 Vue 实例
+let vm = new Vue({
+	data: data
+})
+
+// 设置 property 会影响到原始数据
+vm.a = 2;
+data.a	// 2
+// 反之亦然
+```
+
+
+
+除了数据 property，Vue 实例还暴露了一些实例 property 与方法，以前缀`$`与用户定义的 property 区分：
+
+eg. `vm.$watch`
+
+可以在 [API 参考](https://cn.vuejs.org/v2/api/#%E5%85%A8%E5%B1%80-API)中查阅到完整的实例 property 和方法的列表。
+
+
+
+## 实例生命周期钩子
+
+生命周期钩子函数给了用户在不同阶段添加自己代码的机会
+
+
+
++ **created**：
+
+    `created`钩子函数用来在一个**实例被创建之后执行**代码：
+
+    ```js
+    new Vue({
+      data: {
+        a: 1,
+      },
+      created: function () {
+        // this 指向 vm 实例
+        console.log(`a is: ${this.a}`);
+      }
+    })
+    // a is: 1
+    ```
+
+    
+
++ 其余[生命周期钩子](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
+
+
+
+所有生命周期钩子的`this`上下文指向实例，因此可以访问`data`、`computed`、`methods`。意味着**不应使用箭头函数定义一个生命周期方法**
+
+
+
+**生命周期图示**：
+
+<img src="https://cn.vuejs.org/images/lifecycle.png" alt="img" style="zoom:33%;" />
+
+
+
+# 模板语法
+
+Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定至底层 Vue 实例的数据
+
+如果熟悉虚拟 DOM 可以不用模板，直接写 **render 函数**，使用可选的 **JSX** 语法
+
+
+
+## 插值
+
++ <span style="font-size:18px; font-weight:bold">文本</span>
+
+    最常见形式是用“Mustache”语法 (*双大括号*)**`{{ }}`**的文本插值
+
+    ```js
+    <span>Message: {{ msg }}</span>
+    ```
+
+    Mustache 标签会被替代为对应数据对象上`msg` property 的值，且会随之更新
+
+    通过**`v-once`**也能执行**一次性插值**：
+
+    ```vue
+    <span v-once>这个将不会改变: {{ msg }}</span>
+    ```
+
+    
+
++ <span style="font-size:18px; font-weight:bold">原始 HTML</span>
+
+    `{{ }}`会将数据解释为普通文本，而非 HTML 代码
+
+    输出真正的 HTML，需要使用`v-html`指令
+
++ Attribute
+
++ JS 表达式
+
+
+
+# Vue 的网络应用
 
 现在很少有纯本地应用，或多或少都会进行网络数据的交互
 
@@ -469,7 +638,7 @@ Vue 结合网络数据开发应用
 
 
 
-### axios	**?**
+## axios
 
 首先打包，官网地址：
 
@@ -480,7 +649,7 @@ Vue 结合网络数据开发应用
 1. axios 必须先导入再使用
 2. 使用 get 或 post 方法即可发送对应的请求
 3. then 方法中的回调函数会在请求成功或失败时触发
-4. 通过回调函数的1形参可获取响应内容或错误信息
+4. 通过回调函数的形参可获取响应内容或错误信息
 
 
 

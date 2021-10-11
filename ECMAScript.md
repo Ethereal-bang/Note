@@ -3960,138 +3960,95 @@ JavaScript 语言的对象继承是通过原型链实现的。ES6 提供了更�
 
 ## Symbol概述
 
-**ES5 的对象属性名都是字符串**，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式==？==），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入`Symbol`的原因。
-
-
+ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法，新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入`Symbol`的原因。
 
 ES6引入了一种新的原始**数据类型**`Symbol`，表示**全局唯一的值**。
 
-下例帮助理解全局唯一的概念。以及[「每日一题」JS 中的 *Symbol* 是什么? - 知乎](https://www.baidu.com/link?url=TBQkAWIH5r-ic7n7f3Lw7VutEaVz8exxZf2Z9B6xXuPtc33C4giQWD-4kSNbRQTe&wd=&eqid=e52b28ea0002cf7c00000006606333f2)
+`Symbol` 是 JS 语言的第七种**数据类型**。前六种是：`undefined`、`null`、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。
 
-``` js
-	let s1 = {jack: 1};
-    let s2 = {jack: 2};
-    console.log(s1, s2);  // {jack: 1} {jack: 2}
-
-    let jack = Symbol();
-    let x1 = {[jack]: 1};
-    let x2 = {[jack]: 2};
-    console.log(x1, x2);  // {Symbol(): 1} {Symbol(): 2}
-
-    console.log(x1[jack] === x2[jack]); // false
-```
-
-
-
-`Symbol` 是 JS 语言的第七种数据类型。前六种是：`undefined`、`null`、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。
-
-
-
-Symbol 值通过**`Symbol`函数**生成。
-
-这就是说，**对象的属性名**现在可以有俩种类型：
-
-- 字符串
-- 新增的 Symbol 类型：该属性名独一无二，可保证不会与其他冲突
-
-
-
-```javascript
+```js
 let s = Symbol();
 
 typeof s  // "symbol"
 ```
 
-上面代码中，变量`s`就是一个独一无二的的值。
+Symbol 值不能与其他类型值**运算**，会报错
 
 
 
-注意，**`symbol`函数前不能使用`new`**命令，否则会报错
+Symbol 值通过**`Symbol`函数**生成。
+
+注意，**`Symbol`函数前不能使用`new`**命令，否则会报错
 
 是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说。由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型   
 
 
 
-```javascript
-let s1 = Symbol('foo');
-let s2 = Symbol('bar');
++ <span style="font-size:20px">**`Symbol()`的参数**</span>
 
-s1 // Symbol(foo)
-s2 // Symbol(bar)
+    **作用**：
 
-s1.toString() // "Symbol(foo)"
-s2.toString() // "Symbol(bar)"
-```
+    ```js
+    let s1 = Symbol('foo');
+    let s2 = Symbol('bar');
+    
+    s1 // Symbol(foo)
+    s2 // Symbol(bar)
+    s1.toString() // "Symbol(foo)"
+    s2.toString() // "Symbol(bar)"
+    ```
 
-上面代码中，`s1`和`s2`是两个 Symbol 值。如果不加参数，它们在控制台的输出都是`Symbol()`，不利于区分。有了参数以后，就等于为它们加上了描述，输出的时候就能够分清，到底是哪一个值。   
+    上面代码中，`s1`和`s2`是两个 Symbol 值。如果不加参数，它们在控制台的输出都是`Symbol()`，不利于区分。有了参数以后，就等于为它们加上了描述，输出的时候就能够分清，到底是哪一个值。   
 
+    **如果 Symbol 的参数是一个对象**，就会调用该对象的**`toString()`**，**先将其转为字符串**，然后才生成一个 Symbol 值   
 
+    > **Object.prototype.toString()**：
+    >
+    > 每个对象都有一个 `toString()` 方法，当该对象被表示为一个文本值时，或者一个对象以预期的字符串方式引用时自动调用
+    >
+    > 如果此方法在自定义对象中未被覆盖，`toString()` 返回 "[object *type*]"，其中 `type` 是对象的类型
+    >
+    > 可以自定义一个方法，取代默认 `toString()`。该 `toString()` 方法不能传入参数，且必须返回一个字符串。自定义的 `toString()` 方法如果附带有关对象的信息，它将变得非常有用
 
-**如果 Symbol 的参数是一个对象**，就会调用该对象的**`toString()`**，**先将其转为字符串**，然后才生成一个 Symbol 值   
+    注意，**`Symbol`函数的参数只是表示对当前 Symbol 值的描述**，因此相**同参数的`Symbol`函数的返回值是不相等**的
 
-```javascript
-const obj = {
-  toString() {
-    return 'abc';
-  }
-};
-const sym = Symbol(obj);
-sym // Symbol(abc)
-```
-
-
-
-注意，**`Symbol`函数的参数只是表示对当前 Symbol 值的描述**，因此相**同参数的`Symbol`函数的返回值是不相等**的
-
-```javascript
-// 没有参数的情况
-let s1 = Symbol();
-let s2 = Symbol();
-
-s1 === s2 // false
-
-// 有参数的情况
-let s1 = Symbol('foo');
-let s2 = Symbol('foo');
-
-s1 === s2 // false
-```
+    ```javascript
+    // 没有参数的情况
+    let s1 = Symbol();
+    let s2 = Symbol();
+    
+    s1 === s2 // false
+    
+    // 有参数的情况
+    let s1 = Symbol('foo');
+    let s2 = Symbol('foo');
+    
+    s1 === s2 // false
+    ```
 
 
 
-Symbol 值不能与其他类型值运算，会报错
 
++ <span style="font:20px bol">**数据类型**</span>
 
+    Symbol 值可显式**转为字符串**
 
-Symbol 值可显式**转为字符串**
+    ```javascript
+    let sym = Symbol('My symbol');
+    
+    String(sym) // 'Symbol(My symbol)'
+    sym.toString() // 'Symbol(My symbol)'
+    ```
 
-```javascript
-let sym = Symbol('My symbol');
+    > `String()`和`toString()`的异同
+    >
+    > 见[String 和 toString 的区别 - 简书](https://www.jianshu.com/p/ef898304ebdf)
 
-String(sym) // 'Symbol(My symbol)'
-sym.toString() // 'Symbol(My symbol)'
-```
+    
 
-> `String()`和`toString()`的异同
->
-> 见[String 和 toString 的区别 - 简书](https://www.jianshu.com/p/ef898304ebdf)
+    Symbol 值也可转为**布尔值**，但不能转为**数值** 
 
-
-
-Symbol 值也可转为**布尔值**，但不能转为**数值** 
-
-```javascript
-let sym = Symbol();
-Boolean(sym) // true 
-!sym  // false
-
-if (sym) {
-  // ...
-}
-
-Number(sym) // TypeError
-sym + 2 // TypeError
-```
+    
 
 
 
@@ -4099,7 +4056,7 @@ sym + 2 // TypeError
 
 由于每一个 Symbol 值都是不相等的，意味着 Symbol 值可以作为标识符，用于对象的属性名，就能保证不会出现重名的属性。
 
-这对于一个对象由多个模块构成的情况非常有用，能防止一个键不小心改写或覆盖。说明 Symbol 适用于对象自身单独的属性（能防止该属性被意外访问到
+这对于一个对象由多个模块构成的情况非常有用，能防止一个键不小心改写或覆盖。说明 **Symbol 适用于对象自身单独的属性**（能防止该属性被意外访问到
 
 
 
@@ -4125,7 +4082,7 @@ a[mySymbol] // "Hello!"
 
 上面代码通过方括号结构和`Object.defineProperty`，将对象的属性名指定为一个 Symbol 值。
 
-> Object.defineProperty
+> **Object.defineProperty**：
 >
 > 该方法允许精确地添加或修改对象的属性。默认情况下，使用`Object.defineProperty()`添加的属性是不可修改的。
 
@@ -4146,7 +4103,7 @@ a['mySymbol'] // "Hello!"
 
 
 
-同理，在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。
+同理，在对象的内部，使用 Symbol 值**定义属性时，Symbol 值必须放在方括号**之中。
 
 ``` js
 let s = Symbol();
@@ -4173,42 +4130,61 @@ console.log(log.levels.INFO, 'info message');
 
 
 
-## Symbol属性名的遍历
+## Symbol 属性名的遍历
 
-Symbol 作为属性名，该属性不会出现在`for...in`、`for...of`循环中，也不会被`Object.keys()`、`Object.getOwnPropertyNames()`？、`JSON.stringify()`？返回。
+Symbol 作为属性名，该属性不会出现在`for...in`、`for...of`循环中，也不会被`Object.keys()`、[`Object.getOwnPropertyNames()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames)、`JSON.stringify()`？返回。
 
 但是，它也不是私有属性，有一个`Object.getOwnPropertySymbols`方法，可以获取指定对象的所有 Symbol 属性名。
 
-
-
 **`Object.getOwnPropertySymbols`**方法返回一个数组，成员是当前对象的所有**用作属性名的 Symbol 值**
 
-```
+```js
 const obj = {};
-let a = Symbol('a');  // a为属性名
-let b = Symbol('b');
-
+let a = Symbol('a'), b = Symbol('b');
 obj[a] = 'Hello';
 obj[b] = 'World';
 
-const objectSymbols = Object.getOwnPropertySymbols(obj);
-
-objectSymbols   // [Symbol(a), Symbol(b)]
+Object.getOwnPropertySymbols(obj);	// [Symbol(a), Symbol(b)]
 ```
 
 
 
 ## Symbol.for()，Symbol.keyFor()
 
+`Symbol.for()`靠`key`搜索返回`symbol`值；`Symbol.keyFor()`靠`symbol`值搜索返回`key`
+
+**全局 Symbol 注册表**：
+
+<table>
+  <thead>
+  	<tr>
+      <th>字段名</th>
+      <th>字段值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>[[key]]</th>
+      <th>字符串，用来标识每个 symbol</th>
+    </tr>
+    <tr>
+      <th>[[symbol]]</th>
+      <th>存储的 symbol 值</th>
+    </tr>
+  </tbody>
+</table>
+
+
+
 ### Symbol.for()
 
 有时，我们需要**使用同一个 Symbol 值**，`Symbol.for`方法可以做到这一点。
 
-`Symbol.for`接受一个**字符串作参数**，然后搜索有没有以该参数作为名称的 Symbol 值
+`Symbol.for`接受一个**字符串作参数**，然后**搜索**有没有以**该参数作为名称的 Symbol 值**
 
 若有，返回这个 Symbol 值；若无，新建并返回一个以该字符串为名称的 Symbol 值
 
-```
+```js
 let s1 = Symbol.for('foo');
 let s2 = Symbol.for('foo');
 
@@ -4219,16 +4195,19 @@ s1 === s2
 
 
 
-**`Symbol.for()`****与****`Symbol()`**这两种写法，都会生成新的 Symbol
+**`Symbol.for()`**与**`Symbol()`**这两种写法，都会**生成新的 Symbol**
 
-它们的区别是，`Symbol.for()`会被登记在全局环境中供搜索，`Symbol()`不会。`Symbol.for()`不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的`key`是否已经存在，如果不存在才会新建一个值。比如，如果你调用`Symbol.for("cat")`30 次，每次都会返回同一个 Symbol 值，但是调用`Symbol("cat")`30 次，会返回 30 个不同的 Symbol 值?。
+它们的区别是，`Symbol.for()`会被**登记在全局环境中**供搜索，`Symbol()`不会。`Symbol.for()`不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的`key`是否已经存在，如果不存在才会新建一个值
+
+> 
 
 
 
 ### Symbol.keyFor()
 
+`Symbol.keyFor`方法**返回一个已登记的 Symbol 类型值的 key**
+
 ```
-Symbol.keyFor`方法返回一个已登记的 Symbol 类型值的`key
 let s1 = Symbol.for("foo");
 Symbol.keyFor(s1) // "foo"
 
@@ -4236,7 +4215,7 @@ let s2 = Symbol("foo");
 Symbol.keyFor(s2) // undefined
 ```
 
-上面代码中，变量`s2`属于未登记的 Symbol 值，所以返回`undefined`。?
+上面代码中，变量`s2`属于未登记的 Symbol 值，所以返回`undefined`。
 
 
 
@@ -4270,11 +4249,7 @@ Iterator（遍历器）
 
 遍历器（lterator）就是这样一种机制
 
-
-
-Iterator 是一种**接口**，为各种不同的数据结构提供统一的访问机制，任何数据结构只要部署 Iterator 接口，就可以完成遍历操作
-
-[^遍历操作]: 依次处理该数据结构的所有成员
+Iterator 是一种**接口**，为各种不同的数据结构提供统一的访问机制，任何数据结构只要部署 Iterator 接口，就可以完成遍历操作[^1]
 
 
 
@@ -4288,20 +4263,68 @@ Iterator 是一种**接口**，为各种不同的数据结构提供统一的访�
 
 **Iterator 的遍历过程**是这样的：
 
-1. 创建一个**指针对象**，指向当前数据结构的起始位置。也就是说，遍历器对象本质上就是一个指针对象
+1. 创建一个**指针对象**，指向当前数据结构的起始位置。也就是说，**遍历器对象**本质上就是一个指针对象
 2. 第一次调用指针对象的**`next`**方法，可将指针指向数据结构的第一个成员
 3. 第二次调用指针对象的`next`方法，指针指向数据结构的第二个成员
 4. 不断调用指针对象的`next`方法，直到它指向数据结构的结束位置
 
 
 
-**Iterator 的作用机制**
+## Iterator 的作用机制
 
 每一次调用`next`，都会返回数据结构的当前成员的信息
 
 具体来说，就是返回一个包含`value`和`done`两个属性的对象。`value`是当前成员的值，`done`是个布尔值，表示遍历是否结束
 
-指针对象的`next`方法，用来移动指针                                                                               
+指针对象的`next`方法，用来移动指针                        
+
+
+
+下面是通过遍历器实现指针结构的例子：
+
+```js
+function Obj(value) {
+    this.value = value;
+    this.next = null;   //?
+}
+Obj.prototype[Symbol.iterator] = function() {   // 在Obj原型上设置属性
+    let current = this; // this指哪：构造函数
+    console.log(current)    
+    // Obj {
+    //   value: 1,
+    //   next: Obj { value: 2, next: Obj { value: 3, next: null } }
+    // }
+
+    let iterator = { 
+        next() {
+            if (current) {
+                let value = current.value;
+                current = current.next;
+                return { value, done: false }
+            } else {
+                return { value: undefined, done: true }
+            }
+        }
+    };
+    return iterator;
+}
+
+let one = new Obj(1)
+let two = new Obj(2)
+let three = new Obj(3)
+
+// 手动设置各next
+one.next = two;
+two.next = three;
+
+for (let n of one) {
+    console.log(n)
+}   // 1 2 3
+```
+
+
+
+`Symbol.iterator`的最简单实现还是使用`Generator`函数。
 
 
 
@@ -4309,25 +4332,206 @@ Iterator 是一种**接口**，为各种不同的数据结构提供统一的访�
 
 当使用`for...of`循环遍历某种数据结构时，该循环会自动去寻找 Iterator 接口。
 
-
-
-一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（**iterable**）
-
-
-
-ES6规定，默认的 Iterator 接口部署在数据结构的`Symbol.iterator`？属性，或者说，一个数据结构只要具有**`Symbol.iterator`**属性，就可以认为是“可遍历的”（iterable）
-
-`Symbol.iterator`属性本身是一个**函数**，就是当前数据结构**默认的遍历器生成函数**？。执行这个函数，就会返回一个遍历器
-
-至于**属性名****`Symbol.iterator`**，它是一个表达式，**返回**`Symbol`**对象的**`iterator`**属性，这是一个预定义好的？、类型为`Symbol`的特殊值，所以要放在方括号内（参见《[Symbol.iterator](https://www.yuque.com/ostwind/es6/docs-symbol#Symbol.iterator)》一章）？
+一种数据结构只要部署了 Iterator 接口（也可以说 可以应用`for...of`的对象被称为 iterable，我们就称这种数据结构是“可遍历的”（**iterable**）
 
 
 
-# set 和 map 数据结构
+ES6规定，默认的 Iterator 接口部署在数据结构的`Symbol.iterator`属性，或者说，一个数据结构只要具有**`Symbol.iterator`**属性，就可以认为是“可遍历的”（iterable）
 
-## set 数据结构
+**`Symbol.iterator`**属性对应一个**函数**，执行**返回一个遍历器对象**：
 
-set 数据结构类似于数组，但里面的值是唯一的   
+```js
+let arr = [1, 2, 3];
+let iter = arr[Symbol.iterator]()   // 调用该属性得到遍历器对象
+
+iter.next() // { value: 1, done: false }
+iter.next() // { value: 2, done: false }
+iter.next() // { value: 3, done: false }
+
+iter.next() // { value: undefined, done: true }
+iter.next() // { value: undefined, done: true }
+```
+
+
+
+至于**属性名`Symbol.iterator`**，它是一个表达式，返回`Symbol`对象的`iterator`属性，这是一个预定义好的、类型为`Symbol`的特殊值，所以要放在方括号内（参见《[Symbol.iterator](https://www.yuque.com/ostwind/es6/docs-symbol#Symbol.iterator)》一章）
+
+[Iterable object（可迭代对象）-JavaScript教程](https://zh.javascript.info/iterable)
+
+
+
+## 调用 Iterator 接口的场合
+
+除了下文`for...of`循环还有一些场合会默认调用 Iterator 接口：
+
++ 解构赋值
+
++ 扩展运算符`...`
+
++ yield*：
+
+    `yield*`后面跟的是可遍历结构，它会调用该结构的遍历器接口
+
++ 任何接收数组作参数的场合
+
+    因为数组的遍历会调用遍历器接口
+
+
+
+## 遍历器对象的`return()`、`throw()`
+
+遍历器对象除了具有`next`方法，还可以具有`return`方法和`throw`方法。若是自定义遍历器对象生成函数，可选择是否部署
+
+`throw`方法主要是配合 Generator 函数使用，一般遍历器对象用不到这个方法
+
+
+
+## for...of 循环
+
+ES6 引入`for...of`循环**作为遍历所有数据结构的统一方法**。
+
+条件：部署了`Symbol.iterator`属性，即具有 Iterator 接口
+
+```javascript
+let arr = [1, 2, 3];
+for (let item of arr) {
+    console.log(item)	// 1 2 3
+}	
+
+let arr = [1, 2, 3];
+arr[Symbol.iterator] = undefined;
+for (let item of arr) {	// TypeError: arr is not iterable
+    console.log(item)
+}
+```
+
+`for...of`可以使用的范围包括：数组、Set、Map、部分类数组对象（*arguments 对象、字符串、DOM NodeList 对象*）、Generator 对象
+
+ 
+
+### 数组
+
+> **for...in 循环**：
+>
+> `for...in`循环只能获得对象的键名，`for...of`循环获得对象键值
+
+
+
+### set 和 map 结构
+
+遍历 Set 和 Map 结构值得注意的地方有两个：
+
++ 遍历的顺序是按照各个成员被添加进数据结构的顺序
++ Set 结构遍历时返回一个值，而 Map 结构遍历时返回的是一个数组——两个成员分别为当前 Map 成员的键名和键值
+
+```js
+let map = new Map().set('a', 1).set('b', 2);
+for (let pair of map) {
+  console.log(pair);
+}
+// ['a', 1]
+// ['b', 2]
+
+for (let [key, value] of map) {
+  console.log(key + ' : ' + value);
+}
+// a : 1
+// b : 2
+```
+
+
+
+### 计算生成的数据结构
+
+有些数据结构是在现有数据结构基础上计算生成的，如 ES6 的数组、Set、Map 都部署了以下三方法，调用后返回遍历器对象：
+
++ entries()：
+
+    返回遍历器对象，用来遍历`[键名, 键值]`组成的数组
+
++ keys()：
+
+    遍历所有键名
+
++ values()：
+
+    遍历所有的键值
+
+这三个方法调用后生成的遍历器对象，所遍历的都是计算生成的数据结构
+
+
+
+### 类数组对象
+
+如字符串、DOM NodeList 对象、arguments 对象都可以`for...of`遍历
+
+对于字符串来说，`for...of`循环还有个特点：会正确识别 32 位 UTF-16字符
+
+并不是所有类数组对象都具有 Iterator 接口，一个简便解决方法是使用`Array.from`转为数组
+
+
+
+### 对象
+
+`for...in`循环可以遍历键名，`for...of`不能直接使用要部署 Iterator 接口
+
+
+
+几种解决方法：
+
++ **Object.keys**：
+
+    ```js
+    let obj = {
+        one: 1,
+        two: 2,
+        three: 3,
+    }
+    
+    for (let i of Object.keys(obj)) {   // 实质是遍历对象键名生成的数组
+        console.log(i, obj[i]);
+    }	// one 1	 two 2	 three 3
+    ```
+
++ **Generator 函数将对象重新包装**：
+
+    ```js
+    function* entries(obj) {
+        for (let key of Object.keys(obj)) {
+            yield [key, obj[key]];
+        }
+    }
+    
+    for (let [key, value] of entries(obj)) {
+        console.log(key, value)
+    }
+    ```
+
+
+
+### 与其他遍历语法比较
+
+以数组为例：
+
+数组内置的`forEach`方法无法中途跳出循环，`break`、`return`命令不能奏效。
+
+`for...in`不仅遍历数字键名，还会遍历手动添加的其他键，甚至原型链上的键；某些情况还会以任意顺序遍历键名。
+
+而`for...of`可与`break`、`continue`、`return`配合使用。
+
+
+
+
+
+[^1]: 依次处理该数据结构的所有成员
+
+
+
+# Set 和 Map 数据结构
+
+## Set 数据结构
+
+Set 数据结构类似于数组，但里面的值是唯一的   
 
 ```
 console.log(new Set([1, 1, 2, 4]));   //{1, 2, 4}
@@ -4519,23 +4723,29 @@ let dif = new Set([...a].filter(x=>!b.has(x)));
 
 
 
-## WeakSet
+## WeakSet`WeakSet` 的表现类似：
 
-WeakSet 结构与 Set 类似，也是不重复值的集合。
+- 与 `Set` 类似，但是我们只能向 `WeakSet` 添加对象（而不能是原始值）。
+- 对象只有在其它某个（些）地方能被访问的时候，才能留在 set 中。
+- 跟 `Set` 一样，`WeakSet` 支持 `add`，`has` 和 `delete` 方法，但不支持 `size` 和 `keys()`，并且不可迭代。
+
+
 
 [---Set 和 Map 数据结构 · 语雀---](https://www.yuque.com/ostwind/es6/docs-set-map)
 
-## map数据结构
+
+
+## Map数据结构
 
 更详细的：[---Set 和 Map 数据结构 · 语雀---](https://www.yuque.com/ostwind/es6/docs-set-map#43a7e51d)
 
-### map的基本用法
+### Map的基本用法
 
-js的对象本质上是**键值对**的集合（Hash结构 ？），但传统上只能用字符串当作键
+js的对象本质上是**键值对**的集合（Hash结构 ），但传统上只能用字符串当作键
 
 给他的使用带来了极大的限制。
 
-```
+```javascript
 const data = {};
 const element = document.getElementById('myDiv');
 
@@ -4543,15 +4753,15 @@ data[element] = '元素'
 data['[object HTMLDivElement]'];  //"元素"
 ```
 
-上面代码本意是 将一个 DOM 节点作为对象`data`的键，但由于**对象只接受字符串作为键****名**，所以`element`将自动转为字符串`[object HTMLDivElement]`。
+上面代码本意是 将一个 DOM 节点作为对象`data`的键，但由于**对象只接受字符串作为键名**，所以`element`将自动转为字符串`[object HTMLDivElement]`。
 
 
 
 为了解决这个问题，ES6 提供了 Map 数据结构。
 
-Map 类似于对象，也是键值对的集合，但键的范围包括各种类型的值 *包括对象*
+**Map** 类似于对象，也**是键值对的集合**，但**键的范围包括各种类型的值** *包括对象*
 
-也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构？实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
+也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
 
 
 
@@ -4702,6 +4912,23 @@ map[Symbol.iterator] === map.entries
 
 
 ## WeakMap
+
+`WeakMap` 和 `Map` 的第一个不同点就是，`WeakMap` 的键必须是对象，不能是原始值
+
+
+
+`WeakMap` 只有以下的方法：
+
+- `weakMap.get(key)`
+- `weakMap.set(key, value)`
+- `weakMap.delete(key)`
+- `weakMap.has(key)`
+
+
+
+`WeakMap` 的**主要应用场景**是 **额外数据的存储**。
+
+
 
 # 面向对象   ?
 
@@ -5258,113 +5485,101 @@ const p = Promise.all([p1, p2, p3]);
 
 ==。。。==
 
-# generator
-
-## **generatator函数**
-
- 普通函数：一路到底
-
-generaor函数：中间能停
 
 
+# Generator
 
-普通函数
+## Generatator函数
 
-```
-function show() {
-  alert('a');
-  
-  alert('b');
+Generator 函数是 ES6 提供的一种异步编程解决方案 
+
+状态机——执行 Generator 会返回一个遍历器对象，可依次遍历函数内部的每一个状态。
+
+Generator 函数有两个**特征**：
+
++ `function`关键字与函数名间有一个**`*`**
++ 函数体内部使用`yield`表达式定义不同的内部状态
+
+
+
+**Generator 函数的调用：**
+
+与普通函数不同的是，调用 Generator 后该函数并不执行，**返回**的是一个指向内部状态的指针对象，即**遍历器对象**。
+
+然后每次调用`next`指针：就从函数头部或上一次停下来的地方开始执行直到下一个`yield`表达式，并返回有着`value`、`done`两属性的对象。即是说 Generator 函数分段执行，`yield`是暂停执行的标记，`next`可以恢复执行
+
+```js
+function* helloWorld() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
 }
+let hw = helloWorld()
+hw.next() // { value: 'hello', done: false }
+hw.next() // { value: 'world', done: false }
+hw.next() // { value: 'ending', done: true }
+hw.next() // { value: undefined, done: true }
+```
+
+若该函数无`return`。返回的对象`value`值为`undefined`
+
+
+
+最**适用**场景：代码中间需请求数据时 *`ajax`*
+
+
+
+## 与 Iterator 接口的关系
+
+因为`Symbol.iterator`方法等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。而 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的`Symbol.iterator`属性使其具有 Iterator 接口
+
+```js
+let myIterable = {};
+myIterable[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+
+[...myIterable] // [1, 2, 3]
 ```
 
 
 
-**generatator函数**
+Generator 函数执行后返回一个遍历器对象，该对象本身也具有`Symbol.iterator`属性，执行后返回自身
 
-```
-*`不能同时贴着俩边 如`function*show() {
-```
 
-`yield `*放弃——暂时不执行*
 
-```
-function * show() {
-  alert('a');
-  yeild;
-  alert('b');
+`for...of`可以自动遍历 Generator 函数生成的 Iterator 对象，且不需调用`next`方法
+
+```js
+function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  return 4;
 }
 
-let genObj = show();
-
-genObj.next();
-genObj.next();
+for (let v of foo()) {
+  console.log(v);
+}	// 1 2 3
 ```
 
-上面代码中，第九行执行`alert('a');`第十行执行`alert('b');` *踹一步走一步*
+注意一旦返回的`done`为`true`循环就终止且不包含该返回对象。所以上面的`return`语句返回的`6`也不包括在`for...of`中。
 
 
 
-最适用场景：代码中间需请求数据时 *`ajax`*
+## yeild 表达式
+
+需要注意的是，`yield`后面的表达式只有调用`next`方法才会执行，相当于为 JS 提供了手动的“惰性求值”语法功能
 
 
 
+`yeild`语句可以返回中间结果
 
-## yeild
-
-### yeild传参
-
-**yeild**也能**传参**
-
-```
-function * show() {
-  alert('第一部分');
-  
-  let a = yeild;
-  
-  alert('第二部分');
-  alert(a);
-}
-let genObj = show();
-genObj.next(12);  //第一部分
-genObj.next(5);   //第二部分
-                  //5
-```
-
-也就是说，第一个`next`没法给`yeild`传参
-
-要想给第一部分传参，用普通函数传参的方法。
-
-```
-function *show(num1, num2) {
-  alert(`${num1},${num2}`);   //模板字符串
-  alert('第一部分');
-  
-  let a = yeild;
-  
-  alert('第二部分');
-  alert(a);
-}
-let genObj = show(9, 8);
-genObj.next(12);  //9,8
-                  //第一部分
-genObj.next(5);   //第二部分
-                  //5
-```
-
-
-
-### yeild返回中间结果
-
-yeild可以返回中间结果
-
-```
+```js
 function *show() {
-  alert('第一部分');
-  
   yeild 12;
-  
-  alert('第二部分');
   return 5;
 }
 
@@ -5376,33 +5591,265 @@ console.log(res1);  //{value：12， done：false}
 console.log(res2);  //{value: 5, done：true}
 ```
 
-上面代码中，`res1`的结果由`yeild`返回，`res2`——最后一步 的结果由`generator`函数的`return`返回。
+上面代码中，`res1`的结果由`yeild`返回，`res2`——最后一步的结果由`generator`函数的`return`返回。
 
 返回的是个`json`，`done`表示函数是否完成
 
 
 
-图解：
+## next()、throw()、return()
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2617721/1612246363915-0365e2dc-5164-42b0-afc7-b7e0ec3fe69f.png)
+### next 方法的参数
 
-function*炒菜(菜市场买回来的)
+`yield`表达式本身没有返回值，`next`可以带一个参数，会被当作**上一个`yield`表达式的返回值**(*因为碰到 `yield` 暂停执行时 `yield `语句也是执行的*)
 
-洗菜->洗好的菜
+```js
+function* f() {
+    console.log("one")
+    let one = yield;  
+    console.log("two")
+} 
 
-let干净的菜-yield洗好的菜;
+let g = f()
+g.next()    // one
+g.next(2)   // 2
+```
 
-干净的菜->切->丝
 
-let切好的菜-yield丝;
 
-切好的菜->炒->熟的菜
+由于`next`方法的参数表示上一个`yield`表达式的返回值，所以在第一次使用`next`方法时传递参数是无效的
 
-熟的菜;
 
-return
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2617721/1612246411952-8e565761-175e-4a0f-bba4-f825e1f0e8d9.png)function炒菜(菜市场买回来的)洗菜->洗好的菜1et干净的菜yield,洗好的菜;干净的菜->切->丝let切好的菜yield丝切好的菜->炒->熟的菜熟的菜;eturn
+### Generator.prototype.throw()
+
+Generator 函数返回的遍历器对象都有一个`throw`方法，在函数体外抛出错误，然后在 Generator 函数体内捕获
+
+
+
+==。。。==
+
+
+
+### Generator.prototype.return()
+
+Generator 函数返回的遍历器对象，还有一个`return`方法，可以**返回给定值**，且**终结遍历** Generator 函数
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+let g = gen();
+g.next()        // { value: 1, done: false }
+g.return('foo') // { value: "foo", done: true }
+g.next()        // { value: undefined, done: true }
+```
+
+
+
++ **try...finally**：
+
+    若函数内部有`try...finally`代码块，`return()`方法会**推迟**到`finally`代码块执行完再执行：
+
+    ```js
+    function* numbers () {
+      yield 1;
+      try {
+        yield 2;
+        yield 3;
+      } finally {
+        yield 4;
+        yield 5;
+      }
+      yield 6;
+    }
+    let g = numbers();
+    g.next()	// { value: 1, done: false }
+    g.next()	// { value: 2, done: false }
+    g.return(7)	// { value: 4, done: false }
+    g.next()	// { value: 5, done: false }
+    g.next()	// { value: 7, done: false }
+    ```
+
+    
+
+### 共同点
+
+`next()`、`throw()`、`return()`这三个方法本质上是同一件事，可以放在一起理解。它们的**作用都是让 Generator 函数恢复执行**，且**使用不同语句替换`yield`表达式**
+
++ **next()**：
+
+    `next()`是将`yield`表达式替换成一个值——`next()`的参数
+
++ **throw()**：
+
+    将`yield`表达式替换成一个`throw`语句
+
++ **return()**：
+
+    替换成一个`return`语句
+
+
+
+## yield* 表达式
+
+**Generator 函数内部，调用另一个 Generator 函数**，默认情况下没有效果
+
+这就需要用到`yield*`表达式
+
+从语法角度看，若`yield`表达式后跟的是一个遍历器对象，需要在`yield`表达式后加上一个`*`表明返回的是个遍历器对象，这即是`yield*`表达式
+
+```js
+function inner() {
+    yield 'inner'
+}
+function* outer() {
+    yield 'outer1'
+    yield* inner()
+    yield 'outer2'
+}
+
+var gen = outer()
+gen.next().value // "outer1"
+gen.next().value // "inner"
+gen.next().value // "outer2"
+```
+
+
+
+`yield*`后的 Generator 没有`return`语句时，等同于在 Generator 内部部署一个`for...of`循环：
+
+```js
+function* concat(iter1, iter2) {
+  yield* iter1;
+}
+
+// 等同于
+
+function* concat(iter1, iter2) {
+  for (var value of iter1) {
+    yield value;
+  }
+}
+```
+
+说明，`yield*`后面的 Generator 函数（没有`return`语句时），不过是`for...of`的一种简写形式；反之，则需要**`let value = yield* iterator`**的形式获取`return`语句的值
+
+
+
+若`yield*`后跟一个**数组**，由于数组原生支持遍历器，因此也会遍历数组成员：
+
+```js
+function* gen(){
+  yield* ["a", "b", "c"];
+}
+gen().next() // { value:"a", done:false }
+```
+
+实际上，任何有 Iterator 接口的数据结构都可以被`yield*`遍历
+
+
+
+## 作为对象属性的 Generator 函数
+
+如果一个对象的属性是`Generator`函数，可简写为：
+
+```js
+let obj = {
+  * myGeneratorMethod() {
+    // ...
+  }
+}
+```
+
+
+
+## Generator 函数的 this
+
+ES6 规定，Generator 函数**返回的遍历器**是 Generator 函数的**实例**，也继承了 Generator 函数的`prototype`对象上的方法：
+
+```js
+function* g() {}
+g.prototype.hello = () => 'hi';
+
+let instance = g();
+instance.hello()	// 'hi'
+```
+
+Generator 函数`g`返回的遍历器`instance`，是`g`的实例，而且继承了`g.prototype`。但若把`g`当普通的构造函数并不会生效，因为`g`返回遍历器对象不是`this`对象
+
+
+
+## Generator 函数的异步应用
+
+### 异步任务的封装
+
+```js
+function* gen() {
+  let url = 'https://api.github.com/users/github';
+  let result = yield fetch(url);
+  console.log(result.bio)
+}
+```
+
+上面代码中 Generator 函数封装了一个异步操作，该操作先读取一个远程接口，然后从返回的 JSON 格式的数据解析信息。
+
+执行这段代码的方法如下：==?==
+
+```js
+let g = gen();
+let result = g.next();
+result.value.then(data => {
+  return data.json();
+}).then(data => {
+  g.next(data);
+})
+```
+
+上面的代码，使用`next()`执行异步任务的第一阶段，由于`fetch`模块返回的是一个 Promise 对象，因此需要用`then`调用下一个`next`。
+
+
+
+可以看出，虽然 Generator 函数将异步操作表示得很简洁，但流程管理却不方便
+
+
+
+### Thunk 函数
+
+编译器的“传名调用”的实现，往往是将**参数放到一个临时函数**之中，再将这个临时函数传入函数体。这种临时函数就叫做 Thunk 函数
+
+> **传名调用 与 传值调用**：
+>
+> 这有关于参数的求值策略——函数的参数应何时求值。一种意见就是“传名调用”，直接将表达式传入函数体，只在用到它的时候求值
+>
+> ```js
+> function f(m) {
+>   return m * 2;
+> }
+> f(1 + 5)
+> 
+> // 传值调用等同于：
+> f(6)
+> // 传名调用：
+> f(1 + 5)
+> ```
+
+Thunk 函数是实现“传名调用”的一种实现策略，用来替换某个表达式
+
+
+
+JS 语言是传值调用，它的 thunk 函数含义有所不同。JS 中，thunk 函数替换的不是表达式，而是多参数函数替换为一个**只接受回调函数作为参数的单参数函数**
+
+
+
+### 基于 Thunk 的 Generator 执行器
+
+Thunk 真正的威力在于可以自动执行 Generator 执行器
+
+==。。。==
 
 
 

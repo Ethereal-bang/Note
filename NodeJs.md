@@ -4,7 +4,7 @@
 
 + 在 Node.js 里运行 JavaScript，跟在浏览器里运行 JavaScript 有什么不同？
 
-    二者采用的是同样的 JS 引擎。在 Node.js 里写 JS，和在前端写 JS，几乎没有不同。在写法上的区别在于：Node.js 没有浏览器、页面标签相关的 API，但是新增了一些 Node.js 相关的 API。通俗来说，对于开发者而言，在前端写 JS 是用于控制浏览器；而 Node.js 环境写 JS 可以控制整个计算机。
+    二者采用的是同样的 JS 引擎。在 Node.js 里写 JS，和在前端写 JS，几乎没有不同。在写法上的区别在于：Node.js 没有浏览器、页面标签相关的 API，但是新增了一些 Node.js 相关的 API。通俗来说，对于开发者而言，在前端写 JS 是用于控制浏览器；而 **Node.js 环境写 JS 可以控制整个计算机**。
 
     JS 的组成分为三个部分：
 
@@ -23,7 +23,7 @@
 
 
 
-# Node.js配置
+##  Node.js配置
 
 由于 Node.js平台是在后端运行 JS 代码，所以须先在本机安装 Node 环境。
 
@@ -158,7 +158,7 @@ console.log("Hello nodeJs");
 
 // cmd
 C:\Users\HP>cd /d e:\nodeTest
-qqq
+
 e:\nodeTest>node startTest.js
 Hello nodeJs
 ```
@@ -168,6 +168,42 @@ Hello nodeJs
 + 使用严格模式
 
     在 JS 文件开头写上`'use strict';`，那么 Node 在执行该 JS 时将使用严格模式。
+
+
+
++ <span style="font-size:18px">示例：创建一个 Web 服务器</span>
+
+    以下示例将创建一个 Web 服务器，监听对URL `http://127.0.0.1:8000/` 所有种类的 HTTP 请求。
+
+    1. 在项目文件夹存入文件：
+
+        ```js
+        // 调用 HTTP 模块
+        const http = require("http");
+        
+        // 创建 HTTP 服务器并监听 8000 端口的所有请求
+        http.createServer((request, response) => {
+        
+           // 用 HTTP 状态码和内容类型来设定 HTTP 响应头
+           response.writeHead(200, {'Content-Type': 'text/plain'});
+        
+           // 发送响应体 "Hello World"
+           response.end('Hello World\n');
+        }).listen(8000);
+        
+        // 在控制台打印访问服务器的 URL
+        console.log('服务器运行于 http://127.0.0.1:8000/');
+        ```
+
+    2. 终端进入项目文件夹
+
+    3. 终端输入：
+
+        ```
+        node "hello.js"
+        ```
+
+        浏览器查看 http://localhost:8000，可以看到一个写有”Hello World“的网页。
 
 
 
@@ -227,6 +263,12 @@ let greet = require('./hello');
 引入的对象具体是什么取决于该引入模块输出的对象
 
 
+
+# Express 框架
+
+Express 是最流行的 Node 框架，是许多其他流行 Node 框架的底层库
+
+Express 是一个功能极简，完全是路由和中间件构成的 Web 开发框架，从本质上来说，一个 express 应用就是在调用各种中间件
 
 
 
