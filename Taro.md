@@ -73,52 +73,51 @@ npm i taro-ui@next
 ## 运行 Taro 项目
 
 + **微信小程序**
-    选择微信小程序模式，需要自行下载并打开微信开发者工具，然后选择项目根目录进行预览。
+    选择微信小程序模式，需要自行下载并打开**微信开发者工具**，然后选择项目根目录进行预览。
     微信小程序编译预览及打包
 
     ```
-    # npm script
     $ npm run dev:weapp
     $ npm run build:weapp
     ```
-
+    
+    微信开发者工具需要的是端代码，即项目内`src/dist`文件夹。该文件夹内是转换后的代码
+    
 + **H5**
     H5 模式，无需特定的开发者工具，在执行完下述命令之后即可通过浏览器进行预览
     H5 编译预览及打包
 
     ```
-    # npm script
     $ npm run dev:h5
     ```
-
+    
 + **React Native**
     React Native 端运行需执行如下命令，React Native 端相关的运行说明请参见 React Native 教程
 
     ```
-    # npm script
     $ npm run dev:rn
     ```
-
+    
 + **百度小程序**
     选择百度小程序模式，需要自行下载并打开百度开发者工具，然后在项目编译完后选择项目根目录下 dist 目录进行预览。
     百度小程序编译预览及打包
 
     ```
-    # npm script
     $ npm run dev:swan
     $ npm run build:swan
     ```
-
+    
+    
+    
 + **支付宝小程序**
     选择支付宝小程序模式，需要自行下载并打开支付宝小程序开发者工具，然后在项目编译完后选择项目根目录下 dist 目录进行预览。
     支付宝小程序编译预览及打包
 
     ```
-    # npm script
     $ npm run dev:alipay
     $ npm run build:alipay
     ```
-
+    
     
 
 Taro **更新**较快，要记得更新Taro项目
@@ -177,8 +176,10 @@ yarn global add @tarojs/cli@latest
 
         页面路由需要在小程序全局配置`app.config.js`中进行配置
 
-        例如：
+        所有在`pages`字段出现的都是页面，其余都会编译为 component
 
+        例如：
+        
         ```jsx
         // app.config.js
         export default {
@@ -188,7 +189,7 @@ yarn global add @tarojs/cli@latest
           ]
         }
         ```
-
+        
         
 
 ## 全局配置
@@ -451,9 +452,44 @@ export default class Test extends React.Component {
 
 # React
 
+## React 基本用法
+
++ <span style="font-size:20px">State 与 Props</span>
+
+    ```jsx
+    // index.jsx
+    export default class Index extends Component {
+      state = {
+        name: "one",
+      }
+      render () {
+        let { name } = this.state;
+        return (
+          <View className='index'>
+            <Text>Hello world!</Text>
+            <Child name={name}>子组件</Child>
+          </View>
+        )
+      }
+    }
+    // child.jsx
+    export default class Child extends Component {
+      render() {
+        let { name } = this.props;
+        return (
+          <View>我是子节点{name}</View>
+        )
+      }
+    }
+    ```
+
+    Props 如果在传值前调用会产生报错，可以使用`Child.defaultProps`
+
+
+
 ## 入口组件
 
-可以在入口组件中设置全局状态或访问全局生命周期，一个最小化的入口组件会是这样：
+可以在**入口组件中设置全局状态或访问全局生命周期**，一个最小化的入口组件会是这样：
 
 ```react
 import React, { Component } from 'react'
@@ -543,12 +579,20 @@ export default Index
       navigationBarTitleText: '首页'
     }
     ```
-
-
+    
+    
 
 ### 生命周期方法
 
 页面组件除支持 React 的生命周期方法外，还根据小程序标准，额外支持以下生命周期：
+
++ **componentWillReciveProps(nextProps)**:
+
+    接收到新属性/任何属性变化时调用，
+
+    注意即使属性未有任何改变，Taro 可能也会调用该方法，因此若你想要处理改变，需确保比较当前和之后的值
+
+
 
 + **onLoad(options)**:
 
@@ -630,6 +674,81 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
 
 
 ### React Hooks
+
+
+
+### React DevTools
+
++ <span style="font-size:20px">使用方法</span>
+
+
+
+# 路由功能
+
+Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Route），不需开发者额外配置，我们只需入口文件指定好 pages，就可通过 Taro 提供的 API 跳转到目的页面
+
++ <span style="font-size:22px">页面跳转：</span>
+
+    可通过 Taro 提供的 API 来跳转到目的页面
+
+    + Taro.navigateTo()、Taro.redirectTo
+
+        ```jsx
+        // 跳转到目的页面，打开新页面（相当于`history.push`，能回退）
+        Taro.navigateTo({
+          url: '/pages/page/path/name'
+        })
+        
+        // 跳转到目的页面，在当前页面打开（回退要重新加载
+        Taro.redirectTo({
+          url: '/pages/page/path/name'
+        })
+        ```
+
+        注意区别和路径。
+
++ <span style="font-size:22px">传参 & 获取路由参数：</span>
+
+    可通过在`url`后添加查询字符串参数进行跳转传参；跳转成功后在目标页面的生命周期方法中，可通过**`Taro.getCurrentInstance().router.params`** 获取路由参数
+
+    例如，在`.navigateTo()`里：
+
+    ```jsx
+    // 传入参数 id=2&type=test
+    Taro.navigateTo({
+      url: '/pages/page/path/index?id=2&type=test'
+    })
+    ```
+
+    生命周期方法中获取：
+
+    ```react
+    class Index extends Component {
+      // 应在页面初始化时把`getCurrentInstance()`结果保存下来供后面使用，而不是频繁地调用此API
+      $instance = getCurrentInstance()
+    
+      componentDidMount () {
+        // 获取路由参数
+        console.log($instance.router.params) // 输出 { id: 2, type: 'test' }
+      }
+    
+      render () {
+        return (
+          <View className='index' />
+        )
+      }
+    }
+    ```
+
+    也可以解构赋值取得参数：`let {id,type} = this.$router.params`。
+
+
+
+# 静态资源引用
+
+在 Taro 中可以像使用 [Webpack](https://webpack.js.org/) 那样自由地`import`或`require`等引用静态资源，而且不需要安装任何 Loaders
+
++ **引用本地资源：**==？==
 
 
 

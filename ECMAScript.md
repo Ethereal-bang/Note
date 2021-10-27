@@ -4285,7 +4285,7 @@ Iterator 是一种**接口**，为各种不同的数据结构提供统一的访�
 ```js
 function Obj(value) {
     this.value = value;
-    this.next = null;   //?
+    this.next = null;   
 }
 Obj.prototype[Symbol.iterator] = function() {   // 在Obj原型上设置属性
     let current = this; // this指哪：构造函数
@@ -6199,10 +6199,10 @@ new Foo() instanceof Foo	// false
 使用**`new`**调用类的构造函数会执行如下操作。
 
 1. 在内存中创建一个对象。
-2. 该对象内部的**`Prototype`**指针被赋值为构造函数的`prototype`属性   ==？==
+2. 该对象内部的**`Prototype`**指针被赋值为构造函数的`prototype`属性
 3. 构造函数内部的**`this`**转为指向这个新对象
 4. 执行构造函数内部代码，即给新对象添加属性
-5. 如果构造函数有返回非空对象，则返回该对象；否则，返回刚创建的新对象    ==?==
+5. 如果构造函数有返回非空对象，则返回该对象；否则，返回刚创建的新对象    
 
 ``` js
 class Animal {}
@@ -6222,7 +6222,7 @@ class Vegetable {
         this.color = 'orange';  // 第三条：构造函数内部的this转为指向这个新对象
     }
 }
-let v = new Vegetable();	// Vegetable {color: "orange"} （第五条：返回刚创建的对象？
+let v = new Vegetable();	// Vegetable {color: "orange"} （第五条：返回刚创建的对象
 console.log(v.color);	// 第四条：给对象添加属性
 ```
 
@@ -6258,13 +6258,13 @@ let point = new Point(2, 3);
 
 
 
-与 ES5 一样，实例的属性除非显示定义在其本身（*即定义在`this`对象上*），否则都是定义在原型上（*即定义在`class`上*）。
+与 ES5 一样，实例的属性除非显式定义在其本身（*即定义在`this`对象上*），否则都是定义在原型上（*即定义在`class`上*）。
 
 ``` js
 /* 定义类 */
 class Point {
     constructor(x, y) {
-        this.x = x;	// 显示定义在本身
+        this.x = x;	// 显式定义在本身
         this.y = y;
     }
     

@@ -89,7 +89,7 @@ SASS 提供四个编译风格选项：
 
 + **compact**
 
-    简洁格式
+    每条 CSS 规则只占一行
 
     ```scss
     .box { width: 300px; height: 400px; }
@@ -98,7 +98,9 @@ SASS 提供四个编译风格选项：
 
 + **compressed**
 
-    压缩后，生产环境一般选择此
+    生产环境一般选择此
+    
+    删除所有无意义的空格、空白行、以及注释，力求将文件体积压缩到最小
     
     ```scss
     .box{width:300px;height:400px}.box-title{height:30px;line-height:30px}

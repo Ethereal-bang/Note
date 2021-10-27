@@ -118,7 +118,7 @@
 + <span style="font-size:20px">版本回退 / 撤销变更</span>
 
     <hr>
-**版本表示**：`HEAD`表示当前版本，而上一个版本就是`HEAD^`，顺推下去上上个版本就是`HEAD^^`。往上 100 个版本还可以写成`HEAD~100`。
+    **版本表示**：`HEAD`表示当前版本，而上一个版本就是`HEAD^`，顺推下去上上个版本就是`HEAD^^`。往上 100 个版本还可以写成`HEAD~100`。
     
     
 
@@ -217,7 +217,42 @@
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDgswoAX8lc29tZaXoSDnsJK1SyH1HmVYFbqWdun+/dMNA5EIreP/vBOajpQl3ypbo1iq6MUGUO8th18eNY063P/vsCoXAf29WGCJFCYUN+5MrjFALFTKaebSW/70ouHG5ul90rX+LKSd60fXQ2cKrWEXfaXiR+ntggUO+rqNiig4d0nqwg8P+Xl73iTEpFNNGNFMrpb/gdl4y/YBVZwsMWxLtRpJ5vSt8hUxeDK1tcnuUF7WK0ydxY4oDZENnlkq7kd9BVDXbBA/ECL1XqxMY99azEmhCe0lMmqKbluJIflF7htdpvU/KTPfET/bjbsjOi0ah6ndZ2jLRhfpSxQ4auDKF0yypBl8QICnVi8+IfyI9Oo2yggcKgqNDCFYLin+i5apb8G2VZcKCSibCxyYyyPdwgyeuUkQuZmwTqd/+dmRqObQAtBZnmEK75PiJBBVwX5IWvLvCDmkueOZyFbnOwKirpujEIzt9NRGlLSgdwi/sUnPHBAWI+NLEhboBfPNc= HP@LAPTOP-UMVG4BNH
     ```
 
+
+
+
+## 与原仓库同步（Fetch）
+
+1. 配置原仓库路径：
+
+    ```
+    git remote add upstream git@github.com:ceo-analog-system/ceo.git
+    ```
+
+    `git remote -v`后可以看到远程仓库多了个原仓库地址。
+
+2. 抓取原仓库修改文件：
+
+    ```
+    $ git fetch upstream
+    From github.com:ceo-analog-system/ceo
+     * [new branch]      dev        -> upstream/dev
+     * [new branch]      main       -> upstream/main
+    ```
+
     
+
+3. 合并远程仓库的 master 分支==哪一个仓库？==。
+
+    ```
+    $ git merge upstream/main
+    Already up to date.
+    ```
+
+    
+
+这时本地仓库已经与原仓库完全同步，冲突需解决后合并。
+
+
 
 # 分支管理
 
