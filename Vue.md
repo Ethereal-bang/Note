@@ -1149,9 +1149,80 @@ Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用�
 
 ## 渲染函数 & JSX
 
+有时比起模板语法，使用 JS 的完全编程，`render`函数更合适。
+
+```jsx
+<script type="text/x-template" id="anchored-heading-template">
+  <h1 v-if="level === 1">
+    <slot></slot>
+  </h1>
+  <h2 v-else-if="level === 2">
+    <slot></slot>
+  </h2>
+  <h3 v-else-if="level === 3">
+    <slot></slot>
+  </h3>
+  <h4 v-else-if="level === 4">
+    <slot></slot>
+  </h4>
+  <h5 v-else-if="level === 5">
+    <slot></slot>
+  </h5>
+  <h6 v-else-if="level === 6">
+    <slot></slot>
+  </h6>
+</script>
+```
+
+```jsx
+
+Vue.component('anchored-heading', {
+  render: function (createElement) {
+    return createElement(
+      'h' + this.level,   // 标签名称
+      this.$slots.default // 子节点数组
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+```
+
+可以看出，这个场景用模板代码冗长，且每一个级别的标题中重复书写了`<slot></slot>`。使用`render`函数精简很多，需要非常熟悉 Vue 的 [实例 property](https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B-property)。
 
 
 
+# 规模化
+
+## 路由
+
+对于大多数单页面应用，推荐使用[vue-router 库](https://router.vuejs.org/zh/installation.html)。
+
+
+
+## 状态管理
+
+如果应用简单，一个简单的 store 模式足够；但构建一个中大型单页应用，Vuex能更好地在组件外部管理状态
+
+
+
+### store 模式
+
+
+
+### Vuex
+
+Vuex 是一种状态管理模式
+
+状态自管理应用包含几个部分：
+
++ **state：**驱动应用的**数据源**
++ **view：**以声明方式将 state 映射到视图
++ **actions：**响应在 view 上的用户输入导致的状态变化
 
 
 
