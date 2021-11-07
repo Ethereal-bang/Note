@@ -1,0 +1,57 @@
+div {
+  // 变量
+  $yellow: #ffff00;
+  $side: left;
+  background-color: $yellow;
+
+  // 算式
+  margin-#{$side}: 20+30px;
+  margin-top: (20px+30);
+
+  // 嵌套
+  p {
+    background-color: aqua;
+    border: 5px solid black {
+      left: 0;
+      top: 2px;
+    }
+  }
+  a {
+    background-color: chartreuse;
+    &:hover {
+      background-color: blueviolet;
+    }
+  }
+  p, a {background-color: aliceblue}
+
+  // 继承
+  p {
+    @extend div;
+    margin-top: 0;
+  }
+}
+
+// Mixin
+@mixin list($align: center, $justify: center) {
+  display: flex;
+  align-content: $align;
+  justify-content: $justify;
+}
+ul {
+  @include list
+}
+
+// 条件语句
+ol {
+  @if (false) {
+    // 颜色函数
+    background-color: darken(yellow, 10%);
+  } @else {
+    background-color: lighten(yellow, 10%);
+  }
+}
+
+// 同层全体组合选择器
+ol #second ~li {
+  background-color: blueviolet;
+}

@@ -1,0 +1,30 @@
+div, div p {
+  background-color: #ffff00;
+  margin-left: 50px;
+  margin-top: 50px; }
+  div p {
+    background-color: aqua;
+    border: 5px solid black;
+      border-left: 0;
+      border-top: 2px; }
+  div a {
+    background-color: chartreuse; }
+    div a:hover {
+      background-color: blueviolet; }
+  div p, div a {
+    background-color: aliceblue; }
+  div p {
+    margin-top: 0; }
+
+ul {
+  display: flex;
+  align-content: center;
+  justify-content: center; }
+
+ol {
+  background-color: #ffff33; }
+
+ol #second ~ li {
+  background-color: blueviolet; }
+
+/*# sourceMappingURL=test.css.map */
