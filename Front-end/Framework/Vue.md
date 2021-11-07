@@ -20,7 +20,180 @@
     npm run serve
     ```
 
+
+
+
+## Vue  项目
+
++ <span style="font-size:20px">Vue 项目目录结构推荐</span>：
+
+    - `main.js`主入口，`router.js`路由划分
+    - `plugins` 自己或第三方插件,包括但不限于components、directives、filters、third lib
+    - `pages` 所有路由页面。原则：轻page，重component
+    - `components` 所有组件。包括原子组件、业务公用组件、页面独有组件
+    - `server` api引入入口
+    - `assets` sass、图片资源入口，不常修改数据
+    - `utils` 工具文件夹
+    - `store` 标准vuex格式，非必须
+
+    ```
+    project
+    └───src
+    │   │   App.vue    // 主页面
+    │   │   main.js    // 主入口
+    |   |   router.js  // 所有路由
+    │   │
+    │   |____assets    // css、image、svg等资源
+    │   |   |____css   // 所有sass资源
+    |   |   |    |  reset.scss       // 兼容各浏览器
+    |   |   |    |  global.scss      // 全局css
+    |   |   |    |  variable.scss    // sass变量和function等
+    │   |   |____img   // image图标库
+    |   |   |____svg   // svg图标库
+    |   |
+    |   |____components    // 组件
+    │   |   |____common    // common自注册组件
+    │   |        |____base // 原子组件(如果是引入第三方，该文件夹可省略)
+    │   |        |   ...   // 业务公用组件
+    │   |   |____entity    // entity页面组件
+    │   |   |____about     // about页面组件
+    |   |
+    |   |____pages     // UI层(原则：轻page，重component)
+    |   |   |____entity
+    |   |   |    |  list.vue      // 列表页
+    |   |   |    |  create.vue    // 新增页
+    |   |   |    |  edit.vue      // 修改页
+    |   |   | main.vue
+    |   |
+    |   |____plugins   // 自己或第三方插件
+    |   |   | index.js       // 插件入口文件
+    |   |   | directives.js  // 所有Vue指令
+    |   |   | filters.js  // 所有Vue过滤
+    |   |
+    |   |____server    // 接口层
+    |   |   | index.js   // 所有接口
+    |   |   | http.js  // axios二次封装
+    |   |
+    |   |____store     // vuex数据
+    |   |   | index.js
+    |   |
+    |   |____utils     // 工具层
+    |   |   | config.js// 配置文件，包括常量配置
+    |
+    └───public         // 公用文件，不经过webpack处理
+    │   │   favicon.ico
+    │   │   index.html
+    │   vue.config.js  // vue-cli3主配置
+    │   babel.config.js// babel配置
+    │   .eslintrc.js   // eslint配置
+    │   .prettierrc.js // perttier配置
+    │   package.json   // npm配置
+    │   README.md      
+    ```
+
     
+
++ <span style="font-size:20px">CSS 样式文件的引入</span>：
+
+    + 全局样式：
+
+        定义为单独的`.css`文件，
+
+        + 在入口 JS 文件`main.js`引入后就能在全局生效了
+        + 在`index.html`
+
+    + CSS 作用域：
+
+        写在`.vue`中的`<style>`标签内
+
+        vue单文件组件中，为了防止全局同css类名名样式的污染，vue-loade对单文件组件 `<style> `标签增加了scoped属性的处理
+
+        ```vue
+        <style>
+          /* 全局样式 */
+        </style>
+        <style scoped>
+          /* 本地样式 */
+        </style>
+        ```
+
+        > 因为权重的问题，如果是在子组件使用了scoped，那么在父组件中是不能直接修改子组件的样式的，需要在父组件中使用vue的深度作用选择器
+
+
+
++ <span style="font-size:20px">App.vue</span>
+
+    主组件，页面入口文件。所有页面都是在`App.vue`下进行切换的，它负责构建定义及页面组件归集
+
+     通常为页面申明了模板：
+
+    ```vue
+    <template>
+      <div id="app">
+        <img alt="Vue logo" src="./assets/logo.png">
+        <HelloWorld />
+      </div>
+    </template>
+    
+    <script>
+    import HelloWorld from './components/HelloWorld.vue'
+    
+    export default {
+      name: 'App',
+      components: {
+        HelloWorld
+      }
+    }
+    </script>
+    
+    <style>		<!--全局样式-->
+    #app {
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 60px;
+    }
+    </style>
+    ```
+
+
+
++ <span style="font-size:20px">main.js：</span>
+
+    初始化根组件为页面元素，以及负责我们想在 App 使用的其余插件和第三方组件：
+
+    ```js
+    import Vue from "vue";
+    import { store } from "./store/store";
+    import router from "./router";
+    import App from "./App.vue";
+    
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+    ```
+
+
+
++ <span style="font-size:20px">index.html：</span>
+
+    入口文件，引入`main.js`初始化 App：
+
+    ```html
+    <!-- the html element that hosts the App.vue component -->
+    <div id="app"></div>
+    
+    <!-- built files will be auto injected -->
+    <script type="text/javascript" src="main.js"></script>  
+    ```
+
+    Webpack 提供插件 HtmlWebpackPlugin 自动加载构建后的脚本而无需手动引入。
+
+
 
 #  Vue 基础
 
@@ -1202,27 +1375,138 @@ Vue.component('anchored-heading', {
 
 对于大多数单页面应用，推荐使用[vue-router 库](https://router.vuejs.org/zh/installation.html)。
 
++ <span style="font-size:20px">使用方式：</span>
+
+    ```bash
+    npm i vue-router
+    ```
+
+    ```js
+    import VueRouter from "vue-router";
+    Vue.use(VueRouter);	// 明确安装路由功能
+    ```
 
 
-## 状态管理
+
+使用 Vue.js ，已经可以通过**组合组件来组成应用程序**；
+
+要把 Vue Router 添加进来，我们需要做的是：将 components 映射到路由 (*routes* )，然后告诉 Vue Router 在哪里渲染它们
+
+
+
+## 状态管理——Vuex
 
 如果应用简单，一个简单的 store 模式足够；但构建一个中大型单页应用，Vuex能更好地在组件外部管理状态
-
-
-
-### store 模式
-
-
-
-### Vuex
-
-Vuex 是一种状态管理模式
 
 状态自管理应用包含几个部分：
 
 + **state：**驱动应用的**数据源**
 + **view：**以声明方式将 state 映射到视图
 + **actions：**响应在 view 上的用户输入导致的状态变化
+
+<hr>
+
++ <span style="font-size:20px">安装：</span>
+
+    ```bash
+    npm i vuex --save
+    ```
+
+    ```js
+    import Vuex from 'vuex';
+    Vue.use(Vuex);
+    ```
+
++ <span style="font-size:20px">Demo：</span>
+
+    1. **创建 store**
+
+        需提供`state`——初始化状态、`mutations`——触发突变
+
+        ```js
+        import Vue from 'vue'
+        import Vuex from 'vuex'
+        
+        Vue.use(Vuex)
+        
+        const store = new Vuex.Store({
+          state: {
+            count: 0
+          },
+          mutations: {
+            increment (state) {
+              state.count++
+            }
+          }
+        })
+        ```
+
+    2. **`store.state`**获取状态对象、**`store.commit`**触发状态变更
+
+        ```js
+        store.commit('increment')	// 改变 state
+        
+        console.log(store.state.count) // -> 1
+        ```
+
+    3. **注入 store**
+
+        从根组件向所有子组件，以 `store` 选项的方式注入：
+
+        ```js
+        new Vue({
+          el: '#app',
+          store: store,
+        })
+        ```
+
+    4. **从组件的方法中提交变更**：
+
+         Vue 组件中访问 `this.$store` property
+
+        ```js
+        methods: {
+          increment() {
+            this.$store.commit('increment')
+            console.log(this.$store.state.count)
+          }
+        }
+        ```
+
+
+
+### Action
+
+Action 类似于 mutation，不同在于：
+
+- Action 提交的是 mutation，而不是直接变更状态。
+- Action 可以包含任意异步操作。
+
+<hr>
+
++ <span style="font-size:20px">Demo：</span>
+
+    ```js
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        increment (state) {
+          state.count++
+        }
+      },
+      actions: {
+        increment (context) {
+    ####      context.commit('increment')
+        }
+      }
+    })
+    ```
+
+    
+
+Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象
 
 
 
@@ -1234,7 +1518,7 @@ Vue 结合网络数据开发应用
 
 
 
-## axios
+## axios + Vue
 
 首先打包，官网地址：
 
@@ -1242,24 +1526,33 @@ Vue 结合网络数据开发应用
 
 
 
-1. axios 必须先导入再使用
-2. 使用 get 或 post 方法即可发送对应的请求
-3. then 方法中的回调函数会在请求成功或失败时触发
-4. 通过回调函数的形参可获取响应内容或错误信息
 
 
 
-[axios详细介绍](https://github.com/axious/axious)
-
-
-
-## axios + Vue
-
-axios如何结合Vue获取网络应用。
 
 
 
 # 参考链接
 
-[介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
++ ：
+
+    [介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
+
++ Vue 配置：
+
+    [推荐-Vue项目目录结构 | springleo`s blog](https://lq782655835.github.io/blogs/team-standard/recommend-vue-project-structure.html)
+
+    [VUE项目中，html 的CSS写在哪里比较好？- SegmentFault 思否](https://segmentfault.com/q/1010000022159166)
+
+    [Vue 项目CSS组织 - 简书](https://www.jianshu.com/p/8defdc61ae00)
+
+    [vue.js - What is the purpose of main.js & App.vue in Vue App - Stack overflow](https://stackoverflow.com/questions/58972232/what-is-the-purpose-of-main-js-app-vue-in-vue-app)
+    
+    [Index.html 和 main.js是怎么关联起来的 - 中文 - Vue Forum](https://forum.vuejs.org/t/index-html-main-js/39778/5)
+    
++ 规模化：
+
+    [Vue Router](https://router.vuejs.org/zh/guide/#html)
+
+
 

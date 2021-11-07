@@ -111,6 +111,38 @@ KMP 主要用在字符串匹配
 
 
 
+# 二叉树
+
+## 理论基础
+
++ <span style="font-size:20px">存储方式：</span>
+
+    链式存储（指针）、顺序存储（数组）
+
+    如何顺序存储：
+
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180600.png" alt="image-20211106180600214" style="zoom:40%;" />
+
+    如何遍历：父节点`i`，则左孩子`i * 2 +1`，右孩子`i * 2 + 2`
+
++ <span style="font-size:20px">遍历方式：</span>
+
+    主要有两种遍历方式：
+
+    + 深度优先遍历（递归法、迭代法）：
+
+        + 前序遍历
+        + 中序遍历
+        + 后序遍历
+
+        这里的“前”、“中”、“后”指的是二叉树中间节点的遍历顺序，例如：
+
+        <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180259.png" alt="image-20211106180259744" style="zoom:50%;" />
+
+    + 广度优先遍历（迭代法）
+
+        + 层次遍历
+
 
 
 # 堆
