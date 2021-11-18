@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -8,49 +9,113 @@ public class Main {
         monkey.speak();
         person.speak();
         person.think();
+
         System.out.println("<-------第二题------->");
         Car car = new Car(4, 1150.0, 3);
         Truck trunk = new Truck(6, 15000.0, 1, 3000.0);
         car.showInfo();
         System.out.println("------------------------");
         trunk.showInfo();
-        System.out.println("<-------第三题------->");
-        String ret = getSum("88888888888888888", "25461213124533465");
-        System.out.println(ret);
-        System.out.println("<-------第四题------->");
-        System.out.println("<-------第五题------->");
 
+        System.out.println("<-------第三题------->");
+        String ret3 = getSum("13829579081298345918257", "438823897418920918472193");
+        System.out.println("输出：c=\"" + ret3 + "\"");
+
+        System.out.println("<-------第四题------->");
+        System.out.printf("路径条数为：%d\n", uniquePaths(3, 7));
+
+        System.out.println("<-------第五题------->");
+        System.out.println("输出：" + longestCommonPrefix(new String[]{"ab", "a"}));
     }
     public static String getSum(String a, String b) {
-        if (a.length() < b.length()) {
-            String temp = b;
-            b = a;
-            a = temp;
-        } // 默认a更长，便于后面操作
-        List<Integer> la =  new ArrayList<Integer>();
-        List<Integer> lb =  new ArrayList<Integer>();
-        StringBuffer c = new StringBuffer("");
-        List<Integer> lc =  new ArrayList<Integer>();
+        List<Integer> la = new ArrayList<Integer>();
+        List<Integer> lb = new ArrayList<Integer>();
+//        String c = "";
         // 将a、b分别存入数组la、lb
-        for (int i = a.length() - 1; i >= 0; --i) {
-            la.add(a.charAt(i) - '0');  // -'0'使char变Integer
+        for(int i = a.length()-1;i >= 0;--i){
+            la.add(a.charAt(i)-'0');    // -'0'使char变Integer
         }
-        for (int i = b.length() - 1; i >= 0; --i) {
-            lb.add(b.charAt(i) - '0');
+        for(int i = b.length()-1;i >= 0;--i){
+            lb.add(b.charAt(i)-'0');
         }
+
+        System.out.printf("输入：a=\"%s\",b=\"%s\"\n", a, b);
         // la、lb逐位相加存入lc
-        for (int i = a.length() - 1; i >= 0; --i) {
-            for (int j = b.length() - 1; j >= 0; --j) {
-                int sum = a.charAt(i) - '0' + (b.charAt(j) - '0');  // 每位相加的结果
-                boolean flag = false;   // 标志是否需进位
-                if (sum >= 10) {
-                    flag = true;
-                    sum %= 10;  // 十位数变个位
-                }
-                lc.add(sum);
+        StringBuffer c = new StringBuffer("");
+        int i = 0, j = 0, carry = 0;  // carry表示是否进位
+        while (i <= a.length() - 1 || j <= b.length() - 1) {
+            int temp = carry;
+            int na = i <= a.length() - 1 ? la.get(i++) : 0;    // 为什么与0比较：ab位数不同时有一个会更早超出遍历范围
+            int nb = j <= b.length() - 1 ? lb.get(j++) : 0;
+            int add = na + nb;    // 相加结果
+
+            if (add > 9) {  // 相加后如要进位：
+                add %= 10;  //取余
+                carry = 1;
+            } else {
+                carry = 0;
+            }
+            temp += add;
+            c.append(temp);
+        }
+        // 加完最后一位后：
+        if (carry == 1) {
+            c.append(1);
+        }
+
+        return new String(c.reverse());
+    }
+
+    public static int uniquePaths(int m, int n) {
+        System.out.printf("m=%d, n=%d\n", m, n);
+
+        int[][] dp = new int[m][n]; // 1. dp[i][j]：到(i,j)坐标路径个数
+        // 2. 递推公式：dp[i][j] = dp[i-1][j]+dp[i][j-1] (正上方和左方）
+        // 3. 初始化：最左方和最上方为1
+        for (int i = 0; i <= m - 1; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 0; i <= n - 1; i++) {
+            dp[0][i] = 1;
+        }
+
+        for (int i = 1; i < m; i++) {   // 从左到右层层遍历确保dp[i][j]的上、左方都有数值
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }
         }
-        return new String(c);
+
+        return dp[m - 1][n - 1];
+    }
+
+    public static String longestCommonPrefix(String[] strs) {
+        String ans = "";
+
+        // 打印字符串数组：
+        System.out.print("输入：strs = [");
+        for (String str : strs) {
+            System.out.print(str + ",");
+        }
+        System.out.print("]\n");
+
+        // 思路：取第一个字符串依次与其余字符串逐一比较得到的公共前缀最小值
+        int lcp = strs[0].length() - 1;  // 总的公共前缀
+        // 遍历其余字符串
+        for (int i = 1; i < strs.length; i++) {
+            int index = 0;    // 与该字符串的公共前缀下标
+            for (; index <= lcp && index < strs[i].length(); index++) {   // 不用比较整个字符串
+                if (strs[0].charAt(index) != strs[i].charAt(index)) {   // 停下的位置即与该字符串比较得到的最长公共前缀
+                    System.out.println("index:" + index);
+                    break;
+                }
+            }
+            lcp = Math.min(lcp, index - 1); // 取更小的那个进入下一轮比较
+            if (lcp < 0)   // 第一个字符就不一样：
+                return " "; // 输出""为啥不显示?
+        }
+
+        ans = strs[0].substring(0, lcp + 1);    // 因为subString输出不包括endIndex
+        return ans;
     }
 
     public static class Monkey {
