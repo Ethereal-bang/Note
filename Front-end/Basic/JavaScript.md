@@ -26,17 +26,29 @@
 
 ## 注释
 
-快捷键ctrl+/
+单行注释：ctrl+/
 
-alt+shift+a
+多行注释：alt+shift+a
 
+JSDoc 注释：
+
+```js
+/**
+ * Returns the sum of a and b
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function sum(a, b) {
+    return a + b;
+}
 ```
-//注释单行文字（快捷键ctrl+/）
-/*
-    注释（快捷键alt+shift+a）
-  多行文字
-*/
-```
+
+> JSDoc 是一个根据javascript文件中注释信息，生成JavaScript应用程序或库、模块的API文档 的工具
+
+
+
+
 
 ## 变量
 
@@ -50,13 +62,7 @@ alt+shift+a
 
 ## var 与 let
 
-1.使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象；
-
-2.使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升；  块级作用域
-
-3.let不允许在**相同作用域**内，**重复声明**同一个变量。
-
-4.let会有**暂时性死区**：如果存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，那么在let声明变量前，使用tmp都会报错
+let会有**暂时性死区**：如果存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，那么在let声明变量前，（该块级作用域内）使用`tmp`会报错
 
 
 
@@ -66,7 +72,7 @@ JS中的for循环体比较特殊，每次执行都是一个全新的独立的块
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608547157163-538a10cd-f115-4b40-bfb6-0ba5e4857eaf.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608547179295-2b50a945-5593-41f4-a904-edf81815f9f6.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608547265597-d0987949-10df-4fa8-a347-28bb645a08fc.png)
+
 
 ### 数据类型
 
@@ -316,6 +322,8 @@ console.log(result);	// [12, 9]
 
 见名知意
 
+
+
 ## 操作符/运算符
 
 作用实现赋值、比较和执行算数运算等功能
@@ -337,19 +345,7 @@ var result = 0.1 + 0.2;    // 结果不是 0.3，而是：0.30000000000000004
 console.log(0.07 * 100);   // 结果不是 7，  而是：7.000000000000001
 ```
 
-表达式和返回值
 
-表达式：由数字、运算符、变量等组成的式子 
-
-返回值表达式最终都会有一个结果，返回给我们，我们称为返回值
-
-### 递增递减运算符
-
-后置：先原值运算，后自加（先人后己）  
-
-前置：先自加，后运算（先已后人）
-
-注必须和变量一起使用
 
 ### 比较运算符
 
@@ -357,27 +353,9 @@ console.log(0.07 * 100);   // 结果不是 7，  而是：7.000000000000001
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582362136-55308eac-4815-473b-8121-819f2f7aa94f.png)
 
-结果布尔值
 
-### 逻辑运算符
-
-### 赋值运算符
-
-使用
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582490088-6a7e46bf-7c06-4db9-8715-fb620acbdac2.png)
 
 ## 语句
-
-### 关键字
-
-var;let
-
-new
-
-typeof
-
-function 声明函数
 
 ### 输入输出语句
 
@@ -397,96 +375,13 @@ Watch: 监视，通过watch可以监视变量的值的变化，非常的常用
 
 F11: 程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化
 
-### 顺序流程
 
-### 分支流程
-
-#### if语句
-
-#### swich语句
-
-#### 三元表达式
-
-### 循环
-
-语法结构
-
-​        表达式1**？**表达式2**：**表达式3；
-
-执行思路
-
-如果表达式1为 true ，则返回表达式2的值，如果表达式1为 false，则返回表达式3的值
-
-类似于  if  else （双分支） 的简写 
 
 ## 函数
 
 函数：就是封装了一段可被重复调用执行的代码块。通过此代码块可以实现大量代码的重复使用
 
 
-
-使用：函数声明一：命名函数
-
-**function 函数名 () {**  一般命名为动词
-
-**函数体；**
-
-**}**
-
-函数调用：   **函数名（）；**  调用可在声明函数前/后，function预解析
-
-函数声明方式二：匿名函数
-
-**function fn() {...}**
-
-​       调用 **fn();**  调用必须在函数体之后
-
-**
-**
-
-参数：形参：声明函数时，可在函数名称后面的小括号中添加的一些参数  形参不用声明默认值为 undefined 
-
-实参：调用该函数时，传递相应的参数
-
-
-
-函数的返回值：没有return返回值undefined
-
-### 函数的定义
-
-- 第一种函数定义方式
-
-```
-function a(x) {
-  // 代码
-}
-```
-
-由于 JS 的函数也是一个对象，上面代码中定义的`a`函数实际上是一个函数对象，而函数名`a`可以视为指向该函数的变量
-
-- 因此，第二种函数定义方式
-
-```
-var a = function (x) {
-  // 代码
-};
-```
-
-在这种方式下，`function (x) { ... }`是一个匿名函数，没有函数名。但是，这个匿名函数赋值给了变量`a`，所以变量`a`就可以调用该函数
-
-
-
-上述俩种定义完全等价，注意：第二种方式需要在函数体末尾加一个`;`，表示赋值语句结束
-
-
-
-创**建一个匿名函数并立即执行**：
-
-```
-(function (x) {
-  return x * x;
-})(3);  // 传参：3
-```
 
 ### arguments：
 
@@ -579,9 +474,6 @@ arr.map(pow);   // [1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 注意：`map()`传入的**参数**是`pow`，即**函数对象本身**
 
-**
-**
-
 `map()`作为高阶函数，事实上它把运算规则抽象了，因此我没不但可以计算简单的f(x)=x2，还可以计算任何复杂的函数，比如，把数组的所有数字转为字符串
 
 ```
@@ -593,9 +485,6 @@ arr.map(String);    // ['1', '2', '3']
 
 
 **reduce()**
-
-**
-**
 
 再看`reduce()`的用法。。Array的`reduce()`把一个函数作用在这个`Array`的`[x1, x2, x3...]`上，这个函数必须接收**两个参数**，`reduce()`把结果继续和序列的下一个元素做**累积计算**，其效果就是：  
 
@@ -683,258 +572,60 @@ f1 == f2;   // false
 
 ## 对象
 
-定义一组无序的相关属性和方法的集合，在JS的世界里，一切都是对象，例如字符串、数值、数组、函数等
-
 分为自定义对象、内置对象、浏览器对象
 
-构成属性  事物的特征，在对象中用属性来表示（常用名词）
++ <span style="font-size:20px">深拷贝、浅拷贝：</span>
 
-​    和
+    浅拷贝——指向同一地址，深拷贝——不同地址
 
-方法  事物的行为，在对象中用方法来表示（常用动词）
+    最简便的方法：`JSON.parse`&`JSON.stringify`——<span style="color:red">`undefined`会变成`null`</span>
 
-意义
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607611277786-c26e3f81-d96c-44b0-a1b7-ba2abf51c23a.png)  
 
++ [**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
 
+    允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。在引用为空([nullish](https://developer.mozilla.org/zh-CN/docs/Glossary/Nullish) ) ([`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
 
-### 创建对象
 
-1. 利用字面量  
 
-{}里包含表达这个对象的属性和方法  {}里用键值对形式表示，键：属性名，值：属性值（任意类型
 
-调用 **对象.方法名()** 
 
-> [**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
->
-> 允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。在引用为空([nullish](https://developer.mozilla.org/zh-CN/docs/Glossary/Nullish) ) ([`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
->
-> 当尝试访问可能不存在的对象属性时，可选链操作符将会使表达式更短、更简明。在探索一个对象的内容时，如果不能确定哪些属性必定存在，可选链操作符很有帮助
++ <span style="font-size:20px">对象属性的遍历：</span>
 
-```
-console.log(star.name)     // 调用名字属性
-console.log(star['name'])  // 调用名字属性
-star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带后面的括号
-```
+    + <span style="font-size:20px">[for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in)：</span>
 
-1. 利用**new Object**  原理同new Array()
+        会遍历自身以及继承的可枚举属性，不包含 Symbol 属性。 
 
-```
-var andy = new Obect();
-andy.age = 18;
-andy.sayHi = function(){
-    alert('大家好啊~');
-}
-```
+    + <span style="font-size:20px">[Object.keys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)：</span>
 
-使用格式**对象.属性 = 值；**
+        遍历自身可枚举属性，不包含 Symbol 属性。
 
-1. 利用构造函数
+    + <span style="font-size:20px">[Object.getOwnPropertyNames()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames)：</span>
 
-一种特殊的函数，主要用来初始化对象，与new一起使用。
+        返回对象所有自身属性键，包含不可枚举属性、Symbol 组成的数组。
 
-可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面
+    + <span style="font-size:20px">[Reflect.ownKeys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)：</span>
 
-```
-function Person(name, age, sex) {
-     this.name = name;
-     this.age = age;
-     this.sex = sex;
-     this.sayHi = function() {
-      alert('我的名字叫：' + this.name + '，年龄：' + this.age + '，性别：' + this.sex);
-    }
-}
-var bigbai = new Person('大白', 100, '男');
-var smallbai = new Person('小白', 21, '男');
-console.log(bigbai.name);
-console.log(smallbai.name);
-bigbai.sayHi();
-smallbai.sayHi();
-```
+        返回对象所有自身键，包含不可枚举、Symbol 组成的数组
 
-注与**new**一起使用才有意义
+    + <span style="font-size:20px">[Object.getOwnPropertySymbols()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols)：</span>
 
-​    首字母大写
+        返回所有 Symbol 属性的数组
 
-​    函数内的属性和方法前需加**this**  表示当前对象的属性和方法
 
-**this:**  this的指向在函数定义的时候确定不了，函数执行的时候才能确定。一般情况下this的最终指向的是调用它的对象
 
-指向：
-
-- - - 全局作用域或者普通函数中this指向全局对象window  定时器里面的this指向window 
-    - 方法调用中谁调用this指向谁
-    - 构造函数中this指向构造函数的实例
-
-   构造函数中不需要return返回结果
-
-作用创建某一类对象
-
-### 对象属性的遍历
-
-:**for in**语句  用于对数组或对象的属性循环操作  键值对
-
-​    格式**for (变量 in 对象名) {**
-
-​    **//代码**     
-
-​    **}**
-
-构造函数不能用
-
-```
-for (var k in obj) {         //语法中的变量是自定义的需符合命名规范，通常将这个变量写为k或者key
-    console.log(k);      // 遍历属性名
-    console.log(obj[k]); // 遍历属性值
-}
-```
-
-对象与变量异同变量：单独声明赋值，单独存在 
-
-​    属性：对象里面的变量称为属性，不需要声明，用来描述该对象的特征 
-
-
-
-### 包装对象
-
-**typeof****:**
-
-为了区分对象的类型，我们用`typeof`操作符获取对象的类型，它总是返回一个字符串
-
-```
-typeof 123; // 'number'
-typeof NaN; // 'number'
-typeof 'str'; // 'string'
-typeof true; // 'boolean'
-typeof undefined; // 'undefined'
-typeof Math.abs; // 'function'
-typeof null; // 'object'
-typeof []; // 'object'
-typeof {}; // 'object'
-```
-
-
-
-`number`、 `boolean`、 `string`都有包装对象。在 JS 中，字符串也区分`string`类型和它的包装类型
-
-**包装类型**用**`new`****创建**
-
-```
-let n = new Number(123);    // 123,生成了新的包装类型
-let b = new Boolean(true);  // true,生成了新的包装类型
-let s = new String('str');  // 'str',生成了新的包装类型
-```
-
-
-
-虽然包装对象看上去一模一样，但包装对象的类型已经变成`object`了。所以包装对象和原始值用`===`比较会返回`false`：
-
-```
-typeof new Number(123); // 'object'
-new Number(123) === 123; // false
-
-typeof new Boolean(true); // 'object'
-new Boolean(true) === true; // false
-
-typeof new String('str'); // 'object'
-new String('str') === 'str'; // false
-```
-
-所以，一般不要使用包装对象，尤其是针对`string`类型  ？
-
-
-
-如果我们在使用`Number`、`Boolean`和`String`时，没有写`new`会发生什么情况：
-
-```
-let n = Number('123');  // 123，相当于parseInt()或parseFloat()，解析字符串或浮点数
-typeof n;   //  number
-
-var b = Boolean('true'); // true
-typeof b; // 'boolean'
-
-var b2 = Boolean('false'); // true 因为'false'字符串转换结果为true！因为它是非空字符串！
-var b3 = Boolean(''); // false 理由同上，空字符串
-
-var s = String(123.45); // '123.45'
-typeof s; // 'string'
-```
-
-
-
-总结，有下面几条规则要遵守：
-
-- 不要使用`new Number()`、`new Boolean()`、`new String()`创建包装对象；
-- 用`parseInt()`或`parseFloat()`来转换任意类型到`number`；
-- 用`String()`来转换任意类型到`string`，或者直接调用某个对象的`toString()`方法；
-- 通常不必把任意类型转换为`boolean`再判断，因为可以直接写`if (myVar) {...}`；
-- `typeof`操作符可以判断出`number`、`boolean`、`string`、`function`和`undefined`；
-- 判断`Array`要使用`Array.isArray(arr)`；
-- 判断`null`请使用`myVar === null`；
-- 判断某个全局变量是否存在用`typeof window.myVar === 'undefined'`；
-- 函数内部判断某个变量是否存在用`typeof myVar === 'undefined'`
 
 ### 内置对象
 
-#### Math对象
++ <span style="font-size:20px">Math对象</span>  
 
-属性                                    方法
++ <span style="font-size:20px">Date对象</span>
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607668639731-1ae3a0b4-fe46-40b9-8c31-9eddf0be15d7.png)  ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607668680209-ff1471e3-1b40-4cca-b32a-754d46aa64b2.png)
+- <span style="font-size:20px">数组Array对象</span>
 
-简介Math 对象不是构造函数，它具有数学常数和函数的属性和方法。
++ <span style="font-size:20px">String对象</span>
 
-使用无需创建它，通过把 Math 作为对象使用就可以调用其所有属性和方法
 
-作用执行数学任务
-
-#### Date对象
-
-构造函数
-
-作用处理日期和时间
-
-创建**var myDate=new Date()**  Date 对象会自动把当前日期和时间保存为其初始值
-
-属性
-
-方法
-
-#### 数组Array对象
-
-方法
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607669109803-48ec4c07-2556-44e3-9f71-29ea6cc2db2e.png)
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607669264816-ec800820-3971-42fc-83ba-f90de1dc5cc9.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607669323764-971cdc30-1796-413b-82cf-cbf1f322006c.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607669294712-b6998edf-37e8-4f78-a56a-a3ad31fd7823.png)
-
-*筛选数组*
-
-```
-var arr = [1500, 1200, 2100, 1800]
-      var newArr = [];
-      for (var i = 0; i < arr.length; i++) {
-        if(arr[i]>2000)
-          delete arr[i];
-        else 
-          newArr.push(arr[i]);
-      }
-      console.log(arr);
-      console.log(newArr);
-```
-
-#### String对象
-
-创建
-
-**new String("");**
-
-**String("");**
-
-**
-**
 
 ### JSON
 
@@ -1052,38 +743,6 @@ let b = 3;
 let json = {a, b, c: 2};
 console.log(json);
 ```
-
-
-
-### 对象的方法的function
-
-对象的方法的`:function`可省略
-
-
-
-普通写法
-
-```javascript
-let json = {
-  a: 12;
-  show: function() {
-    alert(this.a);
-  }
-};
-```
-
-简写
-
-```
-let json = {
-  a: 12;
-  show(){
-    alert(this.a);
-  }
-};
-```
-
-
 
 
 

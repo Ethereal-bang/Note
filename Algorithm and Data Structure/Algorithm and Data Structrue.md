@@ -177,3 +177,33 @@ KMP 主要用在字符串匹配
 
 ## 堆和普通树的区别
 
+
+
+# 动态规划
+
+![image](https://code-thinking.cdn.bcebos.com/pics/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%80%BB%E7%BB%93%E5%A4%A7%E7%BA%B21.jpg)
+
++ <span style="font-size:20px">概念：</span>
+
+    动态规划即具有很多重叠子问题的问题
+
+    动态规划中每一个状态一定是由上一个状态推导出来的
+
+    **动态规划**是由前一个状态推导出来的，而**贪心算法**是局部直接选最优的
+
++ <span style="font-size:20px">步骤：</span>
+
+    1. 确定 dp 数组(*dynamic programming table* )及下标含义
+    2. 确定递推公式（每一个状态由上一个状态推导）
+    3. dp 数组初始化
+    4. 确定遍历顺序
+    5. 举例推导 dp 数组
+
+
+
+# 参考
+
++ 总：
+
+    [代码随想录](https://programmercarl.com/)
+
