@@ -23,117 +23,6 @@
 
 
 
-##  Node.js配置
-
-由于 Node.js平台是在后端运行 JS 代码，所以须先在本机安装 Node 环境。
-
-
-
-亲身安装过程：
-
-第一次：
-
-在一系列瞎搞失败后我选择重头来过。
-
-于是自认为彻底地删除掉了 node 及 npm 相关文件后再次操作。
-
-
-
-1. 首先在官网选择下载安装![image-20210304144212176](https://i.loli.net/2021/04/11/IeXKnA8HPwsNbm9.png) 这一版本。
-
-2. 将下载好的 node 安装在提前准备的文件夹里`E:\Nodejs\`
-
-3. 参考 http://www.manongjc.com/detail/13-vpgpqsubgiktjmh.html 安装设置，保留默认安装设置，勾选了 Tools for Native Modules，也就是自动下载 本机模块工具。我也不是很懂，但上次没勾它就失败了，这次试试总没错。
-
-4. 在完成 Node.js 安装后自动出现了一个 cmd，提示开始安装模块工具。在按几次 任意键继续后，窗口关闭。我推测应该是下载完成。
-
-    这时候看到文件夹里已经出现了这些内容
-
-<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210304150119927.png" alt="image-20210304150119927" style="zoom: 50%;" />
-
-5. **检查是否安装成功**可在 cmd 里输入`node -v`和`npm -v`，出现版本号。![image-20210304150417915](https://i.loli.net/2021/04/11/KlbE6RPfk5VnYLF.png)
-
-6. **修改npm全局安装路径**。查阅[这个](https://blog.csdn.net/gaoqiang1112/article/details/80366250?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=1328593.24612.16148396187116033&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)和[这个](https://blog.csdn.net/qq_36256590/article/details/114125780?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)的安装教程后发现要在同级文件夹里新建俩个文件夹。
-
-这个是新建前使用`npm config ls`命令得到的结果：<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210304151110695.png" alt="image-20210304151110695" style="zoom:50%;" />
-
-在node.exe 同级下新建文件夹：node_global 和 node_cache。
-
-7.根据新建的文件夹路径在**cmd 中修改**。![image-20210304151838452](https://i.loli.net/2021/04/11/KLpqE2GgBO8sn7h.png)
-
-修改后使用`npm config ls`命令<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210304152015156.png" alt="image-20210304152015156" style="zoom: 50%;" />
-
-和博主的顺序不一样，但我想应该没关系。
-
-8. **npm 的淘宝镜像**
-
-    似乎是为了提高速度。在 cmd 里输入`npm config set registry https://registry.npm.taobao.org`。
-
-    这样后再使用 `npm config ls`会发现那几个地址变成上述地址。
-
-9. **配置环境变量**。查看网上教程发现自己遗漏了这一步，毕竟安装 node 时不是已经勾选了`Add to path`吗。也许这不是一回事吧。
-
-    新建环境变量`NODE_PATH`，至于变量值设置成什么却有了疑义。在我看的三篇博客里都指向了不同的路径。不单单是简单的路径不同，而是新建的文件夹与原有的文件夹 node_modules 的关系混乱。于是我的进程止步于此。
-
-    在查阅更多博客后又发现了新的说法，现在似乎不需要再新建环境变量`NODE_PATH`。
-
-    上面的方法我不能证实，因此还是选择了老方法。
-
-    新建系统环境变量，路径我怀疑地打下 `E:\Nodejs\node_global\node_modules`，但我真的难以理解node_global 这个空文件夹哪来的下一个文件夹。
-
-    修改用户变量，path。改为`E:\Nodejs\node_global`
-
-    10. 此时我依然不知道自己成功没有。在[另一篇博文](https://blog.csdn.net/qq_40646143/article/details/103237095?utm_term=%E5%8D%B8%E8%BD%BDnodejs&utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-3-103237095&spm=3001.4430)，看到关于淘宝镜像的另一种安装方式照着它那样试了之后，显示
-
-        ![image-20210304191428418](https://i.loli.net/2021/04/11/8Nltym9JPivcR1f.png)
-
-        按他说的使用`cnpm -v`命令后依然显示
-
-        ![image-20210304191525626](https://i.loli.net/2021/04/11/qJPx7dyo6uOglEe.png)
-
-10. 最后揭晓时刻。输入`npm install webpack -g`，没有出现报错。但是发现在 E 盘甚至 C 盘使用`webpack -v`都报错：`‘webpack’ 不是内部或外部命令，也不是可运行的程序或批处理文件`。后来发现是第七步设置错了地方，我的莫名其妙地创建到了`D:\Develop\nodejs\node_global`这里来。在这个目录下执行`webpack -v`它提示安装 webpack-cil，但我不敢轻举妄动，我想要卸载重来。
-
-11. 决定卸载重装后，返回去看环境变量发现似乎没有完成以上步骤所应做的改动，这下我完全懵了。
-
-12. 于是我又决定将就现在的路径，以后懂了再瞎搞回来。发现全局安装 webpack-cil 后才不会出现诸如`‘webpack’ 不是内部或外部命令，也不是可运行的程序或批处理文件`这样的报错。至此我的 webpack 总算安装完成。
-
-
-
-在命令行内输入`node`进入 Node.js 的交互环境。在交互环境下可以输入任意 JS 语句，回车后得到输出结果。退出交互环境则连按两次 ctrl + c。
-
-
-
-<hr>
-
-
-
-在创建 react 脚手架时出错，于是卸载了 node 重装。
-
-1. msi 后缀文件点击安装。
-2. 勾选了某个不太清楚的选项。
-3. 跳出一个命令行窗口，按几下提示安装完毕。
-4. `node -v`、`npm -v`测试安装成功
-
-
-
-5. 发现`D:\Develop\nodejs`文件夹下含有`node_global`和`node_cache`文件夹
-6. 设置系统环境变量`NODE_PATH`值为`D:\Develop\nodejs\node_global\node_modules`
-7. 命令行内执行`npm config set prefix "D:\Develop\nodejs\node_global"`和`npm config set cache "D:\Develop\nodejs\node_cache`
-8. 测试：执行`npm install express -g`后，`node_global\node_modules`文件夹出现`experss`
-9. 结果：依旧不能全局安装。
-
-
-
-<hr>
-
-
-
-[node环境变量配置 - CSDN](https://blog.csdn.net/jianleking/article/details/79130667)中的新方法，试验成功。
-
-
-
-
-
 # 认识 npm
 
 npm 其实是 Node.js 的包管理工具（*package manager*）
@@ -266,7 +155,7 @@ let greet = require('./hello');
 
 # fs 文件系统
 
-`fs`模块支持以标准 POSIX 函数建模的方式与文件系统进行交互
+`fs`( *file system* )模块支持以标准 POSIX 函数建模的方式与文件系统进行交互
 
 > **POSIX：**
 >
@@ -297,6 +186,47 @@ let greet = require('./hello');
 
 
 
+# Events 模块
+
+Node.js 大部分核心 API 都围绕**异步事件驱动架构**构建——某种类型的对象（*触发器* ）触发命名事件，使`Function`对象（*监听器* ）被调用
+
+例如，`fs.readStream`打开文件时触发事件； Stream 在每当有数据可供读取时触发事件
+
+
+
+## EventEmitter 类
+
+events 模块只提供了一个对象：`events.EventEmitter`所有触发事件的对象都是`EventEmitter`类的实例
+
+```js
+# EventEmitter类由events 模块定义和暴露：
+const EventEmitter = require('events');
+```
+
+
+
++ **事件监听器`.on()`**：
+
+    允许将多个函数绑定到对象触发的命名事件(*`on`传入的第一个参数* )
+
++ **触发事件`emit()`**：
+
+    `EventEmitter`对象触发事件时，所有绑定的函数会被同步调用
+
++ **命名事件：**
+
+    添加新的监听器时触发事件<span style="color:brown">`newListener`</span>，当删除现有监听器时触发事件<span style="color:brown">`removeListener`</span>
+
+    
+
+    
+
+
+
+
+
+
+
 # Stream 流
 
 Stream 是用于在 Node.js 中处理流数据的抽象接口，`stream`模块提供了用于实现流接口的 API
@@ -306,10 +236,9 @@ Stream 是用于在 Node.js 中处理流数据的抽象接口，`stream`模块�
     + **Writable Stream**: 可写流，数据的消费者，(比如`fs.createWriteStream()`)
     + **Duplex Stream**: 双向流，即可读也可写
     + **Transform Stream**: 转化流，数据的转化者
-
 + 最大的作用：读取大文件时不会一次性读入到内存中，每次只读取数据源的一个数据块，可立即处理该数据块后进入垃圾回收机制，而不用等待所有的数据
 + **Options：**
-    - `flags` ：文件操作方式，默认值`r`——可读。
+    - `flags`：文件操作方式，默认`r`
     - `encoding`：编码格式，默认值`null`
     - `fd` ：默认值`null`
     - `mode` ：文件模式，默认值`0o666`
@@ -319,6 +248,26 @@ Stream 是用于在 Node.js 中处理流数据的抽象接口，`stream`模块�
     - `end` ：默认值`Infinity`
     - `highWaterMark` ：每次读取个数，默认值`64 * 1024`
     - `fs` ：默认值`null`
+
+## 可读流
+
+可读流有两种模式，随时可切换，可以通过监听可读流的事件操作它：
+
++ 流动模式：可读流自动读取数据，通过`EventEmitter`接口事件将数据提供给应用
++ 暂停模式，须显式调用==`stream.read`？==方法从流中读取数据片段
+
+暂停模式切换到流动模式的 API：
+
++ 监听`data`事件
++ 调用`stream.resume()`
++ 调用`stream.pipe()`将数据发送到可写流
+
+流动模式切换到暂停模式：
+
+1. 不存==管道目标？==：调用`stream.pause()`
+2. 存管道目标：调用`stream.unipipe()`取消`data`事件监听
+
+可读流事件：`data`、`readable`、`error` 、`close` 、`end`
 
 
 
@@ -342,10 +291,18 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
     [fs 文件系统 | Node.js API 文档](http://nodejs.cn/api/fs.html)
 
++ Events 模块：
+
+    [events 事件触发器 | Node.js API 文档](http://nodejs.cn/api/events.html)
+
+    [Node.js EventEmitter | 菜鸟教程](https://www.runoob.com/nodejs/nodejs-event.html)
+
 + Stream 流：
 
     [stream 流 | Node.js API 文档](http://nodejs.cn/api/stream.html)
 
     [node学习之理解流（stream）- 掘金](https://juejin.cn/post/6921978173726916616)
 
+    [说说node中可读流和可写流](https://juejin.cn/post/6844903557066391565)
+    
     
