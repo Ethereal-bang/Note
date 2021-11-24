@@ -215,14 +215,7 @@ const EventEmitter = require('events');
 
 + **命名事件：**
 
-    添加新的监听器时触发事件<span style="color:brown">`newListener`</span>，当删除现有监听器时触发事件<span style="color:brown">`removeListener`</span>
-
-    
-
-    
-
-
-
+    添加新的监听器时(*第一个事件不算* ）触发事件<span style="color:brown">`newListener`</span>，当删除现有监听器时触发事件<span style="color:brown">`removeListener`</span>
 
 
 
