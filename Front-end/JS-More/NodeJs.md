@@ -153,6 +153,29 @@ let greet = require('./hello');
 
 
 
+# Buffer 缓冲区
+
+`buffer`对象用于表示固定长度的字节序列
+
++ <span style="font-size:20px">Buffer 与 字符串：</span>
+
+    Buffer 与 字符串间利用`.toString`、`Buffer.from()`转换，可以指定字符编码（默认 UTF-8）
+
++ <span style="font-size:20px">Buffer.alloc(size[, fill[, encoding]])：</span>
+
+    分配`size`字节的新 Buffer。若`fill = undefined`，Buffer 将以 0 填充：
+
+    ```js
+    const { Buffer } = require('buffer');
+    
+    Buffer.alloc(5)	// <Buffer 00 00 00 00 00>
+      
+    Buffer.alloc(5, 'a')	// <Buffer 61 61 61 61 61>	
+    ```
+
+
+
+
 # fs 文件系统
 
 `fs`( *file system* )模块支持以标准 POSIX 函数建模的方式与文件系统进行交互
@@ -183,6 +206,22 @@ let greet = require('./hello');
 
     + `fs.createWriteStream`：创建文件可写流
     + `fs.readFile`：同步读文件
+    
++ <span style="font-size:20px">fs.read()：</span>
+
+    从 fd 中读取文件数据。
+
+    **`fs.read(fd, buffer, offset, length, position, callback)`**
+
+    `buffer`：数据将写入的缓冲区；`offset`要写入数据的`buffer`中位置；`length`：读取字节数；
+
++ <span style="font-size:20px">fd (*file descriptor* )：</span>
+
+    represents a **file descriptor**, useful to access that opened file inside the callback.
+    
++ <span style="font-size:20px">fs.read()、fs.readFile()：</span>
+
+    `fs.readFile()`方法是对`fs.read()`方法的进一步封装，`fs.readFile()`方法可以方便的读取文件的全部内容。
 
 
 
@@ -283,6 +322,8 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 + fs 文件系统：
 
     [fs 文件系统 | Node.js API 文档](http://nodejs.cn/api/fs.html)
+
+    [Node.js文件系统模块fs的两种文件读取方式比较：fs.read()和fs.readFile() - IT笔录](https://itbilu.com/nodejs/core/4kSWXYWGg.html)
 
 + Events 模块：
 

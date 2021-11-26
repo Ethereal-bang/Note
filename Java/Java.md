@@ -65,8 +65,19 @@ public class Hello {
 ```
 
 + 类名同文件名
-+ `public static void main(String[] args)`固定的必要写法，程序的入口方法
+
++ `public static void main(String[] args)`固定的必要写法，程序的入口方法（必须是静态）
+
 + 一个`.java`文件可以有很多类，但只能有一个`public`类
+
++ 一个 Java 程序往往只需要一个入口（即只一个类包含`main`方法），其他类用于被`main`方法直接或间接调用
+
++ <span style="font-size:20px">主类：</span>
+
+    类的名字和文件名一致，并且包含`main`函数的类，叫做主类
+
+    - 类名字和文件名一致
+    - 包含`public static void main(String[] args) {}`
 
 
 
@@ -309,7 +320,19 @@ Integer i = new Integer(1);
 
 
 
+## 接口 interface
+
+当一个具体的`class`去实现一个`interface`时，需要使用**`implements`**关键字
+
++ 接口**无法直接实例化对象**，需通过具体子类实例化
++ 接口允许**多继承**，一个子类可以同时使用`implements`实现若干个接口
++ 当子类需要**既继承抽象类又实现接口**时，先`extends`一个抽象类而后使用`implements`实现多个接口
++ **抽象类**可以使用`implements`实现多个接口，接口不能继承抽象类，接口可以使用`extends`继承多个**父接口**。
+
 # 参考链接
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)
 
++ 基本语法：
+
+    [Java文件的命名，Java主类，Java中的public类 - CSDN](https://blog.csdn.net/darlingwood2013/article/details/96105142)
