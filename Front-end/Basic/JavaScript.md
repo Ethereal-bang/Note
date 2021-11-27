@@ -1,6 +1,6 @@
 
 
-# JavaScript语法
+# ECMAScript
 
 ## 位置
 
@@ -45,8 +45,6 @@ function sum(a, b) {
 ```
 
 > JSDoc 是一个根据javascript文件中注释信息，生成JavaScript应用程序或库、模块的API文档 的工具
-
-
 
 
 
@@ -659,298 +657,43 @@ JSON 实际上是 JavaScript 的一个子集。在JSON中，一共就这么几�
 
 
 
-语法规定：JSON 还定死了字符集必须是 UTF-8 。为了统一解析,  JSON 的字符串和 Object 的键规定必须用双引号`""`
+# DOM——文档对象模型
 
-把任何 JS 对象变成 JSON，就是把这个对象序列化成一个 JSON 格式的字符串，这样才能够通过网络传递给其他计算机
+文档对象模型，是document object model的简称DOM（文档对象模型）：规定了访问 HTML 和 XML 的应用程序接口
 
-如果收到一个 JSON 格式的字符串，只需把它反序列化成一个 JS 对象，就可以在 JS 中使用这个对象了
+## 节点
 
+### 操作 DOM 节点——增删改查
 
++ <span style="font-size:22px">获取：</span>
 
-#### 对象序列化为 JSON格式
+    + `getElementById`、`getElementsByTagName`、`getElementsByClassName`
 
+    + HTML5 新增两种获取节点的方法：
 
+        `querySelector`、`querySelectorAll`参数都为CSS选择器字符串
 
-# json
+    + 获取完一次元素节点之后，我们还可以通过元素节点的**父子关系**，来更准确的获取元素节点：
 
-## Json 与 Object对象
+        `.childNodes/children`、`.parentNode`、`.previousSibling`、`.firstChild`等。
 
-+ Json 是对象，但对象不一定是 Json
-+ **组成**：对象的 Key-value 内的 Value 可是任意数据类型，而 json 是一种数据结构，是 Json 格式的对象
++ <span style="font-size:22px">添加：</span>
 
+    - `document.createElement()`创建一个元素节点
+    - `document.createTextNode()`创建一个文本节点
 
+    - `appendChild()`  向节点的子节点列表的末尾添加新的子节点
+    - `insertBefore()` 节点任意位置插入
 
-## json对象 与 json字符串
++ <span style="font-size:22px">删除：</span>
 
-在数据交换时用到。
+    `parentNode.removeChild ()`返回被删除节点
 
++ <span style="font-size:22px">修改：</span>
 
+    替换内容：  `innerHTML`/`innerText`属性
 
-### stringify 方法 将json变成字符串
 
-```javascript
-let json = {a: 12, b: 5};
-
-let strA = '1字符串' + json;
-console.log(strA)             // 1字符串[Obcject Object]
-let strB = '2字符串' + JSON.stringify(json);   // 将json变成字符串的方法
-console.log(strB)             // 2字符串{"a":12,"b":5}
-```
-
-`JSON.stringify`将json对象变成字符串
-
-
-
-### parse 方法 将字符串变成json
-
-**json的标准写法：**
-
-- **只能用双引号**
-- **所有名字**（*key 和 value*） **必须用引号包起来**
-
-```javascript
-{a: 'ad', b: 6} // ❌
-{"a": "ad", "b": 6} // ✔
-let str = '{"a": "ad", "b": 6}'	// 注意最外层的''
-```
-
-
-
-## json对象的简写
-
-### 对象的 键和值
-
-对象的 key 和 value 名称一样时，可简写
-
-
-
-普通写法
-
-```javascript
-let a = 12;
-let b = 3;
-
-let json = {a: a, b: b, c: 2};	// 不加引号？ 
-console.log(json);
-```
-
-简写
-
-```javascript
-let a = 12;
-let b = 3;
-
-let json = {a, b, c: 2};
-console.log(json);
-```
-
-
-
-# DOM
-
-简介文档对象模型（Document Object Model，简称 DOM）。处理可扩展标记语言（HTML或者XML）的标准编程接口。
-
-作用通过这些 DOM 接口可以改变网页的内容、结构和样式   操作元素
-
-DOM树
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607688981846-0f3995f3-8a9f-4e20-9191-287049b1af41.png)
-
-DOM的对象
-
-文档：一个页面就是一个文档，DOM 中使用 document 表示  
-
-元素：页面中的所有标签都是元素，DOM 中使用 element 表示  
-
-节点：网页中的所有内容都是节点（标签、属性、文本、注释等），DOM 中使用node表示
-
-## 获取页面元素
-
-+ 根据ID获取页面元素：
-
-    **`document.getElementById("id")`**方法可以获取带有 ID 的元素对象
-
-> **console.dir()** 
->
-> `console.dir()`可以打印我们获取的元素对象，更好的查看对象里面的属性和方法
-
-+ 根据标签名获取：
-
-    **`document.getElementsByTagName('标签名')`**方法可以返回带有指定标签名的对象的**集合**
-
-    因为得到的是一个对象的集合，所以我们想要操作里面的元素就需要遍历。 
-
-+ **`document.querySelectorAll('选择器')`**    **[更多用法](https://www.runoob.com/jsref/met-document-queryselectorall.html)**  根据 指定选择器 返回 指定选择器的所有元素对象集合
-
-    选择器需要加符号  `# / .`
-
-+ 利用节点操作获取元素
-
-+ 特殊元素的获取
-
-```
-doucumnet.body  // 返回整个body
-document.documentElement  // 返回整个html
-```
-
-## DOM操作
-
-HTML DOM 方法是能够（在 HTML 元素上）执行的动作。
-
-HTML DOM 属性是能够设置或改变的 HTML 元素的值
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608301206205-197a37df-e810-4e47-9c68-8b3a388694cc.png)
-
-### 元素
-
-**element****.innerText**  去除 html 标签， 空格和换行
-
-**element****.innerHTML**   包括 html 标签，保留空格和换行 
-
-```
-<div id="greet"><p>问候</p></div>
-</body>
-</html>
-<script>
-    console.log(document.getElementsByTagName('p')[0]);
-    console.log(document.getElementsByTagName('p')[0].innerHTML);
-    console.log(document.getElementById('greet').innerText);
-    console.log(document.getElementById('greet').innerHTML);
-```
-
-输出结果![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608274497702-4b608c1e-1525-4821-8667-0d1598d4ee31.png)
-
-链接：**--[关系](https://www.cnblogs.com/siduoxiaohua/p/10530876.html)--**
-
-### 常用元素的属性操作
-
-方法
-
-1. innerText、innerHTML 获取或设置元素内容
-2. src、href
-3. id、alt、title
-
-### 表单元素属性的操作
-
-利用 DOM 可以操作如下表单元素的属性 type、value、checked、selected、disabled 
-
-### 样式属性的操作
-
-可通过 JS 修改元素的大小、颜色、位置等样式
-
-- element.style     行内样式操作
-- element.className 类名样式操作
-
-注
-
-- JS 里面的样式采取驼峰命名法 比如 *fontSize、 backgroundColor*
-- JS 修改 style 样式操作，产生的是行内样式，CSS 权重比较高 
-- 如果样式修改较多，可以采取操作类名方式更改元素样式
-- class因为是个保留字，因此使用className来操作元素类名属性
-- className 会直接更改元素的类名，会覆盖原先的类名
-
-### 自定义属性的操作
-
-获取属性值
-
-**element.属性**            获取内置元素本身自带的属性属性值
-
-**element.getAttribute('属性');**        自定义的属性
-
-设置属性值
-
-**element.属性 = '值'**       设置**内置**
-
-**element.setAttribute('****属性****', '****值****')**
-
-移除属性
-
-**element.removeAttribute('属性')**
-
-### H5自定义属性
-
-作用为了保存并使用数据，有些数据可保存到页面而不用到数据库中
-
-获取**element.getAttribute('属性');** 
-
-设置H5自定义属性规定以 data- 开头作属性名并赋值 
-
-## 节点操作
-
-#### 节点概述
-
-都拥有基本属性nodeType节点类型、nodeName节点名称、nodeValue节点值
-
-元素节点nodeType 为1   实际开发中主要操作元素节点
-
-属性节点          2
-
-文本节点          3   文本节点包含文字、空格、换行等      
-
-#### 节点层级
-
-父级节点**node.parentNode**  返回node的最近的一个父节点，若无返回null
-
-子节点**node.childNodes**  返回包含指定节点的**子节点**的集合
-
-​    **node.children**  返回所有的**子元素节点**
-
-
-
-​    **node.firstChild**   包含其他节点  
-
-​    **node.firstElementChild**      兼容性问题
-
-​    **node.children[0]**  
-
-**
-**
-
-​    **node.lastChild**  
-
-​          **node.lastElementChild**
-
-​    **node.children[node.children.length - 1]**
-
-兄弟节点**node.nextSibling**
-
-**node.nextElementSibling**
-
-**
-**
-
-**node.previousSibling**
-
-**node.previousElementSibling**
-
-#### 创建节点
-
-**document.createElement('tagName')**  方法创建由 tagNameHTML标签名 指定的HTML元素，所以也称动态创建元素节点 创建多个元素效率稍低，但结构更清晰
-
-**document.write()**  导致页面全部重绘
-
-**element.innerHTML**  内容写入某个DOM节点 不会导致页面全部重绘 创建多个元素效率更高（采取数组形式拼接 ？），结构稍复杂
-
-
-
-**node.appendChild()**   将一个节点添加到指定父节点的子节点列表的末尾
-
-
-
-**node.insertBefore( , )**  将一个节点加到父节点的指定子节点前面
-
-#### 删除节点
-
-**node.removeChild()**  从DOM中删除一个子节点，返回删除的节点
-
-#### 复制节点
-
-**node.cloneNode()**  返回调用该方法的节点的一个副
-
-注
-
-- 括号参数为空或false，只克隆节点本身，不包括里面的子节点
-- 括号参数为true，会复制节点本身及里面的子节点
 
 ## 事件
 
@@ -968,115 +711,15 @@ DOM事件流事件发生时在元素节点之间按照特定的顺序传播，�
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607826947254-1047eabf-71bf-403e-8092-e5a74e3391d2.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607827215374-7e13973d-d5e7-4698-98e5-fe5d9e5f1bb3.png)
 
-- - - js代码中只能执行捕获或冒泡其中的一个阶段
-    - onclick 和 attachEvent 只能得到冒泡阶段
-    - addEventListener(type, listener[, useCapture])第三个参数若为true，表示在事件捕获阶段调用事件处理程序；fasle默认表示在事件冒泡阶段调用事件处理程序
-    - 实际开发很少使用事件捕获
-    - 有些事件无冒泡  *onblur、onfocus、onmouseenter、onmouseleave*
-    - 冒泡有时带来麻烦；有时帮助很巧妙地做某些事件
+js代码中只能执行捕获或冒泡其中的一个阶段
 
-### 事件对象
-
-事件发生后，跟事件相关的一系列信息数据的集合都放到这个对象里面，这个对象就是事件对象 event，它有很多属性和方法
-
-```
-eventTarget.onclick = function(event) {} 
-  eventTarget.addEventListener('click', function(event) {}）
-  // 这个 event 就是事件对象，我们还喜欢的写成 e 或者 evt 
-```
-
-事件对象的使用语法
-
-- - event为形参，系统设定为事件对象，不需传递实参过去
-  - 注册事件时，event对象会被系统自动创建，并依次传递给 事件监听器事件处理函数
-
-```
- eventTarget.onclick = function(event) {
-     // 这个 event 就是事件对象，我们还喜欢的写成 e 或者 evt 
-  } 
-  eventTarget.addEventListener('click', function(event) {
-    // 这个 event 就是事件对象，我们还喜欢的写成 e 或者 evt 
-  }）
-```
-
-#### 事件对象的常见属性和方法
-
-e.target 和 this 的区别  this 是事件绑定的元素这个函数的调用者（绑定这个事件的元素
-
-e.target 是事件触发的元素
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607828261730-8149348d-aa71-4be8-9e57-39d342cf885d.png)
-
-执行事件的步骤                         
-
-1.获取事件源
-
-2.注册事件（绑定事件）
-
-3.添加事件处理程序（采取函数赋值形式）
-
-鼠标事件对象
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607830683788-f652f462-808d-478d-b707-ce3559e12c6c.png)
-
-常见的鼠标事件
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607693148897-aace6727-5804-4fd4-a2f0-1fefde8cc2a4.png)
+- onclick 和 attachEvent 只能得到冒泡阶段
+- addEventListener(type, listener[, useCapture])第三个参数若为true，表示在事件捕获阶段调用事件处理程序；fasle默认表示在事件冒泡阶段调用事件处理程序
+- 实际开发很少使用事件捕获
+- 有些事件无冒泡  *onblur、onfocus、onmouseenter、onmouseleave*
+- 冒泡有时带来麻烦；有时帮助很巧妙地做某些事件
 
 
-
-- 禁止鼠标右键菜单
-
-```
-document.addEventListener('contextmenu', function(e) {  //contextmenu主要控制应该何时显示上下文菜单，主要用于程序员取消默认的上下文菜单
-    e.preventDefault();
-})
-```
-
-- 禁止鼠标选中  selectstart 开始选中
-
-```
-document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-})
-```
-
-键盘事件对象
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607830921381-634f16fa-aab0-4e5a-92f2-ca53b5489f8a.png)
-
-- onkeydown 和 onkeyup 不区分大小写， onkeypress 区分大小写
-- 实际开发中，更多使用keydown、keyup，能识别所有键
-- keyCode属性能区分大小写，返回不同的ASC||值
-
-常用键盘事件
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607830741326-d7ab8f62-6290-4337-8212-4b7b610d9af1.png)
-
-- 若使用 addRventListener 不需加 on
-- onkeypress 和前面俩的区别是 不识别功能键
-- 三事件执行顺序：keydown--keypress--keyup
-
-*
-*
-
-*模拟京东按键输入内容 ，当按下 s 键， 光标就定位到搜索框* 
-
-*分析：*核心思路： 检测用户是否按下了s 键，如果按下s 键，就把光标定位到搜索框里面
-
-使用键盘事件对象里面的keyCode 判断用户按下的是否是s键
-
-搜索框获得焦点： 使用 js 里面的 focus() 方法 
-
-```
-var search = document.querySelector('input');
-document.addEventListener('keyup', function(e) {
-// console.log(e.keyCode);
-if (e.keyCode === 83) {
-search.focus();
-}
-})
-```
 
 ### 注册事件
 
