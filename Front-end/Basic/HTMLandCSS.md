@@ -253,113 +253,52 @@ span{color:red;}
 
 
 
-## 字体样式
+# CSS 定位
 
-### font-family设置字体
-Eg:body{font-family:"宋体";}
-兼容性更好
-### font-size设置字体大小
-Eg:body{font-size:12px;}
-### font-weight设置字体粗细
-### font-style设置字体样式
-Eg:
-![](https://cdn.nlark.com/yuque/0/2020/jpeg/2617721/1601878334131-ad17a23a-efec-468a-a7dd-142a388f8979.jpeg#align=left&display=inline&height=311&margin=%5Bobject%20Object%5D&originHeight=311&originWidth=550&size=0&status=done&style=none&width=550)
-![](https://cdn.nlark.com/yuque/0/2020/jpeg/2617721/1601878334108-3b244d8c-7454-41f4-92b4-d33a04095ec1.jpeg#align=left&display=inline&height=320&margin=%5Bobject%20Object%5D&originHeight=320&originWidth=1107&size=0&status=done&style=none&width=1107)
-**解释****：**
-1、font-style可以设置字体样式，并且有种3设置方式。
-2、正常字体为normal,也是font-style的默认值。
-3、italic为设置字体为斜体，用于字体本身就有倾斜的样式。
-4、oblique为设置倾斜的字体，强制将字体倾斜。
-### color设置字体颜色
-**解释：**
-1、color属性可以设置字体颜色。
-2、color的值有3种设置方式：
+## 水平垂直居中
 
-- **英文命令颜色**
++ <span style="font-size:22px">Flex：</span>
 
-p{color:red;}
+    ```css
+    .outer {
+    	display: flex;  
+    	justify-content: center; /* 水平居中 */
+      align-items: center; /* 垂直居中 */
+    }
+    ```
 
-- **RGB颜色**
+    此方案的另一种用法：
 
-这个与 photoshop 中的 RGB 颜色是一致的，由 R(red)、G(green)、B(blue) 三种颜色的比例来配色。
-p{color:rgb(133,45,200);}
-每一项的值可以是 0~255 之间的整数，也可以是 0%~100% 的百分数。如：
-p{color:rgb(20%,33%,25%);}
+    ```css
+    .outer {
+      display: flex;
+    }
+    .inner {
+      margin: auto;
+    }
+    ```
 
-- **十六进制颜色**
+    <span style="color:green">不需固定居中元素宽高</span>
 
-这种颜色设置方法是现在比较普遍使用的方法，其原理其实也是 RGB 设置，但是其每一项的值由 0-255 变成了十六进制 00-ff。
-Eg:p{color:#00ffff;}
-###  font样式的简写方式
-Eg:_body{_
-_    font-style:italic;_
-_    font-weight:bold;  _
-_    font-size:12px;  _
-_    line-height:1.5em;  _
-_    font-family:"宋体",sans-serif;_
-_}_
-_这么多行的代码其实可以缩写为一句：_
-_body{_
-_    font:italic  bold  12px/1.5em  "宋体",sans-serif;_
-_}_
-注意：
-1、使用这一简写方式你至少要指定 font-size 和 font-family 属性，其他的属性(如 font-weight、font-style、font-variant、line-height)如未指定将自动使用默认值。
-2、在缩写时 font-size 与 line-height 中间要加入“/”斜扛。
-一般情况下因为对于中文网站，英文还是比较少的，所以下面缩写代码比较常用：
-_body{_
-_    font:12px/1.5em  "宋体",sans-serif;_
-_}_
-只是有字号、行间距、中文字体、英文字体设置
-## 文本样式
-### 用text-decoration添加文本修饰     
-Eg：        [![](https://cdn.nlark.com/yuque/0/2020/jpeg/2617721/1601879246655-d6652b0f-94c9-4b9c-b284-2858e7bd6daf.jpeg#align=left&display=inline&height=389&margin=%5Bobject%20Object%5D&originHeight=389&originWidth=644&size=0&status=done&style=none&width=644)](http://img2.mukewang.com/5e9564020001d57406440389.jpg)
-[![](https://cdn.nlark.com/yuque/0/2020/jpeg/2617721/1601879246675-0696356c-91d8-46f5-a10f-e6c8d040d33b.jpeg#align=left&display=inline&height=377&margin=%5Bobject%20Object%5D&originHeight=377&originWidth=1184&size=0&status=done&style=none&width=1184)](http://img2.mukewang.com/5e95640f0001a82011840377.jpg)
-**解释：**
-1、text-decoration可以设置添加到文本的修饰。
-2、text-decoration默认值为none, 定义标准的文本。
-3、text-decoration的值为**underline**为定义**文本下的一条线**。
-4、text-decoration的值为**overline**为定义**文本上的一条线**。
-5、text-decoration的值为**line-through**为定义穿过**文本的一条线**，一般用于商品折扣价
-### text-indent为文本添加首行缩进
-中文文字中的段前习惯空两个文字的空白，这个特殊的样式可以用下面代码来实现：
-_p{text-indent:2em;}_
-_<p>1922年的春天，一个想要成名名叫尼克卡拉威（托比?马奎尔Tobey Maguire 饰）的作家，离开了美国中西部，来到了纽约。那是一个道德感渐失，爵士乐流行，走私为王，股票飞涨的时代。为了追寻他的美国梦，他搬入纽约附近一海湾居住。</p>_
-注意：2**em**的意思就是文字的2倍大小
-### line-height为文字设置行间间距
-_p{line-height:1.5em;}_
-### letter/word-spacing增减字符间的空白
-使用：在网页排版中设置文字间隔或者字母间隔：** letter-spacing**
-设置英文单词之间的间距：** word-spacing**
-### text-align设置文本对齐方式
-使用：为块状元素中的文本、图片设置居中样式
-** text-align:center**
-** text-align:left**
-** text-align:right**
-**
++ <span style="font-size:22px">absolute + transform：</span>
 
-### list-style设置列表属性
-_list-style：none    _**去除**每项自带的小**圆点**
-### 长度值
-常用px（像素）、em、%注：这三种单位都是相对单位    
-**1、像素**与浏览器会使用显示器的实际像素值有关
-**2、em1** 1em=本元素给定字体的 font-size 值
-_p{font-size:12px;text-indent:2em;}_
-特殊情况：
-当给 font-size 设置单位为 em 时，此时计算的标准以 p 的父元素的 font-size 为基础
-_html:_
-_<p>以这个<span>例子</span>为例。</p>_
-_css:_
-_p{font-size:14px}_
-_span{font-size:0.8em;}_
-**3、百分比**
-_p{font-size:12px; line-height:130%}_
-_设置行高（行间距）为字体的130%_
-_
-## 水平/垂直居中
-法一：
+    ```css
+    #content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);	/* 偏移自身宽、高的一半 */ 
+    }
+    ```
 
+    >CSS3 新增的**`transform`**属性允许你旋转，缩放，倾斜或平移给定元素
+    >
+    >**`translate()`** 这个 CSS 函数在水平、垂直方向上重新定位元素，是根据元素自身计算的
+
+    <span style="color:green">不需固定居中元素宽高</span>
 
 ## 盒模型
+
 ![](https://cdn.nlark.com/yuque/0/2020/gif/2617721/1603183304416-4a408d18-d3f9-4296-b153-ca22ea302eb0.gif#align=left&display=inline&height=289&margin=%5Bobject%20Object%5D&originHeight=289&originWidth=536&size=0&status=done&style=none&width=536)
 ###  元素分类
 CSS中，html中的标签元素大体被分为三种不同的类型：**块状元素、内联元素**(又叫**行内元素**)和**内联块状元素**
@@ -539,3 +478,12 @@ Eg：虽然div元素相对于以前的位置产生了偏移，但是div元素以
 
 ## 弹性盒模型
 
+
+
+# 参考
+
++ CSS 定位：
+
+    [CSS 拷问：水平垂直居中方法你会几种？| Liuyib`s Blog](https://liuyib.github.io/2020/04/07/css-h-and-v-center/)
+
+    
