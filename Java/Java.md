@@ -242,10 +242,64 @@ public class Hello {
 
 
 
-
 # 类与对象
 
-## 构造方法
+
+
+## 属性和方法
+
+### 方法重载 Oveload
+
+方法的重载是类名的不同表现形式，其实构造函数也是重载的一种，另一种就是方法的重载
+
+```java
+public class Apple {
+  int sum;
+  String color;
+  
+  // 构造函数`Apple`的重载
+  public Apple() {}
+  public Apple(int sum) {}	
+  
+  // 方法`getApple`的重载
+  public int getApple(int num) {
+    return 1;
+  }
+  public String getApple(String color) {
+    return "color";
+  }
+}
+```
+
+几个相同的名字 Java 是如何判断调用的是哪一个方法呢：每个重载的方法都有独一无二的参数列表。如上例的`int num`与` `，使用时：
+
+![image-20211129183650384](https://gitee.com/ethereal-bang/images/raw/master/20211129183657.png)
+
+```java
+a.getApple(1)	// 1
+a.getApple("red")	// color
+```
+
++ 重载的**条件**：
+    1. <span style="color:red">方法名称</span>必须相同
+    2. <span style="color:red">参数列表</span>必须不同——个数、类型、参数类型排列顺序满足一个因素就能构成
+    3. 仅仅返回类型不同不足成为方法的重载
+    4. 重载发生在<span style="color:red">编译时</span>——因为编译器可以根据参数的类型选择使用哪个方法
+
+
+
+### 方法重写 Override
+
++ **重写 与 重载**：Override 指的是<span style="color:red">子类和父类之间</span>，而重载指的是<span style="color:red">同一类中</span>
++ **重写的条件：**
+    1. <span style="color:red">外壳相同</span>——Override 的方法（返回值类型、方法名、参数列表）要和父类保持一致
+    2. 子类中重写方法的<span style="color:red">访问权限</span>不能低于父类方法的访问权限
+
+Override 的好处是子类可以根据需要定义实现父类方法
+
+
+
+### 构造方法
 
 + <span style="font-size:20px">定义构造方法：</span>
 
@@ -353,6 +407,14 @@ Integer i = new Integer(1);
     ```
 
     **使用场景：**由于静态代码块随类的加载指向，很多时候将<span style="color:red">只需进行一次的初始化操作</span>放在 static 代码块中执行
+
+
+
+## package 包
+
++ **包的作用：**
+
+    功能相近的类放到同一个包方便查找和使用；一定程度避免命名冲突；访问权限可以以 package 为单位
 
 
 
@@ -490,15 +552,17 @@ public class Soccer {
 
 ## 多态——Polymorphic
 
-+ <span style="font-size:20px">Override：</span>
++ <span style="font-size:22px">多态：</span>
 
-    在继承关系中，子类如果定义了一个与父类方法签名相同、返回值相同的方法，称为覆写（Override）
+    多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时<span style="color:red">实际类型</span>的方法——运行时期才能动态决定调用的子类方法
 
-+ <span style="font-size:20px">多态——表现形式：</span>
+    对某个类型调用某种方法，执行的实际方法可能是某个子类的 override 方法
 
-    多态指的是同一个行为具有多个不同表现形式，一个类实例的相同方法在不同情形下具有不同表现形式
+    封装和继承是多态的基础，也就是说多态只是一种<span style="color:red">表现形式</span>
 
-    封装和继承是多态的基础，也就是说多态只是一种**表现形式**
++ <span style="font-size:20px">多态的作用：</span>
+
+    多态具有一个非常强大的功能，就是允许添加更多类型的子类实例实现功能扩展，却不需修改基于父类的代码
 
 + <span style="font-size:20px">实现多态：</span>
 
@@ -518,7 +582,7 @@ public class Soccer {
      		System.out.println("eat " + num + " Apple");
      	}
      	public static void main(String[] args) {
-     		Fruit fruit = new Apple();
+     		Fruit fruit = new Apple();	// 虽然是Fruit类型但实际调用的是Apple的方法
      		fruit.eat();
      	}
     }
@@ -543,4 +607,6 @@ public class Soccer {
 + 面向对象：
 
     [《Java 基础核心总结》- cxuan]()
+    
+    [多态 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1260455778791232)
 
