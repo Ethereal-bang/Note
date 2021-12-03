@@ -454,9 +454,49 @@ const p = Promise.all([p1, p2, p3]);
     }
     ```
 
-2. **引入状态，完善`resolve`、`reject`：**
+2. **引入状态，完善`resolve`、`reject`并在构造函数执行 executor：**
 
-3. 
+3. **用`then`进行捕获**——`then`接收两个函数分别对应`fulfiied`、`reject`状态：
+
+    ```js
+    const p = new Promise((resolve, reject) => {
+      
+    }).then((res) => {}, (err) => {});
+    ```
+
+4. **`then`、`catch`微任务**——setTimeout模拟
+
+5. 测试：
+
+    ```js
+    const p = new Promise((resolve, reject) => {
+        Math.random() < 0.5 ? resolve('resolve') : reject('reject');
+    });
+    p.then((value) => {	// 现在还未实现链式调用
+        console.log(value);
+    }, (err) => {
+        console.log(err);
+    });
+    ```
+
+## 异步、链式调用、值穿透
+
+此时初版还有三个方面需完善：
+
+1. Promise 内部的异步代码执行
+2. Promise 的链式调用
+3. 值穿透
+
+### 支持异步代码
+
++ **问题：**初版代码，`Promise`内部有异步代码的话，等待其执行完后才会改变状态，此时`then`内状态是 pending 因此不会触发`then`的回调(*`onFulfilled`/`onRejected`*)。
++ **解决思路：**新增成功态、失败态任务队列，`then`时状态 pending 则一次调用队列中函数（调用后状态则会
+
+
+
+
+
+
 
 # 参考：
 

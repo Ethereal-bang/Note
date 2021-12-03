@@ -85,6 +85,8 @@ SQL——Structured Query Language：结构化查询语言
         
         # mysql 特有注释
         ```
+        
+    4. [mysql中**\`**符号的用处](https://www.yisu.com/zixun/27328.html)： 数据库字段是 sql 保留的关键字，在写sql语句的时候，用到这些字段的时候需要用``包含起来，不然会报语法错误。
 
 ![image-20211130215155708](https://gitee.com/ethereal-bang/images/raw/master/20211130215155.png)
 
@@ -155,15 +157,10 @@ SQL——Structured Query Language：结构化查询语言
 
 + <span style="font-size:20px">MySQL 数据类型：</span>
 
-    | 常用**类型** | **描述**                    |
-    | ------------ | --------------------------- |
-    | int          |                             |
-    | double       |                             |
-    | varchar      | 字符串类型                  |
-    | date         | 日期类型（格式 yyyy-mm-dd） |
-
+    `DECIMAL(M, D)`，M 表示总位数，D 表示小数点后位数，`NUMERIC`同。
+    
     ![image-20211130131610466](https://gitee.com/ethereal-bang/images/raw/master/20211130131610.png)
-
+    
 + <span style="font-size:22px">创建表——CREATE：</span>
 
     ```mysql
@@ -229,7 +226,13 @@ SQL——Structured Query Language：结构化查询语言
     # 插入部分数据
     INSERT INTO `cqupt student` (`studentid`, `name`) VALUES (785, 'Jim'); 
     
-    # 更新表记录
+    # 一次插入多条数据(mysql 语法）
+    INSERT INTO test VALUES
+    ('钱二', 19, 540.00, '南海苑 5-2-9'),
+    ('孙三', 21, 555.50, '学生新区 21-5-15');
+    
+    # 插入另一表的数据
+    INSERT INTO test SELECT * FROM test_temp;
     ```
 
     
@@ -268,9 +271,11 @@ SQL——Structured Query Language：结构化查询语言
 
         功能上相同——删除表中全部行，但`truncate`速度更快，使用的系统和事务日志资源少
 
-## DQL 查询表中数据
+## 查询数据
 
 查询只是一种显示数据的方式
+
+### 基本查询
 
 + <span style='font-size:22px'>简单查询：</span>
 
@@ -301,7 +306,118 @@ SQL——Structured Query Language：结构化查询语言
 
 + <span style="font-size:22px">查询结果参与运算：</span>
 
-+ <span style="font-size:22px">条件查询：</span>
+### 条件查询
+
++ <span style="font-size:22px">WHERE：</span>
+
+    ```mysql
+    -- BETWEEN ... AND ...
+    SELECT * FROM student WHERE age BETWEEN 20 AND 23;
+    -- IS NULL
+    SELECT CourseName FROM course WHERE CourseBeforeID IS NULL;
+    -- EXISTS
+    
+    ```
+
+
+### 聚合查询
+
+`COUNT()`、`MAX`、`MIN`、`SUM`、`AVG`
+
+```sql
+SELECT COUNT(*) FROM student;	-- 得出总数
+SELECT MAX(score) FROM choose;	-- 查询score的最大值 
+```
+
+### 多表查询
+
+还可以从多张表同时查询数据，`SELECT * FROM <表1> <表2>`
+
+**连接查询**对多表进行 JOIN 运算，即 先确定一个主表作结果集，然后把其他表的行选择性地连接在主表结果上
+
++ <span style="font-size:18px">INNER JOIN：</span>
+
+    选出两张表都存在的记录：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203041.png" alt="image-20211202203034100" style="zoom:33%;" />
+
++ <span style="font-size:18px">LEFT OUTER JOIN：</span>
+
+    选出左表存在的记录：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203240.png" alt="image-20211202203240723" style="zoom:33%;" />
+
++ <span style="font-size:18px">RIGHT OUTER JOIN：</span>
+
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203321.png" alt="image-20211202203321728" style="zoom:33%;" />
+
++ <span style="font-size:18px">FULL OUTER JOIN：</span>
+
+    ![image-20211202203350259](https://gitee.com/ethereal-bang/images/raw/master/20211202203350.png)
+
+```mysql
+SELECT stu.`SNO`, stu.`name`, choose.`Score` FROM student stu INNER JOIN choose ON choose.`SNO` = stu.`SNO`;
+```
+
+### 嵌套查询
+
+一个 SELECT...FROM...WHERE 语句称为一个<span style="color:red">查询块</span>
+
+嵌套查询——将一个查询块嵌套在另一查询块的 WHERE 子句 或 HAVING 短语 
+
+>  例：查询选修 C1 课程的 成绩低于”张三“的 学生的学号和成绩：
+>
+>  最外层选择学号`SNO`、成绩`Score`，最子层查询条件——选修 C1(*因为它是最基本的条件*)，第二层查询
+>
+>  1. 确定选修 C1 课程的学生成绩：
+>
+>     ```sql
+>     SELECT score
+>     FROM choose
+>     WHERE courseID = 'C1';
+>     -- 结果：95，80，78
+>     ```
+>
+>  2. 确定张三 C1 的成绩：
+>
+>     ```sql
+>     # 1. 获得张三的学号：
+>     SELECT SNO	-- 得学号
+>     FROM student
+>     WHERE `name` = '张三'; -- 由名字 
+>     # 2. 获得张三的成绩：
+>     SELECT score	-- 得成绩
+>     FROM choose
+>     WHERE SNO = <;-- 由学号
+>     ```
+>
+>  3. 确定学号和成绩：
+>
+>     ```sql
+>     SELECT SNO, SCORE
+>     FROM choose
+>     WHERE <>;
+>     ```
+>
+
+### 集合查询
+
+SELECT 的查询结果是<span style="color:red">元组的集合</span>，所以多个 SELECT 的结果可<span style="color:red">进行集合操作</span>
+
++ **主要集合操作：**
+
+    UNION——并；INTERSECT(intersect)——交；EXCEPT——差
+
++ **要求：**
+
+    各查询结果的列数相同、对应数据类型相同
+
+```sql
+# 查询 选修了C1 或者 选修了C3 的学生学号
+SELECT SNO
+  FROM Choose
+  WHERE CourseID = 'C1'
+ UNION
+ SELECT SNO
+  FROM Choose
+  WHERE CourseID = 'C3'
+```
 
 
 
@@ -373,10 +489,54 @@ DROP VIEW `View_Choosebb`;
 
     ```mysql
     # 创建普通索引：
-    CREATE INDEX `index_name` ON `table_name`(`bb2`);
+    CREATE INDEX `index_bb2` ON `table_name`(`bb2`);
+    CREATE INDEX `index_bb4` ON `choosebb`(`Bb4` DESC);	-- 降序索引
+    ```
+    
+    > **ORDER BY：**
+    >
+    > order by 用于对结果集按照一个列或多列进行排序，默认按升序（**ASC**）排序，降序使用关键字（**DESC**）
+    
++ <span style="font-size:22px">查看索引：</span>
+
+    ```mysql
+    SHOW INDEX FROM `choosebb`;
     ```
 
-    
++ <span style="font-size:22px">删除索引：</span>
+
+    ```mysql
+    DROP INDEX `index_bb2` ON `choosebb`;
+    ```
+
+
+
+## 条件语句
+
+<span style="color:red">`WHERE <条件表达式>`</span>
+
++ **与：**`<条件1> AND <条件2>`
++ **或：**`<> OR <>`
++ **非：**`NOT <条件>`
+
+
+
+## 用通配符进行过滤
+
++ <span style="font-size:22px">LIKE 操作符：</span>
+
+    LIKE 语句在 SQL 结构化查询语言中起重要作用，为在搜索子句中使用通配符，必须使用 LIKE 操作符<span style="color:red">`WHERE <字段名> LIKE <对应值>`</span>
+
+    + **百分号（%）通配符：**
+
+        最常使用，表示任意字符出现任意次数
+
+        ```sql
+        -- 将address是'南海苑'开头的，年龄增加一岁
+        UPDATE test SET age=age-1 WHERE address LIKE '南海苑%';
+        ```
+
++ <span style="font-size:22px">正则表达式：</span>
 
 # 参考
 
@@ -384,9 +544,17 @@ DROP VIEW `View_Choosebb`;
 
     [MySQL基础.pdf - 黑马程序员]()
 
++ DDL：
+
+    [MySQL decimal、numeric数据类型介绍-CSDN](https://blog.csdn.net/love_xsq/article/details/42294533)
+
 + DML：
 
     [SQL truncate、delete与drop区别 - 编程笔记 - 博客园](https://www.cnblogs.com/8765h/archive/2011/11/25/2374167.html)
+
++ 查询数据：
+
+    [连接查询 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1177760294764384/1179610888796448)
 
 + 约束：
 
@@ -395,3 +563,7 @@ DROP VIEW `View_Choosebb`;
 + 索引：
 
     [MySQL 索引 | 菜鸟教程](https://www.runoob.com/mysql/mysql-index.html)
+
++ 用通配符进行过滤：
+
+    [sql语句like的用法 有些正则表达式可以通过like实现-CSDN](https://blog.csdn.net/shadowyelling/article/details/7913126)

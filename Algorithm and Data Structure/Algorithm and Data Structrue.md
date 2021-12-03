@@ -208,9 +208,99 @@ KMP 主要用在字符串匹配
 
 
 
+# 回溯算法
+
+## 理论基础
+
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211203135025.png" alt="image-20211203135018550" style="zoom:50%;" />
+
+回溯法是一种搜索方式，回溯是递归的副产品==？==，只要有递归就会有回溯
+
+回溯的本质是<span style="color:red">穷举</span>——穷举所有可能选出想要的答案；其实是暴力查找并不是什么高效算法
+
++ **主要解决：**
+    + 组合问题——N 个数找符条件的 k 个数的集合
+    + 切割——一个字符串有几种符条件的切割方式
+    + 子集——有多少符合条件的子集
+    + 排列——N 个数按一定规则全排列有几种方式
+    + 棋盘——N 皇后、解数独...
+
++ **理解回溯：**
+
+    所有回溯法解决的问题都可抽象为树形结构
+
+    因为回溯解决的都是<span style="color:red">在集合中递归查找子集</span>，集合的大小构成树的宽度，递归的深度构成树的深度
+
++ <span style="font-size:22px">回溯法模板：</span>
+
+    1. 回溯函数模板——**返回值、参数：**
+
+        习惯函数名取为`backtracking`；返回值一般 void；参数不容易一次性确定，一般先写逻辑、需要什么参数填什么参数
+
+        `void backtracing(<参数>)`
+
+    2. 回溯函数**终止条件：**
+
+        树中可以看出，一般来说搜到<span style="color:red">叶子叶节点</span>就结束本层递归==？==
+
+        ```javascript
+        if (<终止条件>) {
+        	// 存放结果
+        	return;
+        }
+        ```
+
+    3. 回溯搜索的**遍历过程**：
+
+        <img src="https://img-blog.csdnimg.cn/20210130173631174.png" height="250px">
+
+        ```javascript
+        for (/* 选择：本层集合中元素——树中节点孩子的数量就是集合的大小==？== */) {
+          // 处理节点
+          backtracing(/* 路径， 选择列表 */);
+          // 回溯，撤销处理结果==？==
+        }
+        ```
+
+        for 循环就是遍历集合区间，可理解成一个节点有多少个孩子 这个 for 循环就执行多少次。
+
+        由图可以看出 for 循环可以理解是<span style="color:red">横向遍历</span>，递归 (backtracing) 就是<span style="color:red">纵向遍历</span>，这样就把这棵树全部遍历。
+
+    4. 综上，回溯算法模板框架：
+
+        ```java
+        void backtracing(<参数>) {
+          if (终止条件) {
+            // 存放结果;
+            return;
+          }
+          for (/* 选择：本层集合中元素——树中节点孩子的数量就是集合的大小==？== */) {
+          // 处理节点
+          backtracing(/* 路径， 选择列表 */);
+          // 回溯，撤销处理结果==？==
+        	}
+        }
+        ```
+
+## 子集问题
+
+[力扣](https://leetcode-cn.com/problems/subsets/)——给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集。
+
+求子集问题不同于组合问题、分割问题，组合、分割相当于收集树的叶子节点，子集问题是找树的所有节点
+
++ **分析：**
+
+    <img src="https://img-blog.csdnimg.cn/202011232041348.png">
+
++ <span style="font-size:22px">解题步骤：</span>
+
+    1. 递归函数参数：
+
+        全局变量数组`path`为子集收集元素==？==，二维数组`result`存放子集组合
+
 # 动态规划
 
-![image](https://code-thinking.cdn.bcebos.com/pics/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%80%BB%E7%BB%93%E5%A4%A7%E7%BA%B21.jpg)
+<img src="https://code-thinking.cdn.bcebos.com/pics/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%80%BB%E7%BB%93%E5%A4%A7%E7%BA%B21.jpg" alt="image" style="zoom: 33%;" />
 
 + <span style="font-size:20px">概念：</span>
 

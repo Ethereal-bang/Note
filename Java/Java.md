@@ -169,7 +169,7 @@ public class Hello {
     int arr;	// 声明
     arr = new int[]{1001,1002,1003,1004};//静态初始化：数组的初始化和数组元素的赋值操作同时进行
     
-    String[] arr = new String[5];//动态初始化：数组的初始化和数组元素的赋值操作分开进行
+    String[] arr = new String[5];//动态初始化：数组的初始化和数组元素的赋值操作分开进行（长5）
     ```
 
     数组元素**默认初始值**：
@@ -228,8 +228,7 @@ public class Hello {
 
     
 
-
-## 数组遍历
+### 数组遍历
 
 + <span style="font-size:20px">for each：</span>
 
@@ -239,6 +238,39 @@ public class Hello {
         // 这里取得的`n`是数组元素而不是索引
       }
     ```
+
+
+
+## 集合
+
+### List
+
++ **集合框架：**
+
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211203212945.png" height="250px">
+
+集合类中，List 是最基础的一种集合——有序列表。
+
+```java
+List<List<Integer>> list = new ArrayList<>();
+```
+
++ <span style="font-size:22px">ArrayList——数组队列：</span>
+
+    ArrayList 类是一个可以动态修改的数组队列，与普通数组的区别就是它是没有固定大小的限制，可以添加或删除元素
+
+    + **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
+
+    + 添加元素：`add()`
+    + 访问元素：`get()`
+
++ <span style="font-size:22px">LinkedList——链表：</span>
+
+    链表类似于 ArrayList，是一种常用的数据容器
+
+    + **适用场景：**需要通过循环迭代访问列表中元素；频繁在列表开头、中间、末尾等位置添加删除元素操作
+
+
 
 
 
@@ -416,6 +448,12 @@ Integer i = new Integer(1);
 
     功能相近的类放到同一个包方便查找和使用；一定程度避免命名冲突；访问权限可以以 package 为单位
 
+```java
+import java.util.*;
+```
+
+
+
 
 
 ## Interface 与 Abstract
@@ -592,13 +630,17 @@ public class Soccer {
 
  
 
-# 参考链接
+# 参考
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)
 
 + 基本语法：
 
     [Java文件的命名，Java主类，Java中的public类 - CSDN](https://blog.csdn.net/darlingwood2013/article/details/96105142)
+
+    [使用LIst - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1265112034799552)
+
+    [Java ArrayList | 菜鸟教程](https://www.runoob.com/java/java-arraylist.html)
 
 + 类与对象：
 
