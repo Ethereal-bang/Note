@@ -247,6 +247,36 @@ yarn global add @tarojs/cli@latest
 
 
 
+## 映射规则
+
++ <span style="font-size:20px">HTML 标签名映射规则：</span>
+
+    
+
+    | HTML 标签              | 小程序组件 |
+    | ---------------------- | ---------- |
+    | 块级标签               | view       |
+    | 内联标签               | text       |
+    | span                   | view       |
+    | img                    | image      |
+    | a                      | navigator  |
+    | a["href=javascript;"]  | view       |
+    | input                  | input      |
+    | input["type=checkbox"] | checkbox   |
+    | input["type=radio"]    | radio      |
+    | button                 | button     |
+    | textarea               | textarea   |
+    | progress               | progress   |
+    | label                  | label      |
+    | form                   | form       |
+    | audio                  | audio      |
+    | canvas                 | canvas     |
+    | video                  | video      |
+    | iframe                 | web-view   |
+    | slot                   | slot       |
+
+
+
 # Taro 中 React 的差异
 
 Taro 支持将 Web 框架直接运行在各平台，开发者使用的是真实的 React 和 Vue 等框架
@@ -730,8 +760,6 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 在 Taro 中可以像使用 [Webpack](https://webpack.js.org/) 那样自由地`import`或`require`等引用静态资源，而且不需要安装任何 Loaders
 
 + **引用本地资源：**==？==
-
-
 
 
 
