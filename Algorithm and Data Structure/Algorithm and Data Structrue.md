@@ -138,9 +138,19 @@ KMP 主要用在字符串匹配
 
 
 
-# 二叉树
+# 树
 
-## 理论基础
+## 二叉树
+
++ <span style="font-size:22px">分类：</span>
+
+    + **满二叉树：**
+
+        每一层结点数都达到最大值——结点总数 <span style="color:red">2^k - 1</span>(k 层数)
+
+    + **完全二叉树：**
+
+        满二叉树是完全二叉树的特殊形态——除了最后一层之外其他的每一层都被完全填充，并且所有的节点都向左对齐
 
 + <span style="font-size:20px">存储方式：</span>
 
@@ -174,39 +184,175 @@ KMP 主要用在字符串匹配
 
 
 
-# 堆
+### 堆
 
 堆是用数组实现（*所以没有使用父/子指针*）的二叉树，根据“堆属性”来排序，“堆属性”决定树中节点位置。
 
++ **常用方法**：构建优先队列、支持堆排序、快速找出一个集合中最值
 
++ <span style="font-size:20px">堆与数组：</span>
 
-**常用方法**：
+    堆是一种具以下特点的的**完全二叉树**（*有顺序的完全二叉树*）：
 
-+ 构建优先队列
-+ 支持堆排序
-+ 快速找出一个集合中最值
+    每个节点的值大于或等于左右孩子节点值——最大堆
 
+    ![image-20211208183051861](https://gitee.com/ethereal-bang/images/raw/master/20211208183059.png)
 
+    对节点按层继续编号，将堆逻辑结构映射到数组中就是如下：
 
-## 堆属性
+    ![image-20211208183144244](https://gitee.com/ethereal-bang/images/raw/master/20211208183144.png)
 
-堆分为两种：最大堆和最小堆，差别在于节点的排序方式。
+    得出，大顶堆：**arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]**
 
+    堆属性非常有用，堆常被作为优先队列使用——可以快速访问到最重要元素
 
-
-最大堆中，父节点值比每个子节点的都大。这就是“堆属性”，且这个属性对堆中每个节点都成立，如：
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211004170658.png" alt="image-20211004170651844" style="zoom:50%;" />
-
-根据这一属性，最大堆总将最大值存放在数的根节点。堆属性非常有用，堆常被作为优先队列使用——可以快速访问到最重要元素
-
-要注意，堆的根节点存放的是最值，但其他节点排序顺序未知
+    要注意，堆的根节点存放的是最值，但其他节点排序顺序未知
 
 
 
-## 堆和普通树的区别
+# 排序算法
 
+> **排序算法**——交换——**冒泡排序**
+>
+> ​					|			|—**快速排序**
+>
+> ​                    |—插入——**直接插入排序**
+>
+> ​					|			|—**希尔排序**
+>
+> ​					|—选择——**简单选择排序**
+>
+> ​					|			|—**堆排序**
+>
+> ​					|——**归并排序**
+>
+> ​					|——**基数排序**
 
+（以从小到大为例）
+
++ <span style="font-size:20px">冒泡排序——重复访问数列，两两比较交换顺序：</span>
+
+    **主要代码：**
+
+    ```java
+    // 外层——比较len-1次
+    for (int i = 0; i <= len; i++) {
+      // 内层——每一遍循环需两两比较的次数
+      for (int j = 0; j <= len - i；j++) {
+    		// ...
+      }
+    }
+    ```
+
+    + 每一次外层循环得到的都是最大值，将其放到末尾。
+
++ <span style="font-size:20px">直接插入排序——所有元素依次与前面有序数列比较、插入：</span>
+
+    ```java
+    // 从下标1开始为待插入数列:
+    for (int i = 1; i < arr.length; i++) {
+    	// 从后往前遍历找到应插位置j——j-1对应小于该数的位置:
+      int j = i;
+      while (j > 0 && arr[j - 1] > temp) {
+    		// ...待插位置之后元素后移一位
+      }
+      // 插入：
+      arr[j] = temp;
+    ```
+
+    + `temp`记录待插数（不然会被前面后移来的元素覆盖）
+    + `while`循环找待插位置时要首先满足`j>0`
+
++ <span style="font-size:20px">快速排序——分治基于基准左右排序：</span>
+
+    ```java
+    public static void quickSort(int[] arr, int left, int right) {
+      // ...递归终止条件
+      
+      int mid = partition(arr, left, right);
+      // 递归对基准左右两边重复以上操作
+      quickSort(arr, left, mid - 1);
+      quickSort(arr, mid + 1, right);
+    }
+    
+    // 分治——使基准数左边全是小于的数、右边全是大于的数
+    private static int partition(int[] arr, int left, int right) { // 分治法
+      int temp = arr[left];   // 基准数
+      while (left < right) {
+        // 由后向前找比基准数小的数填入坑arr[left]:
+        while (temp <= arr[right] && left < right) {
+          right--;
+        }
+        // 基准数大于arr[right]，填坑入left
+        if (left < right) { // 不加这个条件left可能导致left>right使最后赋值temp的left位置错误
+          arr[left] = arr[right];
+          left++;
+        }
+    
+        // ...由前向后找比基准数大的数填入坑a[right]
+        
+      }
+      // left==right说明已经分治完毕
+      arr[left] = temp;
+      return left;
+    }
+    ```
+  
+  + 相当于每次基准按大小将整个数列分为左右两个数列
+  
+  + 19 行判断语句的必要性：
+  
+      例如数组`{5, 4, 3, 2, 1}`，没有条件判断：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208130603.png" alt="image-20211208130556482" style="zoom:53%;" />
+  
+      有条件判断：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208130618.png" alt="image-20211208130618651" style="zoom:50%;" />
+  
++ <span style="font-size:20px">归并排序——重复将两个有序表合成新有序表：</span>
+
+    <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:50%;" >
+
+    ```java
+    public static int[] mergeSort(int[] arr) {
+      // ...递归终止:
+      
+      // ...切割成两子序列:
+      int[] left = Arrays.copyOfRange(arr, 0, middle);
+      
+      // 递归切割合并：
+      return mergeTwo(mergeSort(left), mergeSort(right));
+    }
+    private static int[] mergeTwo(int[] left, int[] right) {
+      // 申请空间
+      int[] res = new int[left.length + right.length];
+      
+      // ...依次选取两序列中较小值不断放入新数组
+    }
+    ```
+
++ <span style="font-size:20px">堆排序——利用堆概念的选择排序：</span>
+
+    1. 建立一个最大堆——最大值在堆的根节点
+    2. 数组根节点与末尾替换——把最大值放到后面，这样就完成了一趟排序
+    3. 重复以上步骤：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208233135.png" alt="image-20211208233135322" style="zoom:33%;" />
+
+    ```java
+    public static void heapSort(int[] arr) {
+      for (int cnt = 1; cnt < arr.length; cnt++) {
+        // 1.构建最大堆:
+        buildMaxHeap(arr, arr.length - cnt + 1);
+        // 2.将最大元素交换到末尾:
+        swap(arr, 0, arr.length - 1 - cnt + 1);
+        // 3.每构建一次就相当于排好一个最大值
+        System.out.println("heapSort, " + Arrays.toString(arr));
+      }
+    }
+    private static void buildMaxHeap(int[] arr, int size) {
+      // ...从最后一个元素开始按大小调整父子结点 构建最大堆
+    }
+    private static void adjustToMaxHeap(int[] arr, int curRootNode, int size) {
+      // ...最大元素交换到此树杈的根位置：
+    ```
+
+    
 
 # 回溯算法
 
@@ -300,7 +446,23 @@ KMP 主要用在字符串匹配
 
 # 动态规划
 
-<img src="https://code-thinking.cdn.bcebos.com/pics/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%80%BB%E7%BB%93%E5%A4%A7%E7%BA%B21.jpg" alt="image" style="zoom: 33%;" />
+动态规划——背包问题——背包
+
+​                  |                     |—完全背包
+
+​                  |                     |—多重背包
+
+​				  |—打家劫舍
+
+​				  |—股票问题
+
+​				  |—子序列问题——子序列（不连续）
+
+​											  |—子序列（连续）
+
+​										      |—编辑距离
+
+​											  |—回文
 
 + <span style="font-size:20px">概念：</span>
 
@@ -325,4 +487,23 @@ KMP 主要用在字符串匹配
 + 总：
 
     [代码随想录](https://programmercarl.com/)
+    
++ 树：
 
+    [满二叉树_百度百科](https://baike.baidu.com/item/%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91/7773283)
+
+    [完全二叉树_百度百科](https://baike.baidu.com/item/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/7773232)
+
+    [十二种排序算法包你满意（带GIF图解）- 排序数组 - 力扣（LeeCode）](https://leetcode-cn.com/problems/sort-an-array/solution/shi-er-chong-pai-xu-suan-fa-bao-ni-man-yi-dai-gift/)
+
+    [完全二叉树之堆 - 简书](https://www.jianshu.com/p/5e4d17271d52)
+
++ 排序算法：
+
+    [面试必备：八种排序算法原理及Java实现 - 掘金](https://juejin.cn/post/6844903687932887053)
+
+    [面试 12：玩转 Java 快速排序 - 掘金](https://juejin.cn/post/6844903642042990599)
+
+    [算法 | 菜鸟分类 | 菜鸟教程](https://www.runoob.com/w3cnote_genre/algorithm)
+    
+    [堆排序就这么简单 - SegmentFault思否](https://segmentfault.com/a/1190000013960582)

@@ -82,12 +82,30 @@ Ajax 的工作原理相当于在用户和服务器之间加了一个中间层（
 
 ![image-20210405173711093](https://i.loli.net/2021/04/05/TsxBcY3zkU6G5VH.png)
 
-## XMLHttpRequest 对象
 
-所有现代浏览器都通过 **`XMLHttpRequest`构造函数**原生支持 XHR 对象
+
+# 使用
+
+![img](https://www.yuque.com/api/filetransfer/images?url=https%3A%2F%2Fcansiny.oss-cn-shanghai.aliyuncs.com%2Fimages%2F1613646249859.png&sign=5d0c6d54697f0ae4bf57aa9a6182894203d5ace0edb4e02b760e48ad4398a2c5&x-oss-process=image%2Fresize%2Cw_1280%2Climit_0)
 
 ```js
-let xhr = new XMLHttpRequest();
+// 实例化XMLHttpRequest对象：
+const xhr = new XMLHttpRequest()
+// 初始化一个get请求：
+xhr.open("get", "http://cloud-music.pl-fe.cn/personalized", true)
+// 接收返回值：
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      const res = JSON.parse(xhr.responseText)
+      // do something
+    } else {
+      console.log("请求失败")
+    }
+  }
+}
+//发送请求
+xhr.send()
 ```
 
 
@@ -96,11 +114,12 @@ let xhr = new XMLHttpRequest();
 
 <hr>
 
+
 + 使用 XHR 对象首先要调用 **`open()`方法初始化请求**，`open()`方法接收 3 个参数：
 
     1.  请求类型（*"get"、"post" 等*）
     2.  请求 URL
-    3. 表示请求是否异步的布尔值
+    3.  表示请求是否异步的布尔值
 
     如下例。
 
@@ -177,15 +196,12 @@ let xhr = new XMLHttpRequest();
 
 <span style="font-size:20px">HTTP头部</span>
 
-<hr>
-
 ==。。。？==
 
 
 
 <span style="font-size:20px">GET请求</span>
 
-<hr>
 
 最常用的请求方法是 GET 请求，用于向服务器查询某些信息。必要时，需在 GET 请求的 URL 后面添加查询字符串参数。对 XHR 而言，查询字符串必须正确编码==？==后添加到 URL 后面，然后再传给`open()`。
 
@@ -205,7 +221,6 @@ function addURLParam(url, name, value) {
 
 <span style="font-size:20px">POST 请求</span>
 
-<hr>
 
 第二个最常用的请求是 POST 请求，用于向服务器发送应该保存的数据。每个 POST 请求都应该在请求体中携带提交的数据，而 GET 请求则不然。==？== POST 请求的请求体可以包含非常多的数据，而且数据可以是任意格式。
 
@@ -223,13 +238,19 @@ function addURLParam(url, name, value) {
 
 
 
-# JSON 字符串与 JSON 对象的相互转化
++ JSON 字符串与 JSON 对象的相互转化
 
-`JSON.parse(str)`将字符串转对象
+    `JSON.parse(str)`将字符串转对象
+
+    `JSON.stringigy(obj)`将对象转字符串
 
 
 
-`JSON.stringigy(obj)`将对象转字符串
+# 实现
+
++ <span style="font-size:22px">封装方法：</span>
+
+    
 
 
 
@@ -238,4 +259,14 @@ function addURLParam(url, name, value) {
 [Ajax基础](https://juejin.cn/post/6844904017693261832)
 
 JavaScript高级程序设计（第四版）第24章
+
++ 使用：
+
+    [AJAX + ES6 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/kgltn0#f9979775)
+
++ 实现：
+
+    [封装ajax请求的两种方式 - 掘金](https://juejin.cn/post/6844903901074833416)
+
+    [原生 ajax 封装 - SegmentFault 思否](https://segmentfault.com/a/1190000037701554)
 

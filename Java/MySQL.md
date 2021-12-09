@@ -4,25 +4,35 @@
 
 + 配置服务器类型：
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093034.png" alt="image-20211130093034570" style="zoom:50%;" />
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093034.png" alt="image-20211130093034570" style="zoom: 33%;" />
 
 + 配置网站并发连接数：
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093213.png" alt="image-20211130093213718" style="zoom:50%;" />
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093213.png" alt="image-20211130093213718" style="zoom: 33%;" />
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002403.png" alt="image-20211130002403656" style="zoom:50%;" />
+![image-20211207112735634](https://gitee.com/ethereal-bang/images/raw/master/20211207112735.png)
+
++ 默认字符集：
+
+    ![image-20211207112638175](https://gitee.com/ethereal-bang/images/raw/master/20211207112645.png)
 
 设置密码
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002524.png" alt="image-20211130002524903" style="zoom:50%;" />
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002524.png" alt="image-20211130002524903" style="zoom: 67%;" />
 
 
 
 进入：
 
-![image-20211130002747659](https://gitee.com/ethereal-bang/images/raw/master/20211130002747.png)
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002747.png" alt="image-20211130002747659" style="zoom:33%;" />
 
-![image-20211130002732780](https://gitee.com/ethereal-bang/images/raw/master/20211130002732.png)
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002732.png" alt="image-20211130002732780" style="zoom:33%;" />
+
++ 配置：
+
+    `my.ini`是 MySQL 数据库中使用的配置文件，MySQL 服务器启动时会读取这个配置文件，我们可以通过修改这个文件，达到更新配置的目的。
+
+    ![image-20211207001249615](https://gitee.com/ethereal-bang/images/raw/master/20211207001256.png)
 
 ## SQLyog
 
@@ -538,11 +548,66 @@ DROP VIEW `View_Choosebb`;
 
 + <span style="font-size:22px">正则表达式：</span>
 
+
+
+# 关于中文乱码
+
++ <span style="font-size:20px">查看字符集设置情况：</span>
+
+    ```sql
+    > SHOW VARIABLES LIKE '%char%';
+    +--------------------------+-------------+
+    | Variable_name            | Value       |
+    +--------------------------+-------------+
+    | character_set_client     | utf8        |
+    | character_set_connection | utf8        |
+    | character_set_database   | utf8        |
+    | character_set_filesystem | binary      |
+    | character_set_results    | utf8        |
+    | character_set_server     | latin1      |
+    | character_set_system     | utf8				 |
+    | character_sets_dir       |             |
+    +--------------------------+-------------+
+    ```
+
++ <span style="font-size:20px">MySQL 中涉及的几个字符集：</span>
+
+    + character-set-server / default-character-set ——服务器字符集，默认情况采用
+    + character-set-database ——数据库字符集
+    + character-set-table ——数据库表字符集
+
+    > 优先级依次增加，所以一般情况只需设置 character-set-server，而在创建数据库和表时不特别指定字符集，这样统一采用character-set-server字符集。
+
+    <hr>
+
+    + character-set-client ——客户端的字符集，客户端向服务器发送请求时，请求以该字符集进行编码
+    + character-set-results ——结果字符集，服务器向客户端返回结果时，结果以该字符集进行编码
+
+    > 客户端，如果没有定义character-set-results，则采用character-set-client字符集作为默认的字符集。所以只需要设置character-set-client字符集。
+
++ 输入中文：将默认字符集均设置为 utf8。
+
+    ![image-20211207131306304](https://gitee.com/ethereal-bang/images/raw/master/20211207131313.png)
+
++ 命令行查询时中文显示错误：==?==
+
+    ![image-20211207131352620](https://gitee.com/ethereal-bang/images/raw/master/20211207131352.png)
+
+    设置`set character_set_results=gbk`后显示正常：
+
+    ![image-20211207131433721](https://gitee.com/ethereal-bang/images/raw/master/20211207131433.png)
+
 # 参考
 
 + ：
 
     [MySQL基础.pdf - 黑马程序员]()
+
++ 配置：
+
+    [MySQL配置文件（my.ini）详解 - C语言中文网](http://c.biancheng.net/view/7571.html)
+
+    [再见乱码：5分钟读懂MySQL字符集设置 - 程序猿小卡 - 博客园](https://www.cnblogs.com/chyingp/p/mysql-character-set-collation.html)
 
 + DDL：
 
@@ -567,3 +632,8 @@ DROP VIEW `View_Choosebb`;
 + 用通配符进行过滤：
 
     [sql语句like的用法 有些正则表达式可以通过like实现-CSDN](https://blog.csdn.net/shadowyelling/article/details/7913126)
+
++ 关于中文乱码：
+
+    [MySQL字符集 GBK/GB2312/UTF8区别 解决 MYSQK中文乱码问题以及error 1406:data too long for column 'name' at row 1](https://blog.csdn.net/zsm653983/article/details/7970179)
+

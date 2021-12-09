@@ -2,32 +2,25 @@
 
 ## 概述
 
-**异步编程的解决方案**，语法上来说是<span style="color:red">构造函数</span>，功能上来说：Promise 对象用来封装一个异步操作并可以获取其结果
+**异步编程的解决方案**，功能上来说：Promise 对象用来封装一个异步操作并可以获取其结果——一个异步操作的最终完成或失败和其结果值 的表示
 
 ![image-20211016221415173](https://gitee.com/ethereal-bang/images/raw/master/20211016221422.png)
-
-`Promise`是异步编程的一种解决方案，ES6 原生提供了`Promise`对象。
-
-Promise 对象用于一个异步操作的最终完成或失败和其结果值 的表示。简单来说，就是用于处理异步操作，异步处理成功就执行成功的操作；失败就捕获错误或者停止后续操作。
 
 Promise 就是把一层一层向内嵌套调用的方法，给拉成一串连续调用的方法。每个嵌套调用的方法都向调用者返回 this，也就是返回自身；然后带着上一次调用的结果进入下一个嵌套调用的环节
 
 
 
-`Promise`对象有以下俩个**特点**：
-
-1. `Promise`对象的<span style="color:red">状态不受外界影响</span>。`Promise`对象代表一个异步操作，有三种状态：`pending`（*进行中*）、`fulfilled`（*已成功*）和`rejected`（*已失败*）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是`Promise`名字的由来，表示其他手段无法改变。
-
-2. <span style="color:red">状态一旦改变，就不会再变</span>，任何时候都可以得到这个结果。`Promise`对象的状态改变只有俩种可能：从**`pending`**变为**`fulfilled`**和从**`pending`**变为**`rejected`**。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（*已定型*）。  
-    如果改变已经发生了，再对`Promise`对象添加回调函数，也会立即得到这个结果。这与事件（*Event*）不同，事件的特点是，如果你错过了它，再去监听是得不到结果的。
++ `Promise`对象**特点**：
+    1. Promise`对象的<span style="color:green">状态不受外界影响</span>。`Promise`对象代表一个异步操作，有三种状态：pending、fulfilled 和 rejected。只有异步操作的结果，可以决定当前是哪一种状态
+    2. <span style="color:green">状态一旦改变，就不会再变</span>。`Promise`对象的状态改变只有俩种可能：从**`pending`**变为**`fulfilled`**和从**`pending`**变为**`rejected`**。只要这两种情况发生，会一直保持这个结果，这时就称为 resolved（*已定型*）。  
+    3. <span style="color:green">如改变已经发生，再对`Promise`对象添加回调函数，也会立即得到该状态</span>。这与事件（*Event*）不同，事件的特点是，如果你错过了它，再去监听是得不到结果的。
 
 
++ `Promise`也有一些**缺点**：
+    1. <span style="color:red">无法取消`Promise`</span>，一旦新建它就会立即执行，无法中途取消。
+    2. 如不设置回调函数，<span style="color:red">`Promise`内部抛出的错误，不会被`try/catch`捕获</span>。代码一旦开始以异步模式执行，则唯一与之交互的方式就是`Promise`的方法。
 
-`Promise`也有一些**缺点**。首先，无法取消`Promise`，一旦新建它就会立即执行，无法中途取消。其次，如果不设置<span style="color:red">回调函数</span>，`Promise`内部抛出的错误，不会被`try/catch`捕获。代码一旦开始以异步模式执行，则唯一与之交互的方式就是`Promise`的方法。
-
-
-
-如果某些事件不断地反复发生，使用 [Stream](https://nodejs.org/api/stream.html) 模式是比部署`Promise`更好的选择。
++ 对于某些不断发生的事件，使用 [Stream](https://nodejs.org/api/stream.html) 模式是比部署`Promise`更好的选择。
 
 
 
@@ -61,17 +54,15 @@ p.then(
 )
 ```
 
-以上代码任意两次执行结果：`成功的回调 成功数据 1617361662422`；`失败的回调 失败数据 1617361704103`
-
 
 
 `new Promise`的时候里面内容会立即执行。因而为了能实现调用时执行，Promise 一般都是作为函数的返回值	==？==
 
 
 
-## Promise.resolve()
+## Promise 方法
 
-Promise 并非要一开始就处于 pending 状态，再通过执行器函数转换状态。
+### Promise.resolve()
 
 通过调用`Promise.resolve()`或`Promise.reject()`可以直接实例化一个 resolved 或 rejected 的 Promise
 
@@ -83,7 +74,7 @@ let p1 = new Promise( (resolve, reject) => resolve() );
 let p2 = Promise.resolve();
 ```
 
-这个 resolved 的 Promise 对应着传给`Promise.resolve()`的第一个参数。使用这个方法，能将现有任何值转为 Promise 对象
+这个 resolved 的 Promise 对应着传给`Promise.resolve()`的第一个参数。使用这个方法，能<span style="color:red">将现有任何值转为 Promise 对象</span>
 
 参数分为四种情况：
 
@@ -91,7 +82,7 @@ let p2 = Promise.resolve();
 
     `Promise.resolve()`将不做任何修改、原封不动地返回这个实例。
 
-    因此`Promise.resolve()`是一个**幂等方法**。
+    因此`Promise.resolve()`是一个<span style="color:red">幂等方法</span>。
 
     > 幂等方法
     >
@@ -123,11 +114,11 @@ let p2 = Promise.resolve();
 
 
 
-## Promise.reject()
+### Promise.reject()	==？==
 
-**实例化**一个 rejected 的 Promise并**抛出一个异步错误**。类似于`throw()`，因为它们都代表一种程序状态，即需要中断或者特殊处理。    
+实例化一个 rejected 的 Promise并**抛出一个异步错误**。类似于`throw()`，因为它们都代表一种程序状态，即需要中断或者特殊处理。    
 
-这个错误不能被 try/catch 捕获，而只能通过拒绝处理程序(*reject handler*)捕获。对应的错误对象会成为拒绝的理由
+这个错误不能被 try/catch 捕获，而只能通过拒绝处理程序(*reject handler*)捕获。对应的错误对象会成为拒绝的理由	==？==
 
 ``` js
 let p = Promise.reject(3);
@@ -172,6 +163,24 @@ new Promise( (resolve, reject) => {
 
 
 
+## Promise.all()
+
+`Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+``` js
+const p = Promise.all([p1, p2, p3]);
+```
+
+参数：
+
+上面代码中，`Promise.all()`接受一个**数组作为参数**，`p1`、`p2`、`p3`都是 Promise 实例。如果不是，就会调用`Promise.resolve()`先将参数转为 Promise 实例。如果参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。
+
+
+
+`p`的状态由`p1`、`p2`、`p3`决定，分成两种情况。
+
+
+
 ## Promise 的实例方法
 
 Promise 实例的方法是**连接外部同步代码与内部异步代码**之间的桥梁。  
@@ -191,8 +200,6 @@ Promise 实例的方法是**连接外部同步代码与内部异步代码**之�
 >
 >  在暴露的异步结构中，任何对象都有一个`then()`方法。这个方法实现 Thenable 接口
 
-
-
 + **作用**：
 
     `Promise.prototype.then()`是为 Promise 实例**添加处理程序**（*Promise 状态改变时的回调函数*）的主要方法
@@ -209,21 +216,17 @@ Promise 实例的方法是**连接外部同步代码与内部异步代码**之�
     >
     > 目前，null 和 undefined 基本是同义的，只有一些细微的差别。
     >
-    > + null 表示**没有对象**，即该处不应该有值
-    >
-    >     典型用法：
+    > + null 典型用法：
     >
     >     1. 作为函数的参数，表示该函数的参数不是对象。
-    >     2. 作为对象原型链的终点。
-    >
-    > + undefined 表示**缺少值**，即此处应该有值，但还没定义
-    >
-    >     典型用法：
+    >    2. 作为对象原型链的终点。
+    >     
+    > + undefined 典型用法：
     >
     >     1. 变量被声明还没赋值
-    >     2. 调用函数时，应该提供的参数没有提供
+    >    2. 调用函数时，应该提供的参数没有提供
     >     3. 对象没有赋值的属性
-    >     4. 函数没有返回值时，默认返回 `undefined`
+    >    4. 函数没有返回值时，默认返回 `undefined`
 
 
 
@@ -258,8 +261,6 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
 
 
 
-
-
 ### Promise.prototype.catch()
 
 `Promise.prototype.catch()`方法用于给 Promise 添加**拒绝处理程序**。
@@ -280,7 +281,7 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
 
 
 
-+ `Promise.prototype.finally()`**大多情况表现为父 Promise 的传递**。对于 resolved 和 rejected 状态都是如此。
++ `Promise.prototype.finally()`**大多情况表现为父 Promise 的传递**。对于 resolved 和 rejected 状态都是如此。==？==
 
 ``` js
 let p1 = Promise.resolve("foo");
@@ -297,7 +298,7 @@ setTimeout(console.log, 0, p4);		// Promise {<fulfilled>: "foo"}
 
 
 
-+ 如果**返回**（*通过方法向下传递的值*）的是一个 pending 状态的 Promise，或者 onFinally 处理程序**抛出了错误**（*显示抛出或返回了一个 rejected Promise*），则会返回相应的 Promise（*pending 或 rejected*）。
++ 如果**返回**（*通过方法向下传递的值*）的是一个 pending 状态的 Promise，或者 onFinally 处理程序**抛出了错误**（*显示抛出或返回了一个 rejected Promise*），则会返回相应的 Promise（*pending 或 rejected*）。==？==
 
     ``` js
     let p1 = Promise.resolve('foo');
@@ -375,24 +376,6 @@ delayedResolve('p1 exector')
 > 工厂函数是一个能返回对象的函数，它既不是类也不是构造函数。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数
 >
 > 原文链接：[[译] ES6+ 中的 JavaScript 工厂函数（第八部分）](https://juejin.cn/post/6844903497842819085)
-
-
-
-## Promise.all()
-
-`Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
-
-``` js
-const p = Promise.all([p1, p2, p3]);
-```
-
-参数：
-
-上面代码中，`Promise.all()`接受一个**数组作为参数**，`p1`、`p2`、`p3`都是 Promise 实例。如果不是，就会调用`Promise.resolve()`先将参数转为 Promise 实例。如果参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。
-
-
-
-`p`的状态由`p1`、`p2`、`p3`决定，分成两种情况。
 
 
 
@@ -490,11 +473,60 @@ const p = Promise.all([p1, p2, p3]);
 ### 支持异步代码
 
 + **问题：**初版代码，`Promise`内部有异步代码的话，等待其执行完后才会改变状态，此时`then`内状态是 pending 因此不会触发`then`的回调(*`onFulfilled`/`onRejected`*)。
-+ **解决思路：**新增成功态、失败态任务队列，`then`时状态 pending 则一次调用队列中函数（调用后状态则会
 
++ **解决思路：**新增成功态任务队列，`then`时状态 pending 则将`then`参数`onFulfilled`放入队列<span style="color:red">等会执行</span>——`resolve`执行中依次执行成功态函数且改变状态
 
++ **新增代码：**（以`resolve`为例）
 
+    ```js
+    this.onFulfilledCallbackFns = [];	// 存放onFulfilled函数
+    const resolve = (value) => {
+    	// ...
+    	// 依次执行队列中onFulfilled函数：
+    	this.onFulfilledCallbackFns.forEach(fn => fn(this.value));	
+    };
+    
+    then(onFulfilled, onReject) {	// 接收成功态函数做参数
+      setTimeout(() => {
+        if (this.status === 'pending') {
+          this.onFulfilledCallbackFns.push(onFulfilled);
+        }
+      }, 0);
+    }
 
++ **测试：**
+
+    ```js
+    const p = new Promise((resolve, reject) => {
+        console.log('同步代码')
+        setTimeout(() => {
+            resolve(1);
+        }, 1000)
+    });
+    p.then((value) => {
+        console.log("then1:", value);
+    }, (err) => {
+        console.log(err);
+    });
+    p.then((value) => {
+        console.log("then2:", value);
+    })
+    ```
+
+    控制台：
+
+    1. "executor执行"；"同步代码"；"then时pending状态"；"then时pending状态"
+    2. （一秒后）"resolve函数执行"；"then1: 1"；"then2: 1"
+
+### 实现链式调用
+
+Promise 的一大优势是支持链式调用，具体来说是`then`方法的具体实现实际上是返回了一个 Promise
+
++ **注意点：**
+    1. 保存之前 Promise 实例引用——this
+    2. 根据`then`回调函数执行的返回值
+        + 如果是 Promise 实例——返回的下一个 Promise 实例会等待这个 Promise 状态发生变化
+        + 如果不是 Promise 实例——根据目前情况直接执行`resolve`或`reject` ==？==
 
 
 

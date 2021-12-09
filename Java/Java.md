@@ -91,6 +91,12 @@ public class Hello {
 
 
 
++ **按值传递**：==?==
+
+    Java 是按值传递的，只不过对于对象参数，值的内容是对象的引用
+
+    
+
 ## 输入输出
 
 + <span style="font-size:20px">输出：</span>
@@ -161,7 +167,13 @@ public class Hello {
 
     数组一旦初始化完成，其长度就确定了
 
++ **打印数组：**
 
+    ```java
+    Arrays.toString(arr);	// j
+    ```
+
+    
 
 + <span style="font-size:22px">一维数组：</span>
 
@@ -641,6 +653,8 @@ public class Soccer {
     [使用LIst - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1265112034799552)
 
     [Java ArrayList | 菜鸟教程](https://www.runoob.com/java/java-arraylist.html)
+
+    [什么是值传递，什么是引用传递．为什么说Ｊａｖａ中只有值传递 - CSDN](https://blog.csdn.net/w372426096/article/details/82216742)
 
 + 类与对象：
 
