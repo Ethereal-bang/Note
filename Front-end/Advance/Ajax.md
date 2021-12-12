@@ -88,32 +88,31 @@ Ajax 的工作原理相当于在用户和服务器之间加了一个中间层（
 
 ![img](https://www.yuque.com/api/filetransfer/images?url=https%3A%2F%2Fcansiny.oss-cn-shanghai.aliyuncs.com%2Fimages%2F1613646249859.png&sign=5d0c6d54697f0ae4bf57aa9a6182894203d5ace0edb4e02b760e48ad4398a2c5&x-oss-process=image%2Fresize%2Cw_1280%2Climit_0)
 
-```js
-// 实例化XMLHttpRequest对象：
-const xhr = new XMLHttpRequest()
-// 初始化一个get请求：
-xhr.open("get", "http://cloud-music.pl-fe.cn/personalized", true)
-// 接收返回值：
-xhr.onreadystatechange = () => {
-  if (xhr.readyState === 4) {
-    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      const res = JSON.parse(xhr.responseText)
-      // do something
-    } else {
-      console.log("请求失败")
++ 基本使用：
+
+    ```js
+    // 实例化XMLHttpRequest对象：
+    const xhr = new XMLHttpRequest()
+    // 初始化一个get请求：
+    xhr.open("get", "http://cloud-music.pl-fe.cn/personalized", true)
+    // 接收返回值：
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+          const res = JSON.parse(xhr.responseText)
+          // do something
+        } else {
+          console.log("请求失败")
+        }
+      }
     }
-  }
-}
-//发送请求
-xhr.send()
-```
+    //发送请求
+    xhr.send()
+    ```
 
 
 
-<span style="font-size:20px">使用 XHR</span>
-
-<hr>
-
+<span style="font-size:22px">xhr.open():</span>
 
 + 使用 XHR 对象首先要调用 **`open()`方法初始化请求**，`open()`方法接收 3 个参数：
 
@@ -137,7 +136,7 @@ xhr.send()
 
     
 
-+ 要发送定义好的请求，必须像下面这样调用**`send()`**方法
++ <span style="font-size:22px">`send`</span>
 
     ``` js
     xhr.open("get", "example.txt", false);
@@ -148,9 +147,13 @@ xhr.send()
 
     调用`send()`之后，请求就会发送到服务器
 
-    因为这个请求是同步的，所以 JS 代码会等待服务器响应之后再继续执行。收到响应后，XHR 对象的以下**属性**会被填充上数据：
+    
 
-     1. `responseText`：字符串形式的响应数据
++ <span style="font-size:22px">响应：</span>
+
+    收到响应后，XHR 对象的以下**属性**会被填充上数据：
+
+     1. `responseText`：字符串形式的响应数据	
 
      2. `responseXML`：XML 形式的响应数据。（*如响应的内容类型是`text/xml` 或 `application/xml`，那就是包含响应数据的 XML DOM文档*）
 
@@ -165,38 +168,20 @@ xhr.send()
 
 
 
-虽然可以像前面的例子一样发送同步请求，但多数情况下最好还是使用异步请求，这样可以不堵塞 JS 代码继续执行
++ <span style="font-size:22px">readyState:</span>
 
+    XHR 对象有一个 **`readyState`**属性，表示当处在请求/响应过程的哪一个阶段
 
+    每次 `readyState`从一个值变为另一个值，都会触发**`readystatechange`**事件，可以借机检查`readyState`的值。一般来说我们只关心`readyState`的值是 4（*已经收到所有响应，可以使用了*），表示数据已就绪。
 
-+ XHR 对象有一个 **`readyState`**属性，表示当处在请求/响应过程的哪一个阶段
+    
 
-    每次 `readyState`从一个值变为另一个值，都会触发`readystatechange`事件，可以借机检查`readyState`的值。一般来说我们只关心`readyState`的值是 4（*已经收到所有响应，可以使用了*），表示数据已就绪。
++ <span style="font-size:20px">HTTP头部</span>
 
-    为保证跨浏览器兼容，`onReadystatechange`事件处理程序应该在调用`open()`前赋值，见下例。
+    规范把 HTTP 请求分为三个部分：**状态行、请求头、消息主体**。
 
-    ```js
-    let xhr = new XMLHttpRequest();
-    xhr.onReadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                alert(xhr.responceText);	// ?
-            } else {
-                alert(`Request was unsuccessful: ${xhr.status}`);
-            }
-        }
-    };
-    xhr.open("get", "example.txt", true);	// 跨域访问需配置？
-    xhr.send(null);
-    ```
-
-    为保证跨浏览器兼容，onReadystatechange 事件处理程序应该在调用`open()`之前赋值。以上代码使用 DOM Level 0 风格为 XHR 对象添加事件处理程序。与其他事件处理程序不同，onReadystatechange 事件处理程序不会收到 `event`对象，在该事件处理程序中必须使用 XHR 对象来确定接下来该做什么。 	==？==
-
-
-
-<span style="font-size:20px">HTTP头部</span>
-
-==。。。？==
+    + Content-Type：服务端通常是根据 headers 中的 Content-Type 字段来获知请求中的消息主体是用何种方式编码
+    + Authorization
 
 
 
@@ -222,7 +207,7 @@ function addURLParam(url, name, value) {
 <span style="font-size:20px">POST 请求</span>
 
 
-第二个最常用的请求是 POST 请求，用于向服务器发送应该保存的数据。每个 POST 请求都应该在请求体中携带提交的数据，而 GET 请求则不然。==？== POST 请求的请求体可以包含非常多的数据，而且数据可以是任意格式。
+第二个最常用的请求是 POST 请求，用于向服务器发送应该保存的数据。每个 POST 请求都应该在请求体中携带提交的数据，而 GET 请求则不然。 POST 请求的请求体可以包含非常多的数据，而且数据可以是任意格式。
 
 
 
@@ -238,17 +223,17 @@ function addURLParam(url, name, value) {
 
 
 
-+ JSON 字符串与 JSON 对象的相互转化
++ **JSON 字符串与 JS 对象的相互转化：**
 
-    `JSON.parse(str)`将字符串转对象
+    `JSON.parse(str)`解析JSON字符串，构造由字符串描述的JavaScript值或对象
 
-    `JSON.stringigy(obj)`将对象转字符串
+    `JSON.stringify(obj)`将一个 JavaScript 对象或值转换为 JSON 字符串
 
 
 
 # 实现
 
-+ <span style="font-size:22px">封装方法：</span>
++ [封装方法](https://github.com/Ethereal-bang/CSA-FrontEnd/tree/main/AJAX%2BES6)
 
     
 
@@ -263,6 +248,8 @@ JavaScript高级程序设计（第四版）第24章
 + 使用：
 
     [AJAX + ES6 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/kgltn0#f9979775)
+
+    [Ajax 请求头中常见content-type](https://www.jianshu.com/p/10cdbb35ac87)
 
 + 实现：
 
