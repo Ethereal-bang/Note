@@ -56,7 +56,26 @@ p.then(
 
 
 
-`new Promise`的时候里面内容会立即执行。因而为了能实现调用时执行，Promise 一般都是作为函数的返回值	==？==
+`new Promise`的时候里面内容会立即执行。因而为了能实现调用时执行，Promise 一般都是作为函数的返回值，如：
+
+```js
+const ajax = (options) => {
+  return new Promise((resolve, reject) => {
+```
+
+
+
+### executor
+
+Promise 构造函数接收一个**函数参数 executor**，executor 接收**`resolve`、`rejecte`**两个函数后立即执行
+
++ **resolve 作用:**
+
+    1. **改变状态**——将当前 Promise 状态由 pending 变为 resolved
+
+    2. **遍历 onResolved 回调**——遍历 之前通过 then 给这个 Promise 注册的所有回调，并放入微任务队列
+
+        注意：不是由 then 来触发保存回调，事实是由 Promise 的 resolve 触发，then 只负责注册回调
 
 
 
@@ -204,8 +223,6 @@ Promise 实例的方法是**连接外部同步代码与内部异步代码**之�
 
     `Promise.prototype.then()`是为 Promise 实例**添加处理程序**（*Promise 状态改变时的回调函数*）的主要方法
 
-
-
 + **参数**：
 
     `Promise.prototype.then()`最多接收两个**函数类型**的参数：onResolve 处理程序、onRejected 处理程序。这两个参数都是可选的。会在 Promise 分别进入 resolved、rejected 状态时执行
@@ -228,21 +245,9 @@ Promise 实例的方法是**连接外部同步代码与内部异步代码**之�
     >     3. 对象没有赋值的属性
     >    4. 函数没有返回值时，默认返回 `undefined`
 
+#### 返回一个 Promise
 
-
-`then()`返回一个新的`Promise`实例，注意不是原来那个`Promise`实例。因此可以采用链式写法，即`then()`后面再调用另一个`then()`
-
-``` javascript
-getJSON("/posts.json").then(function(json) {
-    return json.post;
-}).then(function(post) {
-    // ...
-});
-```
-
-上面的代码使用`then`方法，依次指定了俩个回调函数。第一个回调函数完成以后，会将 return 结果作为参数传入第二个回调函数。
-
-
+`then()`返回一个<span style="color:red">新的`Promise`实例</span>，注意不是原来那个`Promise`实例。因此可以采用链式写法，即`then()`后面再调用另一个`then()`
 
 例子：
 
@@ -250,7 +255,7 @@ getJSON("/posts.json").then(function(json) {
 let p = new Promise(resolve => {
     resolve("1")
 })
-let then = p.then((data) => {
+let then = p.then(data => {
     console.log(p)     // Promise {<fulfilled>: '1'}
     console.log(then)    // Promise {<pending>}
 })
@@ -258,6 +263,58 @@ console.log(p);   // Promise {<fulfilled>: '1'}
 console.log(then)   // Promise {<pending>}
 setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
 ```
+
++ **then 返回的 Promise 状态**
+
+    + **Resolved**：
+        + **then 中回调函数** 返回某值——则回调函数参数为该返回值
+        + 无返回值——回调函数参数值 undefined
+        + resolved promise——回调函数参数值为该 Promise onResolved 回调函数参数值 
+    + **Rejected**：
+        + rejected promise——回调函数参数值为该 Promise onRejected 回调函数参数值
+
+    + **Pending**：
+        + pending promise——终态与该 Promise 终态相同
+    
+    实例：
+    
+    ```js
+    // 返回pending promise的情况——then也返回pending promise
+    new Promise((resolve, reject) => {
+      resolve(1)
+    }).then((data) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, 1000, data);
+      })
+    })
+    // 返回值——then返回 Promise { <该返回值> }
+    let p2 = new Promise((resolve, reject) => {
+      resolve(2)
+    }).then(data => {
+      return 3;
+    })
+    setTimeout(console.log, 0, p)    // Promise { 3 } 参数为该返回值
+    // 返回resolved promise——返回 Promise { <> }
+    let p3 = new Promise((resolve, reject) => {
+      resolve(3);
+    }).then(data => {
+      return Promise.resolve(4);
+    })
+    setTimeout(console.log, 1000, p3)   // Promise { 4 } 参数为onResolved参数
+    // 无返回值——返回 Promise { undefined }
+    let p4 = new Promise((resolve, reject) => {
+      resolve(4);
+    }).then(data => {
+      console.log("无返回值");
+    }).then(data => {console.log(data)})
+    setTimeout(console.log, 1000, p4);  // Promise { undefined }
+    ```
+    
+    > **`Prmise { 1 }`** 
+    >
+    > 首先要了解打印 Promise 对象一般是这样的形式：`Promise { 1 }`、`Promise { undefined }`、`Promise { pending }`，当括号内有值而不是`pending`时，该值即是执行 onResolved 或 onRejected 回调函数收到的参数值
+    
+    
 
 
 
@@ -283,18 +340,20 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
 
 + `Promise.prototype.finally()`**大多情况表现为父 Promise 的传递**。对于 resolved 和 rejected 状态都是如此。==？==
 
-``` js
-let p1 = Promise.resolve("foo");
+    ```js
+    let p1 = Promise.resolve("foo");
+    
+    // 这里都会原样后传
+    let p2 = p1.finally();
+    let p3 = p1.finally( () => Promise.resolve() );
+    let p4 = p1.finally( () => 'bar');
+    
+    setTimeout(console.log, 0, p2);		// Promise {<fulfilled>: "foo"}
+    setTimeout(console.log, 0, p3);		// Promise {<fulfilled>: "foo"}
+    setTimeout(console.log, 0, p4);		// Promise {<fulfilled>: "foo"}
+    ```
 
-// 这里都会原样后传
-let p2 = p1.finally();
-let p3 = p1.finally( () => Promise.resolve() );
-let p4 = p1.finally( () => 'bar');
-
-setTimeout(console.log, 0, p2);		// Promise {<fulfilled>: "foo"}
-setTimeout(console.log, 0, p3);		// Promise {<fulfilled>: "foo"}
-setTimeout(console.log, 0, p4);		// Promise {<fulfilled>: "foo"}
-```
+    
 
 
 
@@ -310,19 +369,13 @@ setTimeout(console.log, 0, p4);		// Promise {<fulfilled>: "foo"}
 
 
 
-## Promise 连锁与 Promise 合成
+## Promise 链式调用
 
-多个 Promise 组合在一起可以构成强大的代码逻辑。可以通过两种方式实现：Promise 连锁与 Promise 合成。前者是一个 Promise 接一个 Promise 地拼接，后者将多个 Promise 组合成一个 Promise。
-
-
-
-<span style="font-size:20px">Promise Promise 连锁</span>
+### 写法
 
 `then`式链式写法的本质其实是一直**往下传递返回一个新的Promise**，也就是说**then在下一步接收的是上一步返回的Promise**
 
 把 Promise 逐个串联起来是一种非常有用的编程模式。因为每个 Promise 实例的方法都会返回一个新的 Promise 对象，而这个新的 Promise 对象又有自己的实例方法。这样连缀方法调用就可以构成“Promise 连锁”。
-
-
 
 ``` js
 let p1 = new Promise( (resolve, reject) => {
@@ -337,47 +390,123 @@ p1.then( () => new Promise( (resolve, reject) => {
   .then( () => new Promise( (resolve, reject) => {
     console.log("p3 exector");
     setTimeout(resolve, 1000);
-} ) )
-  .then( () => new Promise( (resolve, reject) => {
-    console.log("p4 exector");
-    setTimeout(resolve, 1000);
 } ) );	// 注意最后才有 ; 
-
 /* 
 	p1 exector // 1秒后
  	p2 exector	// 2秒后
-	。。。
 	。。。
 */
 ```
 
 执行异步任务，让每个执行器都返回一个 Promise 实例。
 
-把生成 Promise 的代码提取到一个**工厂函数**中，可以写成这样。
-
-``` js
-function delayedResolve(str) {	/* ? */
-    return new Promise( (resolve, reject) => {
-        console.log(str);
-        setTimeout(resolve, 1000);
-    });
-}
-
-delayedResolve('p1 exector')
-	.then( () => delayedResolve('p2 exector') )
-	.then( () => delayedResolve('p3 exector') )
-	.then( () => delayedResolve('p4 exector') )
-
-// 执行结果同上例
-```
-
-> **工厂函数**
->
-> 工厂函数是一个能返回对象的函数，它既不是类也不是构造函数。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数
->
-> 原文链接：[[译] ES6+ 中的 JavaScript 工厂函数（第八部分）](https://juejin.cn/post/6844903497842819085)
 
 
+### 链式调用执行顺序
+
++ **`then`执行时回调函数的处理由 Promise 状态决定：**
+
+    `then`方法执行时，如果前面的 Promise 已是 **resolved** 状态——直接将回调放入<span style="color:red">微任务队列</span>中；前面前面 Promise 为 **pending** 状态——回调<span style="color:red">存储</span>在promise内部，promise被resolved后才将回调放入微任务队列
+
+    ```js
+    new Promise((resolve, reject) => {
+      resolve('1');
+      console.log("promise1")
+    }).then((data) => {
+      console.log("then1", data)
+    })
+    console.log("外部1")// 执行顺序: promise 外部 then1
+    
+    new Promise((resolve, reject) => {
+      console.log("promise2")
+      setTimeout(() => resolve(2), 1000);
+    }).then(data => {
+      console.log("then2", data);
+    })
+    console.log("外部2")   // 顺序: promise 外部 then2(1s后)
+    ```
+
+
+
++ **Promise 被 resolve 时回调执行顺序：**
+
+    当一个 promise 被 resolve 时，会<span style="color:red">遍历之前通过 then 给这个 promise 注册的所有回调，将它们依次放入微任务队列</span>中
+
+    ```js
+    let p = new Promise((resolve, reject) => {
+      setTimeout(resolve, 1000, 1);
+    })
+    p.then(data => {
+      console.log("then1", data);
+    })
+    p.then(data => {
+      console.log("then2", data);
+    })
+    console.log("外部")   // 顺序: 外部 (then1 1  then2 1)1s后
+    ```
+
+    一秒后`p`才会被 resolve，在 resolve 前 then 给它注册了 3 个回调，此时这 3 个回调不会被放入微任务队列中执行，而是等到`p` resolve 后。
+
+
+
++ **嵌套 then 的执行：**
+
+  ```js
+  new Promise((resolve, reject) => {
+      console.log("外部promise");
+      resolve();
+  })
+      .then(() => {
+          console.log("外部第一个then");
+          new Promise((resolve, reject) => {
+              resolve();
+          })
+              .then(() => {
+                  console.log("内部第一个then");
+              })
+              .then(() => {
+                  console.log("内部第二个then");
+              });
+      })
+      .then(() => {
+          console.log("外部第二个then");
+      });
+  // 外部promise
+  // 外部第一个then
+  // 内部第一个then
+  // 外部第二个then
+  // 内部第二个then
+  ```
+  
+  这样的打印顺序说明，外层的`then1`要等待内层 then 返回的 Promise 被 resolve，内层`then2`要 resolve 首先等`then1`。
+
+
+
++ 把生成 Promise 的代码提取到一个**工厂函数**中，可以写成这样。
+
+    ```js
+    function delayedResolve(str) {	/* ? */
+        return new Promise( (resolve, reject) => {
+            console.log(str);
+            setTimeout(resolve, 1000);
+        });
+    }
+    
+    delayedResolve('p1 exector')
+    	.then( () => delayedResolve('p2 exector') )
+    	.then( () => delayedResolve('p3 exector') )
+    	.then( () => delayedResolve('p4 exector') )
+    
+    // 执行结果同上例
+    ```
+
+    > **工厂函数**
+    >
+    > 工厂函数是一个能返回对象的函数，它既不是类也不是构造函数。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数
+    >
+    > 原文链接：[[译] ES6+ 中的 JavaScript 工厂函数（第八部分）](https://juejin.cn/post/6844903497842819085)
+
+    
 
 # Promise 实现
 
@@ -526,11 +655,23 @@ Promise 的一大优势是支持链式调用，具体来说是`then`方法的具
     1. 保存之前 Promise 实例引用——this
     2. 根据`then`回调函数执行的返回值
         + 如果是 Promise 实例——返回的下一个 Promise 实例会等待这个 Promise 状态发生变化
-        + 如果不是 Promise 实例——根据目前情况直接执行`resolve`或`reject` ==？==
+        + 如果不是 Promise 实例——根据目前情况直接执行`resolve`或`reject` (见前文`Promise.prototype.then()`返回值)
 
 
 
 # 参考：
+
++ 总：
+
+    [Promise 对象 · 语雀](https://www.yuque.com/ostwind/es6/docs-promise#b267cd07)
+
++ Promise.prototype.then():
+
+    [Promise.prototype.then() - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)
+
++ Promise 链式调用：
+
+    [Promise链式调用顺序引发的思考 | 明日之事 事事难求](https://libin1991.github.io/2019/10/20/Promise%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83/)
 
 + Promise 实现：
 
