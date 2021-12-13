@@ -8,11 +8,11 @@
 
 ### JS-More
 #### ECMAScript
-+ [ECMAScript](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/ECMAScript.md)
++ [ECMAScript.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/ECMAScript.md)
 
 + [Class.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Class.md)
 
-+ [Promise.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Promise.md)
++ [Promise](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Promise)
 
 #### NodeJS
 + [NodeJs.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/NodeJS/NodeJs.md)
@@ -39,7 +39,7 @@
 + [Next.js](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Framework/Next.js.md)
 
 ### Advance
-+ [Ajax](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Ajax.md)
++ [Ajax,md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Ajax.md)
 
 + [同步与异步.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5.md)
 
