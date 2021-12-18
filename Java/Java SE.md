@@ -642,6 +642,131 @@ public class Soccer {
 
  
 
+# 注解和反射
+
+## 注解——Java.Annotation
+
+注解是放在 Java 源码的类、方法、字段、参数前的一种特殊“注释”
+
+**注释**会被编译器直接忽略，**注解**则可以被编译器打包进入class文件，因此，注解是一种用作标注的“元数据”。
+
++ <span style="font-size:22px">注解分类：</span>
+
+    1. 编译器使用的注解：
+
+        如`@Override`、`@SuppressWarnings`——告诉编译器忽略此处代码产生的警告
+
+        这类注解不会被编译进入`.class`文件
+
+    2. 工具处理`.class`文件使用的注解：
+
+        这类注解会被编译进入`.class`文件，但加载结束后并不会存在于内存中。只被一些底层库使用，一般我们不必自己处理。
+
+    3. 第三类是在程序运行期能够读取的注解：
+
+        加载后一直存在于 JVM 中，这也是最常用的注解
+
++ <span style="font-size:22px">元注解——meta-annotation：</span>
+
+    元注解负责注解其他注解，Java 定义了 4 个标准 meta-annotation 类型 提供对其它 annotation 类型的说明，这些类型和它们支持的类在 java.lang.annotation 包可以找到：
+
+    + **@Target**——描述注解使用范围
+    + **@Retention**——描述注解生命周期，（SOURCE<CLASS<RUNTIME）
+    + **@Document**——注解将被包含在 javadoc
+    + **@Inherited**——子类可以继承父类中的该注解
+
+    ```java
+    @Target(ElementType.METHOD)
+    public @interface Report {
+        int type() default 0;
+        String level() default "info";
+        String value() default "";
+    }
+    ```
+
++ <span style="font-size:22px">定义注解：</span>
+
+    1. 使用`@interface`定义注解：
+
+        ```java
+        public @interface Report {
+        }
+        ```
+
+    2. 添加参数、默认值：
+
+        ```java
+        public @interface Report {
+          	// 注解参数：<参数类型> <参数名>()
+            int type() default 0;
+            String level() default "info";
+            String value() default "";
+        }
+        ```
+
+        这里的`type`、`level`、`value`都是注解的参数，最常用的参数定义为`value()`，所有参数都尽量设置默认值。
+
+    3. 元注解配置注解：
+
+        ```java
+        @Target(ElementType.TYPE)
+        @Retention(RetentionPolicy.RUNTIME)
+        public @interface Report {
+            int type() default 0;
+            String level() default "info";
+            String value() default "";
+        }
+        ```
+
+        必须设置`@Target`和`@Retention`，`@Retention`一般设置为`RUNTIME`，因为我们自定义的注解通常要求在运行期读取。一般情况下，不必写`@Inherited`和`@Repeatable`。
+
+## 反射——Java.Reflection
+
++ <span style="font-size:22px">什么是 Reflection：</span>
+
+    由于 JVM 为每个加载的`class`创建了对应的`Class`实例，并在实例中保存了该`class`的所有信息(*包括类名、包名、父类、实现的接口、所有方法、字段等* )，因此，如果获取了某个`Class`实例，我们就可以通过这个`Class`实例获取到该实例对应的`class`的所有信息。
+
+    这种通过`Class`实例获取`class`信息的方法称为反射
+
+    反射是为了解决在运行期，对某实例一无所知情况下，如何调用其方法。
+
++ <span style="font-size:22px">反射相关主要 API：</span>
+
+    + java.lang.Class——代表一个类
+    + java.lang.reflect.Method——代表类的方法
+    + java.lang.reflect.Field——类的成员变量
+    + java.lang.Constructor——类的构造器
+
++ <span style = "font-size:22px">获得反射对象：</span>
+
+    1. 若已知具体的类。
+
+        ```java
+        Class clazz = Person.class;
+        ```
+
+        最安全可靠、性能最高。
+
+    2. 已知某类实例
+
+        ```java
+        Class clazz = person.getClass();
+        ```
+
+    3. 已知类的全类名
+
+        ```java
+        Class cls = Class.forName("com.user.domain.Account")	// "完整类名"
+        ```
+
+        这里得到的`cls`就可以通过各种方法获得该类的所有信息。
+
+    4. 内置基本数据类型，直接用“类名.Type”
+
+    5. 利用 ClassLoader
+
+        
+
 # 参考
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)
@@ -666,3 +791,10 @@ public class Soccer {
     
     [多态 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1260455778791232)
 
++ 注解和反射：
+
+    [【狂神说Java】注解和反射_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1p4411P7V3?p=1&share_medium=android&share_plat=android&share_session_id=925bf718-1fd1-4813-b18d-bf4c4f0fa085&share_source=QQ&share_tag=s_i&timestamp=1639368905&unique_k=KZPiLTv)
+
+    [使用注解 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102413966176)
+
+    

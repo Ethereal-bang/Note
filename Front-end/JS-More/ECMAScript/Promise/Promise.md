@@ -133,11 +133,11 @@ let p2 = Promise.resolve();
 
 
 
-### Promise.reject()	==？==
+### Promise.reject()	
 
 实例化一个 rejected 的 Promise并**抛出一个异步错误**。类似于`throw()`，因为它们都代表一种程序状态，即需要中断或者特殊处理。    
 
-这个错误不能被 try/catch 捕获，而只能通过拒绝处理程序(*reject handler*)捕获。对应的错误对象会成为拒绝的理由	==？==
+这个错误不能被 try/catch 捕获，而只能通过拒绝处理程序(*reject handler*)捕获。对应的错误对象会成为拒绝的 reason	==？==
 
 ``` js
 let p = Promise.reject(3);
@@ -314,7 +314,6 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
     >
     > 首先要了解打印 Promise 对象一般是这样的形式：`Promise { 1 }`、`Promise { undefined }`、`Promise { pending }`，当括号内有值而不是`pending`时，该值即是执行 onResolved 或 onRejected 回调函数收到的参数值
     
-    
 
 
 
@@ -332,11 +331,7 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
 
 + 作用：`Promise.prototype.finally()`这个方法用于给 Promise 添加 **onFinally 处理程序**。这个处理程序在 Promise 转换为 resolved 或 rejected 状态时都会执行。
 
-
-
 + 用途：主要用于添加清理代码。因为 onFinally 处理程序没有办法知道 Promise  的状态具体是 resolved 还是 rejected
-
-
 
 + `Promise.prototype.finally()`**大多情况表现为父 Promise 的传递**。对于 resolved 和 rejected 状态都是如此。==？==
 
@@ -352,9 +347,6 @@ setTimeout(console.log, 0, then) // Promise {<fulfilled>: undefined}
     setTimeout(console.log, 0, p3);		// Promise {<fulfilled>: "foo"}
     setTimeout(console.log, 0, p4);		// Promise {<fulfilled>: "foo"}
     ```
-
-    
-
 
 
 + 如果**返回**（*通过方法向下传递的值*）的是一个 pending 状态的 Promise，或者 onFinally 处理程序**抛出了错误**（*显示抛出或返回了一个 rejected Promise*），则会返回相应的 Promise（*pending 或 rejected*）。==？==
@@ -541,7 +533,7 @@ p1.then( () => new Promise( (resolve, reject) => {
 
     1. Promise 构造函数接收一个函数参数 executor，executor 接收`resolve`、`rejecte`两个函数后立即执行
     2. Promise 通过`resolve()`、`rejected()`改变状态
-    3. 状态改变后，触发==原型链上==？`then`/`catch`方法
+    3. 状态改变后，触发原型链上(this 上)`then`/`catch`方法
     4. Promise 拥有静态方法：`resolve`、`rejecte`、`all`、`race`
 
 ## 初版
@@ -652,10 +644,11 @@ p1.then( () => new Promise( (resolve, reject) => {
 Promise 的一大优势是支持链式调用，具体来说是`then`方法的具体实现实际上是返回了一个 Promise
 
 + **注意点：**
-    1. 保存之前 Promise 实例引用——this
-    2. 根据`then`回调函数执行的返回值
+    1. 保存之前 Promise 实例引用——this 为`self`
+    2. 根据`then`回调函数执行的返回值`ret`
         + 如果是 Promise 实例——返回的下一个 Promise 实例会等待这个 Promise 状态发生变化
         + 如果不是 Promise 实例——根据目前情况直接执行`resolve`或`reject` (见前文`Promise.prototype.then()`返回值)
+    3. 注意区分此时`self`与`ret`的状态与关系
 
 
 
@@ -676,4 +669,118 @@ Promise 的一大优势是支持链式调用，具体来说是`then`方法的具
 + Promise 实现：
 
     [详细的Promise源码实现，再被面试问到轻松解答 - 掘金](https://juejin.cn/post/6860037916622913550)
+
+
+
+```js
+class myPromise {
+  constructor(executor) {
+    // 初始化状态：
+    this.status = PENDING;
+    this.value = undefined;
+    this.reason = undefined;
+
+    // 成功态回调函数队列：
+    this.onFulfilledCallbackFns = [];
+    this.onRejectedCallbackFns = [];
+    // 定义resolve、reject用户自行在executor内调用
+    const resolve = (value) => {
+      // console.log("resolve函数执行")
+      if (this.status === PENDING) {  // 只有处于pending状态才能更改状态
+        this.status = FULFILLED;
+        this.value = value;
+        // 依次执行成功态函数
+        this.onFulfilledCallbackFns.forEach(fn => fn(this.value));
+      }
+    };
+    const reject = (reason) => {
+      // console.log("reject")
+      if (this.status === PENDING) {  // 只有pending状态才能更改状态
+        this.status = REJECTED;
+        this.reason = reason;
+      }
+
+      this.onRejectedCallbackFns.forEach(fn => fn(this.reason));
+    };
+    // 立即执行executor，并捕获用户使用时可能出现的异常
+    try {
+      // console.log('executor执行')
+      executor(resolve, reject);
+    } catch (e) {
+      reject(e);
+    }
+  }
+  then(onFulfilled, onReject) {   // 接收两函数为参——成功/失败调用的函数
+    // 保存this
+    const self = this;
+    // 返回Promise——实现链式调用
+    return new Promise((resolve, reject) => {
+      if (self.status === FULFILLED) { // fulfilled 状态下才执行
+        setTimeout(() => {
+          try {
+            const res = onFulfilled(this.value);
+            res instanceof Promise ? res.then(resolve, reject) : resolve(res);
+          } catch (e) {
+            reject(e);
+          }
+        })
+      } else if (self.status === REJECTED) {
+        setTimeout(() => {
+          // console.log('then时reject状态')
+          try {
+            const res = onReject(this.value);
+            res instanceof Promise ? res.then(resolve, reject) : reject(res);
+          } catch (e) {
+            reject(e);
+          }
+        })
+      } else if (self.status === PENDING) {
+        // 说明promise内部有异步代码执行，还未改变状态
+        this.onFulfilledCallbackFns.push(() => {
+          try {
+            setTimeout(() => {
+              const res = onFulfilled(self.value);
+              // 分情况：回调函数返回值是否是 Promise ？
+              res instanceof Promise ? res.then(resolve, reject) : resolve(res);
+            })
+          } catch (e) {
+            reject(e);
+          }
+        });
+        this.onRejectedCallbackFns.push(() => {
+          try {
+            setTimeout(() => {
+              const res = onReject(self.reason);
+              // 分情况：回调函数返回值是否是 Promise ？
+              res instanceof Promise ? res.then(resolve, reject) : reject(res);
+            })
+          } catch (e) {
+            reject(e);
+          }
+        });
+      }
+    })
+  }
+  catch() {}
+  static resolve() {}
+  static reject() {}
+  static all() {}
+  static race() {}
+}
+
+const p = new myPromise((resolve, reject) => {
+  // 测试异步：
+  setTimeout(() => {
+    resolve(1);
+  }, 1000)
+}).then((value) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve(value + 2);
+    }, 1000)
+  })
+}).then(value => {
+  console.log(value)  // 3
+})
+```
 

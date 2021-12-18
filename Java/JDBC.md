@@ -21,7 +21,7 @@
     3. 获取数据库连接对象`Connection`：
     
         ```java
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/task6", "root", "ａｓｓｗｏｒｄpassword");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/task6", "root", "password");
         ```
     
         

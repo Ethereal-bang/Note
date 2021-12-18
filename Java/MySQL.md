@@ -176,7 +176,7 @@ SQL——Structured Query Language：结构化查询语言
     ```mysql
     -- 创建表：
     create table t1 (
-    	`studentid` Varchar(10)	-- 最后行没有逗号(，)
+    	`studentid` Varchar(10) COMMENT '学生id' -- 最后行没有逗号(，)
     );
     -- 创建个相同表结构的表：
     create table `t2` like `t1`;
