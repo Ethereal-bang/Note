@@ -284,6 +284,16 @@ List<List<Integer>> list = new ArrayList<>();
 
 
 
+### 栈
+
+```java
+Stack<Integer> stack = new Stack<Integer>();
+```
+
++ stack.peek()：获得栈顶值
++ stack.pop()：删除并返回栈顶值
++ stack.add()：压入栈顶
+
 
 
 # 类与对象
@@ -374,7 +384,7 @@ Integer i = new Integer(1);
 
 拆箱：包装类对象转换为基本类型的值
 
-
++ Type argument cannot be of primitive type——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
 
 + <span style="font-size:20px">String、StringBuffer：</span>
 

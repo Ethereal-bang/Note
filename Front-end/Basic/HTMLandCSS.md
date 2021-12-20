@@ -253,6 +253,14 @@ span{color:red;}
 
 
 
+## CSS 属性
+
++ **border：**
+
+    
+
+
+
 # CSS 定位
 
 ## 水平垂直居中
