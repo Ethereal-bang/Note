@@ -59,16 +59,10 @@
         <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-        
-    
-            <script type="text/babel">
-        ```
+        <script type="text/babel">
     ```
     
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
-    
-    
-    ```
 
 # JSX
 
@@ -107,23 +101,19 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">在 JSX 中使用 {} 嵌入表达式</span>
 
-    <hr>
-
-    在下面的例子中，声明了一个`name`变量，然后在 JSX 中使用它，并将它包裹在`{}`中：
-
     ``` JSX
     const name = 'Josh';
     const element = <h1>Hello, {name}</h1>;
     ```
-
+    
     在 JSX 语法中，可以在`{}`内放置任何有效的 JS 表达式，同时 **JSX 本身也是一个表达式**
 
 
 
 + <span style="font-size:20px">JSX "" 写入字面量</span>
 
-    <hr>
-    可以通过**使用`""`将属性值指定为字符串字面量**
+    可以通过**使用`" "`将属性值指定为字符串字面量**
+    
 
     ``` jsx
     const element = <h2 className="title" id={myId.toLowerCase()} />
@@ -141,7 +131,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">内联样式 {{}} </span>
 
-    <hr>
 
     内联样式，要用 **style={{key: value, key: value}}** 的形式写
 
@@ -157,10 +146,9 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">使用 JSX 指定子元素</span>
 
-    <hr>
-
+    
     JSX 标签里能够包含很多子元素（*嵌套标签*）：
-
+    
     ``` jsx
     const element = (
     	<div>
@@ -169,11 +157,11 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
         </div>
     );
     ```
-
     
-
+    
+    
     简洁写法：若一个标签里面没有内容，可以使用**`/>`闭合空标签**
-
+    
     ``` jsx
     const element = <img src={user.avatarUrl} />
     ```
@@ -182,7 +170,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">JSX 表示对象</span>
 
-    Babel会把 JSX 译为`React.createElement()`函数调用，
+    Babel 会把 JSX 译为`React.createElement()`函数调用，
 
     例如创建以下虚拟 DOM 时：
     
@@ -191,7 +179,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     	<h1 className="greeting">
             Hello, world
         </h1>
-);
+    );
     ```
 
     `React.createElement()`实际上创建了一个这样的对象：
@@ -204,7 +192,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
             className: 'greeting',
             children: 'Hello, world'
         }
-};
+    };
     ```
     
     这些对象被称为”React 元素“，描述了希望在屏幕上看到的内容。React 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。
@@ -213,34 +201,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">根标签只能有一个</span>
 
-    下面的情况就叫做有多个根标签：
-
-    ``` jsx
-    /* 以下为错误写法 */
-    const VDOM = (
-    	<h2>
-      	<span />
-      </h2>
-      
-      <span />
-    )
-    ```
-
-    可以在外面再包层容器，改为：
-
-    ``` jsx
-    const VDOM = (
-    	<div>
-      	<h2>
-      		<span />
-      	</h2>
-        
-        <span />
-      </div>
-    )
-    ```
-
-
+    
 
 + <span style="font-size:20px">标签首字母大小写区分</span>
 
@@ -262,35 +223,28 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
     ``` jsx
     const element = <h1>Hello</h1>;	// 创建虚拟 DOM
-    
-    ```
-
-const element2 = (
-    	<h1 className="greeting">
-            Hello, world
-        </h1>
-    );
+    const element2 = (    	<h1 className="greeting">
+                Hello, world
+            </h1>
     ```
     
     与浏览器的 DOM 元素不同，React 元素是创建开销极小的普通对象。React Dom 会负责更新 DOM 来与 React 元素保持一致
-
-
-
+    
 + <span style="font-size:20px">将元素渲染为 DOM</span>
 
     <hr>
     将元素渲染为 DOM，即将虚拟 DOM 渲染到页面
-    
+
     准备好一个“容器”`<div>`：
-    
+
     ``` jsx
     <div id="root"></div>
     ```
-    
+
     我们称其为“根 DOM 节点”，因为该节点内所有内容都将由 React DOM 管理。  
-    
+
     想要将一个 React 元素渲染到根 DOM 节点中，只需要把它们一起传入**`ReactDom.render()`**：
-    
+
     ``` jsx
     const element = <h1>Hello</h1>;
     ReactDOM.render(element, document.getElementById('root'));
@@ -336,20 +290,19 @@ const element2 = (
 
 + <span style="font-size:20px">函数组件与 class 组件</span>
 
-    <hr>
-
+    
     定义组件最简单的方式就是**编写 JS 函数**：
     
     ``` jsx
     function Welcome(props) {
         return <h1>Hello, {props.name}</h1>;
-}
+    }
     ```
-
-    该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
-
     
-
+    该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
+    
+    
+    
     还可以使用 ES6 的 **class 来定义组件**：
     
     几个必要条件：
@@ -368,9 +321,6 @@ const element2 = (
     
      
     
-    上述两个组件在 React 里是等效的。
-
-
 
 + <span style="font-size:20px">渲染组件</span>
 
@@ -380,7 +330,7 @@ const element2 = (
     const element = <Welcome name="Sara" />
     ```
 
-    当 React 元素是用户自定义组件时，它会将 JSX 所接收的属性（*attributes*）以及子组件（*children*）转换为单个对象传递给组件，这个对象称为“props”。	==？==
+    当 React 元素是用户自定义组件时，它会将 JSX 所接收的属性（*attributes*）以及子组件（*children*）转换为单个对象传递给组件，这个对象称为“props”。	
 
     
 
@@ -1608,6 +1558,38 @@ function Example() {
 如果需要在组件间共享状态，可以使用`useContext()`
 
 
+
+# React 部分实现
+
+## React 的构建
+
+通过 [Babel 转换](https://www.babeljs.cn/repl)可以知道，ReactDOM.render 是由这个方法转义 JSX 代码的：(`ReactDOM.render(<div id="title">day</div>, document.getElementById("root"))`)
+
+![image-20211220185441552](https://gitee.com/ethereal-bang/images/raw/master/20211220185448.png)
+
++ <Span style="font-size:20px">React.createElement(type,  props, children)：</span>
+
+    实质是返回一个 React 元素
+
+    打印`createElement`方法返回的元素：
+
+    ![image-20211220193222873](https://gitee.com/ethereal-bang/images/raw/master/20211220193222.png)
+
++ <Span style="font-size:20px">ReactDOM.render():</span>
+
+    将`React.createElement()`返回的元素渲染到页面
+
+    ```jsx
+    <script type="text/babel">
+        ReactDOM.render(<h1>try</h1>, document.getElementById("root"));
+    </script>
+    ```
+
+    只有含有`text/babel`时才能成功将 JSX 代码识别为 React 元素
+
++ <span style="font-size:20px">组件：</span>
+
+    
 
 # 参考链接
 
