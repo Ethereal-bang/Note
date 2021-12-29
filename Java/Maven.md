@@ -138,5 +138,8 @@
 
     ![image-20211215112646479](https://gitee.com/ethereal-bang/images/raw/master/20211215112653.png)
 
-1. 新建 Maven 工程
-2. 
++ 如果 Maven 不见，可以双击 shift，
+
+    ![image-20211223220346435](https://gitee.com/ethereal-bang/images/raw/master/20211223220353.png)
+
+    

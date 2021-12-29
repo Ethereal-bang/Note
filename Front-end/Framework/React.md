@@ -108,8 +108,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
     在 JSX 语法中，可以在`{}`内放置任何有效的 JS 表达式，同时 **JSX 本身也是一个表达式**
 
-
-
 + <span style="font-size:20px">JSX "" 写入字面量</span>
 
     可以通过**使用`" "`将属性值指定为字符串字面量**
@@ -119,34 +117,28 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     const element = <h2 className="title" id={myId.toLowerCase()} />
     ```
 
-    
 
-    > 注意：小驼峰命名
-    >
-    > 因为 JSX 语法上更接近 JS 而不是 HTML，所以 React DOM 使用“小驼峰命名”来定义属性的名称，而不使用 HTML 属性名称的命名约定
-    >
-    > 例如，JSX 里的`class`变成**`className`**，而`tabindex`变成`tabIndex`。
-
-
+> 注意：小驼峰命名
+>
+> 因为 JSX 语法上更接近 JS 而不是 HTML，所以 React DOM 使用“小驼峰命名”来定义属性的名称，而不使用 HTML 属性名称的命名约定
+>
+> 例如，JSX 里的`class`变成**`className`**，而`tabindex`变成`tabIndex`。
 
 + <span style="font-size:20px">内联样式 {{}} </span>
 
-
     内联样式，要用 **style={{key: value, key: value}}** 的形式写
 
-    ``` jsx
+    ```jsx
     const VDOM = (
       <h2 className="title">
       	<span style={{color:'white', fontSize:'29px'}}>{myDate.toLowerCase()}</span>  
       </h2> 		
-    )
+    )   
     ```
-
-    
 
 + <span style="font-size:20px">使用 JSX 指定子元素</span>
 
-    
+  
     JSX 标签里能够包含很多子元素（*嵌套标签*）：
     
     ``` jsx
@@ -158,15 +150,11 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     );
     ```
     
-    
-    
     简洁写法：若一个标签里面没有内容，可以使用**`/>`闭合空标签**
     
     ``` jsx
     const element = <img src={user.avatarUrl} />
     ```
-
-
 
 + <span style="font-size:20px">JSX 表示对象</span>
 
@@ -197,17 +185,13 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
     这些对象被称为”React 元素“，描述了希望在屏幕上看到的内容。React 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。
 
-
-
 + <span style="font-size:20px">根标签只能有一个</span>
-
-    
 
 + <span style="font-size:20px">标签首字母大小写区分</span>
 
-    小写字母开头，将该标签转为 HTML 中同名元素；若无，报错。
+    **小写**字母开头，将该标签转为 HTML 中同名元素；若无，报错。
 
-    大写字母开头，react 渲染对应组件；若没有定义该组件，报错。
+    **大写**字母开头，react 渲染对应组件；若没有定义该组件，报错。
 
     
 
@@ -215,20 +199,10 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">创建虚拟 DOM</span>
 
-    <hr>
-
-    元素是构成 React 应用的最小砖块，就是虚拟 DOM。
-
-    元素描述了你在屏幕上想看到的内容
-
-    ``` jsx
-    const element = <h1>Hello</h1>;	// 创建虚拟 DOM
-    const element2 = (    	<h1 className="greeting">
-                Hello, world
-            </h1>
-    ```
     
-    与浏览器的 DOM 元素不同，React 元素是创建开销极小的普通对象。React Dom 会负责更新 DOM 来与 React 元素保持一致
+    元素是构成 React 应用的最小砖块，就是虚拟 DOM。
+    
+    元素描述了你在屏幕上想看到的内容
     
 + <span style="font-size:20px">将元素渲染为 DOM</span>
 
@@ -250,19 +224,16 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     ReactDOM.render(element, document.getElementById('root'));
     ```
 
-
-
 + <span style="font-size:20px">更新已渲染元素</span>
 
-    <hr>
-
-    React 元素是不可变对象。一旦被创建，就无法更改它的子元素或者属性。
-
-    更新 UI 的方式是创建一个全新的元素传入`ReactDOM.render()`
-
-    以下是一个计时器的例子：
-
-    ``` jsx
+    
+React 元素是不可变对象。一旦被创建，就无法更改它的子元素或者属性。
+    
+更新 UI 的方式是创建一个全新的元素传入`ReactDOM.render()`
+    
+以下是一个计时器的例子：
+    
+``` jsx
     function tick() {
         const element = (
         	<div>
@@ -275,12 +246,12 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
     setInterval(tick, 1000);
     ```
-
-    > [window.setInterval | MDN](https://zh-hans.reactjs.org/docs/rendering-elements.html)
+    
+> [window.setInterval | MDN](https://zh-hans.reactjs.org/docs/rendering-elements.html)
     >
     > 重复调用一个函数或执行一个代码段
-
-    React 只更新它需要更新的部分：React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态
+    
+React 只更新它需要更新的部分：React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态
 
 
 
@@ -290,36 +261,46 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">函数组件与 class 组件</span>
 
-    
+
     定义组件最简单的方式就是**编写 JS 函数**：
-    
+
     ``` jsx
     function Welcome(props) {
         return <h1>Hello, {props.name}</h1>;
     }
     ```
-    
+
     该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
+
     
-    
-    
+
     还可以使用 ES6 的 **class 来定义组件**：
-    
+
     几个必要条件：
-    
+
     1. 必须继承`React.Component`父类
     2. 必须有``render()`
     3. `render()`要有返回值	返回想呈现的内容
-    
+
     ``` jsx
     class Welcome extends React.Component {	// extends 继承
         render() {
         	return <h1>Hello, {this.props.name}</h1>;
         }
     }
+    ReactDOM.render(<Welcome name={"app"} />)
     ```
-    
-     
+
+     第 2 行的`render()`是放在`MyComponent`的原型对象上，供实例使用。
+
+    那么实例在哪呢：
+
+    ​	执行了`ReactDOM.render(<Mycomponent />....`之后，发生了什么：
+
+    1. React 解析**组件标签**，找到了`MyComponent`组件
+    2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
+    3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
+
     
 
 + <span style="font-size:20px">渲染组件</span>
@@ -332,81 +313,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
     当 React 元素是用户自定义组件时，它会将 JSX 所接收的属性（*attributes*）以及子组件（*children*）转换为单个对象传递给组件，这个对象称为“props”。	
 
-    
-
-    渲染组件的简单例子：
-
-    函数组件
-
-    ``` jsx
-    function MyComponent() {
-      return <h2>Hello</h2>
-    }
-    
-    ReactDOM.render(
-      <MyComponent />, 
-      document.getElementById('root')
-    )
-    ```
-
-    执行 `ReactDOM.render(<MyComponent/>.... `之后，发生了什么：
-
-    1. React 解析组件标签，找到了 MyComponent 组件。
-    2. 发现组件是使用函数定义的，随后调用该函数，将返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
-
-    
-
-    例如，在页面渲染`Hello, Sara`：	==?==
-
-    ``` jsx
-    function Welcome(props) {	// 
-        return <h1>Hello, {props.name}</h1>;
-    }
-    
-    const element = <Welcome name="Sara" />;	// 自定义 Welcome 组件
-    ReactDom.render(
-    	element,
-        document.getElementById('root')
-    );
-    ```
-
-    分析这个例子：
-
-    1. 调用`ReactDOM.render()`函数，传入`<Welcome name="Sara" />`作为参数。
-    2. React 调用 Welcome 组件，并将`{name: 'Sara'}`作为 props 传入
-    3. `Welcome`组件将`<h1>Hello, Sara</h1>`元素作为返回值
-    4. React DOM 将 DOM 更新为`<h1>Hello, Sara</h1>`。
-
-    
-
-    注意，**组件名称必须以大写字母开头**：React 会将以小写字母开头的组件视为原生 DOM 标签；大写字母开头的，React 将渲染对应组件。例如：`<div />`代表 HTML 的`div`标签；而`<Welcome />`则代表一个组件，并且需在作用域内使用`Welcome`。
-
-    
-
-    类式组件：
-
-    ``` jsx
-    class MyComponent extends React.component {
-      render() {	
-        return <h2>我是类式组件</h2>
-      }
-    }
-    
-    ReactDOM.render(
-      <MyComponent/>, 
-      document.getElementById('test')
-    )
-    ```
-
-    第 2 行的`render()`是放在`MyComponent`的原型对象上，供实例使用。
-
-    那么实例在哪呢：
-
-    ​	执行了`ReactDOM.render(<Mycomponent />....`之后，发生了什么：
-
-    1. React 解析**组件标签**，找到了`MyComponent`组件
-    2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
-    3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中 
 
 
 
@@ -432,48 +338,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     }
     ```
 
-    通常，每个新的 React 应用程序的顶层组件都是`App`组件。但是，如果将 React 集成到现有的应用程序中，可能需要使用像`Button`这样的小组件，并自下而上地将这类组件逐步应用到视图层的每一处。	==？==
-
-    
-
-+ <span style="font-size:20px">提取组件</span>==？==
-
-    将组件拆分为更小的组件。
-    例如，如下`Comment`组件：
-
-    ``` jsx
-    function Comment(props) {
-        return (
-        <div className="Comment">
-        	<div className="UserInfo">
-            	<img className="Avatar" 
-                    src={props.author.avatarUrl}
-                    alt={props.author.name}
-                />
-                <div className="UserInfo-name">
-                    {props.author.name}
-                </div>
-            </div>
-            <div className="Comment-text">
-                {props.text}
-            </div>
-            <div className="Comment-date">
-                {formateDate(props.date)}
-            </div>
-        </div>
-        )
-    }
-    ```
-
-     该组件用于描述一个社交媒体网站上的评论功能，它接收 `author`（*对象*），`text` （*字符串*）以及 `date`（*日期*）作为 props。
-
-    该组件由于嵌套的关系难以维护，且很难复用它的各个部分。因此从中提取一些组件出来。
-
-    ==。。。==
-
-
-
-
+    通常，每个新的 React 应用程序的顶层组件都是`App`组件。但是，如果将 React 集成到现有的应用程序中，可能需要使用像`Button`这样的小组件，并自下而上地将这类组件逐步应用到视图层的每一处。	
 
 
 
@@ -481,339 +346,81 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">构造器</span>
 
-在 React 中 construcotr 通常仅用于以下两种情况：
+    在 React 中 construcotr 通常仅用于以下两种情况：
 
-1. 通过给 `this.state`赋值对象来初始化内部 state
+    1. 通过给 `this.state`赋值对象来初始化内部 state
 
-    ``` jsx
-    this.state = {isHot: false, wind:'微风'}
-    ```
+        ```js
+        constructor() {
+          super(props);
+          this.state = {cnt: 1}
+        }
+        ```
 
-    也可以简写，不在构造器里：
+        也可以简写，不在构造器里：
 
-    ``` jsx
-    state = {isHot: false, wind:'微风'}
-    ```
+        ```js
+        state = {cnt: 1};
+        ```
 
-    
+    2. 为事件处理函数绑定实例
 
-2. 为事件处理函数绑定实例
+        ```js
+        this.add = this.add.bind(this);
+        // `bind`返回一个`this`被改变的新函数
+        ```
 
-    ``` jsx
-    this.changeWeather = this.changeWeather.bind(this)
-    ```
+        用箭头函数可以省去上面步骤：
 
-    也可以简写，不在构造器里：
+        ```js
+        add = () => {
+          this.setState({cnt: ++this.state.cnt})
+        }
+        ```
 
-    ``` jsx
-    changeWeather = () => {
-      const isHot = this.state.isHot
-      this.setState({isHot: !isHot})
-    }
-    ```
+        + `add()`放在哪里：原型对象上，供实例使用
+        + `add`是作为 onClick 的回调，其不是通过实例调用，而是直接调用
+        + 为什么要绑定 this：类中的方法默认开启了严格模式，所以`add`中的 this 为 undefined
+                
 
-    
-
-### state
+### State
 
 组件就是“状态机”。通过更新组件的状态来更新对应的页面显示。（*每 `setState` 一次，`render`就会执行一次*)
 
 state 借助构造器`constructor()`初始化状态`state`；在`render()`中读出`state`属性；用`setState`改变状态
 
-下面的例子实现点击屏幕切换显示：“今天天气很 炎热 / 凉爽”
-
-``` jsx
-/* 创建组件 */
-class Weather extends React.Component {
-  constructor() {
-    super(props);
-    this.state = {isHot:true};	// 借助构造器初始化状态
-  	this.changeWeather = this.changeWeather.bind(this)	// bind 找回丢失的 this ？
-  }
-  render() {
-    return <h2 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h2>
-  }
-  changeWeather() {
-    // changeWeather 放在哪里：Weather 的原型对象上，供实例使用
-    // 由于 changeWeather 是作为 onClick 的回调，所以不是通过实例调用，而是直接调用
-    // 类中的方法默认开启了严格模式，所以changeWeather 中的 this 为 undefined
-    
-    /* 获取原来的 isHot 值 */
-    const isHot = this.state.isHot
-    this.setState({isHot: !isHot});	// 注意：state 必须通过 setState 进行更新，且更新是合并不是替换
-    
-    
-  }
-}
-
-/* 渲染组件 */
-ReactDOM.render(<Weather/>,document.getElementById('root'))
-```
-
-关于第 6 行代码：	==？==
-
-+ 等号右边的`this.changeWeather`指向第 11 行原型对象上的`changeWeather()`。
-+ `bind`生成一个新的函数，该函数的`this`被改变
-+ `bind`生成的新函数赋值给等号左边 
 
 
+### Props
 
-+ <span style="font-size:20px">state 的简写</span>
++ **props 与 state 区别：**
 
-    类中可以直接写赋值语句，作用与在`constructor`中赋值相同
-
-    ``` jsx
-    /* 创建组件 */
-    class Weather extends React.component {
-      /* 初始化状态 */
-      state = {isHot: flase, wind: "微风"};
-    	
-    	render() {
-      	const {isHot, wind} = this.state;
-        return <h2 onClick={this.changeWeather}>今天天气很{isHot ? '热' ： '凉'}, {wind}</h2>
-      }
-    
-    	/* 自定义方法：用赋值语句的形式 + 箭头函数 */
-    	changeWeather = () => {
-        const isHot = this.state.isHot;
-        this.setState({isHot: !isHot})
-      }
-    }
-    
-    /* 渲染组件到页面 */
-    ReactDOM.render(<Weather/>,document.getElementById('root'))
-    ```
-
-    
-
-+ <span style="font-size:20px">将函数组件转换成 class 组件</span>
-
-    通过以下五步将函数组件转换成 class 组件：	==有啥用？==
-
-    1. 创建一个同名的 ES6 class，并且继承于 `React.Component`。
-    2. 添加一个空的`render()`方法。
-    3. 将函数体移动到`render()`方法之中。
-    4. 在`render()`方法中使用`this.props`替换`props`。
-    5. 删除剩余的空函数声明
-
-    ``` jsx
-    class Clock extends React.Component {
-        render() {
-            return (
-            	<div>
-                	<h1>Hello, world</h1>
-                	<h2>It's {this.props.date.toLocaleTimeString()}.</h2>
-                </div>
-            );
-        }
-    }
-    ```
-
-    现在，`Clock`组件被定义为 class，而不是函数
-
-    每次组件更新时`render`方法都会被调用，但只要在相同的 DOM 节点中渲染`<Clock />`，就仅有一个`Clock`组件的 class 实例被创建使用。这就使得我们可以使用如 state 或生命周期方法等许多其他特性。
-
-
-
-+ <span style="font-size:20px">向 class 组件中添加局部的 state</span>
-
-    通过以下三步将`date`从 props 移动到 state 中：
-
-    1. 把`render()`方法中的`this.props.date`替换成`this.state.date`：（*下例第 6 行*）
-
-        ``` jsx
-        class Clock eextends React.Component {
-            render() {
-                return (
-                	<div>
-                   	  <h1>Hello, world</h1>
-                      <h2>It's {this.state.date.toLocaleTimeString()}</h2>
-                    </div>
-                );
-            }
-        }
-        ```
-
-    2. 添加`class`构造函数`constructor`，然后在该函数中为`this.state`赋初值：（*第 4 行*）
-
-        ``` jsx
-        class Clock extends React.Component {
-            construtor(props) {
-                super(props);
-                this.state = {date: new Date()};
-            }
-            
-            render() {
-                return (
-                	<div>
-                      <h1>Hello, world</h1>
-                      <h2>It's {this.state.date.toLocaleTimeString()}.</h2>
-                    </div>
-                );
-            }
-        }
-        ```
-
-        通过以下方式将`props`传递到父类的构造函数中：
-
-        ``` jsx
-        constructor(props) {
-            super(props);	// super 作为函数调用，代表父类的构造函数
-            this.state = {date: new Date()};
-        }
-        ```
-
-        Class 组件应该始终使用`props`参数来调用父类的构造函数。
-
-    3. 移除`<Clock />`元素中的`date`属性：
-
-        ``` jsx
-        ReactDOM.render(
-        	<Clock />,
-            document.getElementById('root')
-        );
-        ```
-
-    之后将计时器相关的代码添加到组件中，如下：此时还不会更新
-
-    ``` jsx
-    class Clock extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {date: new Date()};
-        }
-        
-        render() {
-            return (
-            	<div>
-                  <h1>Hello, world</h1>
-                  <h2>It's {this.state.date.toLocaleTimeString()}.</h2>
-                </div>
-            )
-        }
-    }
-    
-    ReactDOM.render(
-    	<Clock />,
-        document.getElementId('root')
-    );
-    ```
-
-    接下来，设置`Clock`的计时器并每秒更新。
-
-
-
-
-
-### props
-
-props 与 state 区别：
-
-props 是组件对外的接口，而 state 是组件对内的接口
-
-props 用于组件间数据传递，而 state 用于组件内部的数据传递
-
-
+    props 是组件对外的接口，而 state 是组件对内的接口——props 用于组件间数据传递，而 state 用于组件内部的数据传递
 
 + <span style="font-size:20px">props 基本应用</span>
 
     ``` jsx
     class Person extends React.Component{
       render() {
-        const {name, age, sex} = this.props;
+        const {name, age} = this.props;
         return (
         	<u1>
           	<li>姓名：{name}</li>
             <li>性别：{sex}</li>
-            <li>年龄：{age}</li>
           </u1>
         )
       }
     }
-    /* 渲染组件到页面 */
-    ReactDom.render(<Person name="jerry" age="19" sex="男"/>document.getElementById('test1'))	// Person 后是传组件标签的值
-    ReactDom.render(<Person name="mac" age="16" sex="男"/>document.getElementById('test2'))
-    ReactDom.render(<Person name="tom" age="18" sex="男"/>document.getElementById('test3'))
-    ```
-
-
-
-+ props 的批量传递==?==
-
     
-
-+ <span style="font-size:20px">对 props 进行限制</span>
-
-    需要引入 proto-types.js 依赖包，用于对组件标签属性进行限制。在全局增加了一个`ProtoTypes`对象
-
-    ``` jsx
-    class Person extends React.Component{
-      render() {
-        const {name, age, sex} = this.props;
-        return (
-        	<u1>
-          	<li>姓名：{name}</li>
-            <li>性别：{sex}</li>
-            <li>年龄：{age}</li>
-          </u1>
-        )
-      }
-    }
-    /* 对标签属性进行 类型、必要性 的限制 */
-    Person.protoTypes = {
-      name:ProtoTypes.string.isRequired,	// 限制 name 必传，且为字符串
-      sex:ProtoTypes.string,
-      age:ProtoTypes.number,
-      speak:ProtoTypes.func,
-    }
-    /* 指定默认标签属性值 */
-    Person.defaultProps = {
-      sex:'男',
-      age:18,	// 默认值 18 
-    }
-    
-    /* 渲染组件到页面 */
-    ReactDOM.render(
-      <Person name="jerry" speak="1"/>,	// 此时控制台报错，因为需要 speak 为函数类型
-      document.getElementById('test1')
-    );
+    ReactDom.render(<Person name="jerry" age="19" />, test)	// Person 后是传组件标签的值
+    ReactDom.render(<Person name="mac" age="16" />, test)
     ```
-
-
 
 + <span style="font-size:20px">Props 的只读性</span>
 
-    组件无论是使用函数声明还是通过 class 声明，都绝不能修改自身的 props。因为 React 有一个严格的规则：**所有 React 组件都必须保护它们的入参 props 不被更改**。
++ <span style="font-size:20px">[使用 PropTypes 进行类型检查 - React](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)</span>
 
-    当前，应用程序的 UI 是动态的，并会随着时间的推移而变化。”state“，在不违反上述规则的情况下， state 允许 React 组件随用户操作、网络响应或者其他变化而动态更改输出内容。
-
-
-
-+ <span style="font-size:20px">props 的简写</span>
-
-    通过 static 写在 class 语句块内。
-
-    ``` jsx
-    class Person extends React.Component {
-      static protoTypes = {
-        name:ProtoTypes.string.isRequired,	// 限制 name 必传，且为字符串
-      	sex:ProtoTypes.string,
-      	age:ProtoTypes.number,
-    	  speak:ProtoTypes.func,
-      }
-    	static defaultProps = {
-        sex:'男',
-      	age:18,	// 默认值 18 
-      }
-    }
-    ```
-
-    > [static | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/static)
-    >
-    > 类通过 static 关键字定义静态方法。
-    >
-    > 静态方法只能通过类本身调用，不能在类的实例上调用
-
+    需要引入 [props-types](https://www.npmjs.com/package/prop-types) 依赖包，用于对组件标签属性进行限制。在全局增加了一个`ProtoTypes`对象
 
 
 + <span style="font-size:20px">函数式组件使用 props</span>
@@ -832,28 +439,13 @@ props 用于组件间数据传递，而 state 用于组件内部的数据传递
       </ul>
       )
     }
-    /* 限制标签 */
-    Person.propTypes = {
-      name:ProtoTypes.string.isRequired,
-      sex:ProtoTypes.string,
-      age:ProtoTypes.number,
-    }
-    /* 指定默认值 */
-    Perosn.defaultProps = {
-      sex: '男',
-      age: 18
-    }
-    
-    /* 渲染组件到页面 */
     ```
-
+    
     
 
 ### refs
 
 组件内的标签可以定义 ref 属性来标识自己，与使用 id 的区别是不需使用`document.` 
-
-
 
 + <span style="font-size:20px">字符串形式的 ref</span>
 
@@ -1575,6 +1167,23 @@ function Example() {
 
     ![image-20211220193222873](https://gitee.com/ethereal-bang/images/raw/master/20211220193222.png)
 
++ <span style="font-size:20px">组件：</span>
+
+    由 Babel 可以知道，组件渲染本质也是将组件转化为一个 React 元素：
+
+    ```jsx
+    // JSX
+    function App(props) {
+      return <h1>Hello, {props.name}</h1>
+    }
+    // JS
+    function App(props) {
+      return /*#__PURE__*/React.createElement("h1", null, "Hello, ", props.name);
+    }
+    ```
+
+    
+
 + <Span style="font-size:20px">ReactDOM.render():</span>
 
     将`React.createElement()`返回的元素渲染到页面
@@ -1587,9 +1196,7 @@ function Example() {
 
     只有含有`text/babel`时才能成功将 JSX 代码识别为 React 元素
 
-+ <span style="font-size:20px">组件：</span>
-
-    
+      
 
 # 参考链接
 

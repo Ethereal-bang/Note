@@ -219,6 +219,14 @@ Eg：把包含标题（title）的所有元素变为蓝色
 
 
 
+### 兄弟选择器
+
++ [相邻兄弟选择器 +](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Adjacent_sibling_combinator)：介于两个选择器之间，当第二个元素紧跟在第一个元素<span style="color:red">之后</span>，并且两个元素都是属于同一个父元素的子元素，则第二个元素将被选中
++ [通用兄弟选择器 ~](https://developer.mozilla.org/zh-CN/docs/Web/CSS/General_sibling_combinator)：位置无须紧邻，只须同层级，`A~B` 选择`A`元素<span style="color:red">之后</span>所有同层级`B`元素
++ [为什么都只能选择后面的元素](https://www.zhangxinxu.com/wordpress/2016/08/css-parent-selector/)——浏览器解析HTML文档，是从前往后，由外及里的。所以，我们时常会看到页面先出现头部然后主体内容再出现的加载情况。
+
+
+
 ### ,分组选择器
 
 当想为html中多个标签元素设置同一个样式时，可以使用分组选择符（，）
@@ -458,7 +466,7 @@ CSS定义了一组定位（**positioning**）属性来支持层布局模型
 2、相对定位(position: relative)
 3、固定定位(position: fixed)
 
-- `absolute`、`relative`和`fixed`脱离文档流，子元素无法撑起父元素的高度
+- `absolute`、和`fixed`脱离文档流，子元素无法撑起父元素的高度
 
 #### 绝对定位
 

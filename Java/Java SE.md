@@ -161,7 +161,9 @@ public class Hello {
 
 
 
-## 数组
+## 数据结构
+
+### 数组
 
 + **长度**：`.length`：
 
@@ -172,8 +174,6 @@ public class Hello {
     ```java
     Arrays.toString(arr);	// j
     ```
-
-    
 
 + <span style="font-size:22px">一维数组：</span>
 
@@ -240,7 +240,7 @@ public class Hello {
 
     
 
-### 数组遍历
+#### 数组遍历
 
 + <span style="font-size:20px">for each：</span>
 
@@ -253,9 +253,9 @@ public class Hello {
 
 
 
-## 集合
+### 集合
 
-### List
+#### List
 
 + **集合框架：**
 
@@ -286,15 +286,63 @@ List<List<Integer>> list = new ArrayList<>();
 
 ### 栈
 
+栈是 Vector 的一个子类，它实现了一个标准的后进先出的栈。
+
 ```java
 Stack<Integer> stack = new Stack<Integer>();
 ```
+
+除了 Vector 定义的所有方法，自己也定义了一些方法：
 
 + stack.peek()：获得栈顶值
 + stack.pop()：删除并返回栈顶值
 + stack.add()：压入栈顶
 
 
+
+### HashMap
+
+![img](https://www.runoob.com/wp-content/uploads/2020/07/WV9wXLl.png)
+
+HashMap 的 key 与 value 类型可以不同
+
++ 新建 HashMap 对象：
+
+    ```java
+    HashMap<Integer, String> sites = new HashMap<Integer, String>();
+    ```
+
++ 添加元素（添加键值对 key-value）：
+
+    ```java
+    sites.put(1, "Google");
+    sites.put(2, "Zhihu");
+    System.out.println(sites);	// {1=Google, 2=Zhihu}
+    ```
+
++ 访问元素——`get(key)`：
+
+    ```java
+    sites.get(2);	// Zhihu
+    ```
+
++ 删除元素——`remove(key)`
+
++ 迭代 HashMap——`for-each`：
+
+    ```java
+    // 遍历 key
+    for (Integer i : sites.keySet()) {
+    	System.out.println("key" + i + "value" + sites.get(i));  
+    }
+    
+    // 遍历value
+    for (String value: sites.values()) {
+      System.out.print(value + ", ");
+    }
+    ```
+
+    
 
 # 类与对象
 
@@ -790,6 +838,10 @@ public class Soccer {
     [Java ArrayList | 菜鸟教程](https://www.runoob.com/java/java-arraylist.html)
 
     [什么是值传递，什么是引用传递．为什么说Ｊａｖａ中只有值传递 - CSDN](https://blog.csdn.net/w372426096/article/details/82216742)
+
+    [Java HashMap | 菜鸟教程](https://www.runoob.com/java/java-hashmap.html)
+
+    [Java Stack](https://www.runoob.com/java/java-stack-class.html)
 
 + 类与对象：
 

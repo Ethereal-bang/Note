@@ -369,7 +369,59 @@ KMP 主要用在字符串匹配
       // ...最大元素交换到此树杈的根位置：
     ```
 
+
+
+
+# 哈希表
+
+## 理论基础
+
++ <span style="font-size:22px">概念：</span>
+
+    哈希表是根据关键码的值而直接进行访问的数据结构
+
+    其实数组就是一张哈希表。哈希表中关键码就是数组的索引下标，然后通过下标直接访问数组中的元素
+
+下面将会以储存学生姓名为例。只需初始化把学生名字都存在哈希表，查询时直接通过索引（复杂度O(n)）。
+
++ <span style="font-size:22px">哈希函数：</span>
+
+    + **hashCode**——通过特定编码方式，将其他数据格式转化为不同数值
+
+    将学生姓名映射到哈希表就涉及到 hash function。
+
+    如下图，通过 hashCode 把名字转化为数值，hash function 把学生的姓名直接映射为哈希表上的索引。
+
+    ![img](https://img-blog.csdnimg.cn/2021010423484818.png)
+
+    + hashCode() 数值大于 tableSize——为保证映射出的索引数值都落于哈希表，再次对数值做<span style="color:red">取模</span>的操作
+    + 学生数量 dataSize大于 tableSize——就算 hash function 计算再均匀，也避免不了几位同学同时映射到统一索引，所以需要**哈希碰撞**
+
++ <span style="font-size:22px">哈希碰撞：</span>
+
+    <img src="https://img-blog.csdnimg.cn/2021010423494884.png" alt="img" style="zoom:43%;" />
+
+    一般有两种解决方法：拉链法、线性探测法
+
+    + <span style="font-size:20px">拉链法：</span>
+
+        <img src="https://img-blog.csdnimg.cn/20210104235015226.png" alt="img" style="zoom:40%;" />
+
+        发生冲突元素存储在链表
+
+        拉链法就是要选择适当的哈希表的大小，这样既不会因为数组空值而浪费大量内存，也不会因为链表太长而在查找上浪费太多时间
+
+    + <span style="font-size:20px">线性探测法：</span>
+
+        + **前提：**tableSize > dataSize —— 依靠哈希表空位解决碰撞问题
+
++ <span style="font-size:20px">常见哈希结构：</span>
+
+    数组、Set——集合、Map——映射
+
     
+
+
 
 # 回溯算法
 
