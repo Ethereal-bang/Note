@@ -1,10 +1,12 @@
 # 项目初始化
 
+技术栈：Vue + TS + Sass + taro-ui-vue（使用 taro-ui-vue 的模板）
 
+项目初始目录如下：<img src="https://gitee.com/ethereal-bang/images/raw/master/20220122122655.png" alt="image-20220122122655444" style="zoom:53%;" />
 
 # 页面分配
 
-1. 在`app.config.js`内设置字段`pages`、`tabBar`：
+1. 在`app.config.ts`内设置字段`pages`、`tabBar`：
 
     注意`tabBar`内的所有`pagePath`都必须在`pages`内有对应。
 
@@ -59,7 +61,24 @@
         yarn upgrade-interactive  --latest
         ```
 
-        
++ <span style="font-size:20px">[Maximum call stack size exceeded](https://www.jianshu.com/p/1fa961806fcc)</span>
+
+    问题描述：![img](https://upload-images.jianshu.io/upload_images/551421-3f4acde4ab958f93.png?imageMogr2/auto-orient/strip|imageView2/2/w/566/format/webp)
+
+    组件名称与引用的`Slider`组件重名，导致不断循环调用。改变组件名解决。
+    
++ <span style="font-size:20px">[组件样式不能修改](https://www.cnblogs.com/fightjianxian/p/11920913.html)</span>
+
+    使用`<style>`标签而不是`<style scope>`设置。
+
++ <span style="font-size:20px">引用 Taro UI VUE 的ts 文件编译出错</span>
+
+    + Taro UI Vue 源码部分使用Taro Ui Vue 提供的是源文件，源文件部分代码使用 `ts` 编写，需要项目支持 ts。
+    + 在`app.scss`而不是`app.js`中全局引用样式
+
++ <span style="font-size:20px">`<style>`标签样式不生效==？==</span>
+
+    项目换成Sass + taro-ui-vue 后`<style>`标签样式不生效，需在同文件夹内`.scss`设置样式。
 
 # 参考
 

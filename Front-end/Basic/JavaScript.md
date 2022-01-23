@@ -756,19 +756,25 @@ callback:事件处理函数，目标触发事件时回调函数被调用
 
 标准写法  利用事件对象里的stopPropagation()方法 **e.stopPropagation()**
 
+```js
+outer.addEventListener("click", () => {
+    console.log("click outer")
+})
+inner.addEventListener("click", (e) => {
+    e.stopPropagation();    // 阻止事件冒泡到上层 触发下载
+		console.log("click inner")
+}, true)
+```
+
+上例中，添加`e.stopPropagation`后点击内层`closeBtn`触发`inner`后将不再触发`outer`
+
 ### 事件委托
 
 原理不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，利用冒泡原理影响设置每个子节点
 
-*
-*
-
 *点击每个 li 都会弹出对话框，以前需要给每个 li 注册事件，是非常辛苦的，而且访问 DOM 的次数越多，这就会延长整个页面的交互就绪时间。* 
 
 *给 ul 注册点击事件，然后利用事件对象的 target 来找到当前点击的 li，因为点击 li，事件会冒泡到 ul 上， ul 有注册事件，就会触发事件监听器*
-
-*
-*
 
 作用只操作了一次DOM，提高了程序性能
 

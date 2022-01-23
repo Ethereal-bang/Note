@@ -60,7 +60,6 @@
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <script type="text/babel">
-    ```
     
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
@@ -199,7 +198,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
 + <span style="font-size:20px">创建虚拟 DOM</span>
 
-    
+  
     元素是构成 React 应用的最小砖块，就是虚拟 DOM。
     
     元素描述了你在屏幕上想看到的内容
@@ -227,6 +226,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 + <span style="font-size:20px">更新已渲染元素</span>
 
     
+
 React 元素是不可变对象。一旦被创建，就无法更改它的子元素或者属性。
     
 更新 UI 的方式是创建一个全新的元素传入`ReactDOM.render()`
@@ -245,12 +245,12 @@ React 元素是不可变对象。一旦被创建，就无法更改它的子元�
     }
     
     setInterval(tick, 1000);
-    ```
-    
+```
+
 > [window.setInterval | MDN](https://zh-hans.reactjs.org/docs/rendering-elements.html)
     >
     > 重复调用一个函数或执行一个代码段
-    
+
 React 只更新它需要更新的部分：React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态
 
 
@@ -263,25 +263,26 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
 
 
     定义组件最简单的方式就是**编写 JS 函数**：
-
+    
     ``` jsx
     function Welcome(props) {
         return <h1>Hello, {props.name}</h1>;
     }
     ```
-
+    
     该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
 
-    
+
+​    
 
     还可以使用 ES6 的 **class 来定义组件**：
-
+    
     几个必要条件：
-
+    
     1. 必须继承`React.Component`父类
     2. 必须有``render()`
     3. `render()`要有返回值	返回想呈现的内容
-
+    
     ``` jsx
     class Welcome extends React.Component {	// extends 继承
         render() {
@@ -290,18 +291,19 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
     }
     ReactDOM.render(<Welcome name={"app"} />)
     ```
-
+    
      第 2 行的`render()`是放在`MyComponent`的原型对象上，供实例使用。
-
+    
     那么实例在哪呢：
-
+    
     ​	执行了`ReactDOM.render(<Mycomponent />....`之后，发生了什么：
-
+    
     1. React 解析**组件标签**，找到了`MyComponent`组件
     2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
     3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
 
-    
+
+​    
 
 + <span style="font-size:20px">渲染组件</span>
 
@@ -980,44 +982,43 @@ export default class Hello extends Component {
 
 + <span style="font-size:20px">Why hooks</span>
 
-    <hr>
-
-    + 现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
-
-        相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
-
-        但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
-
-        
-
-    + **类和函数的差异**：
-
-        类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
-
-        函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
-
-        
-
-    + **副效应**
-
-        函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
-
-        纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
-
-        
-
-    + **钩子的作用**
-
-        钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
-
-        由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。
-
-        + **`useState()`**：保存状态
+    
++ 现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
+    
+    相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
+    
+    但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
+    
+    
+    
++ **类和函数的差异**：
+    
+    类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
+    
+    函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
+    
+    
+    
++ **副效应**
+    
+    函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
+    
+    纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
+    
+    
+    
++ **钩子的作用**
+    
+    钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
+    
+    由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。
+    
+    + **`useState()`**：保存状态
         + **`useContext()`***：保存上下文
         + **`useRef()`**：保存引用
         + ...
-
-        上面这些钩子都是引入某种特定的副效应，而 **`useEffect()`** 是通用的副效应钩子，找不到对应的钩子时就可以用它。
+    
+    上面这些钩子都是引入某种特定的副效应，而 **`useEffect()`** 是通用的副效应钩子，找不到对应的钩子时就可以用它。
 
 
 
@@ -1196,7 +1197,7 @@ function Example() {
 
     只有含有`text/babel`时才能成功将 JSX 代码识别为 React 元素
 
-      
+     
 
 # 参考链接
 

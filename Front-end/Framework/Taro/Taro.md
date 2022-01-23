@@ -10,8 +10,16 @@ Taro 是一个开放式跨段跨框架解决方案，支持使用 React/Vue/Nerv
 
 Taro 3 只能配合使用 **taro-ui@next** 版本，安装命令：
 
-```
+React：
+
+```shell
 npm i taro-ui@next
+```
+
+Vue:
+
+```shell
+npm i taro-ui-vue
 ```
 
 
@@ -27,8 +35,6 @@ npm i taro-ui@next
 ## 环境准备
 
 目前 Taro 仅提供一种开发方式：安装 Taro 命令行( *Taro CLI* )进行开发
-
-
 
 1. 安装 **Node.js** 环境
 
@@ -82,6 +88,8 @@ npm i taro-ui@next
     ```
     
     微信开发者工具需要的是端代码，即项目内`src/dist`文件夹。该文件夹内是转换后的代码
+    
+    > **dev** 是开发环境，**build** 是生产环境
     
 + **H5**——h5
     H5 模式，无需特定的开发者工具

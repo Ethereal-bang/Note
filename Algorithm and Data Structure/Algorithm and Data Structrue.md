@@ -38,6 +38,12 @@
     + 单调栈里存放的元素——数组下标
     + 单调栈里元素递增/递减——从栈头到栈底
 
+## 队列
+
+### 单调队列
+
+
+
 # 串
 
 ## 数组填充
@@ -189,12 +195,16 @@ KMP 主要用在字符串匹配
         + 中序遍历
         + 后序遍历
 
-        这里的“前”、“中”、“后”指的是二叉树中间节点的遍历顺序，例如：
+        这里的“前”、“中”、“后”指的是二叉树根节点的遍历顺序，例如：
 
         <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180259.png" alt="image-20211106180259744" style="zoom:50%;" />
 
-    + 广度优先遍历，又译作宽度优先搜索（迭代法）
+        ![image-20220106174406085](C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220106174406085.png)
 
+        从递归的角度看，三种算法是完全相同的，或说这三种算法的访问路径是相同的，只是访问结点的时机不同。
+    
+    + 广度优先遍历，又译作宽度优先搜索（迭代法）
+    
         + 层次遍历
         
             沿着树的宽度遍历树的节点(*横向* )
@@ -223,7 +233,7 @@ KMP 主要用在字符串匹配
 
     堆属性非常有用，堆常被作为优先队列使用——可以快速访问到最重要元素
 
-    要注意，堆的根节点存放的是最值，但其他节点排序顺序未知
+    要注意，堆的根节点存放的是<span style="color:red">最值</span>，但其他节点排序顺序未知
 
 
 
@@ -315,7 +325,7 @@ KMP 主要用在字符串匹配
     }
     ```
   
-  + 相当于每次基准按大小将整个数列分为左右两个数列
+  + 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
   
   + 19 行判断语句的必要性：
   
@@ -349,12 +359,12 @@ KMP 主要用在字符串匹配
 
     1. 建立一个最大堆——最大值在堆的根节点
     2. 数组根节点与末尾替换——把最大值放到后面，这样就完成了一趟排序
-    3. 重复以上步骤：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208233135.png" alt="image-20211208233135322" style="zoom:33%;" />
+    3. 重复以上步骤：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208233135.png" alt="image-20211208233135322" style="zoom:53%;" />
 
     ```java
     public static void heapSort(int[] arr) {
       for (int cnt = 1; cnt < arr.length; cnt++) {
-        // 1.构建最大堆:
+        // 1.建初堆——构建最大堆:
         buildMaxHeap(arr, arr.length - cnt + 1);
         // 2.将最大元素交换到末尾:
         swap(arr, 0, arr.length - 1 - cnt + 1);
@@ -363,7 +373,7 @@ KMP 主要用在字符串匹配
       }
     }
     private static void buildMaxHeap(int[] arr, int size) {
-      // ...从最后一个元素开始按大小调整父子结点 构建最大堆
+      // ...从最后一个分支结点——n/2 开始按大小调整父子结点 构建最大堆
     }
     private static void adjustToMaxHeap(int[] arr, int curRootNode, int size) {
       // ...最大元素交换到此树杈的根位置：

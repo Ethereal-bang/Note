@@ -82,9 +82,11 @@
 
     `device-width`就等于理想视口的宽度，所以设置`width=device-width`就相当于让布局视口等于理想视口
 
-### CSS 单位 rem ==？==
+### CSS 单位 rem
 
 rem 就是相对于根元素`<html>`的 font-size 来做计算
+
+rem 使用保证根据窗口大小改变所有元素能等比例缩放。
 
 
 
@@ -96,7 +98,7 @@ rem 就是相对于根元素`<html>`的 font-size 来做计算
 
 随着时代在变化，前端技术在不断的变化，viewport 单位得到众多浏览器的兼容， 上面这种方案现在已经被**官方弃用**。Flexible 已经不是最佳方案，Flexible 已经完成了他自身的历史使命，我们可以放下 Flexible，拥抱新的变化。
 
-### vw、vh	==？==
+### vw、vh
 
 `vh、vw`方案即将视觉视口宽度 `window.innerWidth`和视觉视口高度 `window.innerHeight` 等分为 100 份。
 

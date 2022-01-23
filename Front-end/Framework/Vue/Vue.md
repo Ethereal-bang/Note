@@ -916,11 +916,50 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 
 
-# 事件处理
+# 事件处理 `v-on`
 
-`v-on`
++ **触发一些代码：**
 
-==。。。==
+    ```js
+    <button v-on:click="counter += 1">Add 1</button>
+    ```
+    
++ **调用方法名：**
+
+    ```html
+    <button v-on:click="greet">Greet</button>
+    <butt
+    ```
+
+    ```js
+    // ...
+    methods: {
+      greet: function(event) {
+        // ...
+      }
+    }
+    ```
+
++ **处理器中访问原始 DOM 事件**，用特殊变量`$event`传入方法：
+
+    ```html
+    <button v-on:click="warn('Cannot be submitted yet.', $event)">
+      Submit
+    </button>
+    ```
+
+    ```js
+    // ...
+    methods: {
+      warn: function(message, event) {
+        // 第二个参数就是传进来的原生事件对象
+      }
+    }
+    ```
+
+    
+
+
 
 
 
@@ -1554,6 +1593,3 @@ Vue 结合网络数据开发应用
 
     [Vue Router](https://router.vuejs.org/zh/guide/#html)
 
-
-
-q

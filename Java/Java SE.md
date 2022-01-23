@@ -148,9 +148,6 @@ public class Hello {
         | `nextLong()`    | Reads a `long` value from the user    |
         | `nextShort()`   | Reads a `short` value from the user   |
 
-    
-
-
 
 
 
@@ -163,7 +160,7 @@ public class Hello {
 
 ## 数据结构
 
-### 数组
+### 数组 Array
 
 + **长度**：`.length`：
 
@@ -253,6 +250,13 @@ public class Hello {
 
 
 
+# 字符串 String
+
++ charAt(`index`): 取某位字符
++ 
+
+
+
 ### 集合
 
 #### List
@@ -284,19 +288,14 @@ List<List<Integer>> list = new ArrayList<>();
 
 
 
-### 栈
+### Set
 
-栈是 Vector 的一个子类，它实现了一个标准的后进先出的栈。
+`Set`用于存储不重复的元素集合
 
-```java
-Stack<Integer> stack = new Stack<Integer>();
-```
-
-除了 Vector 定义的所有方法，自己也定义了一些方法：
-
-+ stack.peek()：获得栈顶值
-+ stack.pop()：删除并返回栈顶值
-+ stack.add()：压入栈顶
++ set.add(): 
++ set.remove()
++ set.contains()
++ set.size()
 
 
 
@@ -320,10 +319,11 @@ HashMap 的 key 与 value 类型可以不同
     System.out.println(sites);	// {1=Google, 2=Zhihu}
     ```
 
-+ 访问元素——`get(key)`：
++ 访问元素——`get(key)`、`containsKey(key)`：
 
     ```java
     sites.get(2);	// Zhihu
+    sites.containsKey(3)// 检查是否存在指定的 key 对应的映射关系
     ```
 
 + 删除元素——`remove(key)`
@@ -342,11 +342,53 @@ HashMap 的 key 与 value 类型可以不同
     }
     ```
 
-    
+
+
+### 线性表
+
++ isEmpty()
+
+#### 队列
+
++ <span style="font-size:20px">Queue</span>
+
+    ```java
+    Quequ<Number> queue = new LinkedList<Number>();
+    ```
+
+    + queue.offer(1): 添加元素
+    + queue.poll(): 删除并返回第一个元素
+    + queue.element(): 返回第一个元素，不允许为空
+    + queue.peek(): 返回第一个元素
+
++ <span style="font-size:20px">Deque——双端队列</span>
+
+    ```java
+    Deque<Integer> deque = new LinkedList<Number>();
+    ```
+
+    + deque.getFirst()
+    + deque.getLast()
+    + deque.removeFirst()
+    + deque.removeLast()
+
+### 栈
+
+栈是 Vector 的一个子类，它实现了一个标准的后进先出的栈。
+
+```java
+Stack<Integer> stack = new Stack<Integer>();
+```
+
+除了 Vector 定义的所有方法，自己也定义了一些方法：
+
++ stack.peek()：获得栈顶值
++ stack.pop()：删除并返回栈顶值
++ stack.add()：压入栈顶
+
+
 
 # 类与对象
-
-
 
 ## 属性和方法
 
@@ -578,9 +620,8 @@ import java.util.*;
         }
         ```
 
-        
 
-        
+
 
 # 面向对象
 
