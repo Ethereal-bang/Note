@@ -35,3 +35,9 @@
 + [Task 7]()——MyBatis、数据结构
   1. Mybatis、Maven 架构、Junit
   2. 单调栈、栈、哈希表
+
++ [Task 8]()——JavaWeb、哈希、二分查找
+  1. JavaWeb
+  2. HashMap
+  3. HashSet
+  4. 二分查找
