@@ -185,33 +185,102 @@ KMP 主要用在字符串匹配
 
     如何遍历：父节点`i`，则左孩子`i * 2 +1`，右孩子`i * 2 + 2`
 
+
+### 二叉树的遍历
+
++ <span style="font-size:20px">二叉树节点表示：</span>
+
+    ```java
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {};
+        TreeNode(int val) { // 叶子结点
+            this.val = val;
+        }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    ```
+
 + <span style="font-size:20px">遍历方式：</span>
 
     主要有两种遍历方式：
 
-    + 深度优先遍历（递归法、迭代法）：
-
-        + 前序遍历
-        + 中序遍历
-        + 后序遍历
+    + 深度优先遍历（递归法、迭代法）：前序遍历、中序遍历、后序遍历
 
         这里的“前”、“中”、“后”指的是二叉树根节点的遍历顺序，例如：
 
         <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180259.png" alt="image-20211106180259744" style="zoom:50%;" />
 
-        ![image-20220106174406085](C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220106174406085.png)
+        <img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220106174406085.png" alt="image-20220106174406085" style="zoom:33%;" />
 
         从递归的角度看，三种算法是完全相同的，或说这三种算法的访问路径是相同的，只是访问结点的时机不同。
-    
+
     + 广度优先遍历，又译作宽度优先搜索（迭代法）
-    
+
         + 层次遍历
-        
+
             沿着树的宽度遍历树的节点(*横向* )
 
++ <span style="font-size:20px">二叉树的递归遍历：</span>
 
+    ```java
+    // 前序
+      if (root != null) { // 以防二叉树为空
+        res.add(root.val);	// b只需调整这句话的位置
+        if (root.left != null)
+          res.addAll(preorderTraversal(root.left));
+        if (root.right != null)
+          res.addAll(preorderTraversal(root.right));
+      }
+    ```
 
-### 堆
++ <span style="font-size:20px">二叉树的迭代遍历：</span>
+
+  用 Stack 实现。
+  
+  前序遍历：（中-左-右，入栈顺序 中-右-左）
+  
+  ```java
+  TreeNode node = root;
+  stack.add(node);
+  while (node != null) {  // 每一次循环：将中节点弹出并存入，左右节点入栈
+    res.add(stack.pop().val);   // 中 出栈
+    // 将左右孩子压入栈（先右后栈从而使出栈顺序中左右
+    if (node.right != null)
+      stack.add(node.right);
+    if (node.left != null)
+      stack.add(node.left);
+    if (stack.isEmpty())
+      break;
+    node = stack.peek();
+  }
+  ```
+  
+  中序遍历：（左-中-右，入栈顺序 
+  
+  ```java
+  TreeNode curNode = root;
+  while (curNode != null || !stack.isEmpty()) {
+    if (curNode != null) {  // 一直遍历到左叶子节点，持续入栈
+      stack.add(curNode);
+      curNode = curNode.left;
+    } else {    // 遍历到叶子节点
+      curNode = stack.pop();
+      res.add(curNode.val);   // 中出栈后遍历右孩子入栈
+      curNode = curNode.right;
+    }
+  }
+  ```
+  
+  ==后序遍历?==：（颠倒结果集）
+
+## 堆
 
 堆是用数组实现（*所以没有使用父/子指针*）的二叉树，根据“堆属性”来排序，“堆属性”决定树中节点位置。
 
@@ -429,7 +498,6 @@ KMP 主要用在字符串匹配
 
     数组、Set——集合、Map——映射
 
-    
 
 
 

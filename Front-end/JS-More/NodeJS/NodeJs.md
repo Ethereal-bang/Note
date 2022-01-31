@@ -64,34 +64,41 @@ Hello nodeJs
 
     以下示例将创建一个 Web 服务器，监听对URL `http://127.0.0.1:8000/` 所有种类的 HTTP 请求。
 
+    > 127.0.0.1 指本机
+
     1. 在项目文件夹存入文件：
-
+    
         ```js
-        // 调用 HTTP 模块
+        // 加载 HTTP 模块
         const http = require("http");
+        const hostname = '127.0.0.1';
+        const port = 3000;
         
-        // 创建 HTTP 服务器并监听 8000 端口的所有请求
-        http.createServer((request, response) => {
+        // 创建 HTTP 服务器
+        const server = http.createServer((req, res) => {
         
-           // 用 HTTP 状态码和内容类型来设定 HTTP 响应头
-           response.writeHead(200, {'Content-Type': 'text/plain'});
+          // 用 HTTP 状态码和内容类型（Content-Type）设置 HTTP 响应头
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'text/plain');
         
-           // 发送响应体 "Hello World"
-           response.end('Hello World\n');
-        }).listen(8000);
+          // 发送响应体
+          res.end('Hello World\n');
+        });
         
-        // 在控制台打印访问服务器的 URL
-        console.log('服务器运行于 http://127.0.0.1:8000/');
+        // 监听 3000 端口的请求，注册一个回调函数记录监听开始
+        server.listen(port, hostname, () => {
+          console.log(`服务器运行于 http://${hostname}:${port}/`);
+        });
         ```
-
+    
     2. 终端进入项目文件夹
-
+    
     3. 终端输入：
-
+    
         ```
         node "hello.js"
         ```
-
+    
         浏览器查看 http://localhost:8000，可以看到一个写有”Hello World“的网页。
 
 

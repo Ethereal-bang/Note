@@ -18,31 +18,33 @@ IP 地址： `101.132.100.245`。
 
 # 登录云服务器
 
-选择一款 SSH 工具登录远程服务器。常见的SSH工具有 putty、xshell、xftp、SecureCRT 等。 
++ <span style="font-size:20px">Shell 登录：</span>
 
-1. 这里选择了 XShell、XFtp。
+    ```shell
+    ssh root@101.132.100.245
+    ```
 
-2. Xshell 中首次创建会话：
++ <span style="font-size:20px">SSH 工具登录：</span>
 
-    其中名称自定义，主机填公网 IP，其他默认。
+    选择一款 SSH 工具登录远程服务器。常见的SSH工具有 putty、xshell、xftp、SecureCRT 等。
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211103000016.png" alt="image-20211103000016704" style="zoom:50%;" />
+    1. 这里选择了 XShell、XFtp。
 
-3. Xshell 中连接远程服务器：
+    2. Xshell 中首次创建会话：
 
-    首先出现 SSH 警告，点接受并保存。然后输入系统用户名`root`和上一步中重置的密码。
+        其中名称自定义，主机填公网 IP，其他默认。
 
-4. 然后在上部栏选择**新建文件传输**：
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20211103000016.png" alt="image-20211103000016704" style="zoom:50%;" />
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211103001131.png" alt="image-20211103001131433" style="zoom:50%;" />
+​			3. Xshell 中连接远程服务器：
 
-    之后自动打开登录后的 Xftp。
+​				首先出现 SSH 警告，点接受并保存。然后输入系统用户名`root`和上一步中重置的密码。
 
-5. Xftp 内拖拽文件到服务器。
+​				然后在上部栏选择**新建文件传输**：
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211103001234.png" alt="image-20211103001234824" style="zoom:50%;" />
+​			<img src="https://gitee.com/ethereal-bang/images/raw/master/20211103001131.png" alt="image-20211103001131433" style="zoom:50%;" />
 
-接下来的操作就与在服务器本身操作一样了（直接在阿里云的远程连接也可）。
+​			之后自动打开登录后的 Xftp。
 
 
 
