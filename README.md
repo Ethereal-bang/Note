@@ -74,8 +74,8 @@
 + [MySQL.md](https://github.com/Ethereal-bang/Note/tree/master/Java/CSA-Java)
 
 ## Computer Basics
-+ [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/Algorithm%20and%20Data%20Structure)
-+ [Operating System.md]()
++ [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Algorithm%20and%20Data%20Structrue.md)
++ [Operating System.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Operating%20System.md)
 
 ## C
 + [C.md](https://github.com/Ethereal-bang/Note/blob/master/C/C.md)
