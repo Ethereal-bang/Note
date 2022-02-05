@@ -69,11 +69,17 @@
 + [建站.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Webpack.md)
 
 ## Java
-+ [Java.md](https://github.com/Ethereal-bang/Note/blob/master/Java/Java.md)
++ [Java SE.md](https://github.com/Ethereal-bang/Note/blob/master/Java/Java%20SE.md)
 
 + [CSA-Java](https://github.com/Ethereal-bang/Note/tree/master/Java/CSA-Java)
 
 + [MySQL.md](https://github.com/Ethereal-bang/Note/tree/master/Java/CSA-Java)
+
++ [Maven.md](https://github.com/Ethereal-bang/Note/tree/master/Java/Maven.md)
+
++ [MyBatis.md](https://github.com/Ethereal-bang/Note/blob/master/Java/MyBatis.md)
+
++ [Spring.md](https://github.com/Ethereal-bang/Note/blob/master/Java/Spring.md)
 
 ## Computer Basics
 + [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Algorithm%20and%20Data%20Structrue.md)
