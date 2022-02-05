@@ -143,3 +143,25 @@
     ![image-20211223220346435](https://gitee.com/ethereal-bang/images/raw/master/20211223220353.png)
 
     
+
+1. 新建 Maven Project
+
+2. 在 pom.xml 中引入 jar 包：（Maven Change 后自动下载依赖）
+
+    ```xml
+    <dependencies>
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>5.3.15</version>
+      </dependency>
+    </dependencies>
+    ```
+
+    ![image-20220205102736180](https://gitee.com/ethereal-bang/images/raw/master/20220205102743.png)
+
+3. 项目根目录下新建 Module
+
+4. Module 下三层架构
+
