@@ -318,11 +318,13 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 # 部署前端
 
-1. 绑定 SSH 密钥对
-2. Github 项目绑定密钥
-3. 
+1. 将 Express 项目复制到云服务器上，可以看到访问网站 IP：
 
+    这是存放于 public/images/ 文件夹下的文件，可以直接根据绝对路径访问：
 
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220207154927.png" alt="image-20220207154927079" style="zoom:43%;" />
+
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220207154811.png" alt="image-20220207154811012" style="zoom:33%;" />
 
 # 参考资源
 

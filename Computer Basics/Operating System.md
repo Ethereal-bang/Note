@@ -174,6 +174,24 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
 
     <span style="color:red">ctrl + r</span>
 
+### 系统
+
++ 查看系统进程：
+
+    ```shell
+    $ ps -rf
+    ```
+
+    ![image-20220207144454100](https://gitee.com/ethereal-bang/images/raw/master/20220207144501.png)
+
++ 结束指定 PID 值进程：
+
+    ```shell
+    kill <PID>
+    ```
+
+    
+
 # Ref
 
 + Operating System:

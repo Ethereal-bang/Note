@@ -245,8 +245,6 @@ var app = new Vue({
 
 
 
-
-
 ## el 挂载点
 
 + Vue的**作用范围**：

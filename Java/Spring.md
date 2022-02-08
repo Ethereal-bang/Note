@@ -153,12 +153,22 @@ Spring 框架的控制反转(IoC)容器
 
 
 
-# IoC 创建对象的方式
+# Bean 对象
 
-+ `<bean>`的使用需要与对应 class 的**构造函数对应**。![image-20220205203819248](https://gitee.com/ethereal-bang/images/raw/master/20220205203819.png)
-+ **配置文件加载时，容器中管理的对象就已初始化了——**bean 对象创建即使不赋值不调用，该类的默认构造函数也会调用-即该类也会被实例化
+## IoC 创建对象方式
 
-<hr/>
+- **配置文件加载时，容器中管理的对象就已初始化了——**bean 对象创建即使不赋值不调用，该类的默认构造函数也会调用-即该类也会被实例化
+
+- **依赖注入**（Dependency Injection,DI）。
+
+    - 依赖 : 指Bean对象的创建依赖于容器 . Bean 对象的依赖资源 .
+    - 注入 : 指 Bean 对象所依赖的资源 , 由容器来设置和装配 .
+
+    依赖注入分为<span style="color:red">构造器注入</span>、<span style="color:red">set 注入</span>（重点）
+
+### 构造器注入
+
+![image-20220205203819248](https://gitee.com/ethereal-bang/images/raw/master/20220205203819.png)
 
 + 默认，**无参构造创建：**
 
@@ -167,29 +177,21 @@ Spring 框架的控制反转(IoC)容器
     <property name="name" value="test IoC对象"></property>
     ```
 
-    > **关于 class 的无参构造函数：**
+    > **关于 class 的无参构造函数：**使用无参构造时，即使 class 内没有显式声明构造函数也不会报错，因为会默认创建无参构造函数。
+
+    > 除了这种情况外 class 内都需有对应构造函数：
     >
-    > 使用无参构造时，即使 class 内没有显式声明构造函数也不会报错，因为会默认创建无参构造函数。
-    >
-    > **setName 方法的作用：**
-    >
-    > ![image-20220205205435756](https://gitee.com/ethereal-bang/images/raw/master/20220205205435.png)
-    >
-    > 当构造函数没有为类属性赋值时，bean 变量通过 setter 赋值。
+    > ```java
+    > public User(String name) {
+    > 	this.name = name;
+    > }
+    > ```
 
 + **下标赋值：**
 
     ```java
     <constructor-arg index="0" value="test1"></constructor-arg>
     ```
-
-    > 这种情况 class 内需有对应构造函数：
-    >
-    > ```java
-    > public User(String name) {
-    >   this.name = name;
-    > }
-    > ```
 
 + **类型赋值：**（不建议）
 
@@ -203,9 +205,153 @@ Spring 框架的控制反转(IoC)容器
     <constructor-arg name="name" value="直接通过参数名赋值"></constructor-arg>
     ```
 
++ > **setName 方法的作用：**![image-20220205205435756](https://gitee.com/ethereal-bang/images/raw/master/20220205205435.png)当构造函数没有为类属性赋值时，bean 变量通过 setter 赋值。也就是下面的 set 注入。
 
+### Set 注入
+
+要求被注入的属性 , 必须有 setter 方法。
+
+```xml
+<!--常量注入-->
+<property name="name" value="Mike" />
+<!--bean-->
+<property name="address" ref="addr" />  <!--ref是引用bean-->
+<!--数组-->
+<property name="books">
+  <array>
+    <value>西游记</value>
+    <value>红楼梦</value>
+  </array>
+</property>
+<!--List-->
+<property name="hobbies">
+  <list>
+    <value>听歌</value>
+    <value>看电影</value>
+    <value>爬山</value>
+  </list>
+</property>
+<!--Map-->
+<property name="card">
+  <map>
+    <entry key="中国邮政" value="456456456465456"/>
+    <entry key="建设" value="1456682255511"/>
+  </map>
+</property>
+<!--set注入-->
+<property name="games">
+  <set>
+    <value>LOL</value>
+    <value>CSGO</value>
+  </set>
+</property>
+<!--null-->
+<property name="wife"><null/></property>
+<!--Properties-->
+<property name="info">
+  <props>
+    <prop key="学号">20190604</prop>
+    <prop key="性别">男</prop>
+    <prop key="姓名">小明</prop>
+  </props>
+</property>
+```
+
+
+
+## Bean 作用域 scope
+
+| Scope 类别 | 说明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| singleton  | Spring IoC 容器中仅存一个 Bean 实例，默认                    |
+| prototype  | 每次调用 getBean()，相当于执行 new XxxBean()                 |
+| request    | 每次 HTTP 请求都会创建一个新 Bean（该 scope 仅适用于 WebApplicationContext 环境 |
+| session    | 同一 HTTP Session 共享一 Bean（该 scope 仅适用于 WebApplicationContext 环境 |
+
+```xml
+<!--singleton:-->
+<bean id="ServiceImpl" class="cn.csdn.service.ServiceImpl" scope="singleton">
+```
+
+
+
+## Bean 的自动装配
+
++ **自动装配：**
+
+    Spring 在应用上下文中为某个 bean 寻找其依赖的 bean。
+
++ **三种装配机制：**
+
+    + 在 xml 中显式配置
+    + 在 java 中显式配置
+    + 隐式 bean 发现机制和自动装配
+
++ <span style="font-size:22px">使用注解：</span>
+
+    jdk1.5 开始支持注解，spring2.5 开始全面支持注解
+
+    1. 导入约束
+    2. 配置注解支持（*没做这两步运行时会报空指针 null point*）
+
+    ```diff
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+            https://www.springframework.org/schema/beans/spring-beans.xsd
+    +        http://www.springframework.org/schema/context
+    +        https://www.springframework.org/schema/context/spring-context.xsd">
+    
+    +    <context:annotation-config/>
+    ```
+
+    3. 类中使用注解：
+
+        + @Autowired——按类型自动装配，找到多个再按名字 id
+
+            ```java
+            @Autowired(required = false)    //required=false允许对象为null
+            private Dog dog;
+            @Autowired
+            private Cat cat;
+            ```
+
+            ```xml
+            <bean id="cat" class="com.bei.pojo.Cat"/>
+            <bean id="dog" class="com.bei.pojo.Dog"/>
+            <bean id="people" class="com.bei.pojo.People"/>
+            ```
+
+            ```js
+            ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+            People people = context.getBean("people", People.class);
+            people.getDog().shout();
+            ```
+
+            > `People people = context.getBean("people", People.class)`相当于`= (People) context.getBean("people")`
+
+        + @AutoWired @Qualifier——匹配 id
+
+            ```java
+            @Autowired
+            @Qualifier(value = "cat2")
+            private Cat cat;
+            ```
+
+        + @Resource——匹配指定 id，没有匹配默认 id，再匹配类型
+
+            ```java
+            @Resource(name = "cat2")
+            private Cat cat;
+            ```
+
+            
 
 # Spring 配置
+
+## XML
 
 即 resources 的 xml 文件。
 
@@ -237,9 +383,191 @@ Spring 框架的控制反转(IoC)容器
 
     使用时直接使用总的配置。
 
+## 基于 Java 类配置——JavaConfig
+
+> JavaConfig 原来是 Spring 的一个子项目，它通过 Java 类的方式提供 Bean 的定义信息，在 Spring4 的版本， JavaConfig 已正式成为 Spring4 的核心功能 
+
+1. 编写实体类：
+
+    ```java
+    @Component  //将这个类标注为Spring的一个组件，放到容器中！
+    public class Dog {
+       public String name = "dog";
+    }
+    ```
+
+2. 新建一 config 配置包——编写一个 MyConfig 配置类：
+
+    ```java
+    @Configuration  //代表这是一个配置类
+    @Import(MyConfig2.class)  //导入合并其他配置类，类似于配置文件中的 inculde 标签
+    public class MyConfig {
+       @Bean //通过方法注册一个bean，这里的返回值就Bean的类型，方法名就是bean的id
+       public Dog dog(){
+           return new Dog();
+      }
+    }
+    ```
+
+3. Test:
+
+    ```java
+    @Test
+    public void test2(){
+       ApplicationContext applicationContext =
+               new AnnotationConfigApplicationContext(MyConfig.class);
+       Dog dog = (Dog) applicationContext.getBean("dog");
+       System.out.println(dog.name);
+    }
+    ```
+
+    
 
 
-# DI 依赖注入
+
+# 注解开发
+
+> 实际开发很少将 bean 配到配置文件里。
+
+1. 配置扫描哪些包：
+
+    ```xml
+    <!--指定要扫描的包，这个包下注解才生效-->
+    <context:component-scan base-package="com.bei.dao" />
+    <context:annotation-config/>
+    ```
+
+2. 指定包下编写类的注解：
+
+    ```java
+    @Component("user") 
+    @Scope("prototype")
+    public class User {
+        public String name = "bei";
+      
+        @Value("17")
+        public int age;
+    }
+    ```
+
+> 1. **<span style="font-size:20px">Bean 注入：</span>**
+>
+>      等价于 `<bean id="user" class=".." />` 不指定id则默认类名的小写
+>
+>     @Component——衍生注解（*这四个注解功能相同，只是语义化* ）：
+>
+>     1. @Repository——dao 层
+>     2. @Service——service 层
+>     3. @Controller——controller 层
+>
+> 2. **<span style="font-size:20px">属性注入:</span>**
+>
+>     属性注入 `<property name="age" value="17" />`
+>
+>     @Value
+>
+> 3. **<span style="font-size:20px">Scope:</span>**
+>
+>     @Scope
+
++ XML 配置与注解：
+    + XML 更普适，结构清晰，维护方便
+    + 注解只能使用自己提供的类，开发方便
++ **最佳实践——XML 与注解整合开发：**
+    1. XML 管理 Bean（*可以不用扫描——为了类上注解* ）
+    2. 注解完成属性注入
+
+
+
+# AOP
+
+## 代理模式
+
+Spring AOP[^1] 的底层机制就是动态代理
+
+在不改变原来的代码的情况下，实现了对原有功能的增强，这是AOP中最核心的思想
+
+### 静态代理
+
++ **角色分析：**
+    + 抽象角色 : 一般使用接口或者抽象类来实现
+    + 真实角色 : 被代理的角色
+    + 代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .
+    + 客户         :  使用代理角色来进行一些操作 
+
+实例见 testSpring/spring-06-Proxy demo1
+
++ **缺点：**
+
+    类多了 , 多了代理类 , 工作量变大、开发效率降低（*因此需要动态代理* )
+
+### 动态代理
+
+- 动态代理的**角色**和静态代理的一样
+
+- 动态代理的**代理类**是动态生成的 . 静态代理的代理类是我们提前写好的
+
+- 动态代理分为两类 : 一类是**基于接口动态代理** , 一类是**基于类的动态代理**
+
+- - 基于接口的动态代理----JDK动态代理
+    - 基于类的动态代理--cglib
+    - 现在用的比较多的是 javasis 来生成动态代理
+    - 这里用 JDK 的原生代码来实现，其余的道理都是一样
+
+实例见 testSpring/spring-06-Proxy demo2
+
+1. 可以编写一个通用的动态代理实现的类：
+
+    ```java
+    public class ProxyInvocationHandler implements InvocationHandler {
+       private Object target;
+    
+       public void setTarget(Object target) {
+           this.target = target;
+      }
+    
+       //生成代理类
+       public Object getProxy(){
+           return Proxy.newProxyInstance(this.getClass().getClassLoader(),
+                   target.getClass().getInterfaces(),this);
+      }
+    
+       // proxy : 代理类
+       // method : 代理类的调用处理程序的方法对象.
+       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+           log(method.getName());
+           Object result = method.invoke(target, args);
+           return result;
+      }
+    
+       public void log(String methodName){
+           System.out.println("执行了"+methodName+"方法");
+      }
+    }
+    ```
+
+2. Test:
+
+    ```java
+    public class Test {
+       public static void main(String[] args) {
+           //真实对象
+           UserServiceImpl userService = new UserServiceImpl();
+         	 // 通过调用程序处理角色来处理要调用的接口对象
+           ProxyInvocationHandler pih = new ProxyInvocationHandler();
+           pih.setTarget(userService); //设置要代理的对象
+           UserService proxy = (UserService)pih.getProxy(); //动态生成代理类
+           
+         proxy.delete();// 代理执行方法
+      }
+    }
+    ```
+
+一个动态代理 , 一般代理某一类业务 , 一个动态代理可以代理多个类，代理的是接口
+
+
+
+## 注解实现 AOP
 
 
 
@@ -260,3 +588,8 @@ Spring 框架的控制反转(IoC)容器
     [什么是POJO，JavaBean？- 简书](https://www.jianshu.com/p/6f3e2bd50cb1)
 
     [Spring 概述_w3cschool](https://www.w3cschool.cn/wkspring/dgte1ica.html)
+
+
+
+[^1]:面向切片编程
+

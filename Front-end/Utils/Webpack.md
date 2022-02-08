@@ -18,6 +18,14 @@ Webpack 有以下**核心概念**：
 
 
 
++ **打包流程：**
+
+    ![image-20210421125257233.png](https://cdn.nlark.com/yuque/0/2022/png/12496906/1643563690762-0cffc35d-d4b8-4db8-8912-7a5678ec8da8.png)
+
+    所有要被打包的资源都要根入口产生直接/间接引用关系。
+
+
+
 ## 为什么需要 Webpack
 
 + <span style="font-size:22px">模块系统</span>
@@ -122,9 +130,7 @@ Webpack 有以下**核心概念**：
 
 ## 入口 entry
 
-入口起点指示 Webpack 应该使用哪个模块，来作为**构建其内部依赖图的开始**。进入入口起点后，webpack 会找出有哪些模块和库时入口起点**直接或间接依赖**的
-
-
+入口起点指示 Webpack 应该使用哪个模块，来作为**构建其内部依赖图的开始**。进入入口起点后，webpack 会找出有哪些模块和库时入口起点**直接或间接依赖**
 
 + **默认值**：`./src/index.js`
 + **配置**：可以在`webpack.config.js`中配置**`entry`**属性指定一个或多个入口起点
@@ -135,229 +141,172 @@ Webpack 有以下**核心概念**：
 
 `output`属性告诉 Webpack 在哪里**输出它所创建的 bundle**，以及如何命名这些文件
 
-
-
 + **默认值**：主要输出文件`./dist/main.js`；其他生成文件`./dist`文件夹
 + **配置**：指定`output`字段，配置这些处理
 
 
 
+## plugins
+
+loader 用于转换某些类型的模块
+
++ <span style="font-size:20px">自动生成 HTML 文件：</span>
+
+    html-webpack-plugin 插件，自动帮我们把 html 和 js 一起打包
+
+    ```shell
+    $ yarn add html-webpack-plugin -D
+    ```
+    
+    ```js
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+        // 告诉webpack使用插件时以我们自己的html文件作为模板生成dist/html文件
+      })
+    ]
+    ```
+    
+    > Notes：
+    >
+    > 原 html 文件中无需有任何引用语句，打包生成的文件会自动引用打包后文件。
+
 ## loader
 
 Webpack 只能理解 JS 和 JSON 文件，这是 webpack 开箱可用的自带能力。loader 让其能去处理其他类型的文件，并将它们转换成有效模块供应用程序使用及被添加到依赖图
 
++ <span style="font-size:20px">处理 CSS 文件：</span>
 
+    css-loader 让webpack能处理 css 类型文件，style-loader把css插入到 DOM。
 
-## 插件 plugin
+    ```bash
+    $ yarn add style-loader css-loader -D
+    ```
 
-loader 用于转换某些类型的模块
+    ```js
+    module.exports = {
+        // ...其他代码
+        module: { 
+            rules: [ // loader的规则
+              {
+                test: /\.css$/, // 匹配所有的css文件
+                // use数组里从右向左运行
+                // 先用 css-loader 让webpack能够识别 css 文件的内容并打包
+                // 再用 style-loader 将样式, 把css插入到dom中
+                use: [ "style-loader", "css-loader"]
+              }
+            ]
+        }
+    }
+    ```
 
+    > 模块 **loader 可链式调用**，链中的每个 loader 都将对资源进行转换。第一个 loader 将其结果（被转换后的资源）传递给下一个 loader，链中的最后的 loader 返回 JavaScript。
+    >
+    > 应保证 loader 的**先后顺序**：`style-loader`在`css-loader`之前，不然报错
 
+    将 css 文件在 js 中引用：
+
+    ```js
+    import "./css/index.css"
+    ```
+
++ <span style="font-size:20px">处理 sass 文件：</span>
+
+    [`sass-loader`](https://webpack.docschina.org/loaders/sass-loader) 加载并编译 SASS/SCSS 文件
+
+    ```bash
+    $ yarn add sass sass-loader -D
+    ```
+
+    ```js
+     module: {
+       rules: [
+         {
+           test: /\.s[ac]ss$/i,    // 匹配sass/scss文件(忽略大小写
+           use: [ "style-loader", "css-loader", "sass-loader" ]
+         }
+       ]
+     }
+    ```
+
+    > 可以和 css 文件共存
+
++ <span style="font-size:20px">处理图片文件：</span>
+
+    Webpack 可以使用内置的 [asset modules](https://webpack.docschina.org/guides/asset-modules/) 而无需配置额外 loader
+
+    ```diff
+    module: {
+    	rules: [
+    +    {
+    +      test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    +      type: 'asset',	
+    +    },
+      ],
+    },
+    ```
+
+    > **asset module:**
+    >
+    > 资源模块类型(asset module type)，通过添加 4 种新的模块类型，来替换 Webpack5 之前的 loader：
+    >
+    > - **`asset/resource`** 发送一个单独的文件并导出 URL。之前通过使用 `file-loader` 实现。
+    > - **`asset/inline`** 导出一个资源的 data URI。之前通过使用 `url-loader` 实现。
+    > - **`asset/source`** 导出资源的源代码。之前通过使用 `raw-loader` 实现。
+    > - **`asset`** 在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用 `url-loader`，并且配置资源体积限制实现。
+    
+    ```js
+    // 引入
+    import Icon from './icon.jpg';
+    
+    // 图像添加到 div 中。
+    const myIcon = new Image();
+    myIcon.src = Icon;
+    element.appendChild(myIcon);
+    ```
+    
+    对图片有两种处理方案
+    
+    - 小于8KB的图片转化成base64字符串进入js文件中
+    - 大于8KB的图片直接输出文件
+    
+    > **图片转化成 base64** 的好处是浏览器不用发请求了，直接可以获取。坏处就是如果图片太大，再转 base64 就会让图片的体积增大 30%。
+    
+    > 可以看到，同样是在 js 内引用图片，大的直接输出，小的转化：
+    >
+    > ![image-20220206165704537](https://gitee.com/ethereal-bang/images/raw/master/20220206165704.png)
+    
+    
 
 # Webpack 搭建指南
 
-## 1.基础构建
+## Demo
 
-### 1.项目初始化
++ 
 
-```diff
-  webpack-demo
-  |- package.json
-+ |- index.html
-+ |- /src
-+   |- index.js
-```
-
-+ <span style="font-size:20px">package.json：</span>
-
-    `npm init`后生成
-
-    另外，我们需要调整`package.json`确保安装包是`private`（私有的），且移除`main`入口防止意外发布代码
-
-    ```diff
-    -  "main": "index.js",
-    +  "private": true,
+    ```shell
+    $ yarn add webpack webpack-cli -D
     ```
 
-+ <span style="font-size:20px">src/index.js：</span>
++ 配置 scripts：
 
-    ```js
-    function component() {
-      const element = document.createElement('div');
-    
-      element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    
-      return element;
-    }
-    
-    document.body.appendChild(component());
-    ```
-
-    其中，lodash 对于第 4 行的代码运行是必需的，而 lodash 目前在`index.html`中通过 script 标签引入。
-
-在这个 demo 中，`<script>`存在**隐式依赖关系**。`index.js`执行前还需先在页面引入 [lodash](https://www.lodashjs.com/)。这是因为`index.js`未显式声明它需要 lodash。
-
-总结来说这种方式去管理 JS 项目会有以下问题：
-
-+ 没有直接体现——脚本执行依赖于外部库
-
-+ 若依赖不存在、引入顺序错误：应用程序无法正常运行
-
-+ 依赖被引入但没有使用：浏览器将被迫下载无用代码
-
-    
-
-接下来使用 Webpack 管理这些脚本。
-
-
-
-### 2. 创建一个 bundle
-
-1. <span style="font-size:20px">调整目录结构：</span>
-
-    其中，`/dist`分发代码文件夹、`/src`源代码文件夹
-
-    分发代码指构建过程中，经过最小化和优化后产生的输出结果，最终将在浏览器中加载
-
-    ```diff
-    webpack-demo
-      |- package.json
-    + |- /dist
-    +   |- index.html
-    - |- index.html
-      |- /src
-        |- index.js
-    ```
-
-    这里尽管`index.html`存放在`/dist`，但它是手动创建的。后续步骤将涉及如何生成 `index.html` 而非手动编辑它。如此做，便可安全地清空 `dist` 目录并重新生成目录中的所有文件。
-
-2. <span style="font-size:20px">打包 lodash 依赖：</span>
-
-    要在`index.js`中打包 lodash 依赖，需在本地安装 ==library？==
-
-    ```bash
-    npm install --save lodash
-    ```
-
-    > **--save、--save-dev：**
-    >
-    > 安装一个要打包到生产环境 bundle 中的 package 时，应使用 `npm install --save`
-    >
-    > 安装一个用于开发环境的 package 时（例如，linter, 测试库等），应使用 `npm install --save-dev`
-
-3. <span style="font-size:20px">Script 中 import lodash：</span>
-
-    src/index.js：
-
-    ```diff
-    +import _ from 'lodash';
-    ```
-
-    ES6 中的`import`、`export`语句能被 Webpack 很好地支持
-
-    这里`index`显式要求 lodash 必须存在，且将其绑定为`_`避免全局污染。
-
-    通过声明模块所需的依赖，Webpack 能够利用这些信息去**构建依赖图**，然后使用**图** **生成**一个优化过的且以正确顺序执行的 **bundle**
-
-4. <span style="font-size:20px">更新`index.html`：</span>
-
-    ```diff
-    -	<script src="https://unpkg.com/lodash@4.17.20"></script>
-    </head>
-    <body>
-    -    <script src="./src/index.js"></script>
-    +    <script src="main.js"></script> 	<!--y加载 bundle-->
-    ```
-
-    现在，我们将会打包所有脚本，我们必须更新 `index.html` 文件：由于现在是通过 `import` 引入 lodash，所以要将 lodash `<script>` 删除，然后修改另一个 `<script>` 标签来**加载 bundle**，而不是原始的 `./src` 文件。
-
-5. <span style="font-size:20px">运行 Webpack：</span>
-
-    ```bash
-    $ npx webpack
-    ```
-
-    执行以上命令经历了哪些过程：会将`src/index.js`作为**入口起点**，生成`dist/main.js`作为**输出**。（运行安装的 Webpack package 中的 webpack 二进制文件（即 `./node_modules/.bin/webpack`）
-
-6. <span style="font-size:20px">测试：</span>
-
-    浏览器里打开`index.html`，看到`Hello webpack`。
-
-
-
-### 3. 使用一个配置文件
-
-Webpack 中可以无须任何配置，然后大多数项目会需要很复杂的配置，所以 Webpack 仍要支持配置文件，这比终端里输入大量命令高效的多
-
-1. <span style="font-size:20px">Project：</span>
-
-    ```diff
-    	|- package.json
-    + |- webpack.config.js
-      |- /dist
-        |- index.html
-      |- /src
-        |- index.js
-    ```
-
-2. <span style="font-size:20px">webpack.config.js：</span>
-
-    ```js
-    const path = require('path');
-    
-    module.exports = {
-      entry: './src/index.js',
-      output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
-      },
-    };
-    ```
-
-3. <span style="font-size:20px">通过新的配置文件再次执行构建：</span>
-
-    ```bash
-    $ npx webpack --config webpack.config.js
-    ```
-
-    > **--config：**
-    >
-    > 如果 `webpack.config.js` 存在，则 `webpack` 命令将默认选择使用它。
-    >
-    > 这里使用 `--config` 选项只是表明可以传递任何名称的配置文件，这对于需要拆分成多个文件的复杂配置非常有用
-
-    比起 CLI 简单直接的使用方式，配置文件更具灵活性。可以通过配置方式指定 loader 规则(loader rule)、plugin(插件)、resolve 选项，以及许多其他增强功能
-
-
-
-### 4. npm scripts
-
-用 CLI 运行本地的 Webpack 副本不是很方便，可以设置一个**快捷方式**。
-
-+ <span style="font-size:20px">调整 package.json：</span>
-
-    调整 package.json 文件，添加一个 [npm script](https://docs.npmjs.com/misc/scripts)：
-
-    ```diff
-    	"scripts": {
+    ```json
+      "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-    +   "build": "webpack"
-       },
+        "build": "webpack"
+      },
     ```
 
-+ <span style="font-size:20px">npm run build：</span>
++ 新建待打包文件
 
-    现在，可以使用 `npm run build` 命令，来替代我们之前使用的 `npx` 命令。
++ `yarn build`：
 
-    使用 npm `scripts`，我们可以像使用 `npx` 那样通过模块名引用本地安装的 npm packages。
+    执行后如图<img src="https://gitee.com/ethereal-bang/images/raw/master/20220205221753.png" alt="image-20220205221753552" style="zoom:53%;" />
 
-    ```bash
-    $ npm run build
-    ```
-
-    > Tip
+    > **默认入口:** ./src/index.js
     >
-    > 若第一步配置失败，此时会显示`npm ERR! missing script: build`。
+    > **默认出口:** ./dist/main.js
+
 
 
 
@@ -365,156 +314,15 @@ Webpack 中可以无须任何配置，然后大多数项目会需要很复杂的
 
 这一节将学习如何通过 webpack 来管理资源，例如 images、fonts。
 
-
-
-+ <span style="font-size:20px">修改输出名：</span>
-
-    将前面设置的`main.js`改为`bundle.js`。对应的`webpack.config.js`和`index.html`中都要修改。
-
-
-
-### 加载 CSS
-
-+ <span style="font-size:20px">添加 loader：</span>
-
-    为了在 JavaScript 模块中 `import` 一个 CSS 文件，需要安装 [style-loader](https://webpack.docschina.org/loaders/style-loader) 和 [css-loader](https://webpack.docschina.org/loaders/css-loader)，并在 [`module` 配置](https://webpack.docschina.org/configuration/module) 中添加这些 loader：
-
-    ```bash
-    npm install --save-dev style-loader css-loader
-    ```
-
-+ <span style="font-size:20px">webpack.config.js：</span>
-
-    在`webpack.config.js`字段加入 loader。
-
-    ```diff
-    const path = require('path');
-    
-     module.exports = {
-       entry: './src/index.js',
-       output: {
-         filename: 'bundle.js',
-         path: path.resolve(__dirname, 'dist'),
-       },
-    +  module: {
-    +    rules: [
-    +      {
-    +       test: /\.css$/i,
-    +        use: ['style-loader', 'css-loader'],
-    +     },
-    +    ],
-    +  },
-     };
-    ```
-
-    > **`test`字段：**
-    >
-    > Webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 loader
-    >
-    > 在这个示例中，所有以 `.css` 结尾的文件，都将被提供给 `style-loader` 和 `css-loader`。
-
-    模块 **loader 可链式调用**，链中的每个 loader 都将对资源进行转换。第一个 loader 将其结果（被转换后的资源）传递给下一个 loader，链中的最后的 loader 返回 JavaScript。
-
-    应保证 loader 的**先后顺序**：`style-loader`在`css-loader`之前，不然报错
-
-    
-
-    现在尝试一下：
-
-+ <span style="font-size:20px">引入 CSS 文件：</span>
-
-    project：
-
-    ```diff
-    webpack-demo
-      |- package.json
-      |- webpack.config.js
-      |- /dist
-        |- bundle.js
-        |- index.html
-      |- /src
-    +   |- style.css
-        |- index.js
-      |- /node_modules
-    ```
-
-    `npm run build`后，可以发现`Hello webpack`样式成功更改。（若 loader 配置失败，编译 CSS 文件会报错，因为无法编译）
-
-
-
-### 加载 Images
-
-+ <span style="font-size:20px">Webpack.config.js：</span>
-
-    与 CSS 文件的区别是，Webpack 可以使用内置的 [asset modules](https://webpack.docschina.org/guides/asset-modules/) 而无需配置额外 loader。
-
-    ```diff
-    module: {
-    	rules: [
-      	{
-        	test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
-         },
-    +    {
-    +      test: /\.(png|svg|jpg|jpeg|gif)$/i,
-    +      type: 'asset/resource',
-    +    },
-      ],
-    },
-    ```
-
-
-
-现在尝试添加图片资源在项目中：
-
-+ <span style="font-size:20px">project：</span>
-
-    ```diff
-    |- package.json
-      |- webpack.config.js
-      |- /dist
-        |- bundle.js
-        |- index.html
-      |- /src
-    +   |- icon.png
-        |- style.css
-        |- index.js
-      |- /node_modules
-    ```
-
-+ <span style="font-size:20px">index.js：</span>
-
-    这里在`index.js`文件中将图像添加：
++ <span style="font-size:20px">加载 fonts:</span>
 
     ```js
-    // 引入
-    import Icon from './icon.jpg';
-    
-    // 将图像添加到我们已经存在的 div 中。
-    const myIcon = new Image();
-    myIcon.src = Icon;
-    element.appendChild(myIcon);
+    // webpack.config.js
+    	{
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
     ```
-
-重新构建，可以看到`dist`下重命名的 jpg 文件。
-
-
-
-### 加载 fonts
-
-```js
-// webpack.config.js
-	{
-    test: /\.(woff|woff2|eot|ttf|otf)$/i,
-    type: 'asset/resource',
-  },
-```
-
-
-
-
-
-### 加载数据
 
 
 
@@ -602,50 +410,6 @@ Webpack 中可以无须任何配置，然后大多数项目会需要很复杂的
 
 
 
-### 2.设置 HtmlWebpackPlugin
-
-+ <span style="font-size:20px">安装插件：</span>
-
-    ```bash
-    npm install --save-dev html-webpack-plugin
-    ```
-
-+ <span style="font-size:20px">Webpack.config.js：</span>
-
-    ```diff
-    +const HtmlWebpackPlugin = require('html-webpack-plugin');
-    
-     module.exports = {
-       entry: {
-         index: './src/index.js',
-         print: './src/print.js',
-       },
-    +  plugins: [
-    +   new HtmlWebpackPlugin({
-    +      title: '管理输出',
-    +    }),
-    +  ],
-       output: {
-         filename: '[name].bundle.js',
-         path: path.resolve(__dirname, 'dist'),
-       },
-     };
-    ```
-
-
-
-+ <span style="font-size:20px">构建：</span>
-
-    执行`npm run build`后发生了什么：
-
-    ![image-20211030153712719](https://gitee.com/ethereal-bang/images/raw/master/20211030153712.png)
-
-    可以看出，虽然在 `dist/` 文件夹我们已经有了 `index.html` 这个文件，然而 `HtmlWebpackPlugin` 还是会默认生成它自己的 `index.html` 文件。
-
-    打开`index.html`可以发现，已经被该插件生成的替换为了全新的文件，所有的 bundle 自动添加到 html 中。
-
-
-
 ### 3.清理 dist 文件夹
 
 Webpack 将生成文件并放置在 `/dist` 文件夹中，不用的文件也会堆积。
@@ -681,8 +445,6 @@ Webpack 将生成文件并放置在 `/dist` 文件夹中，不用的文件也会
 ## 4.设置开发环境
 
 设置一个开发环境，使我们的开发体验变得更轻松一些。这一节的工具**仅用于开发环境**，但不要在生产环境中使用它们。
-
-
 
 1. <span style="font-size:20px">设置 mode：</span>
 
@@ -724,7 +486,7 @@ module.exports = {
 
 ```
 
-测试：==？==
+测试：
 
 没设置时的报错：![image-20211030184411765](https://gitee.com/ethereal-bang/images/raw/master/20211030184411.png)
 
@@ -856,5 +618,32 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 + <span style="font-size:20px">SplitChunksPlugin：</span>
 
+
+
+
+# Debug
+
++ 输出文件内容为空：
+
+    ```js
+    const fn = () => {
+      console.log("你好babel");
+    }
+    console.log(fn) // 不能调用/不使用
+    // webpack不会编译未使用的代码
+    ```
     
+    
+
+
+
+# Ref
+
++ 总：
+
+    [概念 | webpack 中文文档](https://webpack.docschina.org/concepts/)
+
++ Demo：
+
+    [webpack入门 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/qvop63)
 

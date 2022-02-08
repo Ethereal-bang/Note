@@ -752,7 +752,11 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
 
 # 六、部署生产环境
 
++ 守护后台进程：
 
+    ```shell
+    $ nohup node app
+    ```
 
 
 

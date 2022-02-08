@@ -85,8 +85,8 @@ let arr = [1, 2];
 console.log(arr instanceof Array);  //true
 ```
 
-- - **constructor** ?
-  - **prototype**  ?
+- - **constructor** 
+  - **prototype**  
 
 #### 字符串型String
 
@@ -103,26 +103,6 @@ console.log(arr instanceof Array);  //true
 字符串拼接
 
 数值与字符串：数值相加 ，字符相连 
-
-```
-//1. 字符串 "相加"
-alert('hello' + ' ' + 'world'); // hello world
-//1. 数值字符串 "相加"
-alert('100' + '100'); // 100100
-//1. 数值字符串 + 数值
-alert('11' + 12);     // 1112 
-```
-
-字符串与变量
-
-变量是不能添加引号的，因为加引号的变量会变成字符串
-
-```
-var age = 18;
-// console.log('pinkage岁啦');       // 这样不行哦
-console.log('pink' + age);          // pink18
-console.log('pink' + age + '岁啦');  // pink18岁啦
-```
 
 #### 布尔型Boolean
 
@@ -375,9 +355,21 @@ F11: 程序单步执行，让程序一行一行的执行，这个时候，观察
 
 ## 函数
 
-函数：就是封装了一段可被重复调用执行的代码块。通过此代码块可以实现大量代码的重复使用
++ 函数`f1`参数为函数（*callback*）的情况：
 
+    该 callback 接收的参数是定义`f1`时调用该 callback 时的参数：
 
+    ```js
+    Array.prototype.myReduce = function(callback, initialValue) {
+      let accumulator, currentValue, index, array = this;
+      while (index < array.length) {
+        currentValue = array[index];
+        // accumulator= 上次callback执行的结果
+        accumulator = callback(accumulator, currentValue, index++, array);
+      }
+    ```
+
+    
 
 ### arguments：
 
