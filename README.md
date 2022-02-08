@@ -73,7 +73,9 @@
 
 + [CSA-Java](https://github.com/Ethereal-bang/Note/tree/master/Java/CSA-Java)
 
-+ [MySQL.md](https://github.com/Ethereal-bang/Note/tree/master/Java/CSA-Java)
++ [JDBC.md](https://github.com/Ethereal-bang/Note/tree/master/Java/JDBC.md)
+
++ [MySQL.md](https://github.com/Ethereal-bang/Note/tree/master/Java/MySQL.md)
 
 + [Maven.md](https://github.com/Ethereal-bang/Note/tree/master/Java/Maven.md)
 
