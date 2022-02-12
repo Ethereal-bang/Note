@@ -81,7 +81,7 @@
 
 + [MyBatis.md](https://github.com/Ethereal-bang/Note/blob/master/Java/MyBatis.md)
 
-+ [Spring.md](https://github.com/Ethereal-bang/Note/blob/master/Java/Spring.md)
++ [Spring](https://github.com/Ethereal-bang/Note/blob/master/Java/Spring)
 
 ## Computer Basics
 + [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Algorithm%20and%20Data%20Structrue.md)

@@ -469,7 +469,7 @@ export default class Test extends React.Component {
 
 
 
-# React
+# Taro + React
 
 ## React 基本用法
 
@@ -701,6 +701,49 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
 + <span style="font-size:20px">使用方法</span>
 
 
+
+# Taro + Vue2
+
+## 页面组件
+
++ **组件属性：**
+
+    ```vue
+    <AtInput
+    	title="请填写书籍名称 / 扫一扫书的ISBN码"
+    	:value="inputValue"
+    />
+    ```
+
+    `title`后接字符串，`:value`后 js 表达式
+
++ **输入框组件：**
+
+    ```vue
+    <AtInput
+      title="书名"
+      placeholder="请填写书籍名称 / 扫一扫书的ISBN码"
+      :value="inputValue"
+      :on-change="onInputValueChange.bind(this, 'inputValue')"
+    />
+    ```
+
+    ```js
+    export default {
+      data() {
+        return {
+          inputValue: "",
+        }
+      },
+      methods: {
+        onInputValueChange(stateName, value) {
+          this[stateName] = value;
+        },
+      }
+    }
+    ```
+
+    
 
 # 路由功能
 

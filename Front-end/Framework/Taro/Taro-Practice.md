@@ -1,3 +1,10 @@
+# 项目启动
+
+1. `npm run dev:weapp`
+2. 微信开发者工具选择项目目录 /dist 文件夹
+
+
+
 # 项目初始化
 
 技术栈：Vue + TS + Sass + taro-ui-vue（使用 taro-ui-vue 的模板）
@@ -78,10 +85,31 @@
 
 + <span style="font-size:20px">`<style>`标签样式不生效==？==</span>
 
-    项目换成Sass + taro-ui-vue 后`<style>`标签样式不生效，需在同文件夹内`.scss`设置样式。
+    项目换成Sass + taro-ui-vue 后`<style scope>`标签样式不生效，需在同文件夹内`.scss`设置样式。
+    
++ <span style="font-size:20px">关于除 Tab 对应的其他页面:</span>
 
-# 参考
+    + Desc: " [ app.json 文件内容错误] app.json: 未找到 ["pages"][3] 对应的 pages/publish/out.js 文件 "
+    + R: "app.config.js" pages 字段下每个路径要在 /pages 文件夹下有对应 js 文件
+    
++ <span style="font-size:20px">`navigator`组件点击路径没变：</span>
+
+    `url`属性设置错误。
+
+    A: `url="./page/index/index"`改为`/page/index/index`
+
+
+
+# Ref
 
 + 问题：
 
     [出现 Template `tmpl_0_div` not found. - githubmemory](https://githubmemory.com/repo/NervJS/taro/issues/10539)
+
+
+
+# Other
+
+![image-20220209105209959](https://gitee.com/ethereal-bang/images/raw/master/20220209105217.png)
+
+![image-20220209113053923](https://gitee.com/ethereal-bang/images/raw/master/20220209113054.png)

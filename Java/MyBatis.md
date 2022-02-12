@@ -58,6 +58,13 @@
 
 # MyBatis + Maven 搭建程序
 
++ **MyBatis 步骤总结：**
+    1. 编写实体类
+    2. 编写核心配置文件
+    3. 编写接口
+    4. 编写 Mapper.xml
+    5. 测试
+
 1. "SqlMapConfig.xml"文件：
 
     ```xml
@@ -108,7 +115,7 @@
 
         可以通过 SqlSession 实例来直接执行已映射的 SQL 语句
 
-3. com.user.domain，`Account.java`类：
+3. com.bei.domain，`Account.java`类：
 
     ```java
     public class Account {
@@ -122,7 +129,7 @@
     }
     ```
 
-4. Dao 接口，com.user.dao，`AccountDao.java`：
+4. Dao 接口，com.bei.dao，`AccountDao.java`：
 
     ```java
     public interface AccountDao {

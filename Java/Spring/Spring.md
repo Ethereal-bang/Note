@@ -571,6 +571,230 @@ Spring AOP[^1] 的底层机制就是动态代理
 
 
 
+# 整合 MyBatis
+
+## MyBatis 回忆
+
+1. <span style="font-size:20px">编写实体类：</span>——（User）对应于 MySQL 的表，字段对应列
+
+    ```java
+    public class User {
+        private int id;  
+        private String name;  
+        private String pwd;   
+    }
+    ```
+
+2. <span style="font-size:20px">MyBatis 的配置文件:</span>
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE configuration
+            PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+            "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    <configuration>
+    
+        <typeAliases>
+            <package name="com.bei.pojo"/>
+        </typeAliases>
+    
+        <environments default="development">
+            <environment id="development">
+                <transactionManager type="JDBC"/>
+                <dataSource type="POOLED">
+                    <property name="driver" value="com.mysql.jdbc.Driver"/>
+                    <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf8"/>
+                    <property name="username" value="root"/>
+                    <property name="password" value="123456"/>
+                </dataSource>
+            </environment>
+        </environments>
+    
+        <mappers>
+    	      <mapper class="com.bei.mapper.UserMapper" />
+        </mappers>
+    </configuration>
+    ```
+
+3. <span style="font-size:20px">编写 mapper 接口</span>——对应操作该表的语句
+
+    ```java
+    public interface UserMapper {
+        public List<User> selectUser();
+    }
+    ```
+
+4. <span style="font-size:20px">接口的映射文件:</span>
+
+    ```java
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+            PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+            "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.bei.dao.UserMapper">
+    
+        <select id="selectUser" resultType="User">
+            select * from testspring.user;
+        </select>
+    
+    </mapper>
+    ```
+
+5. <span style="font-size:20px">测试:</span>
+
+<hr />
+
++ <span style="font-size:20px">配置：</span>
+
+    1. **引入 jar 包：**项目名称 artifactId）
+        + junit
+        + mybatis、mysql-connector-java（mySql 要么 5. 要么 8. 比较稳定)
+        + spring-webmvc、spring-jdbc
+        + aspectjweaver（*aspectJ AOP 织入器*）
+        + mybatis-spring（*mybatis-spring 整合包 【重点】*）
+
+    2. **配置Maven静态资源过滤问题：**
+
+        ```xml
+        <build>
+           <resources>
+               <resource>
+                   <directory>src/main/java</directory>
+                   <includes>
+                       <include>**/*.properties</include>
+                       <include>**/*.xml</include>
+                   </includes>
+                   <filtering>true</filtering>
+               </resource>
+           </resources>
+        </build>
+        ```
+
+## 整合方式一
+
+1. **DataSource:** 使用Spring的数据源替换MyBatis的配置
+
+    ```xml
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+      <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf8"/>
+      <property name="username" value="root"/>
+      <property name="password" value="theday1012"/>
+    </bean>
+    ```
+
+2. **sqlSessionFactory 配置，关联 MyBatis:**
+
+    ```xml
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+      <!--关联Mybatis-->
+      <property name="configLocation" value="classpath:mybatis-config.xml"/>
+      <property name="mapperLocations" value="classpath:com/bei/mapper/*.xml"/>
+    </bean>
+    ```
+
+3. **注册sqlSessionTemplate，关联sqlSessionFactory:**
+
+    ```xml
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+       <!--利用构造器注入-->
+       <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    ```
+
+4. **增加 Mapper 接口的实用类，私有化sqlSessionTemplate:**
+
+    ```java
+    public class UserMapperImpl implements UserMapper {
+        // 现在所有操作都使用sqlSessionTemplate执行
+    
+        private SqlSessionTemplate sqlSession;
+    
+        public void setSqlSession(SqlSessionTemplate sqlSession) {
+            this.sqlSession = sqlSession;
+        }
+    
+        public List<User> selectUser() {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            return mapper.selectUser();
+        }
+    }
+    ```
+
+5. **注册 bean 实现:**
+
+    ```java
+    <bean id="userMapper" class="com.bei.mapper.UserMapperImpl">
+      <property name="sqlSession" ref="sqlSession" />
+    </bean>
+    ```
+
+6. **Test:**
+
+    ```java
+    ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    UserMapper mapper = (UserMapper) context.getBean("userMapper");
+    List<User> user = mapper.selectUser();
+    System.out.println(user);
+    ```
+
+## 整合方式二（更优）
+
+1. **DataSource:** 使用Spring的数据源替换MyBatis的配置
+
+    ```xml
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+      <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf8"/>
+      <property name="username" value="root"/>
+      <property name="password" value="theday1012"/>
+    </bean>
+    ```
+
+2. **sqlSessionFactory 配置，关联 MyBatis:**
+
+    ```xml
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+      <!--关联Mybatis-->
+      <property name="configLocation" value="classpath:mybatis-config.xml"/>
+      <property name="mapperLocations" value="classpath:com/bei/mapper/*.xml"/>
+    </bean>
+    ```
+
+3. **增加 Mapper 接口的实用类，继承 SqlSessionDaoSupport 类:**(*这步替代了方法一的3、4步，其余步骤相同* )
+
+    ```java
+    public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper2 {
+        public List<User> selectUser() {
+            UserMapper mapper = getSqlSession().getMapper(UserMapper.class);
+            return mapper.selectUser();
+        }
+    }
+    ```
+    
+4. **注册 bean 实现:**
+
+    ```java
+    <bean id="userMapper" class="com.bei.mapper.UserMapperImpl">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    ```
+
+5. **Test:**
+
+    ```java
+    ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    UserMapper mapper = (UserMapper) context.getBean("userMapper");
+    List<User> user = mapper.selectUser();
+    System.out.println(user);
+    ```
+
+## 事务管理
+
+**事务：**把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用
+
 
 
 # Ref
@@ -588,6 +812,14 @@ Spring AOP[^1] 的底层机制就是动态代理
     [什么是POJO，JavaBean？- 简书](https://www.jianshu.com/p/6f3e2bd50cb1)
 
     [Spring 概述_w3cschool](https://www.w3cschool.cn/wkspring/dgte1ica.html)
+
+
+
+# Debug
+
++ Q：resources 目录下 spring-dao.xml 不能识别为配置文件类型
+
+    A：改名为 springDao.xml
 
 
 
