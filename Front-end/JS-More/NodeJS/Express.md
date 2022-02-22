@@ -395,6 +395,10 @@
     ```
 
     访问 http://localhost:3000/users/cool 显示“cool😎!”。
+    
+    > 而 /cool 的一系列子路径定义在 routes/cool.js 文件下。
+    
+    > 路径大小写不区分
 
 
 

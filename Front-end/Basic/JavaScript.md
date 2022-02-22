@@ -1,26 +1,23 @@
 # ECMAScript
 
-## 位置
+## `<script>`标签
 
-### 1. 行内式
+`<script src= type=`
 
-不推荐
+1. 行内式
 
-### 2.内嵌式
+    不推荐
 
-```
-<script>
-    alert('Hello  World~!');
- </script>
-```
+2. 内嵌式
 
-### 3.外部.js文件
+3. 外部.js文件
 
-```
-<script src="my.js"></script>
-```
+    放在`</body>`前，等待整个文档解析完执行。
 
-放在`</body>`前。
+> script 标签有两个属性——**defer、async：**
+>
+> + 都是异步加载，Async是在外部 JS 加载完成后，浏览器空闲时，Load 事件触发前执行；而 Defer 是在JS加载完成后，整个文档解析完成后执行。
+>     Defer 更像是将`<script>`标签放在`</body>`之后的效果，但是它由于是异步加载 JS 文件，所以可以节省时间。
 
 ## 注释
 
@@ -772,9 +769,7 @@ inner.addEventListener("click", (e) => {
 
 # BOM
 
-## BOM概述
-
-BOM即浏览器对象模型，提供了独立于内容而与浏览器窗口进行交互的对象，核心对象window
+BOM即浏览器对象模型，提供了独立于内容而与浏览器窗口进行交互的对象，核心对象 window
 
 BOM由一系列相关的对象构成，为每个对象提供了很多方法与属性
 
@@ -786,7 +781,7 @@ BOM的构成
 
 BOM 比 DOM更大，包含DOM![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607834956646-9d1b4418-8d2d-4167-8a90-f978c066eb43.png)
 
-### window对象 
+## window对象
 
 window 对象是浏览器的顶级对象，具有双重角色
 
@@ -794,123 +789,86 @@ window 对象是浏览器的顶级对象，具有双重角色
 
 2.它是一个全局对象。定义在全局作用域中的变量、函数都会变成window对象的属性和方法
 
-调用时可省略window，前面学习的对话框都属于window对象方法  *alert()、prompt()*
+调用时可省略window，例如  `alert()`、`prompt()`
 
 window下的一特殊属性 window.name
 
-#### window对象的常见事件
 
-窗口加载事件
 
-- - **window.onload = function () {}**  window.onload是窗口(页面)加载事件，当文档内容加载完成会触发事件包括图像、脚本文件、CSS文件就调用的处理函数
++ <span style="font-size:22px">window对象的常见事件</span>
 
-注
+    +  **window.onload** ——当文档内容加载完成会触发事件包括图像、脚本文件、CSS文件就调用的处理函数
 
-有了 window.onload 就可以把js代码写到页面元素的上方，因为 onload 是等页面内容全部加载完毕再执行处理函数
+        > **DOMContentLoaded 事件**仅当DOM加载完成时触发，不包括样式表、图片、flash等
+        >
+        > 若页面内容很多，从用户访问到 onload  触发需较长时间，此时用 DOMContentLoaded  事件较合适
 
-window.onload 传统注册事件方式只能写一次，若多个，以最后一个 window.onload 为准
+    + **window.onresize** 
 
-若使用 addEventListener 没有限制
+        > 常用来完成响应式布局 *window.innerWidth 当前屏幕宽度*
 
-- - **window.addEventListener(****"****DOMContentLoaded** **"****,function() {} ) ;**
+        > window.addEventLIstenner("resize",funtion () { } );
 
-注  DOMContentLoaded 事件仅当DOM加载完成时触发，不包括样式表、图片、flash等
+        
 
-若页面内容很多，从用户访问到 onload  触发需较长时间，此时用 DOMContentLoaded  事件较合适
++ <span style="font-size:22px">setTimeout()、setInterval()</span>
 
-调整窗口大小事件
+    > **清除定时器：**
+    >
+    >   `window.clearTimeout(<定时器标识符>)`
 
-- - **window.onresize = funtion () {  }**  window.onresize 是调整窗口大小加载事件触发时就调用的处理函数
 
-常用来完成响应式布局 *window.innerWidth 当前屏幕的宽度*
 
-- - **window.addEventLIstenner(****"resize"****,funtion () { } );**
+## location对象
 
-#### setTimeout()定时器
+window 对象提供 location 属性用于获取或设置窗体的URL，也可用于解析URL。因为这个属性返回的是一个对象，所以也将这个属性称为 location 对象
 
-**window.setTimeout (调用函数， [延迟的毫秒数]）;
+> **URL** 统一资源定位符：网上标准资源的地址，包含的信息指出文件的位置及浏览器应该怎么处理
+>
+> 一般语法格式： <span style="color:red">protocol://host[:port]/path/[?query]#fragment</span>
+>
+> 如，http://www.itcast.cn/index.html?name=andy&age=18#link![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607942300479-ec02fda1-7018-43c8-82ae-fc4a685d63db.png)
 
-setTimeout() 方法用于设置一个定时器，在定时器到期后执行调用函数
++ <span style="font-size:22px">loacation 对象的属性</span>
 
-这个调用函数我们也称为回调函数 callback  普通函数按照代码顺序直接调用，而这个函数时间到了才去调用
+    > 使用 location 实现简易路由效果：
+    >
+    > ```js
+    > if (...) {
+    >     location.hash = "/person";
+    > }
+    > 
+    > window.addEventListener("hashchange", (e) => {
+    >     console.log("hashchange: ", location.hash)
+    >     switch (location.hash) {
+    >         case "":
+    >             route.person.style = "display: none";
+    >             route.home.style = "display:block";
+    >             break;
+    >         case "#/person":
+    >             route.home.style = "display: none";
+    >             route.person.style = "display:block";
+    >             break;
+    >     }
+    > })
+    > ```
+    >
+    > 
 
-window可省略
+​		
 
-调用函数可以直接写函数，或写函数名，或字符串 '函数名()'不推荐 三种形式
++ <span style="font-size:22px">location 对象的方法</span>![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607943026547-daaffd15-cfc0-4be8-bac6-fd43f21ce0ff.png)
 
-延迟的毫秒数省略默认是0
 
-定时器可能很多，常给定时器赋值一个标识符
 
-停止 setTimeout() 定时器
-
-  **window.clearTimeout(****timeoutID(定时器标识符)****)**
-
-window可省
-
-#### setInterval() 定时器
-
-**window.setInterval(****回调函数****, [****间隔的毫秒数****]);**
-
-setInterval() 方法每隔这个时间，就去调用一次回调函数
-
-window 可省
-
-调用函数有三种形式  同上
-
-间隔的毫秒数  同上
-
-标识符
-
-第一次执行也是间隔毫秒数之后执行
-
-停止 setInterval() 定时器
-
-**window.clearInterval (****intervalID****) ;**
-
-clearInterval ()方法取消了通过调用 setInterval ()建立的定时器
-
-### location对象
-
-window对象提供 location 属性用于获取或设置窗体的URL，也可用于解析URL。因为这个属性返回的是一个对象，所以也将这个属性称为 location 对象
-
-URL统一资源定位符：网上标准资源的地址，包含的信息指出文件的位置及浏览器应该怎么处理
-
-一般语法格式： **protocol://host[:port]/path/[?query]#fragment**
-
-​     [**http://www.itcast.cn/index.html?name=andy&age=18#link**](http://www.itcast.cn/index.html?name=andy&age=18#link) 
-
-####     ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607942300479-ec02fda1-7018-43c8-82ae-fc4a685d63db.png)
-
-#### loacation 对象的属性
-
-​      重点：href、search
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607942416810-c4442265-19f7-452c-8d95-a3347ae883fa.png)
-
-#### location 对象的方法
-
-#### ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607943026547-daaffd15-cfc0-4be8-bac6-fd43f21ce0ff.png)
-
-#### navigator 对象
+## navigator 对象
 
 - 包含有关浏览器的信息
 - 有很多属性，最常用 userAgent 可返回由客户机发送服务器的 user-agent 头部的值
 
-*
-*
 
-*判断用户哪个终端打开页面，实现跳转*
 
-```
-if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-    window.location.href = "";     //手机
- } else {
-    window.location.href = "";     //电脑
- }
-```
-
-#### history 对象
+## history 对象
 
 - 与浏览器历史记录进行交互
 - 对象包含用户（在浏览器窗口）访问过的URL
@@ -919,3 +877,8 @@ if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobil
 
 
 
+# Ref
+
++ ECMAScript:
+
+    [JS脚本加载中，defer和async的区别 - 知乎](https://zhuanlan.zhihu.com/p/30898865)	

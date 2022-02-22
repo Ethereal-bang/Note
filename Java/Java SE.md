@@ -150,13 +150,30 @@ public class Hello {
 
 
 
-
 ## 运算符
 
-+ `/`除法
-+ `%`取余
++ <span style="font-size:20px">算术运算符：</span>
 
+    + `/`除法
+    + `%`取余
 
++ <span style="font-size:20px">位运算:</span>
+
+    + &：按位与
+
+    + |：按位或
+
+    + ~：按位非
+
+    + ^：按位异或
+
+    + <<：左位移运算符
+
+    + \>>：右位移运算符
+
+    + <<<：无符号右移运算符
+
+    均是转换为二进制计算
 
 ## 数据结构
 
@@ -473,6 +490,15 @@ Integer i = new Integer(1);
 装箱：基本类型转换为包装类的对象
 
 拆箱：包装类对象转换为基本类型的值
+
++ **基本类型与包装类型：**
+
+    | 基本 | 包装      |
+    | ---- | --------- |
+    | int  | Integer   |
+    | char | Character |
+
+    
 
 + Type argument cannot be of primitive type——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
 

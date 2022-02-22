@@ -31,51 +31,8 @@ Mongoose 作为 [MongoDB](https://www.mongodb.com/what-is-mongodb)（面向文�
 
     安装 Mongoose 会添加所有依赖项，包括 MongoDB 数据库驱动程序，但不会安装 MongoDB 本身。
 
-2. <span style="font-size:20px">安装 MongoDB 服务器：</span>
+2. <span style="font-size:20px">准备 MongoDB 服务器：</span>
 
-    要安装 MongoDB 服务器，可以 [点击下载](https://www.mongodb.com/download-center) 各操作系统的安装程序在本地安装。也可以使用云端 MongoDB 实例。
-
-    + 本地安装：
-
-        1. 命令行运行 MongoDB 服务器
-
-            执行 'mongod.exe'
-
-            执行启动操作后，mongodb 在输出一些必要信息后不会输出任何信息，之后就等待连接的建立，当连接被建立后，就会开始打印日志信息。
-
-        2. 连接 MongoDB：
-
-            执行 'mongo.exe'
-
-    + 云端数据库：
-
-        + 注意开放的 ip 地址才可以访问，不然会提示"connection ... closed"
-
-3. <span style="font-size:20px">MongoDB 客户端工具</span>
-
-    选择了 NoSQLBooster for MongoDB
-
-    1. **下载** NoSQLBooster for MongoDB
-
-    2. **连接 MongoDB：**
-
-        选择 connect，from URL
-
-
-
-# MongoDB
-
-[MongoDB](https://www.mongodb.com/what-is-mongodb)（面向文档数据模型的开源 [NoSQL](https://en.wikipedia.org/wiki/NoSQL) 数据库）MongoDB 数据库里，“集合”中的“文档” [类似于](https://docs.mongodb.com/manual/core/databases-and-collections/#collections) 关系数据库里“表”中的“行”。（*字段*）
-
-<span style="font-size:20px">MongoDB 客户端工具</span>
-
-选择了 NoSQLBooster for MongoDB
-
-1. **下载** NoSQLBooster for MongoDB
-
-2. **连接 MongoDB：**
-
-    选择 connect，from URL
 
 
 
@@ -230,11 +187,35 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
 
 ## 创建、修改文档
 
-+ 定义模型的实例并调用`.save()`创建记录
++ **`Model.prototype.save()`**——定义模型的实例并调用`.save()`创建记录:
+
+    ```js
+    await new User({
+      name: req.query.name,
+      pwd: req.query.pwd,
+    })
+    	.save((err, user) => {
+      // ...
+    })
+    ```
+
++ **`Model.create`:** 
+
+    ```js
+    await User.create({
+            name: req.query.name,
+            pwd: req.query.pwd,
+        })
+            .then(user => {
+                res.send("注册成功: " + user);
+            })
+    ```
+
+    
 
 ## 查询记录
 
-+ `.find(filter, projection)`——返回查询记录结果
++ `.find(filter, projection)`，`.findOne()`——返回查询记录结果
 + `.findById()`
 + `.populate()`——连表查询 联合其他文档
 + `.exec()`——执行查询（*放在查询链的末端*）
@@ -282,6 +263,25 @@ each val in bookinstance_list
     ```
 
 + `.count()`——模型的记录数
+
+
+
++ <span style="font-size:20px">条件查询：</span>
+
+    ```js
+    // 相当于SQL的WHERE AND
+    .findOne({ "name": req.query.name, "pwd": req.query.pwd })
+    
+    // OR 条件
+    .find({
+      $or: [
+        {key1: val1},
+        {key2, val2},
+      ]
+    })
+    ```
+
+    
 
  ## 移除记录
 

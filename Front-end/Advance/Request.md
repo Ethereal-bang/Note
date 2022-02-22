@@ -1,6 +1,5 @@
-
-
-# 初步自检
+# Ajax
+初步自检
 
 + Ajax简介和异步的概念
 
@@ -28,21 +27,15 @@
 
 
 
-# Ajax 简介
+## Ajax 简介
 
 Ajax（*Asynchronous JavaScript+XML*）
 
 Ajax 是一种在无需加载整个页面的情况下，能更新部分网页的技术
 
-特点：
-
-1. 不是编程语言，而是种现有标准的新方法
-2. 无需加载整个页面，可与服务器交换数据，更新部分网页
-3. 不需浏览器插件
 
 
-
-# 工作原理
+## 工作原理
 
 <span style="font-size:20px">包含的技术</span>
 
@@ -58,7 +51,7 @@ Ajax 是基于现有的 Internet 标准，并联合使用它们：
 
     通过 XHR 对象获取数据后，可以使用 DOM 方法把数据插入网页。
 
-3. CSS（*给数据定义样式*）
+3. CSS
 
 4. XML（*转换数据的格式*）
 
@@ -78,13 +71,7 @@ Ajax 的工作原理相当于在用户和服务器之间加了一个中间层（
 
 
 
-原生 JS 实现步骤 ==？==
-
-![image-20210405173711093](https://i.loli.net/2021/04/05/TsxBcY3zkU6G5VH.png)
-
-
-
-# 使用
+## 使用
 
 ![img](https://www.yuque.com/api/filetransfer/images?url=https%3A%2F%2Fcansiny.oss-cn-shanghai.aliyuncs.com%2Fimages%2F1613646249859.png&sign=5d0c6d54697f0ae4bf57aa9a6182894203d5ace0edb4e02b760e48ad4398a2c5&x-oss-process=image%2Fresize%2Cw_1280%2Climit_0)
 
@@ -231,29 +218,102 @@ function addURLParam(url, name, value) {
 
 
 
-# 实现
+## 实现
 
 + [封装方法](https://github.com/Ethereal-bang/CSA-FrontEnd/tree/main/AJAX%2BES6)
+
+
+
+# [Axios](http://axios-js.com/zh-cn/docs/index.html)
+
++ Demo: 
+
+    ```js
+    axios.get('/user', {
+        params: {
+          ID: 12345
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+    axios.post('/user', {
+        firstName: 'Fred',
+        lastName: 'Flintstone'
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    ```
 
     
 
 
 
+# 跨域
+
+1. Q："No 'Access-Control-Allow-Origin' header is present on the requested resource"，且 "status 200"
+
+    Reason：头部不匹配
+
+    Solution：
+
+    ```js
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+    #  "Access-Control-Allow-Origin": "*",
+    });
+    ```
+    
+    
+
+# DEBUG:
+
+1. **form 表单内 button 事件提交无效: **
+
+    + Q_Desc：
+
+        ```html
+        <form>
+          <input placeholder="请输入1~6位账户名" type="text">
+          <button>Login</button>
+        </form>
+        <script>
+        	btn.onclick = () => {
+            axios.get("/login")
+          }
+        </script>
+        ```
+
+    + A_Reason: form 表单自带默认本页提交且刷新页面，导致请求获取数据无效。
+
+    + A_Solution：去掉`<form>`
+
+
+
 # 参考链接
 
-[Ajax基础](https://juejin.cn/post/6844904017693261832)
++ Ajax:
 
-JavaScript高级程序设计（第四版）第24章
+    [Ajax基础](https://juejin.cn/post/6844904017693261832)
 
-+ 使用：
+    《JavaScript高级程序设计（第四版）》第24章
 
     [AJAX + ES6 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/kgltn0#f9979775)
 
     [Ajax 请求头中常见content-type](https://www.jianshu.com/p/10cdbb35ac87)
 
-+ 实现：
-
     [封装ajax请求的两种方式 - 掘金](https://juejin.cn/post/6844903901074833416)
 
     [原生 ajax 封装 - SegmentFault 思否](https://segmentfault.com/a/1190000037701554)
 
++ 跨域：
+
+    [ajax跨域，这应该是最全的解决方案了 - SegmentFault 思否](https://segmentfault.com/a/1190000012469713)

@@ -326,7 +326,6 @@ SQL——Structured Query Language：结构化查询语言
     -- IS NULL
     SELECT CourseName FROM course WHERE CourseBeforeID IS NULL;
     -- EXISTS
-    
     ```
 
 
