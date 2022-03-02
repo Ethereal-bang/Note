@@ -295,6 +295,9 @@ SQL——Structured Query Language：结构化查询语言
     
     # 查询指定列：
     select `name`, `age` from `student`;
+    
+    # 返回记录数
+    select COUNT(*) from `student`;
     ```
 
     ![image-20211130214444050](https://gitee.com/ethereal-bang/images/raw/master/20211130214444.png)
@@ -596,7 +599,9 @@ DROP VIEW `View_Choosebb`;
 
     ![image-20211207131433721](https://gitee.com/ethereal-bang/images/raw/master/20211207131433.png)
 
-# 参考
+
+
+# REF 
 
 + ：
 
@@ -619,6 +624,8 @@ DROP VIEW `View_Choosebb`;
 + 查询数据：
 
     [连接查询 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1177760294764384/1179610888796448)
+
+    [SQL COUNT() 函数 | 菜鸟教程](https://www.runoob.com/sql/sql-func-count.html)
 
 + 约束：
 

@@ -177,7 +177,7 @@ public class Hello {
 
 ## 数据结构
 
-### 数组 Array
+### Arrays
 
 + **长度**：`.length`：
 
@@ -207,8 +207,6 @@ public class Hello {
     |    字符型    | 0（ASCII码）或'\u0000' |
     |    布尔型    |         false          |
     | 引用数据类型 |          null          |
-
-
 
 + <span style="font-size:22px">二维数组：</span>
 
@@ -265,12 +263,22 @@ public class Hello {
       }
     ```
 
+### 排序
+
++ ```java
+    Arrays.sort(arr, new Comparator<int[]>() {
+      @Override
+      public int compare(int[] o1, int[] o2) {
+        return o1 - o2;   // 升序
+      }
+    });
+    ```
+
 
 
 ### 字符串 String
 
 + charAt(`index`): 取某位字符
-+ 
 
 
 
@@ -498,9 +506,12 @@ Integer i = new Integer(1);
     | int  | Integer   |
     | char | Character |
 
-    
++ **Type argument cannot be of primitive type**——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
 
-+ Type argument cannot be of primitive type——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
+
+
++ <span style="font-size:20px">Integer：</span>
+    + Integer.MIN_VALUE
 
 + <span style="font-size:20px">String、StringBuffer：</span>
 

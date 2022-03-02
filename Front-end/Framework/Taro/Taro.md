@@ -704,6 +704,31 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
 
 # Taro + Vue2
 
+## 视图
+
++ **渲染数据：**——{{  `<state> ` }}
+
+    ```vue
+    <template>
+      <view>{{ genre }}</view>
+    </template>
+    
+    <script>
+    export default {
+      name: "BookGenreList",
+      data() {
+        return {
+          genre: "",
+        }
+      },
+      onLoad: function (options) {
+        this.genre = options.tag;
+      },
+    }
+    ```
+
+    
+
 ## 页面组件
 
 + **组件属性：**
@@ -743,11 +768,26 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
     }
     ```
 
+
+### 生命周期
+
++ **onLoad：**——获取路由参数
+
+    ```js
+    export default {
+      name: "BookGenreList",
+      onLoad: (options) => {  
+        console.log(options)
+      }
+    ```
+
     
+
+
 
 # 路由功能
 
-Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Route），不需开发者额外配置，我们只需入口文件指定好 pages，就可通过 Taro 提供的 API 跳转到目的页面
+Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Route），不需开发者额外配置，我们只需入口文件指定好 pages，就可通过 Taro 提供的 API 跳转到目的页面。或通过自带的`navigator`组件
 
 + <span style="font-size:22px">页面跳转：</span>
 
@@ -768,6 +808,17 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
         ```
 
         注意区别和路径。
+        
+        ```vue
+        <navigator
+        		url="/pages/bookList/bookList"
+            open-type="navigate"
+        >
+          全部书籍
+        </navigator>
+        ```
+        
+        
 
 + <span style="font-size:22px">传参 & 获取路由参数：</span>
 

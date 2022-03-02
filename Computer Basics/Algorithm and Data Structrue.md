@@ -645,11 +645,30 @@ KMP 主要用在字符串匹配
 
 + <span style="font-size:20px">步骤：</span>
 
-    1. 确定 dp 数组(*dynamic programming table* )及下标含义
-    2. 确定递推公式（每一个状态由上一个状态推导）
-    3. dp 数组初始化
-    4. 确定遍历顺序
-    5. 举例推导 dp 数组
+    1. **确定 dp 数组**(*dynamic programming table* )及下标含义
+    2. 确定**递推公式**（每一个状态由上一个状态推导）
+    3. dp **数组初始化**
+    4. 确定**遍历顺序**
+    
++ Eg——斐波拉契：
+
+    ```java
+    // 1.确定dp数组
+    int[] db = new int[n + 1];
+    // 2.确定递推公式——db[i]= db[i-1]+db[i-2]
+    // 3.db初始化
+    db[0] = 0;
+    if (n > 0)
+      db[1] = 1;
+    // 4.确定遍历顺序
+    for (int i = 2; i <= n; i++) {
+      db[i] = db[i - 1] + db[i - 2];
+    }
+    
+    return db[n];
+    ```
+
+    
 
 
 

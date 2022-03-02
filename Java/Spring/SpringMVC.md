@@ -417,6 +417,12 @@
     + spring配置：classpath:spring.xml 
     + spring-mybatis 整合配置
 
+## MVC 三层架构
+
++ 控制层 Controller
++ 业务层 Service——Mapper 的基本操作外还有其他业务操作
++ 持久层 Dao/Mapper——操作数据库等的基本操作
+
 ## Demo && 模板
 
 ### 1.基本环境搭建
