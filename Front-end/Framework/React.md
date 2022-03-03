@@ -22,7 +22,7 @@
 
         结果是在  C 盘 HP 文件夹内创建了一个 my-app 文件夹。
 
-    3. 浏览器中弹出<img src="https://i.loli.net/2021/04/25/eFEmUskDdQpwSLR.png" alt="image-20210425110124810" style="zoom:33%;" />
+    3. 浏览器中弹出<img src="https://i.loli.net/2021/04/25/eFEmUskDdQpwSLR.png" alt="image-20210425110124810" style="zoom:23%;" />
 
     4. 在该文件夹中找到 src.js 或 App.js 文件，将代码修改为
 
@@ -63,42 +63,40 @@
     
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
-# JSX
+    
 
-## 为什么使用 JSX
+# 元素渲染
+## JSX
 
-``` jsx
-const element = <h1>Hello,world</h1>;
-```
++ <span style="font-size:22px">Why JSX:</span>
 
-这个标签语法被称为 JSX，是一个 JS 的语法扩展 js+XML，本质是语法糖。
+    ```jsx
+    const element = <h1>Hello,world</h1>;
+    ```
 
-在 React 中配合使用 JSX，JSX 可以很好地描述 UI 应该呈现出它应有交互的本质形式，创建虚拟 DOM 更方便。
+    + 本质语法糖
+    + 在 React 中配合使用 JSX，JSX 可以很好地描述 UI 应该呈现出它应有交互的本质形式，创建虚拟 DOM 更方便。
+    + 不强制
 
-React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视觉上有辅助作用。还可以使 React 显示更多有用的错误和警告信息。
+    > **XML 和 JSON：**
+    > 起初使用 XML 存储数据：
+    >
+    > ``` xml
+    > <student>
+    > 	<name>TOM</name>
+    >     <age>19</age>
+    > </student>
+    > ```
+    >
+    > 人们发现，结构比存储内容更加复杂。于是有了 JSON 使用更多，但并不是完全取代。
+    >
+    > ``` json
+    > "{" name ":" Tom "," age ":" 19 "}"	// 为方便看，我加了几个空格分隔
+    > ```
 
-> XML 和 JSON
->
-> 起初使用 XML 存储数据：
->
-> ``` xml
-> <student>
-> 	<name>TOM</name>
->     <age>19</age>
-> </student>
-> ```
->
-> 人们发现，结构比存储内容更加复杂。于是有了 JSON 使用更多，但并不是完全取代。
->
-> ``` json
-> "{" name ":" Tom "," age ":" 19 "}"	// 为方便看，我加了几个空格分隔
-> ```
+### JSX 语法规则
 
-
-
-## JSX 语法规则
-
-+ <span style="font-size:20px">在 JSX 中使用 {} 嵌入表达式</span>
++ <span style="font-size:20px"> {} 嵌入表达式</span>
 
     ``` JSX
     const name = 'Josh';
@@ -107,7 +105,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
     在 JSX 语法中，可以在`{}`内放置任何有效的 JS 表达式，同时 **JSX 本身也是一个表达式**
 
-+ <span style="font-size:20px">JSX "" 写入字面量</span>
++ <span style="font-size:20px">"" 写入字面量</span>
 
     可以通过**使用`" "`将属性值指定为字符串字面量**
     
@@ -117,7 +115,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     ```
 
 
-> 注意：小驼峰命名
+> 注意：**小驼峰命名**
 >
 > 因为 JSX 语法上更接近 JS 而不是 HTML，所以 React DOM 使用“小驼峰命名”来定义属性的名称，而不使用 HTML 属性名称的命名约定
 >
@@ -192,10 +190,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
     **大写**字母开头，react 渲染对应组件；若没有定义该组件，报错。
 
-    
-
-# 元素渲染
-
 + <span style="font-size:20px">创建虚拟 DOM</span>
 
   
@@ -205,16 +199,13 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
 + <span style="font-size:20px">将元素渲染为 DOM</span>
 
-    <hr>
     将元素渲染为 DOM，即将虚拟 DOM 渲染到页面
 
-    准备好一个“容器”`<div>`：
+    准备好一个根 DOM 节点`<div>`——该节点内所有内容都将由 React DOM 管理：
 
     ``` jsx
-    <div id="root"></div>
+    <div id="root"></div>  
     ```
-
-    我们称其为“根 DOM 节点”，因为该节点内所有内容都将由 React DOM 管理。  
 
     想要将一个 React 元素渲染到根 DOM 节点中，只需要把它们一起传入**`ReactDom.render()`**：
 
@@ -222,36 +213,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     const element = <h1>Hello</h1>;
     ReactDOM.render(element, document.getElementById('root'));
     ```
-
-+ <span style="font-size:20px">更新已渲染元素</span>
-
-    
-
-React 元素是不可变对象。一旦被创建，就无法更改它的子元素或者属性。
-    
-更新 UI 的方式是创建一个全新的元素传入`ReactDOM.render()`
-    
-以下是一个计时器的例子：
-    
-``` jsx
-    function tick() {
-        const element = (
-        	<div>
-        		<h1>Hello, world</h1>
-            	<h2>It'is {new Date().toLocaleTimeString()}.</h2>
-        	</div>
-        );
-        ReactDOM.render(element, document.getElementById('root'));
-    }
-    
-    setInterval(tick, 1000);
-```
-
-> [window.setInterval | MDN](https://zh-hans.reactjs.org/docs/rendering-elements.html)
-    >
-    > 重复调用一个函数或执行一个代码段
-
-React 只更新它需要更新的部分：React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态
 
 
 
@@ -261,49 +222,38 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
 
 + <span style="font-size:20px">函数组件与 class 组件</span>
 
+    1. 定义组件最简单的方式就是**编写 JS 函数**：
 
-    定义组件最简单的方式就是**编写 JS 函数**：
-    
-    ``` jsx
-    function Welcome(props) {
-        return <h1>Hello, {props.name}</h1>;
-    }
-    ```
-    
-    该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
-
-
-​    
-
-    还可以使用 ES6 的 **class 来定义组件**：
-    
-    几个必要条件：
-    
-    1. 必须继承`React.Component`父类
-    2. 必须有``render()`
-    3. `render()`要有返回值	返回想呈现的内容
-    
-    ``` jsx
-    class Welcome extends React.Component {	// extends 继承
-        render() {
-        	return <h1>Hello, {this.props.name}</h1>;
+        ```js
+        function Welcome(props) {
+            return <h1>Hello, {props.name}</h1>;
         }
-    }
-    ReactDOM.render(<Welcome name={"app"} />)
-    ```
-    
-     第 2 行的`render()`是放在`MyComponent`的原型对象上，供实例使用。
-    
-    那么实例在哪呢：
-    
-    ​	执行了`ReactDOM.render(<Mycomponent />....`之后，发生了什么：
-    
-    1. React 解析**组件标签**，找到了`MyComponent`组件
-    2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
-    3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
+        ```
+
+    2. **class：**
+
+        ```js
+        class Welcome extends React.Component {	// extends 继承
+            render() {
+            	return <h1>Hello, {this.props.name}</h1>;
+            }
+        }
+        ReactDOM.render(<Welcome name={"app"} />)
+        ```
+
+        > **执行过程：**
+        >
+        > 1. React 解析**组件标签**，找到了`MyComponent`组件
+        > 2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
+        > 3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
+
+        > 几个**必要条件：**
+        >
+        > 1. 必须继承`React.Component`父类
+        > 2. 必须有``render()`
+        > 3. `render()`要有返回值	返回想呈现的内容
 
 
-​    
 
 + <span style="font-size:20px">渲染组件</span>
 
@@ -320,7 +270,7 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
 
 + <span style="font-size:20px">组合组件</span>
 
-    组件可以在其输出中引用其他组件。这就可以让我们用同一组件抽象出任意层次的细节：按钮、表单、对话框、甚至整个屏幕的内容。在 React 应用程序中，这些通常都会以组件的形式表示。
+    组件可以在其输出中引用其他组件
 
     例如，可以创建一个多次渲染`Welcome`组件的`App`组件：
 
@@ -340,7 +290,7 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
     }
     ```
 
-    通常，每个新的 React 应用程序的顶层组件都是`App`组件。但是，如果将 React 集成到现有的应用程序中，可能需要使用像`Button`这样的小组件，并自下而上地将这类组件逐步应用到视图层的每一处。	
+    > 通常，每个新的 React 应用程序的顶层组件都是`App`组件
 
 
 
@@ -380,16 +330,29 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
         }
         ```
 
-        + `add()`放在哪里：原型对象上，供实例使用
-        + `add`是作为 onClick 的回调，其不是通过实例调用，而是直接调用
-        + 为什么要绑定 this：类中的方法默认开启了严格模式，所以`add`中的 this 为 undefined
-                
+        使用事件处理函数：
+    
+        ```jsx
+        render() {
+          return (
+          	<button onClick={this.add}>Add: {this.state.cnt}</button>
+          )
+        }
+        ```
+    
+        
+    
+    
+    + `add()`放在哪里：原型对象上，供实例使用
+    + `add`是作为 onClick 的回调，其不是通过实例调用，而是直接调用
+    + 为什么要绑定 this：类中的方法默认开启了严格模式，所以`add`中的 this 为 undefined
+            
 
 ### State
 
-组件就是“状态机”。通过更新组件的状态来更新对应的页面显示。（*每 `setState` 一次，`render`就会执行一次*)
++ **this.state 的更新时机：**
 
-state 借助构造器`constructor()`初始化状态`state`；在`render()`中读出`state`属性；用`setState`改变状态
+    进入了 <span style="color:red">react 的调度流程</span>，那就是异步的。没有进入 react 的调度流程，那就是同步的
 
 
 
@@ -484,7 +447,7 @@ state 借助构造器`constructor()`初始化状态`state`；在`render()`中读
     注意上文取 refs 对象的两种写法：
     
     1. 第 4 行常规写法。
-    2. 第 9 行利用对象的结构赋值，将 refs 内的同名属性`input2`取出赋值到`input2`。
+    2. 第 9 行利用对象的解构赋值，将 refs 内的同名属性`input2`取出赋值到`input2`。
 
 
 
@@ -982,9 +945,8 @@ export default class Hello extends Component {
 
 + <span style="font-size:20px">Why hooks</span>
 
-    
 + 现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
-    
+  
     相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
     
     但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
@@ -992,7 +954,7 @@ export default class Hello extends Component {
     
     
 + **类和函数的差异**：
-    
+  
     类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
     
     函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
@@ -1000,7 +962,7 @@ export default class Hello extends Component {
     
     
 + **副效应**
-    
+  
     函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
     
     纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
@@ -1008,7 +970,7 @@ export default class Hello extends Component {
     
     
 + **钩子的作用**
-    
+  
     钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
     
     由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。

@@ -910,7 +910,19 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 `v-for`
 
-==。。。==
+```vue
+<AtList>
+  <AtListItem
+    v-for="book in bookList"
+    :key="book.key"
+    :title="book.title"
+	>
+    {{ book.title }}
+  </AtListItem>
+</AtList>
+```
+
+
 
 
 
