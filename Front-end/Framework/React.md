@@ -22,7 +22,7 @@
 
         结果是在  C 盘 HP 文件夹内创建了一个 my-app 文件夹。
 
-    3. 浏览器中弹出<img src="https://i.loli.net/2021/04/25/eFEmUskDdQpwSLR.png" alt="image-20210425110124810" style="zoom:33%;" />
+    3. 浏览器中弹出<img src="https://i.loli.net/2021/04/25/eFEmUskDdQpwSLR.png" alt="image-20210425110124810" style="zoom:23%;" />
 
     4. 在该文件夹中找到 src.js 或 App.js 文件，将代码修改为
 
@@ -63,42 +63,100 @@
     
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
-# JSX
 
-## 为什么使用 JSX
+## React 脚手架
 
-``` jsx
-const element = <h1>Hello,world</h1>;
-```
+React 脚手架快速创建一个基于 xxx 库的模板项目
 
-这个标签语法被称为 JSX，是一个 JS 的语法扩展 js+XML，本质是语法糖。
++ 包含了所有需要的配置（语法检查、jsx 编译、devServer...）
++ 下载好了所有相关的依赖
++ 可直接运行一个简单效果
 
-在 React 中配合使用 JSX，JSX 可以很好地描述 UI 应该呈现出它应有交互的本质形式，创建虚拟 DOM 更方便。
+React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
-React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视觉上有辅助作用。还可以使 React 显示更多有用的错误和警告信息。
+项目的整体技术架构为：react + webpack + es6 +eslint ...
 
-> XML 和 JSON
->
-> 起初使用 XML 存储数据：
->
-> ``` xml
-> <student>
-> 	<name>TOM</name>
->     <age>19</age>
-> </student>
-> ```
->
-> 人们发现，结构比存储内容更加复杂。于是有了 JSON 使用更多，但并不是完全取代。
->
-> ``` json
-> "{" name ":" Tom "," age ":" 19 "}"	// 为方便看，我加了几个空格分隔
-> ```
+使用脚手架开发项目的特点：模块化、组件化、工程化
 
 
 
-## JSX 语法规则
+### React 脚手架创建
 
-+ <span style="font-size:20px">在 JSX 中使用 {} 嵌入表达式</span>
+1. 全局安装：`npm i create-react-app -g`。
+
+2. `create-react-app react_staging`（*其中 `react_staging` 是想取的名字——不能含中文*）
+
+3. 最好[安装 Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)与 react 配合使用
+
+4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端（ ctrl + \` ）输入 yarn start，浏览器弹出
+
+    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
+
++ <span style='font-size:20px'>TypeScript 配置</span>
+
+    大体步骤同上，命令行内输入`npx create-react-app my-app-ts --template typescript`
+
+
+
++ <span style="font-size:20px">react 脚手架项目结构</span>
++ public --- 静态资源文件夹：
+
+    + favicon.icon ------ 网站页签图标
+        + **index.html-------主页面**
+
+    + logo192.png ------- logo图
+
+    + logo512.png ------- logo图
+
+    + manifest.json ----- 应用加壳的配置文件
+
+    + robots.txt -------- 爬虫协议文件
+
++ src --- 源码文件夹：
+
+    + App.css
+        + **App.js --------- App组件**
+        + App.test.js
+        + index.css
+        + **index.js -------- 入口文件**
+        + logo.svg ------- logo图
+        + reportWebVitals.js --- 页面性能分析文件(需要web-vitals库的支持)
+        + setupTests.js ---- 组件单元测试的文件(需要jest-dom库的支持)
+
+
+
+# 元素渲染
+## JSX
+
++ <span style="font-size:22px">Why JSX:</span>
+
+    ```jsx
+    const element = <h1>Hello,world</h1>;
+    ```
+
+    + 本质语法糖
+    + 在 React 中配合使用 JSX，JSX 可以很好地描述 UI 应该呈现出它应有交互的本质形式，创建虚拟 DOM 更方便。
+    + 不强制
+
+    > **XML 和 JSON：**
+    > 起初使用 XML 存储数据：
+    >
+    > ``` xml
+    > <student>
+    > 	<name>TOM</name>
+    >     <age>19</age>
+    > </student>
+    > ```
+    >
+    > 人们发现，结构比存储内容更加复杂。于是有了 JSON 使用更多，但并不是完全取代。
+    >
+    > ``` json
+    > "{" name ":" Tom "," age ":" 19 "}"	// 为方便看，我加了几个空格分隔
+    > ```
+
+### JSX 语法规则
+
++ <span style="font-size:20px"> {} 嵌入表达式</span>
 
     ``` JSX
     const name = 'Josh';
@@ -107,7 +165,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
     在 JSX 语法中，可以在`{}`内放置任何有效的 JS 表达式，同时 **JSX 本身也是一个表达式**
 
-+ <span style="font-size:20px">JSX "" 写入字面量</span>
++ <span style="font-size:20px">"" 写入字面量</span>
 
     可以通过**使用`" "`将属性值指定为字符串字面量**
     
@@ -117,7 +175,7 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     ```
 
 
-> 注意：小驼峰命名
+> 注意：**小驼峰命名**
 >
 > 因为 JSX 语法上更接近 JS 而不是 HTML，所以 React DOM 使用“小驼峰命名”来定义属性的名称，而不使用 HTML 属性名称的命名约定
 >
@@ -192,10 +250,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
 
     **大写**字母开头，react 渲染对应组件；若没有定义该组件，报错。
 
-    
-
-# 元素渲染
-
 + <span style="font-size:20px">创建虚拟 DOM</span>
 
   
@@ -205,16 +259,13 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     
 + <span style="font-size:20px">将元素渲染为 DOM</span>
 
-    <hr>
     将元素渲染为 DOM，即将虚拟 DOM 渲染到页面
 
-    准备好一个“容器”`<div>`：
+    准备好一个根 DOM 节点`<div>`——该节点内所有内容都将由 React DOM 管理：
 
     ``` jsx
-    <div id="root"></div>
+    <div id="root"></div>  
     ```
-
-    我们称其为“根 DOM 节点”，因为该节点内所有内容都将由 React DOM 管理。  
 
     想要将一个 React 元素渲染到根 DOM 节点中，只需要把它们一起传入**`ReactDom.render()`**：
 
@@ -222,36 +273,6 @@ React 不强制要求使用 JSX，但是将 JSX 和 UI 放在一起时会在视�
     const element = <h1>Hello</h1>;
     ReactDOM.render(element, document.getElementById('root'));
     ```
-
-+ <span style="font-size:20px">更新已渲染元素</span>
-
-    
-
-React 元素是不可变对象。一旦被创建，就无法更改它的子元素或者属性。
-    
-更新 UI 的方式是创建一个全新的元素传入`ReactDOM.render()`
-    
-以下是一个计时器的例子：
-    
-``` jsx
-    function tick() {
-        const element = (
-        	<div>
-        		<h1>Hello, world</h1>
-            	<h2>It'is {new Date().toLocaleTimeString()}.</h2>
-        	</div>
-        );
-        ReactDOM.render(element, document.getElementById('root'));
-    }
-    
-    setInterval(tick, 1000);
-```
-
-> [window.setInterval | MDN](https://zh-hans.reactjs.org/docs/rendering-elements.html)
-    >
-    > 重复调用一个函数或执行一个代码段
-
-React 只更新它需要更新的部分：React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态
 
 
 
@@ -261,49 +282,38 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
 
 + <span style="font-size:20px">函数组件与 class 组件</span>
 
+    1. 定义组件最简单的方式就是**编写 JS 函数**：
 
-    定义组件最简单的方式就是**编写 JS 函数**：
-    
-    ``` jsx
-    function Welcome(props) {
-        return <h1>Hello, {props.name}</h1>;
-    }
-    ```
-    
-    该函数是一个有效的 React 组件，因为它接收唯一带有数据的"props"（*代表属性*）对象并返回一个 React 元素。这类组件被称为“**函数组件**”，因为它本质上就是 JS 函数。
-
-
-​    
-
-    还可以使用 ES6 的 **class 来定义组件**：
-    
-    几个必要条件：
-    
-    1. 必须继承`React.Component`父类
-    2. 必须有``render()`
-    3. `render()`要有返回值	返回想呈现的内容
-    
-    ``` jsx
-    class Welcome extends React.Component {	// extends 继承
-        render() {
-        	return <h1>Hello, {this.props.name}</h1>;
+        ```js
+        function Welcome(props) {
+            return <h1>Hello, {props.name}</h1>;
         }
-    }
-    ReactDOM.render(<Welcome name={"app"} />)
-    ```
-    
-     第 2 行的`render()`是放在`MyComponent`的原型对象上，供实例使用。
-    
-    那么实例在哪呢：
-    
-    ​	执行了`ReactDOM.render(<Mycomponent />....`之后，发生了什么：
-    
-    1. React 解析**组件标签**，找到了`MyComponent`组件
-    2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
-    3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
+        ```
+
+    2. **class：**
+
+        ```js
+        class Welcome extends React.Component {	// extends 继承
+            render() {
+            	return <h1>Hello, {this.props.name}</h1>;
+            }
+        }
+        ReactDOM.render(<Welcome name={"app"} />)
+        ```
+
+        > **执行过程：**
+        >
+        > 1. React 解析**组件标签**，找到了`MyComponent`组件
+        > 2. 发现组件是使用类定义的，随后`new`出该类的实例，并通过该实例调用原型上的`render()`方法
+        > 3. 将`render`返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中
+
+        > 几个**必要条件：**
+        >
+        > 1. 必须继承`React.Component`父类
+        > 2. 必须有``render()`
+        > 3. `render()`要有返回值	返回想呈现的内容
 
 
-​    
 
 + <span style="font-size:20px">渲染组件</span>
 
@@ -320,7 +330,7 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
 
 + <span style="font-size:20px">组合组件</span>
 
-    组件可以在其输出中引用其他组件。这就可以让我们用同一组件抽象出任意层次的细节：按钮、表单、对话框、甚至整个屏幕的内容。在 React 应用程序中，这些通常都会以组件的形式表示。
+    组件可以在其输出中引用其他组件
 
     例如，可以创建一个多次渲染`Welcome`组件的`App`组件：
 
@@ -340,7 +350,7 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
     }
     ```
 
-    通常，每个新的 React 应用程序的顶层组件都是`App`组件。但是，如果将 React 集成到现有的应用程序中，可能需要使用像`Button`这样的小组件，并自下而上地将这类组件逐步应用到视图层的每一处。	
+    > 通常，每个新的 React 应用程序的顶层组件都是`App`组件
 
 
 
@@ -380,16 +390,29 @@ React 只更新它需要更新的部分：React DOM 会将元素和它的子元�
         }
         ```
 
-        + `add()`放在哪里：原型对象上，供实例使用
-        + `add`是作为 onClick 的回调，其不是通过实例调用，而是直接调用
-        + 为什么要绑定 this：类中的方法默认开启了严格模式，所以`add`中的 this 为 undefined
-                
+        使用事件处理函数：
+    
+        ```jsx
+        render() {
+          return (
+          	<button onClick={this.add}>Add: {this.state.cnt}</button>
+          )
+        }
+        ```
+    
+        
+    
+    
+    + `add()`放在哪里：原型对象上，供实例使用
+    + `add`是作为 onClick 的回调，其不是通过实例调用，而是直接调用
+    + 为什么要绑定 this：类中的方法默认开启了严格模式，所以`add`中的 this 为 undefined
+            
 
 ### State
 
-组件就是“状态机”。通过更新组件的状态来更新对应的页面显示。（*每 `setState` 一次，`render`就会执行一次*)
++ **this.state 的更新时机：**
 
-state 借助构造器`constructor()`初始化状态`state`；在`render()`中读出`state`属性；用`setState`改变状态
+    进入了 <span style="color:red">react 的调度流程</span>，那就是异步的。没有进入 react 的调度流程，那就是同步的
 
 
 
@@ -484,7 +507,7 @@ state 借助构造器`constructor()`初始化状态`state`；在`render()`中读
     注意上文取 refs 对象的两种写法：
     
     1. 第 4 行常规写法。
-    2. 第 9 行利用对象的结构赋值，将 refs 内的同名属性`input2`取出赋值到`input2`。
+    2. 第 9 行利用对象的解构赋值，将 refs 内的同名属性`input2`取出赋值到`input2`。
 
 
 
@@ -732,72 +755,13 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 
 
-# Context
+## Context
 
 Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法
 
 一般方法：![image-20210528204522678](https://i.loli.net/2021/05/28/z85k9BhIj2iArnu.png)
 
 Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkra8.png)
-
-
-
-# React 脚手架
-
-React 脚手架用于帮助程序员快速创建一个基于 xxx 库的模板项目
-
-+ 包含了所有需要的配置（语法检查、jsx 编译、devServer...）
-+ 下载好了所有相关的依赖
-+ 可直接运行一个简单效果
-
-React 提供了一个用于创建 react 项目的脚手架库：create-react-app
-
-项目的整体技术架构为：react + webpack + es6 +eslint ...
-
-使用脚手架开发项目的特点：模块化、组件化、工程化
-
-
-
-## React 脚手架创建
-
-1. 全局安装：windows 命令行内输入`npm i create-react-app -g`。
-2. 切换到想创项目的目录后使用命令`create-react-app react_staging`（*其中 `react_staging` 是想取的名字（不能含中文）*）
-3. 最好[安装 Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)与 react 配合使用
-
-4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端（ ctrl + \` ）输入 yarn start，浏览器弹出
-
-    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
-
-+ <span style='font-size:20px'>TypeScript 配置</span>
-
-    大体步骤同上，命令行内输入`npx create-react-app my-app-ts --template typescript`
-
-
-
-+ <span style="font-size:20px">react 脚手架项目结构</span>
-+ public --- 静态资源文件夹：
-  
-    + favicon.icon ------ 网站页签图标
-        + **index.html-------主页面**
-    
-    + logo192.png ------- logo图
-    
-    + logo512.png ------- logo图
-    
-    + manifest.json ----- 应用加壳的配置文件
-    
-    + robots.txt -------- 爬虫协议文件
-    
-+ src --- 源码文件夹：
-  
-    + App.css
-        + **App.js --------- App组件**
-        + App.test.js
-        + index.css
-        + **index.js -------- 入口文件**
-        + logo.svg ------- logo图
-        + reportWebVitals.js --- 页面性能分析文件(需要web-vitals库的支持)
-        + setupTests.js ---- 组件单元测试的文件(需要jest-dom库的支持)
 
 
 
@@ -808,19 +772,11 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
     + `index.html`主页面：
 
         ```html
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>React 脚手架</title>
-            
-        </head>
         <body>
             <div id="root"></div>
         </body>
-        </html>
         ```
-
+    
 + src 文件夹：
 
     + `index.js`入口文件：
@@ -848,14 +804,12 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
         export default class App extends Component {
             render() {
                 return (
-                    <div>
-                        <Hello/>
-                    </div>
+                    <Hello/>
                 )
             }
         }
         ```
-
+        
     + components 文件夹（*有多个组件时习惯新建该文件夹存放*）
 
         + `Hello.jsx`：
@@ -877,17 +831,14 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 + <span style="font-size:20px">JSS 是什么</span>
 
-    一句话概括 CSS in JS，就是"行内样式"（*inline style*）和"行内脚本"（*inline script*）
+    CSS in JS，就是"行内样式"（*inline style*）和"行内脚本"（*inline script*）
 
     JSS 就是将应用的 CSS 样式写在 JS 文件里面，而不是独立未一些`.css`，``.scss`或者`less`之类的文件，这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义
-
-
 
 上例的`Hello.jsx`文件中，若有多个组件，每个组件的样式都通过这种方式引入的话会造成样式冲突：
 
 ```jsx
 import './Hello.css'
-
 import './Welcome.css'
 ```
 
@@ -903,59 +854,31 @@ export default class Hello extends Component {
 }
 ```
 
-同时，需添加一个 ts 样式声明文件
+同时，需添加一个 ts 样式声明文件==？==
 
 
-
-+ <span style='font-size:20px'>给 css 添加样式声明</span>
-
-    1. `npm install typescript-plugin-css-modules --save-dev`，将该插件安在`package.json`的`dev`依赖下，即只参与代码开发不参与最终上线打包的项目。安装完成在`package.json`中会出现：
-
-        ```json
-        "devDependencies": {
-            "typescript-plugin-css-modules": "^3.3.0"
-          }
-        ```
-
-    2. 在`tsconfig.json`中加入`"plugins": [{"name": "typescript-plugin-css-modules"}]`。
-
-    3. 在根目录下新建`.vscode`文件夹，在该文件夹内新建`settings.json`文件，保存如下代码：
-
-        ```json
-        {
-        	"typescript.tsdk": "node_modules/typescript/lib",
-        	"typescript.enablePromptUseWorkspaceTsdk": true
-        }
-        ```
-
-    4. 配置完成后在引用样式对象时会自动弹出提示，如图：<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210605141748402.png" alt="image-20210605141748402" style="zoom: 67%;" />
-
-    
 
 ## 加载媒体与字体文件
 
 + <span style='font-size:20px'>加载图片</span>
 
-    <hr>
+    
 
-    习惯上新建一个`assets`文件夹存放媒体资源，如图：
-
-    ![image-20210605144832793](https://i.loli.net/2021/06/05/O1kUzI2gt9loN5h.png)
-
-    引入媒体资源时，依旧使用`import`语句，例如：
-
-    ![image-20210605144927794](https://i.loli.net/2021/06/05/rgZLVAxdtqm1vbw.png)
-
-    因为 ts 已经对`.svg`等文件声明，因此无需像引入`.css`文件一样在`custom.d.ts`文件中重复声明
-
-
+习惯上新建一个`assets`文件夹存放媒体资源，如图：
+    
+![image-20210605144832793](https://i.loli.net/2021/06/05/O1kUzI2gt9loN5h.png)
+    
+引入媒体资源时，依旧使用`import`语句，例如：
+    
+![image-20210605144927794](https://i.loli.net/2021/06/05/rgZLVAxdtqm1vbw.png)
+    
+因为 ts 已经对`.svg`等文件声明，因此无需像引入`.css`文件一样在`custom.d.ts`文件中重复声明
 
 + <span style='font-size:20px'>加载字体</span>
 
-    <hr>
-
+  
     将`.ttf`字体文件放入`fonts`文件夹，因为字体是全局样式，因此在`index.css`和`index.tsx`中设置及引用：
-
+    
     ```css
     // index.css
     @font-face {
@@ -963,7 +886,7 @@ export default class Hello extends Component {
         src: local('Brush'), url(./assets/fonts/Brush.ttf);
     }
     ```
-
+    
     ```css
     // App.modules.css
     h1 {
@@ -971,10 +894,7 @@ export default class Hello extends Component {
           font-size: 72px;
     }
     ```
-
     
-
-
 
 
 
@@ -982,17 +902,16 @@ export default class Hello extends Component {
 
 + <span style="font-size:20px">Why hooks</span>
 
+    现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
+
+    > 相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
+    >
+    > 但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
+
     
-+ 现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
-    
-    相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
-    
-    但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
-    
-    
-    
+
 + **类和函数的差异**：
-    
+  
     类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
     
     函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
@@ -1000,7 +919,7 @@ export default class Hello extends Component {
     
     
 + **副效应**
-    
+  
     函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
     
     纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
@@ -1008,10 +927,10 @@ export default class Hello extends Component {
     
     
 + **钩子的作用**
-    
+  
     钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
     
-    由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。
+    由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。——从 "react" 引用
     
     + **`useState()`**：保存状态
         + **`useContext()`***：保存上下文
@@ -1024,131 +943,362 @@ export default class Hello extends Component {
 
 ## useEffect()
 
-### useEffect() 基本用法
++ <span style="font-size:22px">基本用法：</span>
 
-<hr>
+  举例来说，如果想要组件加载之后，网页标题`document.title`会随之改变。那么改变网页标题这个操作就是组件的副效应，必须通过`useEffect()`来实现。
 
-`useEffect()`本身是一个函数，由 React 框架提供，在函数内部调用即可。
+  ```js
+  function Welcome(props) {
+    useEffect(() => {
+      document.title == '加载完成';
+    });
+    
+    return <h1>Hello, {props.name}</h1>;
+  }
+  ```
 
-举例来说，如果想要组件加载之后，网页标题`document.title`会随之改变。那么改变网页标题这个操作就是组件的副效应，必须通过`useEffect()`来实现。
+  > 上例中，`useEffect()`的参数是一个函数，它就是所要完成的副效应。组件加载之后，React 就会执行这个函数。
 
-``` react
-function Welcome(props) {
-  useEffect(() => {
-    document.title == '加载完成';
-  });
-  
-  return <h1>Hello, {props.name}</h1>;
-}
-```
+  `useEffect()`的**作用就是指定一个副效应函数**，**组件每渲染一次，该副效应函数就自动执行一次**
 
-上例中，`useEffect()`的参数是一个函数，它就是所要完成的副效应。组件加载之后，React 就会执行这个函数。
++ <span style="font-size:22px">第二个参数</span>
 
+    有时，不需要`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，**使用一个数组指定副效应函数的依赖项，只有依赖项发生变化才会重新渲染**。
 
+    ```js
+    function Welcome(props) {
+      useEffect(() => {
+        document.title = 'Hello, ${props.name}';
+      }, [props.name]);
+      
+      return <h1>Hello, {props.name}</h1>;
+    }
+    ```
 
-`useEffect()`的**作用就是指定一个副效应函数**，**组件每渲染一次，该副效应函数就自动执行一次**。组件首次在网页 DOM 加载后，副效应函数也会执行。
+    > 上面例子中，`useEffect()`的第二个参数是一个数组，指定了第一个参数（副效应函数）的依赖项（`props.name`）。只有该变量发生变化时，副效应函数才会执行。
 
+    如果**第二个参数是空数组**，就表明无任何依赖项。副效应函数只在组件加载进入 DOM 后执行一次，后面组件重新渲染就不会再次执行
 
++ <span style="font-size:22px">用途：</span>
 
-### useEffect() 的第二个参数
+    常见用途有如下几种：
 
-<hr>
+    + 获取数据（*data fetching*）
+    + 事件监听或订阅（*setting up a subscription*）
+    + 改变 DOM（*changing the DOM*）
+    + 输出日志（*logging*）
 
-有时，不需要`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，**使用一个数组指定副效应函数的依赖项，只有依赖项发生变化才会重新渲染**。
++ <span style="font-size:22px">返回值：</span>
+	副效应随组件加载而发生，那么组件卸载时，可能需要清理这些副效应。
+	
+	useEffect() 允许返回一个函数，在组件卸载时执行该函数，清理副效应
+	
+	```js
+	useEffect(() => {
+	  const subscription = props.source.subscribe();
+	  return () => {
+	    subscription.unsubscribe();
+	  };
+	}, [props.source]);
+	```
+	
+	> 上例，`useEffect()`在组件加载时订阅了一个事件，并且返回一清理函数，在组件卸载时取消订阅
+	
+	实际使用中，由于副效应函数默认是每次渲染都会执行，所以清理函数不仅会在组件卸载时执行一次，每次副效应函数重新执行前也会执行一次，用来**清理上一次渲染的副效应**
 
++ <span style="font-size:22px">注意点:</span>
 
-
-```react
-function Welcome(props) {
-  useEffect(() => {
-    document.title = 'Hello, ${props.name}';
-  }, [props.name]);
-  
-  return <h1>Hello, {props.name}</h1>;
-}
-```
-
-上面例子中，`useEffect()`的第二个参数是一个数组，指定了第一个参数（副效应函数）的依赖项（`props.name`）。只有该变量发生变化时，副效应函数才会执行。
-
-
-
-如果**第二个参数是空数组**，就表明无任何依赖项。副效应函数只在组件加载进入 DOM 后执行一次，后面组件重新渲染就不会再次执行
-
-
-
-### useEffect() 的用途
-
-<hr>
-
-常见用途有如下几种：
-
-+ 获取数据（*data fetching*）
-+ 事件监听或订阅（*setting up a subscription*）
-+ 改变 DOM（*changing the DOM*）
-+ 输出日志（*logging*）
-
-
-
-### useEffect() 的返回值
-
-<hr>
-
-副效应随组件加载而发生，那么组件卸载时，可能需要清理这些副效应。
-
-useEffect() 允许返回一个函数，在组件卸载时执行该函数，清理副效应。若不需清理副效应，useEffect() 不用返回任何值
-
-```react
-useEffect(() => {
-  const subscription = props.source.subscribe();
-  return () => {
-    subscription.unsubscribe();
-  };
-}, [props.source]);
-```
-
-上例，`useEffect()`在组件加载时订阅了一个事件，并且返回一清理函数，在组件卸载时取消订阅
+    若有多个副效应，应该调用多个`useEffect()`，而不应该合并写一起
 
 
 
-实际使用中，由于副效应函数默认是每次渲染都会执行，所以清理函数不仅会在组件卸载时执行一次，每次副效应函数重新执行前也会执行一次，用来清理上一次渲染的副效应
+## useState()
 
+useState() 用于**为函数组件引入 State**。纯函数不能有状态，所以把状态放进钩子里面
 
-
-### useEffect() 的注意点
-
-<hr>
-
-若有多个副效应，应该调用多个`useEffect()`，而不应该合并写一起
-
-
-
-## useState() 状态钩子
-
-useState() 用于为函数组件引入状态（*state*）。纯函数不能有状态，所以把状态放进钩子里面
-
-useState() 函数接受状态的初始值，作为**参数**。该函数**返回**一个数组，数组的第一个成员是一个变量，指向状态的当前值；第二个成员是函数，用来更新状态，约定是 set 前缀加上状态的变量名
+> **用法：**
+>
+> useState() 函数接受状态的初始值，作为参数。该函数返回一个数组，数组的第一个成员是一个变量，指向状态的当前值；第二个成员是函数，用来更新状态，约定是 set 前缀加上状态的变量名
 
 ```react
 function Example() {
-  // 声明一个叫“count”的 state 变量
-  const [count, setCount] = useState(0);
+  // 声明初始化为0的cnt状态，和状态set函数
+  const [cnt, setCnt] = useState(0);
   
-  return (
-  	<div>
-    	<p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>	// ?
-      	Click me
-      </button>
-    </div>
-  )
+    return (
+        <div>
+            <p>Clicked {cnt} times.</p>
+            <button onClick={() => { setCnt(cnt + 1) }}>
+                Click me!
+            </button>
+        </div>
+    )
 }
 ```
 
 
 
-## useContext() 共享状态钩子
+## useContext()——共享状态
 
 如果需要在组件间共享状态，可以使用`useContext()`
+
+
+
+# Redux
+
++ **Redux 原理：**
+
+    应用中所有的 <span style="color:red">state</span> 都以一个对象树的形式储存在一个单一的 <span style="color:red">store</span> 中。 惟一改变 state 的办法是触发 <span style="color:red">action</span>，一个描述发生什么的对象。 为了描述 action 如何改变 state 树，你需要编写 <span style="color:red">reducers</span>。
+
+    ![image-20210719161201719](https://camo.githubusercontent.com/c754e2b863804c2bc08ad8b500ce3a2e101c43bf8259d19e86e3ebf5479d9c88/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30372f32302f6f494a457141363352354d465156742e706e67)
+
++ <span style="font-size:20px">配置：</span>
+
+    ```shell
+    $yarn add react-redux
+    
+    $npm i @types/react-redux
+    ```
+
+## Reducer
+
+Reducer——store 处理数据的方法
+
++ **Reducer 的基本框架：**
+
+    ```js
+    (state, action) => {
+    	return state	// 应该返回新的状态，在这里暂时用就状态代替
+    }
+    ```
+
+    > **参数 state 和 action：**
+    >
+    > state 是 store 中的旧数据，而 action 是指挥 reducer 函数作数据变换的指令
+
+```typescript
+// 1.定义state接口
+interface CntState {	
+    cnt: number;
+    clickState: "low" | "high";
+}
+// 2.初始化默认state
+const defaultState: CntState = {	
+    cnt: 0,
+  	clickState: "low",
+}
+// 3.导出reducer
+const cntReducer = (state = defaultState, action) => {
+    return state;
+} 
+export default cntReducer;
+```
+
+>  reducer 还是 action 都是**纯函数**，所以文件输出的最终结果就是一个函数，可以使用匿名函数的形式
+
+## Action
+
+```typescript
+export const CHANGE_CNT = "change_cnt";
+
+interface ChangeCntAction {
+    type: typeof CHANGE_CNT;
+    payload: number;
+}
+
+export const changeCntActionCreator = (num: number) : ChangeCntAction => {
+    return {
+        type: CHANGE_CNT,
+        payload: num,
+    }
+}
+```
+
+
+
+## Redux + **Redux-Toolkit**
+
+```shell
+$npm i @reduxjs/toolkit
+```
+
+### Slice
+
+使用 RTK 后自动包含 reducer 和 action 的映射关系，不再需要分别创建对应的 reducer 和 action 了
+
+```tsx
+interface CounterState {
+    cnt: number;
+    clickState: "low" | "high";
+}
+const initialState: CounterState = {
+    cnt: 0,
+    clickState: "low",
+}
+
+export const counterSlice = createSlice({
+    name: "counterSlice",
+    initialState,
+    reducers: {
+        addCnt: (state, action:PayloadAction<number>) => {
+            state.cnt += action.payload;
+        },
+        changeClickState: (state) => {
+            state.clickState = (state.clickState === "low") ? "high" : "low";
+        },
+    }
+})
+```
+
+> **action 的类型：**
+>
+> RTK 已经定义好了 action 的类型`payload: any; type: string;`，如果需要自定义 action 类型可以使用`PayloadAction`
+
+### Store
+
+1. <span style="font-size:22px">创建 Store：</span>
+
+    ```ts
+    // /redux/store.ts
+    import {applyMiddleware, combineReducers} from "@reduxjs/toolkit";
+    
+    const rootReducer = combineReducers({
+        counter: counterSlice.reducer,
+    })
+    
+    const store = createStore(rootReducer);
+    
+    export default store;
+    ```
++ <span style="font-size:22px">Middleware：</span>
+
+    以 log 功能为例——每次 state 改变打印 state：
+
+    ```typescript
+    // redux/middlewares/actionLog.ts
+    import {Middleware} from "@reduxjs/toolkit";
+    
+    export const actionLog : Middleware = (store) => {
+        return (next) => {
+            return (action) => {
+                console.log("state 当前：", store.getState());
+                next(action);
+                console.log("state 更新", store.getState());
+            }
+        }
+    }
+    ```
+
+    创建 store 时加入 middleware：
+
+    ```typescript
+    import {actionLog} from "./middlewares/actionLog";
+    import thunk from "redux-thunk";
+    
+    const store = createStore(rootReducer, applyMiddleware(thunk, actionLog));
+    ```
+
+2. <span style="font-size:22px">组件与 Store 的连接：</span>
+
+    1. **Provider 组件**包裹根组件，并传入 Store：`Provider`组件创建了一个 react-redux 上下文
+
+        ```tsx
+        function App() {
+            return (
+                <Provider store={store}>
+                    <Hello />
+                    <Counter />
+                </Provider>
+            );
+        }
+        ```
+        
+        > We recommend using the React-Redux hooks API as the default approach in your React components.
+        >
+        > The existing `connect` API still works and will continue to be supported, but the hooks API is simpler and works better with TypeScript.
+        
+    
+3. <span style="font-size:22px">访问组件:</span>
+
+    **useSelector()**——获得相应字段
+
+    ```tsx
+    export default function Counter() {
+      const cnt = useSelector(state => state.counter.cnt);
+      const clickState = useSelector(state => state.counter.clickState);
+    
+      return (
+        <div>
+          <p>Clicked {cnt} times.</p>
+          <p>It`s {clickState} state.</p>
+        </div>
+      )
+    }
+    ```
+
+    > **让 state 拥有智能联想：**
+    >
+    > ```typescript
+    > // redux/store.ts
+    > export type RootState = ReturnType<typeof store.getState>;
+    > ```
+    >
+    > ```ts
+    > // redux/hooks.ts
+    > import {
+    >     TypedUseSelectorHook,
+    >     useSelector as useReduxSelector,
+    > } from "react-redux";
+    > import {RootState} from "./store";
+    > 
+    > export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+    > ```
+    >
+    > 然后引用 useSelector 时从上述文件引用。
+
+4. <span style="font-size:22px">Dispatch action：</span>
+
+    ```tsx
+    <button onClick={() => {
+        dispatch(counterSlice.actions.addCnt(2))
+    }}>
+      Click me!
+    </button>
+    ```
+
+
+
+
+# Router
+
+> **React 路由框架：**
+>
+> - 综合性路由框架：**react-router**（*最主流、完整的 React 路由解决方案*）
+> - 浏览器路由框架：react-keeper
+> - 手机 app 框架（*react-native*）：react-navigation
+
++ **React-router-dom：**
+
+    用于浏览器，处理 Web App 的路由。会自动安装 React-router 核心框架
+
+    - 使用`<Link />`组件可以渲染出`<a />`标签
+    - `BrowserRouter />`组件利用 H5 API 实现路由切换
+    - `<HashRouter />`组件利用原生 JS 中`window.location.hash`实现路由切换
+
+    > 其余扩展性框架：
+    >
+    > - React-router-redux 提供路由中间件，处理 redux 的集成
+    > - React-router-config 用来配置静态路由
+
+    ```shell
+    $npm i react-router-dom
+    # react-router没有提供原生ts支持，所以还需安装其类型定义
+    $npm i @types/react-router-dom -D
+    ```
+
+## 路由初始化
+
+
 
 
 
@@ -1199,9 +1349,11 @@ function Example() {
 
      
 
-# 参考链接
+# REF
 
 [React 官方中文文档](https://zh-hans.reactjs.org/docs/hello-world.html)
 
- 
++ Redux：
+
+    [Hooks | React Redux](https://react-redux.js.org/api/hooks)
 

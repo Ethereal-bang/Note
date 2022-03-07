@@ -285,190 +285,6 @@ yarn global add @tarojs/cli@latest
 
 
 
-# Taro 中 React 的差异
-
-Taro 支持将 Web 框架直接运行在各平台，开发者使用的是真实的 React 和 Vue 等框架
-
-但 Taro 在组件、API、路由等规范上遵循微信小程序规范，所以在 Taro 中使用 React 和 Web 端有一些差异，以下会详细列出
-
-
-
-## React API
-
-React 的 API 如 `Component`、`useState`、`useEffect` 等都需要从 React 包中获取
-
-```jsx
-import React, { Component, useState, useEffect } from 'react'
-```
-
-
-
-## 入口组件、页面组件
-
-Taro 引入[入口组件](https://docs.taro.zone/docs/react-entry)和[页面组件](https://docs.taro.zone/docs/react-page)的概念，分别对应小程序规范的入口组件 `app` 和页面组件 `page`
-
-
-
-## 内置组件
-
-Taro 中可以使用小程序规范的内置组件开发，如 `<View>`、`<Text>`、`<Button>` 等
-
-
-
-+ <span style="font-size:20px">Taro 规范</span>：
-    1. React 中使用这些内置组件前，必须从**`@tarojs/components`**引入
-    2. 组件属性遵从**大驼峰式命名规范**
-    3. 事件规范
-
-
-
-## 事件
-
-事件和 Web 端一样，事件回调函数中，第一个参数是事件对象，回调中调用`stopPropagation`可以阻止冒泡
-
-
-
-+ <span style="font-size:20px">Taro 规范</span>
-    1. 内置事件名`on`开头，遵从**小驼峰式**（camelCase）命名规范
-    2. React 中点击事件使用`onClick`
-
-+ <span style="font-size:20px">示例代码==?==</span>
-
-    ```jsx
-    function Comp () {
-      function clickHandler (e) {
-        e.stopPropagation() // 阻止冒泡
-      }
-    
-      function scrollHandler () {}
-    
-      // 只有小程序的 bindtap 对应 Taro 的 onClick
-      // 其余小程序事件名把 bind 换成 on 即是 Taro 事件名（支付宝小程序除外，它的事件就是以 on 开头）
-      return <ScrollView onClick={clickHandler} onScroll={scrollHandler} />
-    }
-    ```
-
-    
-
-## 生命周期触发机制
-
-在 Taro3 中，React 的生命周期触发时机和我们平常在 Web 开发中理解的概念有一些偏差
-
-
-
-### React 的生命周期
-
-React 组件的生命周期方法在 Taro 中都支持使用
-
-+ **componentWillMount()**：
-
-    `onLoad`之后，页面组件**渲染到 Taro 的虚拟 DOM 前**触发
-
-+ **componentDidMount()**
-
-    页面组件**渲染到 Taro 的虚拟 DOM 之后**触发
-
-    此时能访问到 Taro 的虚拟 DOM（使用 React ref、document.getElementById 等手段），并支持对其进行操作（设置 DOM 的 style 等）
-
-    但此时不代表 Taro 的虚拟 DOM 数据已经完成从逻辑层 `setData` 到视图层。因此这时**无法通过 `createSelectorQuery` 等方法获取小程序渲染层 DOM 节点。** 只能在 [onReady](https://docs.taro.zone/docs/react-page#onready-) 生命周期中获取
-
-
-
-### 小程序页面的方法
-
-小程序页面的方法，在 Taro 页面中同样可以使用：在 Class Component 中书写同名方法、在 Function Component 中使用对应的 Hooks
-
-注意：
-
-+ 使用 **HOC** 包裹的小程序**页面组件**，必须处理**`forwardRef`**或使用**继承组件**的方式，而不是返回组件的方式，否则小程序页面方法可能不会被触发	==？==
-
-
-
-## Ref
-
-Taro 中 ref 的用法和 React 完全一致，但获取到的 DOM 和浏览器环境还有小程序环境都有所不同==？==
-
-
-
-### React Ref
-
-React Ref 获取到的是 Taro 的虚拟 DOM，和浏览器的 DOM 相似，可以操作它的`style`，调用它的 API 等
-
-但 Taro 的虚拟 DOM 运行在小程序的逻辑层，不是真实的小程序渲染层节点，没有尺寸宽高等信息
-
-
-
-```jsx
-import React, { createRef } from 'react'
-import { View } from '@tarojs/components'
-
-export default class Test extends React.Component {
-  el = createRef()
-
-  componentDidMount () {
-    // 获取到的 DOM 具有类似 HTMLElement 或 Text 等对象的 API
-    console.log(this.el.current)
-  }
-
-  render () {
-    return (
-      <View id='only' ref={this.el} />
-    )
-  }
-}
-```
-
-
-
-### 获取小程序 DOM==？==
-
-**获取真实的小程序渲染层节点**，需要在**`onReady`**生命周期中，调用小程序中用于获取 DOM 的 API
-
-```jsx
-import React from 'react'
-import { View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-
-export default class Test extends React.Component {
-  onReady () {
-    // onReady 触发后才能获取小程序渲染层的节点
-    Taro.createSelectorQuery().select('#only')
-      .boundingClientRect()
-      .exec(res => console.log(res))
-  }
-
-  render () {
-    return (
-      <View id='only' />
-    )
-  }
-}
-```
-
-
-
-## Hooks
-
-
-
-## dangerouslySetInnerHTML
-
-小程序端使用`gerouslySetInnerHTML`时有一些额外的配置选项和需注意的地方
-
-
-
-## Minified React error
-
-
-
-## 其它限制
-
-+ 小程序不支持动态引入，因此小程序无法使用`React.lazy` API	==？==
-+ 不能在页面组件的 DOM 树之外插入元素，因此不支持`<Portal>`
-+ 所有组件的`id`必须在整个应用中保持唯一（即使他们在不同页面），否则可能导致事件不触发
-
-
-
 # Taro + React
 
 ## React 基本用法
@@ -702,6 +518,193 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
 
 
 
+## Taro 中 React 的差异
+
+Taro 支持将 Web 框架直接运行在各平台，开发者使用的是真实的 React 和 Vue 等框架
+
+但 Taro 在组件、API、路由等规范上遵循微信小程序规范，所以在 Taro 中使用 React 和 Web 端有一些差异，以下会详细列出
+
+
+
+### React API
+
+React 的 API 如 `Component`、`useState`、`useEffect` 等都需要从 React 包中获取
+
+```jsx
+import React, { Component, useState, useEffect } from 'react'
+```
+
+
+
+### 入口组件、页面组件
+
+Taro 引入[入口组件](https://docs.taro.zone/docs/react-entry)和[页面组件](https://docs.taro.zone/docs/react-page)的概念，分别对应小程序规范的入口组件 `app` 和页面组件 `page`
+
+
+
+### 内置组件
+
+Taro 中可以使用小程序规范的内置组件开发，如 `<View>`、`<Text>`、`<Button>` 等
+
+
+
++ <span style="font-size:20px">Taro 规范</span>：
+    1. React 中使用这些内置组件前，必须从**`@tarojs/components`**引入
+    2. 组件属性遵从**大驼峰式命名规范**
+    3. 事件规范
+
+
+
+### 事件
+
+事件和 Web 端一样，事件回调函数中，第一个参数是事件对象，回调中调用`stopPropagation`可以阻止冒泡
+
+
+
++ <span style="font-size:20px">Taro 规范</span>
+
+    1. 内置事件名`on`开头，遵从**小驼峰式**（camelCase）命名规范
+    2. React 中点击事件使用`onClick`
+
++ <span style="font-size:20px">示例代码==?==</span>
+
+    ```jsx
+    function Comp () {
+      function clickHandler (e) {
+        e.stopPropagation() // 阻止冒泡
+      }
+    
+      function scrollHandler () {}
+    
+      // 只有小程序的 bindtap 对应 Taro 的 onClick
+      // 其余小程序事件名把 bind 换成 on 即是 Taro 事件名（支付宝小程序除外，它的事件就是以 on 开头）
+      return <ScrollView onClick={clickHandler} onScroll={scrollHandler} />
+    }
+    ```
+
+    
+
+### 生命周期触发机制
+
+在 Taro3 中，React 的生命周期触发时机和我们平常在 Web 开发中理解的概念有一些偏差
+
+
+
+#### React 的生命周期
+
+React 组件的生命周期方法在 Taro 中都支持使用
+
++ **componentWillMount()**：
+
+    `onLoad`之后，页面组件**渲染到 Taro 的虚拟 DOM 前**触发
+
++ **componentDidMount()**
+
+    页面组件**渲染到 Taro 的虚拟 DOM 之后**触发
+
+    此时能访问到 Taro 的虚拟 DOM（使用 React ref、document.getElementById 等手段），并支持对其进行操作（设置 DOM 的 style 等）
+
+    但此时不代表 Taro 的虚拟 DOM 数据已经完成从逻辑层 `setData` 到视图层。因此这时**无法通过 `createSelectorQuery` 等方法获取小程序渲染层 DOM 节点。** 只能在 [onReady](https://docs.taro.zone/docs/react-page#onready-) 生命周期中获取
+
+
+
+#### 小程序页面的方法
+
+小程序页面的方法，在 Taro 页面中同样可以使用：在 Class Component 中书写同名方法、在 Function Component 中使用对应的 Hooks
+
+注意：
+
++ 使用 **HOC** 包裹的小程序**页面组件**，必须处理**`forwardRef`**或使用**继承组件**的方式，而不是返回组件的方式，否则小程序页面方法可能不会被触发	==？==
+
+
+
+### Ref
+
+Taro 中 ref 的用法和 React 完全一致，但获取到的 DOM 和浏览器环境还有小程序环境都有所不同==？==
+
+
+
+#### React Ref
+
+React Ref 获取到的是 Taro 的虚拟 DOM，和浏览器的 DOM 相似，可以操作它的`style`，调用它的 API 等
+
+但 Taro 的虚拟 DOM 运行在小程序的逻辑层，不是真实的小程序渲染层节点，没有尺寸宽高等信息
+
+
+
+```jsx
+import React, { createRef } from 'react'
+import { View } from '@tarojs/components'
+
+export default class Test extends React.Component {
+  el = createRef()
+
+  componentDidMount () {
+    // 获取到的 DOM 具有类似 HTMLElement 或 Text 等对象的 API
+    console.log(this.el.current)
+  }
+
+  render () {
+    return (
+      <View id='only' ref={this.el} />
+    )
+  }
+}
+```
+
+
+
+#### 获取小程序 DOM==？==
+
+**获取真实的小程序渲染层节点**，需要在**`onReady`**生命周期中，调用小程序中用于获取 DOM 的 API
+
+```jsx
+import React from 'react'
+import { View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+
+export default class Test extends React.Component {
+  onReady () {
+    // onReady 触发后才能获取小程序渲染层的节点
+    Taro.createSelectorQuery().select('#only')
+      .boundingClientRect()
+      .exec(res => console.log(res))
+  }
+
+  render () {
+    return (
+      <View id='only' />
+    )
+  }
+}
+```
+
+
+
+### Hooks
+
+
+
+### dangerouslySetInnerHTML
+
+小程序端使用`gerouslySetInnerHTML`时有一些额外的配置选项和需注意的地方
+
+
+
+### Minified React error
+
+
+
+### 其它限制
+
++ 小程序不支持动态引入，因此小程序无法使用`React.lazy` API	==？==
++ 不能在页面组件的 DOM 树之外插入元素，因此不支持`<Portal>`
++ 所有组件的`id`必须在整个应用中保持唯一（即使他们在不同页面），否则可能导致事件不触发
+
+
+
+
+
 # Taro + Vue2
 
 ## 视图
@@ -776,12 +779,29 @@ import { useState, useEffect } from 'react' // 框架 Hooks （基础 Hooks）
     ```js
     export default {
       name: "BookGenreList",
-      onLoad: (options) => {  
-        console.log(options)
+      data() {
+        return { key: "" }
+      }
+      onLoad: function (options) {	// s
+        this.key = options.key;	// 获取路由参数 key
       }
     ```
-
     
+    
+
+## 事件
+
++ 使用 `@` 修饰符（或 `v-on:`，更多用法可以参考[Vue文档](https://cn.vuejs.org/v2/guide/events.html)）替代小程序事件名中的 `bind`(替代支付宝小程序事件名中的 `on`)
+
++ Vue 中点击事件使用 `@tap`
+
+```vue
+<button @tap="handle">
+  z
+</button>
+```
+
+
 
 
 
@@ -810,6 +830,26 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
         注意区别和路径。
         
         ```vue
+        <view :on-click="clickTo"></view>
+        
+        <script>
+          export default {
+            methods: {
+          	  clickTo() {
+            	  wx.navigateTo({
+              	  url: 					`../../pages/bookDetail/bookDetail`,
+              })
+            }
+        		}
+          }
+        </script>
+        ```
+        
+        
+
+    + 内置 navigator 组件：
+
+        ```vue
         <navigator
         		url="/pages/bookList/bookList"
             open-type="navigate"
@@ -817,8 +857,10 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
           全部书籍
         </navigator>
         ```
+
         
-        
+
+    
 
 + <span style="font-size:22px">传参 & 获取路由参数：</span>
 
@@ -865,7 +907,38 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 
 
-# 参考链接
+# 小程序组件
+
++ <span style="font-size:22px">scroll-view:——可滚动视图区域</span>
+
+    ```vue
+    <scroll-view
+    	class="scroll-tag"
+      style="width: 100%"
+      :scroll-x="true"
+      @scroll="scroll"
+    >
+      <AtTag
+        v-for="genre in tags"
+        :key="genre.key"
+        :name="genre.name"
+      >
+        {{ genre.title }}
+    	</AtTag>
+    </scroll-view>
+    
+    <style>
+      .scroll-tag {
+          white-space: nowrap;
+      }
+    </style>
+    ```
+
+    
+
+
+
+# REF
 
 [Taro 文档](https://nervjs.github.io/taro/docs/README)
 

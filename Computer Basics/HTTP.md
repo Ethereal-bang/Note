@@ -156,6 +156,28 @@ JWT——JSON Web Token，代替传统 session 认证的解决方案
     
         > `req.user`实际就是上一步设置的 Token 的 payload 部分
 
+
+
+# 跨域
+
++ <span style="font-size:22px">源：</span>
+
+    + **源 = 协议 + 域名 + 端口号**
+
+    + 两个 url 的协议、域名、端口号完全一致，那么这两个 url 就是同源的
+
+    + `window.origin`或`location.origin`得到当前源：
+
+        ![image-20220303191239857](https://gitee.com/ethereal-bang/images/raw/master/20220303191246.png)
+
+        ![image-20220303191411990](https://gitee.com/ethereal-bang/images/raw/master/20220303191412.png)
+
+    + **同源策略：**不同源之间的页面，不准互相访问数据
+
++ <span style="font-size:22px">跨域：</span>
+
+    由于同源策略的限制，发出的请求服务端收到后的响应被浏览器拦截
+
 # REF
 
 + HTTP 无状态：

@@ -516,6 +516,12 @@ Integer i = new Integer(1);
 + <span style="font-size:20px">String、StringBuffer：</span>
 
     经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
+    
+    ```java
+    StringBuffer res = new StringBuffer();
+    ```
+    
+    
 
 
 
