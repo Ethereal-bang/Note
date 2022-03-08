@@ -82,6 +82,10 @@
 
 + [Operating System.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Operating%20System.md)
 
++ [DataBasics](https://github.com/Ethereal-bang/Note/tree/master/Computer%20Basics/DataBase)
+
++ [HTTP.md](https://github.com/Ethereal-bang/Note/tree/master/Computer%20Basics/HTTP.md)
+
 + [Markdown.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Markdown.md)
 
 + [Git.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Git.md)
