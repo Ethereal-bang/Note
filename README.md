@@ -58,12 +58,6 @@
 + [WebSocket.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/WebSocket.md)
 
 ### Utils
-+ [cmd.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/cmd.md)
-
-+ [Markdown.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Markdown.md)
-
-+ [Git.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Git.md)
-
 + [Webpack.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Webpack.md)
 
 + [Cloud Server.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/CloudServer.md)
@@ -85,7 +79,12 @@
 
 ## Computer Basics
 + [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Algorithm%20and%20Data%20Structrue.md)
+
 + [Operating System.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Operating%20System.md)
+
++ [Markdown.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Markdown.md)
+
++ [Git.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Git.md)
 
 ## C
 + [C.md](https://github.com/Ethereal-bang/Note/blob/master/C/C.md)
