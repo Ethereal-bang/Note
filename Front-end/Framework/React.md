@@ -1291,12 +1291,88 @@ export const counterSlice = createSlice({
     > - React-router-config 用来配置静态路由
 
     ```shell
+    # v5版本
     $npm i react-router-dom
     # react-router没有提供原生ts支持，所以还需安装其类型定义
     $npm i @types/react-router-dom -D
     ```
 
 ## 路由初始化
+
+```tsx
+function App() {
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/show" element={<ShowPage />} />
+                    <Route path="*" element={<h1>404</h1>} />
+                </Routes>
+            </BrowserRouter>
+        </Provider>
+    );
+}
+```
+
+> **Notes:**
+>
+> + Route 组件内的写法有变动`element={<HomePage />}`，以前是`component={HomePage}`
+> + BrowserRouter 内还要包裹一层 Routes 组件
+> + 没有 exact 属性，现在默认精准匹配路径
+> + 
+
+## 路由跳转
+
+```tsx
+import {Link} from "react-router-dom";
+
+const ShowPage = () => {
+    return (
+        <>
+            <ShowCnt />
+            <Link to={"/"}>回到首页</Link>
+        </>
+    )
+}
+
+export default ShowPage;
+```
+
+## 路由传参
+
++ **路由匹配：**
+
+    ```tsx
+    {/* App.tsx */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/show" element={<ShowPage />}>
+          <Route path=":showId" element={<ShowPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    
+    // ShowPage.tsx
+    const ShowPage = () => {
+        const params = useParams();
+        return (
+            <>
+                <h2>{params.showId}</h2>
+                <Link to={"/"}>回到首页</Link>
+            </>
+        )
+    }
+    ```
+
+    > 效果：
+    >
+    > URL 为 "/show" 时不显示`<h2>`内容，为 "/show/2" 时显示出 2.
+
+
+
+# 请求
 
 
 

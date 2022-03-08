@@ -14,6 +14,38 @@ Shell 原意是“外壳”，跟 kernel（内核）相对应，比喻内核外�
 
 Shell 接收到用户输入的命令，将命令送入操作系统执行，并将结果返回给用户
 
++ <span style="font-size:20px">常用命令：</span>
+
+    + 切换目录：
+
+        ```shell
+        $C:\Users\HP>e:
+        $E:\>
+        ```
+        
+        切换到该盘符下的目录。`cd`命令：
+        
+        ```shell
+        $E:\>cd Microsoft VS Code
+        $E:\Microsoft VS Code>
+        
+        
+        $c:\Users>cd /d e:\Microsoft VS Code
+        $e:\Microsoft VS Code>
+        
+        
+        # 切换到上级目录。`cd..`
+        ```
+        
+        
+        切换到其他盘符下的目录时在`cd`后加上`/d`
+        
+        > Notes：
+        >
+        > 路径按下`tab`键有自动补全功能。
+    
+    
+
 # Linux
 
 真正的 Linux 指的是<span style="color:rgba(62, 175, 124)">系统内核</span>，而我们常说的 Linux 指的是“发行版完整的包含一些基础软件的<span style="color:rgba(62, 175, 124)">操作系统</span>”

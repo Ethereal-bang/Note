@@ -123,20 +123,18 @@ public class Hello {
         import java.util.Scanner;
         ```
 
-        
-
     2. `Scanner`的实例化：
 
         ```java
         Scanner scan = new Scanner(System.in);
         ```
-
+    
     3. 调用`Scanner`类相关方法获取指定类型变量，如：
 
         ```java
         int num = scan.nextInt();
         ```
-
+    
         | Method          | Description                           |
         | :-------------- | :------------------------------------ |
         | `nextBoolean()` | Reads a `boolean` value from the user |
@@ -909,7 +907,7 @@ public class Soccer {
 
         
 
-# 参考
+# REF
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)
 
