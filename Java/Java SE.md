@@ -123,20 +123,18 @@ public class Hello {
         import java.util.Scanner;
         ```
 
-        
-
     2. `Scanner`的实例化：
 
         ```java
         Scanner scan = new Scanner(System.in);
         ```
-
+    
     3. 调用`Scanner`类相关方法获取指定类型变量，如：
 
         ```java
         int num = scan.nextInt();
         ```
-
+    
         | Method          | Description                           |
         | :-------------- | :------------------------------------ |
         | `nextBoolean()` | Reads a `boolean` value from the user |
@@ -150,17 +148,34 @@ public class Hello {
 
 
 
-
 ## 运算符
 
-+ `/`除法
-+ `%`取余
++ <span style="font-size:20px">算术运算符：</span>
 
+    + `/`除法
+    + `%`取余
 
++ <span style="font-size:20px">位运算:</span>
+
+    + &：按位与
+
+    + |：按位或
+
+    + ~：按位非
+
+    + ^：按位异或
+
+    + <<：左位移运算符
+
+    + \>>：右位移运算符
+
+    + <<<：无符号右移运算符
+
+    均是转换为二进制计算
 
 ## 数据结构
 
-### 数组 Array
+### Arrays
 
 + **长度**：`.length`：
 
@@ -190,8 +205,6 @@ public class Hello {
     |    字符型    | 0（ASCII码）或'\u0000' |
     |    布尔型    |         false          |
     | 引用数据类型 |          null          |
-
-
 
 + <span style="font-size:22px">二维数组：</span>
 
@@ -248,12 +261,22 @@ public class Hello {
       }
     ```
 
+### 排序
+
++ ```java
+    Arrays.sort(arr, new Comparator<int[]>() {
+      @Override
+      public int compare(int[] o1, int[] o2) {
+        return o1 - o2;   // 升序
+      }
+    });
+    ```
+
 
 
 ### 字符串 String
 
 + charAt(`index`): 取某位字符
-+ 
 
 
 
@@ -474,11 +497,29 @@ Integer i = new Integer(1);
 
 拆箱：包装类对象转换为基本类型的值
 
-+ Type argument cannot be of primitive type——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
++ **基本类型与包装类型：**
+
+    | 基本 | 包装      |
+    | ---- | --------- |
+    | int  | Integer   |
+    | char | Character |
+
++ **Type argument cannot be of primitive type**——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
+
+
+
++ <span style="font-size:20px">Integer：</span>
+    + Integer.MIN_VALUE
 
 + <span style="font-size:20px">String、StringBuffer：</span>
 
     经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
+    
+    ```java
+    StringBuffer res = new StringBuffer();
+    ```
+    
+    
 
 
 
@@ -866,7 +907,7 @@ public class Soccer {
 
         
 
-# 参考
+# REF
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)
 
