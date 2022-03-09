@@ -276,6 +276,23 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 
 
+## 条件渲染
+
+```tsx
+// 三目运算符：
+return (
+	{loading ? <Spin /> : <Hello />}
+)
+// 与运算符
+return (
+	{len > 0 && <h2>Hello</h2>}
+)
+```
+
+
+
+
+
 # 组件
 
 组件允许我们将 UI 拆分为独立可复用的代码片段，并对每个片段进行独立构思。组件，从概念上类似于 JS 函数。接受任意的入参（*props*），并返回描述页面内容的 React 元素。
@@ -354,7 +371,7 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 
 
-## 组件实例的三大核心属性
+## 三大核心属性
 
 + <span style="font-size:20px">构造器</span>
 
@@ -413,6 +430,42 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 + **this.state 的更新时机：**
 
     进入了 <span style="color:red">react 的调度流程</span>，那就是异步的。没有进入 react 的调度流程，那就是同步的
+    
++ <span style="font-size:22px">Class 组件：</span>
+
++ <span style="font-size:22px">函数式组件：</span>——useState Hook
+
+    ```tsx
+    function Cnt() {
+      // 声明初始化为0的cnt状态，和状态set函数
+      const [cnt, setCnt] = useState(0);
+      
+        return (
+            <div>
+                <p>Clicked {cnt} times.</p>
+                <button onClick={() => { setCnt(cnt + 1) }}>
+                    Click me!
+                </button>
+            </div>
+        )
+    }
+    ```
+
+    不像 class 中的 `this.setState`，更新 state 变量总是<span style="color:red">替换而不是合并它</span>：
+
+    ```tsx
+    const [musicList, setMusicList] = useState([]);
+    
+    useEffect(() => {
+      axios.get("http://cloud-music.pl-fe.cn/search/hot")
+        .then(res => {
+          const { data } = res;
+    #     setMusicList(data.result.hots);
+      })
+    });
+    ```
+
+    > 这个储存数组的例子可以看出，不能用`musicList.push(data.result.hots)`，因为是替换 state 变量。
 
 
 
@@ -592,9 +645,8 @@ class Demo extends React.Component {
 
 
 
-#### React 中的事件处理
+## React 中的事件处理
 
-<hr>
 
 + <span style="font-size:20px">通过 onXxx 属性指定事件处理函数</span>
     + React 使用的是自定义事件（*二次封装所以区分大小写如 `onClick`*），而不是原生 DOM 事件（*如 `onclick`*）。
@@ -688,7 +740,6 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 + <span style="font-size:20px">生命周期图</span>
 
-    <hr>
 
     旧 React：
 
@@ -943,6 +994,8 @@ export default class Hello extends Component {
 
 ## useEffect()
 
+与 class 中的生命周期函数极为类似。
+
 + <span style="font-size:22px">基本用法：</span>
 
   举例来说，如果想要组件加载之后，网页标题`document.title`会随之改变。那么改变网页标题这个操作就是组件的副效应，必须通过`useEffect()`来实现。
@@ -983,9 +1036,25 @@ export default class Hello extends Component {
 
     常见用途有如下几种：
 
-    + 获取数据（*data fetching*）
+    + 获取数据（*data fetching*）：
+
+        ```tsx
+        useEffect(() => {
+          const fetchData = async () => {
+            axios.get("http://cloud-music.pl-fe.cn/search/hot")
+              .then(res => {
+              	const { data } = res;
+        	      setMusicList(data.result);
+            })
+          }
+          fetchData()
+            .catch(console.error);
+        }, []);	// 只执行一次
+
     + 事件监听或订阅（*setting up a subscription*）
+
     + 改变 DOM（*changing the DOM*）
+
     + 输出日志（*logging*）
 
 + <span style="font-size:22px">返回值：</span>
@@ -1319,8 +1388,7 @@ function App() {
 >
 > + Route 组件内的写法有变动`element={<HomePage />}`，以前是`component={HomePage}`
 > + BrowserRouter 内还要包裹一层 Routes 组件
-> + 没有 exact 属性，现在默认精准匹配路径
-> + 
+> + 没有 exact 属性，现在默认精准匹配路径，与 Route 顺序无关
 
 ## 路由跳转
 
@@ -1373,6 +1441,34 @@ export default ShowPage;
 
 
 # 请求
+
+## Axios
+
+```shell
+$npm i axios -S
+```
+
++ <span style="font-size:22px">基本使用：</span>
+
+    ```tsx
+    useEffect(() => {
+        const fetchData = async () => {
+            axios.get("http://cloud-music.pl-fe.cn/search/hot")
+                .then(res => {
+                    const { data } = res;
+                    console.log(data.result.hots)
+        fetchData()
+            .catch(console.error);
+    }, []);
+    ```
+
+# Antd
+
+基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。
+
+```shell
+$npm i antd -S
+```
 
 
 
@@ -1427,7 +1523,13 @@ export default ShowPage;
 
 # REF
 
-[React 官方中文文档](https://zh-hans.reactjs.org/docs/hello-world.html)
++ 总：
+
+    [React 官方中文文档](https://zh-hans.reactjs.org/docs/hello-world.html)
+
++ 组件：
+
+    [React-分享会 · 语雀](https://www.yuque.com/docs/share/42300f26-cb81-4947-ba04-4c207db13505?#a4878cb1)
 
 + Redux：
 
