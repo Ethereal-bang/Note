@@ -82,7 +82,7 @@ npm i taro-ui-vue
     选择微信小程序模式，需要自行下载并打开**微信开发者工具**，然后选择项目根目录进行预览。
     微信小程序编译预览及打包
 
-    ```
+    ```shell
     $ npm run dev:weapp
     $ npm run build:weapp
     ```
@@ -801,7 +801,34 @@ export default class Test extends React.Component {
 </button>
 ```
 
+## 事件传参
 
+通过 dataset。
+
+```tsx
+<template>
+  <view @tap="choseWitchUniversity">
+    <view
+          v-for="uni in university"
+          :data-name="uni.name"
+          >
+      {{ uni.title }}
+    </view>
+  </view>
+</template>
+
+export default {
+	methods: {
+  	choseWitchUniversity(e) {
+			console.log(e.target.dataset);
+		}
+}
+```
+
+> Notes：
+>
+> + 在父标签添加点击事件，避免多个子组件内添加
+> + `data-<property>`属性在`e.target.dataset`中得到的是以对象形式，字段为该`<property>`
 
 
 
@@ -907,7 +934,9 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 
 
-# 小程序组件
+# 小程序
+
+### 小程序组件
 
 + <span style="font-size:22px">scroll-view:——可滚动视图区域</span>
 
@@ -934,7 +963,32 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
     </style>
     ```
 
-    
+
+## API
+
++ <span style="font-size:22px">媒体：</span>
+
+    + Taro.chooseImage(option)：——上传本地图片
+
+        ```js
+        uploadPic(e) {  // 点击上传触发此事件
+          Taro.chooseImage({
+            count: 1, // 限定只上传一张
+            success: (res) => {
+              const { tempFilePaths } = res;
+              console.log(res)
+              this.picUrl = tempFilePaths;	// 获得该url
+            },
+            fail: (res => {	// 上传失败回调
+              console.log(res)
+            })
+          })
+        },
+        ```
+
+        > 成功回调具有以下字段：
+        >
+        > ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
 
 
 

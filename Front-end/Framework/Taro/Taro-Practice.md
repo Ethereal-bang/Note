@@ -98,7 +98,21 @@
 
     A: `url="./page/index/index"`改为`/page/index/index`
 
++ <span style="font-size:20px">`AtTabsPane`组件下文字不显示</span>
 
+    + Q_Desc：组件下`<view>Text</view>`形式的文子不予显示，只显示诸如：
+
+        ```vue
+        <AtListItem
+        	note="Some text"
+        />
+        ```
+
+        
+
+    
+
+    
 
 # Ref
 
