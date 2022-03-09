@@ -668,7 +668,16 @@ KMP 主要用在字符串匹配
     return db[n];
     ```
 
-    
+
+
+
+## 背包问题
+
+![img](https://img-blog.csdnimg.cn/20210117171307407.png)
+
++ <span style="font-size:22px">01 背包:</span>
+
+    每一件物品只有两个状态——取或不取
 
 
 
