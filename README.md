@@ -90,6 +90,8 @@
 
 + [Git.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Git.md)
 
++ [PackageManager.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/PackageManager.md)
+
 ## C
 + [C.md](https://github.com/Ethereal-bang/Note/blob/master/C/C.md)
 
