@@ -20,6 +20,17 @@
 
 
 
+# npm
+
++ **查看 npm 全局安装位置：**
+
+    ```shell
+    $npm root -g
+    ```
+
+
+
+
 # REF
 
 + PackageManager：

@@ -19,6 +19,8 @@
 > + 都是异步加载，Async是在外部 JS 加载完成后，浏览器空闲时，Load 事件触发前执行；而 Defer 是在JS加载完成后，整个文档解析完成后执行。
 >     Defer 更像是将`<script>`标签放在`</body>`之后的效果，但是它由于是异步加载 JS 文件，所以可以节省时间。
 
+
+
 ## 注释
 
 单行注释：ctrl+/
@@ -53,7 +55,7 @@ function sum(a, b) {
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608546490131-8b3f696e-f77e-4b07-a5c6-97d3db74b2e4.png)
 
-## var 与 let
+### var 与 let
 
 let会有**暂时性死区**：如果存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，那么在let声明变量前，（该块级作用域内）使用`tmp`会报错
 
@@ -281,22 +283,6 @@ console.log(result);	// [12, 9]
 
 
 
-## 标识符
-
-命名
-
-字母(A-Za-z)、数字(0-9)、下划线(_)、美元符号( $ )组成
-
-不可是关键字、保留字
-
-区分大小写
-
-驼峰命名法
-
-见名知意
-
-
-
 ## 操作符/运算符
 
 作用实现赋值、比较和执行算数运算等功能
@@ -327,14 +313,6 @@ console.log(0.07 * 100);   // 结果不是 7，  而是：7.000000000000001
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582362136-55308eac-4815-473b-8121-819f2f7aa94f.png)
 
 
-
-## 语句
-
-### 输入输出语句
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607577500839-3f2330a7-5b48-41a9-b7d4-f04b3ea7dade.png)
-
-prompt(输入框显示信息，默认输入值 可省)  返回值为字符串
 
 ## 流程控制
 
@@ -382,7 +360,7 @@ F11: 程序单步执行，让程序一行一行的执行，这个时候，观察
 
 ​    *利用函数求任意个数的最大值*
 
-```
+```js
 function maxValue() {
       var max = arguments[0];
       for (var i = 0; i < arguments.length; i++) {
@@ -555,6 +533,21 @@ f1 == f2;   // false
 
 在没有`class`机制，只有函数的语言里，借助闭包，同样可以封装一个私有变量
 
+
+
+# 方法
+
++ <span style="font-size:20px">Array:</span>
+
+    map()——返回一个新的 Array，每个元素为调用 func 的结果
+    filter()——返回一个符合 func 条件的元素数组
+    some()——返回一个 boolean，判断是否有元素是否符合 func 条件
+    every()——返回一个 boolean，判断每个元素是否符合 func 条件
+    forEach()——没有返回值，只是针对每个元素调用 func
+    reduce()——有返回值，重点是计算数组，返回一个值
+
+
+
 ## 对象
 
 分为自定义对象、内置对象、浏览器对象
@@ -570,8 +563,6 @@ f1 == f2;   // false
 + [**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
 
     允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。在引用为空([nullish](https://developer.mozilla.org/zh-CN/docs/Glossary/Nullish) ) ([`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
-
-
 
 
 
@@ -882,3 +873,7 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
 + ECMAScript:
 
     [JS脚本加载中，defer和async的区别 - 知乎](https://zhuanlan.zhihu.com/p/30898865)	
+    + 方法：
+    
+        [[js数组方法forEach、map、filter、reduce、every、some总结](https://segmentfault.com/a/1190000016025949)](https://segmentfault.com/a/1190000016025949)
+
