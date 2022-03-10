@@ -307,6 +307,18 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 
 
+# WebStorm + Git
+
++ 推送到 GitHub：
+
+    在本地分支上 push 时，要选择 main 远程仓库才对应的是 GitHub 上地址。
+
+    ![image-20220310104522986](https://gitee.com/ethereal-bang/images/raw/master/20220310104523.png)
+
+    ![image-20220310104352313](C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220310104352313.png)
+
+
+
 # 参考链接
 
 [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
