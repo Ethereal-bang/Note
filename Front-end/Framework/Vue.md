@@ -195,9 +195,7 @@
 
 
 
-#  Vue 基础
-
-## 安装
+## Vue 安装
 
 + npm：
 
@@ -215,7 +213,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     ```
 
-    
+
+
+
+#  Vue 基础
 
 ## 声明式渲染
 
@@ -525,27 +526,21 @@ var app = new Vue({
 
     设置元素的**属性** *如 src，title，class*
 
-    
-
     语法：
 
     ```vue
-    <img v-bind:src="imgSrc">
+<img v-bind:src="imgSrc">
     // 代码略
     	data:{
     		imgSrc:"图片地址"
     	}
     ```
-
-    应用中，`v-bind`能省略不写，也就是`<img :src="imgSrc">`
-
     
+    应用中，`v-bind`能省略不写，也就是`<img :src="imgSrc">`
 
     属性也可拼接字符串
 
     `<img :title="imgTitle + '!!'">`
-
-    
 
     总结：
 
@@ -613,7 +608,7 @@ var app = new Vue({
       let app = new Vue({
         el:"#app",
         data:{
-          message:"表单元素的值"
+          message:"值"
         },
       })
     </script>
@@ -888,102 +883,43 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 
 
-# Class 与 Style 绑定
+# .vue
 
-操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是属性 attribute，所以可以用`v-bind`处理
++ **页面构成：**
 
-**`v-bind`**用于`class`和`style`时做了专门的增强：表达式结果的类型除字符串外可以是**对象**或**数组**
+    不管是在 pages 中还是 component，.vue 组件的构成都是一样的：
 
-==。。。==
-
-
-
-# 条件渲染
-
-`v-if`
-
-```vue
-<div v-if="isLogin">
-  已登录
-</div>
-```
-
-
-
-# 列表渲染
-
-`v-for`
-
-```vue
-<AtList>
-  <AtListItem
-    v-for="book in bookList"
-    :key="book.key"
-    :title="book.title"
-	>
-    {{ book.title }}
-  </AtListItem>
-</AtList>
-```
-
-
-
-
-
-# 事件处理 `v-on`
-
-+ **触发一些代码：**
-
-    ```js
-    <button v-on:click="counter += 1">Add 1</button>
-    ```
+    ```vue
+    <template>
+    </template>
     
-+ **调用方法名：**
-
-    ```html
-    <button v-on:click="greet">Greet</button>
-    <butt
-    ```
-
-    ```js
-    // ...
-    methods: {
-      greet: function(event) {
-        // ...
-      }
+    <script>
+    export default {
+    	name: "App",
+    	components: {},
     }
+    </script>
+    
+    <style>
+    </style>
     ```
 
-+ **处理器中访问原始 DOM 事件**，用特殊变量`$event`传入方法：
 
-    ```html
-    <button v-on:click="warn('Cannot be submitted yet.', $event)">
-      Submit
-    </button>
+
+## style
+
++ **引入 Sass：**
+
+    ```shell
+    npm i node-sass sass-loader -D
     ```
 
-    ```js
-    // ...
-    methods: {
-      warn: function(message, event) {
-        // 第二个参数就是传进来的原生事件对象
-      }
-    }
+    ```vue
+    <style lang="scss">
+    </style>
     ```
 
     
-
-
-
-
-
-# 表单输入绑定
-
-`v-model`
-
-
-
-# 组件
 
 ## 组件基础
 
@@ -1134,9 +1070,26 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 
 
-## Prop
+## Props
 
-==。。。==
+props 是包含有使用组件时附带属性的对象：
+
+```vue
+<!--HelloWorld.vue-->
+<script>
+	export default {
+    name: "HelloWorld",
+    props: {
+      msg: String,
+    }
+  }
+</script>
+
+<!--App.vue-->
+<template>
+	<HelloWorld msg="Welcome to Vue.js App"/>
+</template>
+```
 
 
 
@@ -1189,6 +1142,8 @@ Vue 将**`<slot>`**元素作为承载分发内容的出口
 
 
 ### 插槽内容
+
++ slot 已弃用
 
 ==？==允许像这样合成组件：
 
@@ -1333,27 +1288,6 @@ Vue 将**`<slot>`**元素作为承载分发内容的出口
 ```
 
 这里将包含所有插槽 prop 的对象命名为`slotProps`，但也可以使用其他名字。
-
-
-
-## 动态组件 & 异步组件
-
-
-
-## 处理边界情况
-
-
-
-# 过渡 & 动画
-
-Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。包括以下工具：
-
-- 在 CSS 过渡和动画中自动应用 class
-- 可以配合使用第三方 CSS 动画库，如 Animate.css
-- 在过渡钩子函数中使用 JavaScript 直接操作 DOM
-- 可以配合使用第三方 JavaScript 动画库，如 Velocity.js
-
-==。。。==
 
 
 
@@ -1579,13 +1513,119 @@ Vue 结合网络数据开发应用
 
 
 
+# 开箱即用组件
+
+## vue-easy-slider
+
+[vue-easy-slider](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fshhdgit%2Fvue-easy-slider) 是一个简单的 Vue 滑块组件，可与鼠标和触摸屏一起使用。可自定义，并带有动画效果
+
++ **安装：**
+
+    ```shell
+    npm i -S vue-easy-slider
+    ```
+
++ **使用:**
+
+    ```vue
+    <template>
+      <Slider
+        v-model="sliderValue"
+        animation="fade"
+        :duration="5000"
+        :speed="2000"
+      >
+        <SliderItem
+          v-for="(i, index) in list"
+          :key="index"
+          @click="changeIndex(1);"
+          :style="i"
+        >
+          <p style="line-height: 280px; font-size: 5rem; text-align: center;">
+            Page{{ index + 1 }}
+          </p>
+        </SliderItem>
+      </Slider>
+    </template>
+    
+    <script>
+    import {Slider, SliderItem} from "vue-easy-slider";
+    
+    export default {
+      name: "Carousel",
+      components: {
+        Slider,
+        SliderItem,
+      },
+      data() {
+        return {
+          list: [
+            {
+              backgroundColor: "#3f51b5",
+              width: "100%",
+              height: "100%"
+            },
+            {
+              backgroundColor: "#eee",
+              width: "100%",
+              height: "100%"
+            },
+            {
+              backgroundColor: "#f44336",
+              width: "100%",
+              height: "100%"
+            },
+          ],
+          sliderValue: 1
+        };
+      },
+      methods: {
+        changeIndex(index) {
+          this.sliderValue = index;
+        }
+      }
+    };
+    </script>
+    
+    <style scoped>
+    </style>
+    ```
+
++ **Slider 组件配置项:**
+
+    `:speed`——切换速度
+
+    `animation: "fade"`——渐变
 
 
 
+## Element-UI
 
++ **安装：**`npm i element-ui -S`
 
++ **完整引入：**
 
-# 参考链接
++ <span style="font-size:20px">按需引入：</span>——借助 [babel-plugin-component](https://github.com/QingWei-Li/babel-plugin-component)，只引入需要组件，达到减小项目体积的目的。
+
+    1. **安装插件：** babel-plugin-component：`npm i babel-plugin-component -D`
+
+    2. **修改 .babelrc：**
+
+        ```js
+        plugins: [
+          [
+            "component",
+            {
+              "libraryName": "element-ui",
+              "styleLibraryName": "theme-chalk"
+            }
+          ]
+        ],
+        ```
+
+    3. **main.js 中引入部分组件：**
+
+# REF
 
 + ：
 

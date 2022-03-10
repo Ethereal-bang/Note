@@ -275,7 +275,7 @@ function addURLParam(url, name, value) {
     
     
 
-# DEBUG:
+# DEBUG
 
 1. **form 表单内 button 事件提交无效: **
 
@@ -299,7 +299,7 @@ function addURLParam(url, name, value) {
 
 
 
-# 参考链接
+# REF
 
 + Ajax:
 

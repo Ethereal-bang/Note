@@ -34,7 +34,7 @@
 ### Framework
 + [React.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Framework/React.md)
 
-+ [Vue](https://github.com/Ethereal-bang/Note/tree/master/Front-end/Framework/Vue)
++ [Vue.md](https://github.com/Ethereal-bang/Note/tree/master/Front-end/Framework/Vue.md)
 
 + [Taro](https://github.com/Ethereal-bang/Note/tree/master/Front-end/Framework/Taro)
 
