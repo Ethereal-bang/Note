@@ -318,6 +318,68 @@
 
 
 
+## 返回格式数据
+
+参考：[002、Spring Boot返回Json数据及数据封装 - 知乎](https://zhuanlan.zhihu.com/p/108978625)
+
+封装统一返回的数据结构
+
+>  是与前端的一种约定，类似于：
+>
+> ![image-20220311205810379](https://gitee.com/ethereal-bang/images/raw/master/20220311205817.png)
+
+1. **封装返回格式类：**
+
+    ```java
+    package com.bei.loginserver.common;
+    
+    public class JsonResult<T> {
+    
+        private boolean flag;   // 请求成功与否
+        private String message; // 请求提示
+        private T data; // 提示信息/数据
+    
+        // 请求失败
+        public JsonResult(String message) {
+            this.flag = false;
+            this.message = message;
+        }
+    
+        // 请求成功
+        public JsonResult(boolean flag, T data) {
+            this.flag = true;
+            this.data = data;
+        }
+    
+      	// Getter...
+    }
+    ```
+
+    > 没有 Getter 报错："Could not find acceptable representation"
+
+2. **Controller 中返回该格式：**
+
+    ```java
+    @RestController
+    public class UserController {
+        @Autowired
+        UserService userService;
+    
+        @GetMapping("/register")
+        public JsonResult<String> register(User user) {
+            if (user.getAccount() == null || user.getPwd() == null) {
+                return new JsonResult<>("请提供合法参数！");
+            }
+            return new JsonResult<String>(true, "success");
+        }
+    ```
+
+3. 调用测试：——data 对象就是刚才定义的格式
+
+    ![image-20220311210546789](https://gitee.com/ethereal-bang/images/raw/master/20220311210546.png)
+
+
+
 ## 错误处理
 
 + **throw：**
@@ -336,6 +398,38 @@
     > 上例，如果有请求没有带参数，后端控制台抛出相应错误：![image-20220311105352191](https://gitee.com/ethereal-bang/images/raw/master/20220311105359.png)
     >
     > 而前端请求到的响应体会报 500 服务器出错。
+
+
+
+## 解决跨域
+
+跨域有很多解决方式，参考：[Spring Boot 解决跨域问题的 3 种方案！- Java技术栈 - 博客园](https://www.cnblogs.com/javastack/p/14255114.html)、[SpringBoot实战-跨域问题原理及解决 - 掘金](https://juejin.cn/post/6935985994386636831)
+
++ <span style="font-size:22px">Filer：</span>
+
+    基于过滤器，在 response 写入响应头
+
+    ```java
+    package com.bei.loginserver.filter;
+    
+    import org.springframework.context.annotation.Configuration;
+    
+    import javax.servlet.*;
+    import javax.servlet.annotation.WebFilter;
+    import javax.servlet.http.HttpServletResponse;
+    import java.io.IOException;
+    
+    @WebFilter(filterName = "CorsFilter")
+    @Configuration
+    public class CorsFilter implements Filter {
+        @Override
+        public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+            HttpServletResponse response = (HttpServletResponse) res;
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            chain.doFilter(req, res);
+        }
+    }
+    ```
 
 
 
@@ -831,8 +925,6 @@
 
 
 
-
-
 # Ref
 
 + SpringMVC：
@@ -844,7 +936,8 @@
 + Controller：
 
     [狂神说SpringMVC03：RestFul和控制器](https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&mid=2247483993&idx=1&sn=abdd687e0f360107be0208946a7afc1d&scene=19#wechat_redirect)
-
+    
+    [接口文档 · 语雀](https://www.yuque.com/docs/share/99caf972-f70c-41bc-b7ec-5d052ae2e1f5)
 
 
 

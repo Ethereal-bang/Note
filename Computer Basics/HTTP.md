@@ -177,6 +177,10 @@ JWT——JSON Web Token，代替传统 session 认证的解决方案
 + <span style="font-size:22px">跨域：</span>
 
     由于同源策略的限制，发出的请求服务端收到后的响应被浏览器拦截
+    
+    解决方式：后端设置 Header 中 "Access-Control-Allow-Origin" 字段，`"*"`表示接受来自所有源的访问。
+
+
 
 # REF
 
