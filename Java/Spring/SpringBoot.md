@@ -12,7 +12,7 @@
 
 使用 IDEA 直接创建 SpringBoot 项目：
 
-1. <img src="https://gitee.com/ethereal-bang/images/raw/master/20220222140342.png" alt="image-20220222140335022" style="zoom:33%;" />
+1. <img src="https://gitee.com/ethereal-bang/images/raw/master/20220222140342.png" alt="image-20220222140335022" style="zoom:53%;" />
 
 2. 这里如果勾上 Developer Tools 的 “Spring Boot DevTools” 则可热部署
 
@@ -174,7 +174,7 @@ arr: [cat,dog]
     </dependency>
     ```
 
-3. **配置数据库连接信息：**
+3. **配置数据库连接信息：**——application.yaml
 
     ```yaml
     spring:
@@ -255,7 +255,7 @@ arr: [cat,dog]
       mapper-locations: classpath:mybatis/mapper/*.xml
     ```
 
-    > 配置Mybatis的包的别名，在mapper.xml文件中xxxType="xxx" 此处直接可以写实体类的类名即可，不需要将全类名都写上
+    > `type-aliases-package`配置Mybatis的包的别名，在mapper.xml文件中xxxType="xxx" 此处直接可以写实体类的类名即可，不需要将全类名都写上
     >
     > ```xml
     > <select id="queryAlluser" resultType="User">
@@ -266,7 +266,7 @@ arr: [cat,dog]
     > </select>
     > ```
 
-8. **对应的 Mapper 映射文件：**—— resource/mybatis/mapper/userMapper.xml
+8. **对应的 Mapper 映射文件：**—— resource/mybatis/mapper/user-mapper.xml
 
     ```xml
     <?xml version="1.0" encoding="UTF-8" ?>
@@ -339,38 +339,26 @@ arr: [cat,dog]
 
 # DEBUG
 
-+ [org.apache.ibatis.binding.BindingException](https://blog.csdn.net/qq_35246620/article/details/77916992)
++ [org.apache.ibatis.binding.BindingException](https://blog.csdn.net/qq_35246620/article/details/77916992)：
     + Q_Desc：访问接口时，控制台报错如上，即ibatis 无效绑定异常。
     + A_R：Mapper 映射文件中中 SQL 的 id 名与 Dao 中方法名不一致。
 
++ Could not resolve type alias 'User'：
 
+    + Q_Desc：`user-mapper.xml`中使用别名报错：
 
-```java
-package com.bei;
+        ```xml
+        <insert id="addUser" parameterType="User">
+          insert into user values (#{account}, #{pwd});
+        </insert>
+        ```
 
-public class LinkedList {
-    public ListNode reverseList(ListNode head) {
-        ListNode pre = null, cur = head, next;
+    + A_R：在`application.yaml`中 mybatis 的配置里别名配置错误：
 
-        while (cur != null) {
-            next = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = next;
-        }
+        ```yaml
+        mybatis:
+          type-aliases-package: com.bei.pojo
+        ```
 
-        return pre;
-    }
-
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {};
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
-
-```
+    + A_S：改为`com.bei.loginserver.pojo`
 

@@ -318,6 +318,27 @@
 
 
 
+## 错误处理
+
++ **throw：**
+
+    ```java
+    @GetMapping("/register")
+    public boolean register(User user) {
+      // 若没提供相应参数，
+      if (user.getAccount() == null || user.getPwd() == null) {
+        throw new IllegalArgumentException("请提供合法参数！");
+      }
+      return userService.register(user);
+    }
+    ```
+
+    > 上例，如果有请求没有带参数，后端控制台抛出相应错误：![image-20220311105352191](https://gitee.com/ethereal-bang/images/raw/master/20220311105359.png)
+    >
+    > 而前端请求到的响应体会报 500 服务器出错。
+
+
+
 # 视图
 
 ## 跳转视图方式

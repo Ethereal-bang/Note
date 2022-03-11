@@ -215,6 +215,26 @@
 
 
 
+## 项目配置
+
++ <span style="font-size:22px">vue.config.js：</span>
+
+    + **改变默认端口号：**
+
+        ```js
+        const {defineConfig} = require('@vue/cli-service')
+        module.exports = defineConfig({
+            transpileDependencies: true,
+        #    devServer: {
+        #        port: 8081, // 不与java后端端口号8080冲突
+        #    }
+        })
+        ```
+
+        
+
+
+
 
 #  Vue 基础
 
