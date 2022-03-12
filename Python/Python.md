@@ -319,8 +319,6 @@ Tuple 与列表类似，元素类型可以各不相同。不同之处在于 Tupl
 
 ## 数据类型转换
 
-
-
 ``` python
 tempStr = input("What is the temperature?")
 if tempStr[-1] in ['F', 'f']:
@@ -854,7 +852,7 @@ f = open('/Users/michael/test.txt', 'r')
         li[i: j: k] = lt	# 替换，以 k 为步长
         
         del ls[i: j]
-
+        
         ls += lt
         ls.extend(it)
         
