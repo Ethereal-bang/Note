@@ -238,69 +238,6 @@ IP 地址： `101.132.100.245`。
 
 3. 引用静态文件：
 
-    
-
-# WordPress 搭建个人博客
-
-## 登录云服务器
-
-1. 下载 SSH：
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211102222019.png" alt="image-20211102222019156" style="zoom: 50%;" />
-
-2753DC81777D0D234D
-
-![image-20211102222035873](https://gitee.com/ethereal-bang/images/raw/master/20211102222035.png)
-
-![image-20211102222046499](https://gitee.com/ethereal-bang/images/raw/master/20211102222046.png)
-
-![image-20211102222053777](https://gitee.com/ethereal-bang/images/raw/master/20211102222053.png)
-
-2. 登录云服务器：
-
-    ```shell
-    ssh root@101.132.100.245
-    ```
-
-    第一次需要输入 yes。提示输入云服务器的登录密码（暗码输入）
-
-登录成功后：![image-20211104152412425](https://gitee.com/ethereal-bang/images/raw/master/20211104152412.png)
-
-
-
-# Node.js + Hexo 搭建个人博客
-
-1. Node.js
-
-2. Github pages
-
-    > [GitHub Pages](https://pages.github.com/) is designed to host your personal, organization, or project pages from a GitHub repository.
-
-    创建仓库取名`[用户名].github.io`
-
-3. Hexo
-
-    ```bash
-    npm i -g hexo-cli
-    
-    npm init	# 初始化博客
-    ```
-
-    ![image-20211105125436173](https://gitee.com/ethereal-bang/images/raw/master/20211105125443.png)
-
-    安装 git 部署插件：
-
-    ```bash
-    npm i hexo-deployer-git --save
-    ```
-
-    分别输入以下命令：
-
-    ```bash
-    hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public
-    hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)
-    hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)
-    ```
 
 
 
@@ -326,7 +263,17 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
     <img src="https://gitee.com/ethereal-bang/images/raw/master/20220207154811.png" alt="image-20220207154811012" style="zoom:33%;" />
 
-# 参考资源
++ **nohup** 守护后台进程：
+
+    ```shell
+    nohup node www
+    ```
+
+    > nohup 命令执行后显示："nohup: ignoring input and appending output to 'nohup.out'" 表示 ”忽略输入输出，将信息化信息记录到nohup.out文件中“
+
+
+
+# REF
 
 [阿里云ECS服务器前后端项目部署 - 掘金](https://juejin.cn/post/6908323868360835085)
 
