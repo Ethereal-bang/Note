@@ -1462,6 +1462,8 @@ $npm i axios -S
     }, []);
     ```
 
+
+
 # Antd
 
 基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。
@@ -1472,14 +1474,27 @@ $npm i axios -S
     $npm i antd -S
     ```
 
+    
+    
     ```tsx
     // App.tsx
     import 'antd/dist/antd.css';
     ```
-
     
 
 
+
+# TypeScript
+
++ <span style="font-size:22px">声明类型文件：</span>
+
+    > Eg：TS2307: Cannot find module './README.md' or its corresponding type declarations.
+
+    在 src 目录下新建 **globals.d.ts**，
+
+    ```ts
+    declare module "*.md";
+    ```
 
 
 
@@ -1528,7 +1543,38 @@ $npm i axios -S
 
     只有含有`text/babel`时才能成功将 JSX 代码识别为 React 元素
 
-     
+
+
+
+# Others
+
+## 渲染 .md 文件
+
++ 使用[react-markdown](https://github.com/remarkjs/react-markdown)
+
++ **Demo:**——fetch 识别文件内容
+
+    ```tsx
+    import ReactMarkdown from "react-markdown";
+    import md from "./README.md";
+    import {useEffect, useState} from "react";
+    
+    export const ShowMd = () => {
+        const [markdown, setMarkdown] = useState("");
+    
+        useEffect(() => {
+            fetch(md)
+                .then(res => res.text())
+                .then(text => setMarkdown(text));
+        }, []);
+    
+        return (<ReactMarkdown children={markdown} />)
+    }
+    ```
+
+    > 使用 ReactMarkdown 组件时可能会发生两种情况：能直接识别 md 文件；直接引入的markdown文件不能被识别，需要通过fetch来获取文件内容（上例为第二种情况）
+
+
 
 # REF
 
@@ -1544,3 +1590,6 @@ $npm i axios -S
 
     [Hooks | React Redux](https://react-redux.js.org/api/hooks)
 
++ Others：
+
+    [react引入渲染markdown文件_M_Eve的博客-CSDN博客](https://blog.csdn.net/M_Eve/article/details/105614726)

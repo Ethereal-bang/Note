@@ -2,7 +2,9 @@
 
 ## Front-end
 ### Basic
-+ [HTMLandCSS.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Basic/HTMLandCSS.md)
++ [HTML.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Basic/HTML.md)
+
++ [CSS.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Basic/CSS.md)
 
 + [JavaScript.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Basic/JavaScript.md)
 
