@@ -1593,3 +1593,17 @@ $npm i axios -S
 + Others：
 
     [react引入渲染markdown文件_M_Eve的博客-CSDN博客](https://blog.csdn.net/M_Eve/article/details/105614726)
+
+
+
+# DEBUG
+
++ md 文件中 html 标签不能识别：
+
+    + Q_Desc：转换结果为字符串
+
+        ```tsx
+        <ReactMarkdown skipHtml={false} children={markdown} />
+        ```
+
+        
