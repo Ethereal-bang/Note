@@ -742,17 +742,17 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 
     旧 React：
-
+    
     组件渲染有三个路线。
-
+    
     ![image-20210520131203496](https://i.loli.net/2021/05/20/8GDFzEgIUrSfy9q.png)
-
+    
     新 React：
-
+    
     将废弃`componentWillMount`、`componentWillRecieveProps`、`componentWillUpdate`三个钩子。
-
+    
     新增了`getDerivedStateFromProps`、`getSnapshotBeforeUpdate`。
-
+    
     <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210524124359645.png" alt="image-20210524124359645" style="zoom:55%;" />
 
 + <span style="font-size:20px">关于生命周期的API</span>
@@ -1466,9 +1466,18 @@ $npm i axios -S
 
 基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。
 
-```shell
-$npm i antd -S
-```
++ **引入：**
+
+    ```shell
+    $npm i antd -S
+    ```
+
+    ```tsx
+    // App.tsx
+    import 'antd/dist/antd.css';
+    ```
+
+    
 
 
 

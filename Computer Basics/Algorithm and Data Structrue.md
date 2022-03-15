@@ -339,9 +339,9 @@ KMP 主要用在字符串匹配
 
     ```java
     // 外层——比较len-1次
-    for (int i = 0; i <= len; i++) {
+    for (int i = 0; i < len - 1; i++) {
       // 内层——每一遍循环需两两比较的次数
-      for (int j = 0; j <= len - i；j++) {
+      for (int j = 0; j < len - i；j++) {
     		// ...
       }
     }
