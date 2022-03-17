@@ -108,6 +108,12 @@ JS 之所以有`this`的设计取决于内存的数据结构
 
 
 
+## 构造函数中的 this
+
+指向其原型对象，因为是原型对象调用该构造函数
+
+
+
 ## this 与箭头函数
 
 如定义为箭头函数，this 值与定义时环境无关。
@@ -188,7 +194,7 @@ class Rectangle {
 
     
 
-# 参考链接
+# REF
 
 [JavaScript 的 this 原理 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2018/06/javascript-this.html)
 

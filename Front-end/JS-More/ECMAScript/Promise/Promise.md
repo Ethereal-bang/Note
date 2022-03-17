@@ -652,13 +652,17 @@ Promise 的一大优势是支持链式调用，具体来说是`then`方法的具
 
 
 
-# 参考：
+# REF
 
 + 总：
+
+    [Promise从入门到自定义(promise前端进阶必学)_哔哩哔哩](https://www.bilibili.com/video/BV1WE411P7e6?p=3&spm_id_from=pageDriver)
 
     [Promise 对象 · 语雀](https://www.yuque.com/ostwind/es6/docs-promise#b267cd07)
 
 + Promise.prototype.then():
+
+    [undefined与null的区别 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html)
 
     [Promise.prototype.then() - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)
 
