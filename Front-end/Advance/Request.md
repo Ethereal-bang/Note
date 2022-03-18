@@ -41,7 +41,6 @@ Ajax 是一种在无需加载整个页面的情况下，能更新部分网页的
 
 <hr>
 
-
 Ajax 是基于现有的 Internet 标准，并联合使用它们：
 
 1. XMLHttpRequest（*XHR对象*） 对象 （*异步与服务器交换数据*）
@@ -225,6 +224,67 @@ function addURLParam(url, name, value) {
 
 
 
+# [Fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)
+
+> Fetch 在 Node 环境没有被支持，浏览器环境可直接使用
+
++ **Demo：**
+
+    ```js
+    fetch("https://api.github.com/users/github")
+        .then(response => {
+            console.log(response)
+            return response.json();
+        })
+        .then(data => {
+            console.log(data)
+        })
+    ```
+
+    + **Response.json()** 接收一个 response 流，返回一个被解析为 JSON 格式的 promise 对象
+
+    + 返回的 **Response 对象**如图：
+
+        ![image-20220318095903895](https://gitee.com/ethereal-bang/images/raw/master/20220318095911.png)
+
+
+
++ <span style="font-size:22px">fetch() 第二个参数：</span>
+
+    配置请求
+
+    + 上传 JSON 数据：
+
+        ```js
+        const data = { username: "test1"};
+        fetch("。。。", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then(response => response.json())
+          .then(data => {
+          console.log("Success: ", data);
+        })
+          .catch(err => {
+          console.log("Error: ", err);
+        })
+        ```
+
+        
+
++ <span style="font-size:22px">fetch() 返回值</span>
+
+    fetch() 无论成功与否返回一个 Promise 对象
+
+    + **请求错误：**
+        + 接收到一个代表**错误的 HTTP 状态码**时，从 fetch 返回的 Promise **不会被标记为 reject**。相反，它会将 Promise 状态标记为 resolve （如果响应的 HTTP 状态码不在 200 - 299 的范围内，则设置 resolve 返回值的 [`ok`](https://developer.mozilla.org/zh-CN/docs/Web/API/Response/ok) 属性为 false ）
+        + 仅当**网络故障时或请求被阻止**时，才会标记为 **reject**
+
+    
+
 # [Axios](http://axios-js.com/zh-cn/docs/index.html)
 
 + Demo: 
@@ -314,6 +374,11 @@ function addURLParam(url, name, value) {
 
     [原生 ajax 封装 - SegmentFault 思否](https://segmentfault.com/a/1190000037701554)
 
++ Fetch：
+
+    [Response.json() - Web API 接口参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Response/json)
+    
 + 跨域：
 
     [ajax跨域，这应该是最全的解决方案了 - SegmentFault 思否](https://segmentfault.com/a/1190000012469713)
+

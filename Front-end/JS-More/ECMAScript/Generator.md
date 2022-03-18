@@ -42,25 +42,6 @@ hw.next() // { value: undefined, done: true }
 
 ## 与 Iterator 接口的关系
 
-因为`Symbol.iterator`方法等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。而 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的`Symbol.iterator`属性使其具有 Iterator 接口
-
-```js
-let myIterable = {};
-myIterable[Symbol.iterator] = function* () {
-  yield 1;
-  yield 2;
-  yield 3;
-};
-
-[...myIterable] // [1, 2, 3]
-```
-
-
-
-Generator 函数执行后返回一个遍历器对象，该对象本身也具有`Symbol.iterator`属性，执行后返回自身
-
-
-
 `for...of`可以自动遍历 Generator 函数生成的 Iterator 对象，且不需调用`next`方法
 
 ```js
@@ -77,6 +58,8 @@ for (let v of foo()) {
 ```
 
 注意一旦返回的`done`为`true`循环就终止且不包含该返回对象。所以上面的`return`语句返回的 4 也不包括在`for...of`中。
+
+> 区分上例执行 .next 后返回 retrun 的值。
 
 
 
@@ -95,16 +78,13 @@ function *show() {
 }
 
 let gen = show();
-let res1 = gen.next();
-let res2 = gen.next();
-
-console.log(res1);  //{value：12， done：false}
-console.log(res2);  //{value: 5, done：true}
+let res1 = gen.next();	// {value：12， done：false}
+let res2 = gen.next();	//{value: 5, done：true}	
 ```
 
 上面代码中，`res1`的结果由`yeild`返回，`res2`——最后一步的结果由`generator`函数的`return`返回。
 
-返回的是个`json`，`done`表示函数是否完成
+返回的是个 JSON
 
 
 
@@ -112,21 +92,21 @@ console.log(res2);  //{value: 5, done：true}
 
 ### next 方法的参数
 
-`yield`表达式本身没有返回值，`next`可以带一个参数，会被当作**上一个`yield`表达式的返回值**(*因为碰到 `yield` 暂停执行时 `yield `语句也是执行的*)
+`yield`表达式本身没有返回值，`next`可以带一个参数，会被当作**上一个`yield`表达式的返回值**。
 
 ```js
 function* f() {
-    console.log("one")
-    let one = yield;  
-    console.log("two")
+    console.log(1)
+    let res = yield;  
+    console.log(res)
 } 
 
 let g = f()
-g.next()    // one
-g.next(2)   // 2
+g.next()    // 1
+g.next(2)   // 2 因为yield返回值为2
 ```
 
-
+> next 方法会执行到下一 yield 停止，因此上例中`console.log(res)`也会执行。
 
 由于`next`方法的参数表示上一个`yield`表达式的返回值，所以在第一次使用`next`方法时传递参数是无效的
 
@@ -135,10 +115,6 @@ g.next(2)   // 2
 ### Generator.prototype.throw()
 
 Generator 函数返回的遍历器对象都有一个`throw`方法，在函数体外抛出错误，然后在 Generator 函数体内捕获
-
-
-
-==。。。==
 
 
 
@@ -164,26 +140,6 @@ g.next()        // { value: undefined, done: true }
 + **try...finally**：
 
     若函数内部有`try...finally`代码块，`return()`方法会**推迟**到`finally`代码块执行完再执行：
-
-    ```js
-    function* numbers () {
-      yield 1;
-      try {
-        yield 2;
-        yield 3;
-      } finally {
-        yield 4;
-        yield 5;
-      }
-      yield 6;
-    }
-    let g = numbers();
-    g.next()	// { value: 1, done: false }
-    g.next()	// { value: 2, done: false }
-    g.return(7)	// { value: 4, done: false }
-    g.next()	// { value: 5, done: false }
-    g.next()	// { value: 7, done: false }
-    ```
 
     
 
@@ -213,52 +169,7 @@ g.next()        // { value: undefined, done: true }
 
 从语法角度看，若`yield`表达式后跟的是一个遍历器对象，需要在`yield`表达式后加上一个`*`表明返回的是个遍历器对象，这即是`yield*`表达式
 
-```js
-function inner() {
-    yield 'inner'
-}
-function* outer() {
-    yield 'outer1'
-    yield* inner()
-    yield 'outer2'
-}
 
-var gen = outer()
-gen.next().value // "outer1"
-gen.next().value // "inner"
-gen.next().value // "outer2"
-```
-
-
-
-`yield*`后的 Generator 没有`return`语句时，等同于在 Generator 内部部署一个`for...of`循环：
-
-```js
-function* concat(iter1, iter2) {
-  yield* iter1;
-}
-
-// 等同于
-
-function* concat(iter1, iter2) {
-  for (var value of iter1) {
-    yield value;
-  }
-}
-```
-
-说明，`yield*`后面的 Generator 函数（没有`return`语句时），不过是`for...of`的一种简写形式；反之，则需要**`let value = yield* iterator`**的形式获取`return`语句的值
-
-
-
-若`yield*`后跟一个**数组**，由于数组原生支持遍历器，因此也会遍历数组成员：
-
-```js
-function* gen(){
-  yield* ["a", "b", "c"];
-}
-gen().next() // { value:"a", done:false }
-```
 
 实际上，任何有 Iterator 接口的数据结构都可以被`yield*`遍历
 
@@ -278,22 +189,6 @@ let obj = {
 
 
 
-## Generator 函数的 this
-
-ES6 规定，Generator 函数**返回的遍历器**是 Generator 函数的**实例**，也继承了 Generator 函数的`prototype`对象上的方法：
-
-```js
-function* g() {}
-g.prototype.hello = () => 'hi';
-
-let instance = g();
-instance.hello()	// 'hi'
-```
-
-Generator 函数`g`返回的遍历器`instance`，是`g`的实例，而且继承了`g.prototype`。但若把`g`当普通的构造函数并不会生效，因为`g`返回遍历器对象不是`this`对象
-
-
-
 ## Generator 函数的异步应用
 
 ### 异步任务的封装
@@ -308,7 +203,7 @@ function* gen() {
 
 上面代码中 Generator 函数封装了一个异步操作，该操作先读取一个远程接口，然后从返回的 JSON 格式的数据解析信息。
 
-执行这段代码的方法如下：==?==
+执行这段代码的方法如下：
 
 ```js
 let g = gen();
@@ -360,4 +255,10 @@ JS 语言是传值调用，它的 thunk 函数含义有所不同。JS 中，thun
 
 Thunk 真正的威力在于可以自动执行 Generator 执行器
 
+==?==
 
+
+
+## co 模块==？==
+
+[co 函数库的含义和用法 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2015/05/co.html)
