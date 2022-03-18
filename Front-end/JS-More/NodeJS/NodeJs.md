@@ -357,15 +357,13 @@ Stream 是用于在 Node.js 中处理流数据的抽象接口，`stream`模块�
 
 
 
-# Express 框架
+## net 网络
 
-Express 是最流行的 Node 框架，是许多其他流行 Node 框架的底层库
-
-Express 是一个功能极简，完全是路由和中间件构成的 Web 开发框架，从本质上来说，一个 express 应用就是在调用各种中间件
+提供了一些用于底层的网络通信 API，用于创建基于流的 TCP 或 [IPC](http://nodejs.cn/api/net.html#ipc-support) 服务器 ([`net.createServer()`](http://nodejs.cn/api/net.html#netcreateserveroptions-connectionlistener)) 和客户端 ([`net.createConnection()`](http://nodejs.cn/api/net.html#netcreateconnection))
 
 
 
-# Refs
+# REF
 
 [Node.js - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1022910821149312/1023025235359040)
 
@@ -399,4 +397,8 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
     [说说node中可读流和可写流](https://juejin.cn/post/6844903557066391565)
     
-    
++ net 网络：
+
+    [net 网络 | Node.js API 文档](http://nodejs.cn/api/net.html#net)
+
+    [Node.js Net 模块 | 菜鸟教程](https://www.runoob.com/nodejs/nodejs-net-module.html)

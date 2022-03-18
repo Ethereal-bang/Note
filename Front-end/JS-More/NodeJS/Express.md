@@ -1,4 +1,12 @@
-# 配置
+# Express
+
+Express 是最流行的 Node 框架，是许多其他流行 Node 框架的底层库
+
+Express 是一个功能极简，完全是路由和中间件构成的 Web 开发框架，从本质上来说，一个 express 应用就是在调用各种中间件
+
+
+
+## 配置
 
 > **dependencies:**
 >
