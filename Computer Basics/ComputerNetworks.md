@@ -16,15 +16,33 @@
 
     <img alt="计网体系结构" src="https://gj1e.github.io/images/%E4%BA%94%E5%B1%82%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
 
-    
 
-+ 体系结构
+
+
+# 物理层
+
+
+
+# 数据链路层
+
+
+
+# 网络层
 
 
 
 # 运输层
 
+向应用层提供通信服务
 
++ **作用：**计算机间应用进程的端到端的逻辑通信——通信的真正端点是<span style="color:orange">主机中的进程</span>
++ **运输协议：**TCP[^ 3]——面向连接、UDP[^ 4]——无连接
+
+
+
+## TCP
+
+传送数据前必须先建立连接，传输结束后要释放连接
 
 
 
@@ -66,6 +84,12 @@
 
 
 
+## HTTP[^ 5]
+
+面向<span style="color:orange">事务</span>——(*要么所有信息交换都完成，要么依次交换都不进行*) 的应用层协议，基于 TCP/IP 通信协议来传递数据
+
+
+
 # REF
 
 + 计算机网络：
@@ -82,4 +106,8 @@
 
 [^1]: Top-Level Domain，顶级域名
 [^ 2]: Secondary Level Domain，二级域名
+
+[^ 3]: Transmission Control Protocol，传输控制协议
+[^ 4]: User Datagram Protocol，用户数据报协议
+[^ 5]: Hyper Text Transfer Protocol，超文本传输协议
 

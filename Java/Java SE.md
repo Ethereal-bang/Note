@@ -88,6 +88,8 @@ public class Hello {
     转换规则：从低位类型到高位类型自动转换；从高位类型到低位类型需要强制类型转换
 
     ![image-20211106104104976](https://gitee.com/ethereal-bang/images/raw/master/20211106104112.png)
+    
+    + String + int => String
 
 
 

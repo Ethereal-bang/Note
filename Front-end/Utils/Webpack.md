@@ -1,4 +1,4 @@
-#  webpack 概述
+#  Webpack 概述
 
 Webpack 是一个**模块打包器**（*构建工具*）
 
@@ -620,6 +620,27 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 
 
+# Webpack 原理
+
++ <span style="font-size:22px">Webpack 打包流程：</span>
+
+    1. 读取 Webpack **配置参数**
+    2. 启动 Webpack，**创建 Complier 对象**开始解析项目
+    3. 从入口文件 entry 开始解析，找到其导入依赖模块，递归遍历分析，形成**依赖关系树**
+    4. 不同依赖模块对应 **Loader** 进行编译，转为 JS 文件
+    5. 整个过程 Webpack 通过发布订阅模式向外抛出一些 hooks。而 webpack 的插件通过**监听这些关键事件节点执行插件任务**达到干预输出结果目的
+
+    其中文件的解析与构建是一个比较复杂的过程，在 webpack 源码中主要依赖于 <span style="color:orange">compiler</span> 和 <span style="color:orange">compilation</span> 两个核心对象实现
+
++ <span style="font-size:22px">complier 和 compilation：</span>
+
+    complier——全局单例，负责把控整个 Webpack 打包的构建流程
+
+    compliation——每一次构建的上下文对象，它包含了当次构建所需要的所有信息
+
+    每次热更新和重新构建，compiler 都会重新生成一个新的 compilation 对象，负责此次更新的构建过程
+
+    
 
 # Debug
 
@@ -632,7 +653,6 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
     console.log(fn) // 不能调用/不使用
     // webpack不会编译未使用的代码
     ```
-    
     
 
 
@@ -647,3 +667,6 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
     [webpack入门 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/qvop63)
 
++ Webpack 原理：
+
+    [当面试官问Webpack的时候他想知道什么 - 掘金](https://juejin.cn/post/6943468761575849992)

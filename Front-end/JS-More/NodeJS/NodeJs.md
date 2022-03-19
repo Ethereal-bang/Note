@@ -361,6 +361,10 @@ Stream 是用于在 Node.js 中处理流数据的抽象接口，`stream`模块�
 
 提供了一些用于底层的网络通信 API，用于创建基于流的 TCP 或 [IPC](http://nodejs.cn/api/net.html#ipc-support) 服务器 ([`net.createServer()`](http://nodejs.cn/api/net.html#netcreateserveroptions-connectionlistener)) 和客户端 ([`net.createConnection()`](http://nodejs.cn/api/net.html#netcreateconnection))
 
++ <span style="font-size:22px">net.Server:</span>
+
+    创建一个 TCP或==IPC?==或本地服务器。
+
 
 
 # REF
