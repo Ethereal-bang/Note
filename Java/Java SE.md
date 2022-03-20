@@ -112,41 +112,32 @@ public class Hello {
     + `printf`：格式化输出
 
         ```java
-        System.out.printf("%4d", tri[i][j]);
+        System.out.printf("%d %d", m, n);
         ```
 
 + <span style="font-size:20px">输入：</span>
 
-    + 从键盘获取不同类型的变量，需要使用`Scanner`类
+    从键盘获取不同类型的变量，需要使用`Scanner`类
 
-    1. 导包：
+    ```java
+    import java.util.Scanner;
+    Scanner scan = new Scanner(System.in);
+    int m = scan.nextInt();
+    int n = scan.nextInt();
+    ```
 
-        ```java
-        import java.util.Scanner;
-        ```
+    > 键盘输入 `1 2` 、`1回车2`后都能识别
 
-    2. `Scanner`的实例化：
-
-        ```java
-        Scanner scan = new Scanner(System.in);
-        ```
-    
-    3. 调用`Scanner`类相关方法获取指定类型变量，如：
-
-        ```java
-        int num = scan.nextInt();
-        ```
-    
-        | Method          | Description                           |
-        | :-------------- | :------------------------------------ |
-        | `nextBoolean()` | Reads a `boolean` value from the user |
-        | `nextByte()`    | Reads a `byte` value from the user    |
-        | `nextDouble()`  | Reads a `double` value from the user  |
-        | `nextFloat()`   | Reads a `float` value from the user   |
-        | `nextInt()`     | Reads a `int` value from the user     |
-        | `nextLine()`    | Reads a `String` value from the user  |
-        | `nextLong()`    | Reads a `long` value from the user    |
-        | `nextShort()`   | Reads a `short` value from the user   |
+    | Method          | Description                           |
+    | :-------------- | :------------------------------------ |
+    | `nextBoolean()` | Reads a `boolean` value from the user |
+    | `nextByte()`    | Reads a `byte` value from the user    |
+    | `nextDouble()`  | Reads a `double` value from the user  |
+    | `nextFloat()`   | Reads a `float` value from the user   |
+    | `nextInt()`     | Reads a `int` value from the user     |
+    | `nextLine()`    | Reads a `String` value from the user  |
+    | `nextLong()`    | Reads a `long` value from the user    |
+    | `nextShort()`   | Reads a `short` value from the user   |
 
 
 

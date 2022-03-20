@@ -84,21 +84,29 @@
 
 
 
-## HTTP[^ 5]
+## www[^ 6]
 
-面向<span style="color:orange">事务</span>——(*要么所有信息交换都完成，要么依次交换都不进行*) 的应用层协议，基于 TCP/IP 通信协议来传递数据
+万维网是大规模的、联机式信息储藏所，简称 Web。
+
++ **URL——统一资源定位符：**<协议>://<主机>:<端口>/<路径>
+
+
+
+### HTTP[^ 5]
+
++ 超文本文档仅含文本信息
++ 默认端口号 80
++ 面向<span style="color:orange">事务</span>——(*要么所有信息交换都完成，要么依次交换都不进行*) 的应用层协议，基于 TCP/IP 通信协议来传递数据
 
 
 
 # REF
 
-+ 计算机网络：
++ 总：
 
     [计算机网络（第七版）——谢希仁]()
 
 + 应用层：
-
-    [计算机网络（第七版）——谢希仁]()
 
     [什么是域名？- 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/What_is_a_domain_name)
 
@@ -110,4 +118,6 @@
 [^ 3]: Transmission Control Protocol，传输控制协议
 [^ 4]: User Datagram Protocol，用户数据报协议
 [^ 5]: Hyper Text Transfer Protocol，超文本传输协议
+
+[^ 6]: World Wide Web，万维网
 
