@@ -506,7 +506,7 @@ Integer i = new Integer(1);
 + <span style="font-size:20px">Integer：</span>
     + Integer.MIN_VALUE
 
-+ <span style="font-size:20px">String、StringBuffer：</span>
++ <span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
 
     经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
     
@@ -514,7 +514,15 @@ Integer i = new Integer(1);
     StringBuffer res = new StringBuffer();
     ```
     
+    + Eg：利用 StringBuilder 翻转 int 类型
     
+        ```java
+        int reversedNum = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString())
+        ```
+    
+        > + Integer.parseInt 将其他类型转换为 int
+        > + new StringBuilder(string: <>) 获得一个 StringBuilder 对象
+        > + toString() 将 StringBuilder 转换为 String 类型
 
 
 
