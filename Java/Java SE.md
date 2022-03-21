@@ -97,7 +97,15 @@ public class Hello {
 
     Java 是按值传递的，只不过对于对象参数，值的内容是对象的引用
 
-    
+
+
+### String
+
++ charAt(`index`):——取某位字符
+
++ String.valueOf()——返回其他类型的字符串表示形式
+
+
 
 ## 输入输出
 
@@ -264,12 +272,6 @@ public class Hello {
       }
     });
     ```
-
-
-
-### 字符串 String
-
-+ charAt(`index`): 取某位字符
 
 
 

@@ -98,7 +98,9 @@
 + 默认端口号 80
 + 面向<span style="color:orange">事务</span>——(*要么所有信息交换都完成，要么依次交换都不进行*) 的应用层协议，基于 TCP/IP 通信协议来传递数据
 
++ <span style="font-size:22px">请求一个 www 文档所需时间：</span>
 
+    
 
 # REF
 
