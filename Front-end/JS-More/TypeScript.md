@@ -27,7 +27,7 @@
 
 + <span style="font-size:22px">.ts 的编译：</span>
 
-    **编译器**：ts-loader、awesome-typescript-loader、**babel-loader**。因为本处使用`create-react-app`，因此默认的编译器是`babel-loader`。
+    **编译器**：ts-loader、awesome-typescript-loader、**babel-loader**。
 
     **编译器配置文件**：tsconfig.json（可显示声明文件）
 
@@ -55,7 +55,22 @@
 
     不会被编译、打包
 
-    
+
+
+
+# 类型声明
+
++ <span style="font-size:20px">返回值：</span>
+
+    + 箭头函数：
+
+        ```ts
+        const bubbleSort = (nums: number[]): void => {}
+        ```
+
+        
+
+
 
 # 基础类型
 
@@ -815,8 +830,7 @@ namespace Y {
 
 
 
-
-# 参考链接
+# REF
 
 + ：
 

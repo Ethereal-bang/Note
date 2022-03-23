@@ -6,8 +6,6 @@
 
 1. 行内式
 
-    不推荐
-
 2. 内嵌式
 
 3. 外部.js文件
@@ -87,7 +85,7 @@ console.log(arr instanceof Array);  //true
 - - **constructor** 
   - **prototype**  
 
-#### 字符串型String
+#### String
 
 字符串的加减乘除
 
@@ -103,7 +101,7 @@ console.log(arr instanceof Array);  //true
 
 数值与字符串：数值相加 ，字符相连 
 
-#### 布尔型Boolean
+#### Boolean
 
 值true  false
 
