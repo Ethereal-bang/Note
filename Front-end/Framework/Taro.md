@@ -885,9 +885,8 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
         </navigator>
         ```
 
-        
 
-    
+​    
 
 + <span style="font-size:22px">传参 & 获取路由参数：</span>
 
@@ -936,7 +935,7 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 # 小程序
 
-### 小程序组件
+## 小程序组件
 
 + <span style="font-size:22px">scroll-view:——可滚动视图区域</span>
 
@@ -962,7 +961,6 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
       }
     </style>
     ```
-
 
 ## API
 
@@ -990,7 +988,22 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
         >
         > ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
 
++ <span style="font-size:22px">获取节点：</span>
 
+    ```vue
+    <script>
+    Taro.createSelectorQuery()
+      .select("#foo")
+      .fields({
+      computedStyle: ["backgroundColor",],  // 获取背景色样式
+    }, res => {
+      console.log(res.backgroundColor)
+    })
+      .exec()
+    </script>
+    ```
+    
+    
 
 # REF
 

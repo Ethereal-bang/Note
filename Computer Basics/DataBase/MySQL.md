@@ -641,5 +641,5 @@ DROP VIEW `View_Choosebb`;
 
 + 关于中文乱码：
 
-    [MySQL字符集 GBK/GB2312/UTF8区别 解决 MYSQK中文乱码问题以及error 1406:data too long for column 'name' at row 1](https://blog.csdn.net/zsm653983/article/details/7970179)
+    [MySQL字符集 GBK/GB2312/UTF8区别 解决 MYSQL中文乱码问题以及error 1406:data too long for column 'name' at row 1](https://blog.csdn.net/zsm653983/article/details/7970179)
 

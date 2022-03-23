@@ -44,6 +44,61 @@
 
 传送数据前必须先建立连接，传输结束后要释放连接
 
+运输连接有三个阶段：**连接建立**、**数据传送**、**连接释放**
+
+
+
++ <span style="font-size:20px">Socket:</span>
+
+    Socket 套接字是双向通信的端点的抽象
+
+    socket = (IP: port)
+
+    每一条 TCP 连接被通信两端的两个 socket 确定
+
+
+
+### TCP 报文段
+
+TCP 报文段分为首部与数据两部分
+
+![image-20220321143853864](https://gitee.com/ethereal-bang/images/raw/master/20220321143901.png)
+
++ <span style="font-size:22px">首部格式：</span>
+
+    + **序号**——该报文段发送的数据的第一个字节的序号。
+
+        > 在 TCP 传送的流中，**每一个字节都有一个序号**
+        >
+        > 如一个报文段的序号为300，报文段数据部分共有100字节，则下一个报文段的序号为400。所以序号确保了TCP传输的有序性。
+
+    + **确认序号 ack**——指明下一期待收到的字节序号，表明该序号前所有数据已经成功收到。
+
+        > **Note：**不能将确认号 ack 与 控制位 ACK 混淆
+
+    + **控制位：URG、ACK、PSH、RST、SYN、FIN**——共 6 个，每一个标志位表示一控制功能
+
+        + SYN 同步——连接建立时用来同步序号。SYN 置为 1 表示是一个连接请求或连接接受报文
+    + ACK 确认[^ 8]——只有 ACK 标志位为 1 时确认号字段有效
+
+
+
+### 连接建立
+
+**三报文握手**——TCP 建立连接的过程叫握手，握手需在 client 和 server 间交换 3 个 TCP 报文段
+
+1. **Client 发送连接请求报文段**——其中`SYN = 1, squ = x`；Client 进程进入 SYN_SENT(*同步已发送* ) 状态
+2. **Server 收到后同意连接则发送确认报文段**——`SYN = 1, ACK = 1, seq = y, ack = x+1`；Server 进程进入 SYN_RCVD(*同步收到* ) 状态
+3. **Client 收到确认后向 server 给出确认**——`ACK = 1, seq = x+1, ack = y+1`；Client 进入 ESTABLISHED(*已建立连接* ) 状态；Server 收到也进入 ESTABLISHED 状态
+
+![img](https://camo.githubusercontent.com/efa4fee9e6025b8618d9e9e7ce60ab52c74b0a49b726ea9e6bb095d6b2e4c2ee/68747470733a2f2f706963342e7a68696d672e636f6d2f38302f76322d35373662303433643132333533393238656561366534353337333635353636385f31343430772e6a70673f736f757263653d3139343065663563)
+
++ **为什么需要三次握手：**
+    + **确认双方都有接收和发送的能力**
+    + 本质——TCP 需要 seq 来做可靠重传或接收，而避免连接复用时无法分辨出 seq 是延迟或旧链接的 seq。因此需要三次握手**约定双方 ISN**[^ 7] (*初始 seq* )
+    + 避免**已失效的连接请求报文段**再次传输到服务端
++ **ISN 动态生成==？==**
+
 
 
 # 应用层
@@ -94,13 +149,7 @@
 
 ### HTTP[^ 5]
 
-+ 超文本文档仅含文本信息
-+ 默认端口号 80
-+ 面向<span style="color:orange">事务</span>——(*要么所有信息交换都完成，要么依次交换都不进行*) 的应用层协议，基于 TCP/IP 通信协议来传递数据
 
-+ <span style="font-size:22px">请求一个 www 文档所需时间：</span>
-
-    
 
 # REF
 
@@ -108,9 +157,15 @@
 
     [计算机网络（第七版）——谢希仁]()
 
++ 运输层：
+
+    [史上最详细的经典面试题 从输入URL到看到页面发生了什么？- 掘金](https://juejin.cn/post/6844903832435032072)
+
 + 应用层：
 
     [什么是域名？- 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/What_is_a_domain_name)
+    
+    
 
 
 
@@ -122,4 +177,7 @@
 [^ 5]: Hyper Text Transfer Protocol，超文本传输协议
 
 [^ 6]: World Wide Web，万维网
+
+[^ 7]: Initial Sequence Number
+[^ 8]: Acknowledgment，承认
 

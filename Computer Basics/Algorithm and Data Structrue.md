@@ -396,7 +396,7 @@ Trie是一种树状信息检索数据结构
 
     ```java
     public static void quickSort(int[] arr, int left, int right) {
-      // ...递归终止条件
+      // ...递归终止条件 left >= right
       
       int mid = partition(arr, left, right);
       // 递归对基准左右两边重复以上操作
@@ -428,6 +428,10 @@ Trie是一种树状信息检索数据结构
     ```
   
   + 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
+  
+  + 每一次 partition 的过程：以初始 left 值为基准，后往前、前往后交替填坑直到遍历完所有数并移入相应位置
+  
+      ![image-20220322103338717](https://gitee.com/ethereal-bang/images/raw/master/20220322124056.png)
   
   + 19 行判断语句的必要性：
   
