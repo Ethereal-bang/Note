@@ -106,7 +106,7 @@ Eg：把包含标题（title）的所有元素变为蓝色
 
 + [相邻兄弟选择器 +](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Adjacent_sibling_combinator)：介于两个选择器之间，当第二个元素紧跟在第一个元素<span style="color:red">之后</span>，并且两个元素都是属于同一个父元素的子元素，则第二个元素将被选中
 + [通用兄弟选择器 ~](https://developer.mozilla.org/zh-CN/docs/Web/CSS/General_sibling_combinator)：位置无须紧邻，只须同层级，`A~B` 选择`A`元素<span style="color:red">之后</span>所有同层级`B`元素
-+ [为什么都只能选择后面的元素](https://www.zhangxinxu.com/wordpress/2016/08/css-parent-selector/)——浏览器解析HTML文档，是从前往后，由外及里的。所以，我们时常会看到页面先出现头部然后主体内容再出现的加载情况。
++ [为什么都只能选择后面的元素](https://www.zhangxinxu.com/wordpress/2016/08/css-parent-selector/)——浏览器解析HTML文档，是从前往后，由外及里的。
 
 
 
@@ -148,7 +148,7 @@ span{color:red;}
 
 + **border：**
 
-      
+  ​    
 
 
 
@@ -395,6 +395,12 @@ Eg：虽然div元素相对于以前的位置产生了偏移，但是div元素以
 使用规范：1、参照定位的元素必须是相对定位元素的前辈元素：
 
 ## 弹性盒模型
+
+
+
+## z 方向
+
++ `z-index` 控制重叠元素间 z-order
 
 
 
