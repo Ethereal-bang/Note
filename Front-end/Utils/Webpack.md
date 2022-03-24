@@ -148,7 +148,7 @@ Webpack 有以下**核心概念**：
 
 ## plugins
 
-loader 用于转换某些类型的模块
+Loader 用于转换某些类型的模块；而 plugin 基于事件机制工作，会监听 webpack 打包过程中的某些节点，执行广泛的任务
 
 + <span style="font-size:20px">自动生成 HTML 文件：</span>
 
@@ -620,6 +620,10 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 
 
+# Plugins
+
+
+
 # Webpack 原理
 
 + <span style="font-size:22px">Webpack 打包流程：</span>
@@ -662,6 +666,10 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 + 总：
 
     [概念 | webpack 中文文档](https://webpack.docschina.org/concepts/)
+
++ 核心概念：
+
+    [你必须知道的webpack插件原理分析](https://segmentfault.com/a/1190000038338386)
 
 + Demo：
 

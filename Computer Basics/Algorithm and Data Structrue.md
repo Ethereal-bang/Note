@@ -461,6 +461,22 @@ Trie是一种树状信息检索数据结构
     }
     ```
 
++ <span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
+
+    ```java
+    // 1.遍历所有数
+    for (int i = 0; i < nums.length - 1; i++) {
+      // 2.遍历未排序列找出最小值
+      for (int j = i + 1; j < nums.length; j++) {
+    		// ...
+      }
+      // 3.得到的最小值与未排序列首部交换
+      swap(nums, minIndex, i);
+    }
+    ```
+    
+    
+    
 + <span style="font-size:20px">堆排序——利用堆概念的选择排序：</span>
 
     1. 建立一个最大堆——最大值在堆的根节点
