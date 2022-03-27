@@ -1,4 +1,4 @@
-#  Webpack 概述
+#  Webpack
 
 Webpack 是一个**模块打包器**（*构建工具*）
 
@@ -26,7 +26,7 @@ Webpack 有以下**核心概念**：
 
 
 
-## 为什么需要 Webpack
+## Why Webpack
 
 + <span style="font-size:22px">模块系统</span>
 
@@ -278,7 +278,7 @@ Webpack 只能理解 JS 和 JSON 文件，这是 webpack 开箱可用的自带�
     
     
 
-# Webpack 搭建指南
+# 搭建指南
 
 ## Demo
 
@@ -624,7 +624,7 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 
 
-# Webpack 原理
+# 原理
 
 + <span style="font-size:22px">Webpack 打包流程：</span>
 
@@ -644,9 +644,83 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
     每次热更新和重新构建，compiler 都会重新生成一个新的 compilation 对象，负责此次更新的构建过程 
 
-    
+## Tapable
 
-# Debug
+![img](https://pic4.zhimg.com/80/v2-360b0b1bd8a6d5daffb6be712972b89f_720w.jpg)
+
+Tapable 库提供许多钩子类，为 plugins 创建钩子。
+
+```shell
+$ npm i -S tapable
+```
+
+Usage：
+
+```js
+class Car {
+	constructor() {
+		// 最佳实践是将所有 hooks 暴露在一个变量
+		this.hooks = {
+			accelerate: new SyncHook(["newSpeed"]),
+			brake: new SyncHook(),
+			calculateRoutes: new AsyncParallelHook(["source", "target", "routesList"])
+		};
+	}
+  // Hook会以最有效的方式构建一个运行你插件的方法
+  setSpeed = (newSpeed) => {
+    this.hooks.accelerate.call(newSpeed);
+  }
+}
+// 使用这些hook
+const myCar = new Car();
+myCar.hooks.brake.tap("WarningLampPlugin", () => warningLamp.on());
+```
+
++ 所有 Hook 类的构造函数接收一组可选数组参数——参数的字符串名字列表
++ `tap` 的第一个参数是标识这个插件的名字
+
+
+
+### Hook Types
+
++ 如何运行被 tap 的函数（plugin）取决于钩子类型：
+    + Basic hook——仅仅依次调用每一个 plugin
+    + **Waterfall**——上一函数的返回值作下一函数的参数
+    + **Bail**——允许提前退出，当有函数返回值时停止执行剩余函数
+    + **Loop**—— 有返回值时重新运行第一个 plugin，直至所有 plugin return undefined
+
+
+
+## Compiler
+
+Extends 自 Tapable 的对象，用来注册和调用插件
+
+<span style="font-size:22px">钩子函数:</span>
+
++ 访问：
+
+    ```js
+    compiler.hooks.someHook.tap("MyPlugin", (params) => {
+      	// ...
+    });
+    ```
+
+    > + [`someHook`](https://webpack.docschina.org/api/compiler-hooks/#hooks) 决定 Plugin 钩入到哪个阶段
+    > + 取决不同钩子类型，不止有 `tap` 方法（*见 Tapable*）
+
+
+
+## 自定义插件
+
+使用阶段式的构建回调，可在 Webpack 构建流程中引入自定义行为
+
++ **Plugin 的构成：**
+    1. JS 函数或类
+    2. 插件函数的 prototype 上定义一个 `apply` 方法
+
+
+
+# DEBUG
 
 + 输出文件内容为空：
 
@@ -671,10 +745,12 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
     [你必须知道的webpack插件原理分析](https://segmentfault.com/a/1190000038338386)
 
-+ Demo：
++ 搭建指南：
 
     [webpack入门 · 语雀](https://www.yuque.com/ldfgqb/fpkor3/qvop63)
 
-+ Webpack 原理：
++ 原理：
 
     [当面试官问Webpack的时候他想知道什么 - 掘金](https://juejin.cn/post/6943468761575849992)
+    
+    [tapable/README.md at master · webpack/tapable](https://github.com/webpack/tapable/blob/master/README.md)

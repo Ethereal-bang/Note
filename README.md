@@ -56,7 +56,7 @@
 
 + [函数防抖与节流.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/DebounceAndThrottle.md)
 
-+ [继承](https://github.com/Ethereal-bang/Note/tree/master/Front-end/Advance/Inherit.md)
++ [继承.md](https://github.com/Ethereal-bang/Note/tree/master/Front-end/Advance/Inherit.md)
 
 + [WebSocket.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/WebSocket.md)
 
