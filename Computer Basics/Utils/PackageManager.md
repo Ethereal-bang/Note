@@ -25,7 +25,9 @@
 
 + npm5 之后的版本除了把包下载到 `node_modules/` 中还会修改 package.json。
 
+# Yarn
 
++ 初始化项目——`yarn init`
 
 
 # REF

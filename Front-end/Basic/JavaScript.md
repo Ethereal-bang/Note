@@ -1,6 +1,6 @@
 # ECMAScript
 
-## `<script>`标签
+## script标签
 
 `<script src= type=`
 
@@ -21,10 +21,6 @@
 
 ## 注释
 
-单行注释：ctrl+/
-
-多行注释：alt+shift+a
-
 JSDoc 注释：
 
 ```js
@@ -43,47 +39,81 @@ function sum(a, b) {
 
 
 
+## 操作符 / 运算符
+
++ **?? 空值合并运算符**——左边为 null、undefined 时返回右侧数，否则返回左边
+
+    ```js
+    null ?? "foo"	// 1
+    0 ?? "bar"	// 0
+    ```
+
++ **比较运算符**：
+
+    ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582362136-55308eac-4815-473b-8121-819f2f7aa94f.png)
+
+
+
 ## 变量
 
-预解析/变量提升js代码执行前，浏览器默认把带有var声明的变量进行提提前定义 变量的赋值不会提升
++ **变量提升：**
+    + **var**——变量声明提升，赋值不会提升
+    + **function**——块级作用域外：函数名提升，不能使用（is not a function）；块级作用域内能使用
 
-[变量提升底层原理](https://www.cnblogs.com/echo-hui/p/9230942.html)
-
-*变量提升*
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608546490131-8b3f696e-f77e-4b07-a5c6-97d3db74b2e4.png)
-
-### var 与 let
-
-let会有**暂时性死区**：如果存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，那么在let声明变量前，（该块级作用域内）使用`tmp`会报错
-
-
-
-博文链接：**[for 循环中的 var 与 let](https://blog.csdn.net/weixin_44249754/article/details/111467804)**
-
-JS中的for循环体比较特殊，每次执行都是一个全新的独立的块作用域，用let声明的变量传入到 for循环体的作用域后，不会发生改变，不受外界的影响
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608547157163-538a10cd-f115-4b40-bfb6-0ba5e4857eaf.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1608547179295-2b50a945-5593-41f4-a904-edf81815f9f6.png)
++ **暂时性死区 let const：**如果存在全局变量 `tmp`，但是块级作用域内又声明了一个局部变量 `tmp`，导致后者绑定这个块级作用域，那么在 let 声明变量前，（该块级作用域内）使用 `tmp` 会报错（声明的是个 function 也如此
 
 
 
 ### 数据类型
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607578228825-82bb3f72-d6ab-4820-9db0-4ed60926ed48.png)
++ <span style="font-size:20px">类型：</span>
+    + 原始类型：Boolean、Number、String、Undefined、Null、Symbol、BigInt
+    + 引用类型：Array、Object、Function、Date、RegExp
 
-**检验复杂数据类型**
++ <span style="font-size:22px">检验数据类型:</span>
 
-- - **typeof**
-  - **instanceof**
+    + **typeof**——返回字符串
 
-```
-let arr = [1, 2];
+        ```js
+        // 原始类型
+        typeof 123n	// bigint
+        typeof null	// object
+        // 引用类型
+        typeof [1]	// object
+        	// ... object
+        typeof new Number(1)	// object
+        ```
 
-console.log(arr instanceof Array);  //true
-```
+        > **Note:**
+        >
+        > + typeof null 为 object
+        > + 构造函数为 function（包括内置或自定义 function、class）
+        > + 包装对象为 object
+        > + 无法区分数组对象、普通对象
 
-- - **constructor** 
-  - **prototype**  
+    + **instanceof**——原型链判断，返回 boolean
+
+        ```js
+        let arr = [1, 2];
+        
+        console.log(arr instanceof Array);  //true
+        ```
+
+        > **Notes:** 只是利用它<span style="color:orange">检测某个实例是否属于这个类</span>的特征来完成数据检测
+        >
+        > + 不能检测出基本数据类型, 构造函数创建的可以检测
+
+    + **Object.prototype.toString.call()**：
+
+        ```js
+        Object.prototype.toString.call(1)  // [object Number]
+        ```
+
+        > **Notes:**
+        >
+        > + 内置类都能检测
+
+  
 
 #### String
 
@@ -97,440 +127,6 @@ console.log(arr instanceof Array);  //true
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607578347323-24899f12-12a2-403d-9eed-f534b58cf05e.png)
 
-字符串拼接
-
-数值与字符串：数值相加 ，字符相连 
-
-#### Boolean
-
-值true  false
-
-布尔型加数字型
-
- true 的值为 1 ，false 的值为 0
-
-```
-console.log(true + 1);  // 2
-console.log(false + 1); // 1
-```
-
-#### Undefined
-
-一个声明后没有被赋值的变量会有一个默认值 undefined
-
-进行相连或者相加时，注意结果
-
-```
-var variable;
-console.log(variable);           // undefined
-console.log('你好' + variable);  // 你好undefined
-console.log(11 + variable);     // NaN
-console.log(true + variable);   //  NaN
-```
-
-#### Null
-
-声明变量给 null 值，里面存的值为空
-
-进行相连或者相加时，注意结果
-
-```
-var vari = null;
-console.log('你好' + vari);  // 你好null
-console.log(11 + vari);     // 11
-console.log(true + vari);   //  1
-```
-
-### 数组
-
-概念
-
-数组是指一组数据的集合，其中的每个数据被称作元素，在数组中可以存放任意类型的元素。数组是一种将一组数据存储在单个变量名下的优雅方式
-
-数组的创建
-
-- 利用new创建数组**var 数组名 = new Array() ；**
-
-```
-var arr = new Array();   // 创建一个新的空数组
-```
-
-- 利用数组字面量创建数组使用最多
-
-```
-var  arr = []； //1. 使用数组字面量方式创建空的数组
-var  arr = ['小白','小黑','大黄','瑞奇'];
-             //2. 使用数组字面量方式创建带初始值的数组
-```
-
-数组元素的类型数组中可以存放任意类型的数据，例如字符串，数字，布尔值等
-
-数组的长度**数组名.length**可以访问元素的数量
-
-获取数组元素数组名[下标]
-
-遍历数组
-
-数组中新增元素 可以通过修改数组索引的方式追加数组元素  
-
-不能直接给数组名赋值，否则会覆盖掉以前的数据 
-
-
-
-<span style='font-size:20px'>方法</span>
-
-**map**
-
-映射   *一个对一个*，返回数组。
-
-
-
-<span style='font-size: 18px'>map 搭配箭头函数</span>
-
-```javascript
-let arr = [12, 5];
-let doubleResult = arr.map(item=>item*2);	// 相当于arr在给括号里的函数多次传参
-
-console.log(doubleResult); //24,10
-```
-
-
-
-<span style='font-size: 18px'>map 搭配箭头函数、三目运算符</span>
-
-```javascript
-let score = [19, 85, 99, 25];
-let result = score.map(item => item>=60 ? '及格' : '不及格'); 
-
-console.log(score);   //19，   85，  99， 25
-console.log(result);  //不及格，及格，及格，不及格
-```
-
-上面代码中的`item`为函数参数名
-
-
-
-**reduce**
-
-汇总   *一堆得出一个*，返回数值。
-
-
-
-<span style='font-size: 18px'>求和</span>
-
-注意：三个参数次序。
-
-```javascript
-let arr = [1, 2, 5];
-
-let result = arr.reduce( function(tmp, item, index) {
-  return tmp + item;  //作用：求和
-} ); 
-
-console.log(result);
-
-// 箭头函数
-let result = arr.reduce( (tmp, item, index) => tmp + item );
-```
-
-
-
-<span style='font-size: 18px'>求均值</span>
-
-注意：三个参数次序。
-
-```javascript
-let arr = [2, 5, 5];
-let result = arr.reduce((tmp, item, index) => {
-    if(index != arr.length-1)
-        return tmp + item;	// 不是最后次时仅求和
-    else
-        return (tmp + item) / arr.length;	// 求和并求均值
-});
-    console.log(arr);
-    console.log(result);
-```
-
-
-
-**filter**
-
-过滤器 *依据条件筛选*，返回数组。
-
-
-
-```javascript
-let arr = [12, 5, 9];
-
-let result = arr.filter(item => item % 3 == 0); //保留能被3整除的数
-
-console.log(result);	// [12, 9]
-```
-
-从上例还可以看出，`return`还能接这样的语句`item % 3 == 0`。
-
-> `return [[expression]];`表达式的值会被返回。如果忽略，则返回 `undefined`。
-
-显然，返回的值也包括了布尔值。
-
-
-
-**forEach**
-
-循环 *迭代*
-
-
-
-## 操作符/运算符
-
-作用实现赋值、比较和执行算数运算等功能
-
-规范操作符的左右两侧各保留一个空格
-
-运算符优先级
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582564942-d8bc1e78-4fdf-413d-abbe-d3574ad9c34a.png)
-
-### 算术运算符
-
-浮点数的精度问题
-
-不要直接判断两个浮点数是否相等
-
-```
-var result = 0.1 + 0.2;    // 结果不是 0.3，而是：0.30000000000000004
-console.log(0.07 * 100);   // 结果不是 7，  而是：7.000000000000001
-```
-
-
-
-### 比较运算符
-
-规则
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582362136-55308eac-4815-473b-8121-819f2f7aa94f.png)
-
-
-
-## 流程控制
-
-断点调试
-
-指自己在程序的某一行设置一个断点，调试时，程序运行到这一行就会停住，然后可以一步一步往下调试，调试过程中可以看各个变量当前的值，出错的话，调试到出错的代码行即显示错误，停下。
-
-断点调试可以帮我们观察程序的运行过程 浏览器中按 F12--> sources -->找到需要调试的文件-->在程序的某一行设置断点
-
-Watch: 监视，通过watch可以监视变量的值的变化，非常的常用
-
-F11: 程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化
-
-
-
-## 函数
-
-+ 函数`f1`参数为函数（*callback*）的情况：
-
-    该 callback 接收的参数是定义`f1`时调用该 callback 时的参数：
-
-    ```js
-    Array.prototype.myReduce = function(callback, initialValue) {
-      let accumulator, currentValue, index, array = this;
-      while (index < array.length) {
-        currentValue = array[index];
-        // accumulator= 上次callback执行的结果
-        accumulator = callback(accumulator, currentValue, index++, array);
-      }
-    ```
-
-    
-
-### arguments：
-
-展示形式：伪数组，可遍历
-
-特点：具length属性；
-
-按索引方式储存数据；
-
-不具有数组的push，pop等方法；
-
-使用：不确定多少参数传递的时候：arguments获取   所有函数都内置arguments对象，arguments存储了传递的所有实参
-
-​    *利用函数求任意个数的最大值*
-
-```js
-function maxValue() {
-      var max = arguments[0];
-      for (var i = 0; i < arguments.length; i++) {
-         if (max < arguments[i]) {
-                    max = arguments[i];
-         }
-      }
-      return max;
-}
- console.log(maxValue(2, 4, 5, 9));
- console.log(maxValue(12, 4, 9));
-```
-
-函数与方法异同函数：单独存在，需声明，通过“函数名()”的方式就可以调用
-
-方法：对象里面的函数称为方法，方法不需要声明，使用“对象.方法名()”的方式就可以调用，方法        用来描述该对象的行为和功能。  
-
-
-
-### 高阶函数
-
-#### 高阶函数的概念
-
-高阶函数英文叫 Higher-order function 。那么**什么是高阶函数：**
-
-JS的函数其实都指向某个变量。既然变量可以指向函数，函数的参数能接收变量。那么，**一个函数就可以接收另一个函数作为参数**，这种函数就称为高阶函数
-
-
-
-一个最简单的高阶函数
-
-```
-function add(x, y, f) {
-  return f(x) + f(y);
-}
-
-add(-5, 6, Math.abs)
-```
-
-当我们调用`add(-5, 6, Math.ads)`时，根据函数定义，我们可以推导计算过程为：
-
-```
-x = -5;
-y = 6;
-f = Math.abs;       // Math对象，abs()返回数的绝对值
-
-f(x) + f(y) ==> Math.abs(-5) + Math.abs(6) ==> 11
-return 11;
-```
-
-
-
-#### map() 和 reduce()
-
-**map()**
-
-**
-**
-
-比如说，我们有一个函数f(X)=x2，要把这个函数作用在一个数组`[1, 2, 3, 4, 5, 6, 7, 8, 9]`上，就可以用`map()`实现
-
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2617721/1613357393450-b9c9a64a-eb14-4ea5-8f1a-3f16609436a5.png)
-
-由于`map()`定义在JS的`Array`中，我们调用`Array`的`map()`方法，传入我们自己的函数，就得到了一个新的`Array`作为结果：
-
-```
-let pow = function (x) {
-  return x * x;
-};
-let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-arr.map(pow);   // [1, 4, 9, 16, 25, 36, 49, 64, 81]
-```
-
-注意：`map()`传入的**参数**是`pow`，即**函数对象本身**
-
-`map()`作为高阶函数，事实上它把运算规则抽象了，因此我没不但可以计算简单的f(x)=x2，还可以计算任何复杂的函数，比如，把数组的所有数字转为字符串
-
-```
-let arr = [1, 2, 3];
-
-arr.map(String);    // ['1', '2', '3']
-```
-
-
-
-**reduce()**
-
-再看`reduce()`的用法。。Array的`reduce()`把一个函数作用在这个`Array`的`[x1, x2, x3...]`上，这个函数必须接收**两个参数**，`reduce()`把结果继续和序列的下一个元素做**累积计算**，其效果就是：  
-
-```
-[x1, x2, x3, x4].reduce(f) == f( f( f( x1, x2 ),x3 ), x4 )
-```
-
-
-
-比如说对一个`arr`求和，就可以用`reduce`实现
-
-```
-let arr = [1, 3, 5];
-let f = function (x, y) {
-    return x + y;
-};
-
-arr.reduce(f);
-```
-
-
-
-### 闭包
-
-**函数作为返回值**
-
-高阶函数除了可以接受函数作参数外，还可把函数作为结果值返回
-
-
-
-实现一个对 Array 的求和。通常情况，求和的函数是这样定义的：
-
-```
-function sum(arr) {
-  return arr.reduce(function (x, y) {   // 此处function (x,y)为匿名函数
-    return x + y;
-  });
-}
-
-sum([1, 2, 3, 4]); // 10
-```
-
-但是，如果不需要立刻求和，而是在后面的代码中，根据需要再计算怎么办。可以不返回求和的结果，而是返回求和的函数。    ?
-
-```
-function lazySum(arr) {
-  let sum = function () {
-    return arr.reduce(function (x, y) {
-      return x + y;
-    });
-  }
-  return sum;
-}
-
-lazySum([1, 2, 3]); // 返回函数：sum()
-
-let f = lazySum([1, 2, 3]);
-f();    // 求和结果：6
-// 或者
-lazySum([1, 2, 3])();   // 6
-```
-
-当我们调用`lazySum`时，返回的并不是求和结果，而是求和函数。调用函数`f`时，才真正计算求和的结果。
-
-在这个例子中，我们在函数`lazySum`中又定义了函数`sum`，并且**内部函数**`sum`可以引用**外部函数**`lazySum`的参数`arr`和局部变量，当`lazySum`返回函数`sum`时，相关参数和变量都保存在返回的函数中，这种称为闭包的程序结构拥有极大的威力。
-
-
-
-注意：当我们调用闭包函数时，每次调用都会返回一个新的函数，即使传入相同的函数  why?
-
-```
-let f1 = lazySum([1, 2, 3, 4, 5]);
-let f2 = lazySum([1, 2, 3, 4, 5]);
-f1 === f2; // false
-f1 == f2;   // false
-```
-
-
-
-闭包除了返回一个函数延迟执行还有非常强大的功能。举个例子：
-
-在面向对象的程序设计语言里，比如Java和C++，要在**对象内部封装一个私有变量**？，可以用`private`修饰一个成员变量。  ？
-
-在没有`class`机制，只有函数的语言里，借助闭包，同样可以封装一个私有变量
-
 
 
 ## 方法
@@ -543,6 +139,68 @@ f1 == f2;   // false
     every()——返回一个 boolean，判断每个元素是否符合 func 条件
     forEach()——没有返回值，只是针对每个元素调用 func
     reduce()——有返回值，重点是计算数组，返回一个值
+
+
+
+## 函数
+
+### arguments：
+
+**特点**——伪数组，可遍历，具 length 属性，索引方式储存数据，不具有数组的 `push`，`pop` 等方法；
+
+**使用：**不确定多少参数传递的时候：arguments获取
+
+> **Eg**——利用函数求任意个数的最大值：
+>
+> ```js
+> function maxValue() {
+>       var max = arguments[0];
+>       for (var i = 0; i < arguments.length; i++) {
+>          if (max < arguments[i]) {
+>            max = arguments[i];
+>          }
+>       }
+>       return max;
+> }
+> maxValue(12, 4, 9);	// 12
+> ```
+
+
+
+### 高阶函数
+
+HOC——Higher-order function**一个函数接收另一个函数作为参数**，这种函数就称为高阶函数
+
+> **Eg**——一个最简单的高阶函数：
+>
+> ```js
+> function add(x, y, f) {
+>   return f(x) + f(y);
+> }
+> add(-5, 6, Math.abs)
+> ```
+
+
+
+## 数组
+
+数组的创建
+
+```js
+var arr = new Array();   // 创建一个新的空数组
+var arr = [1, 2];	// 字面量创建
+```
+
+
+
+> Eg——map 搭配箭头函数、三目运算符：
+>
+> ```js
+> let score = [19, 85, 99, 25];
+> let result = score.map(item => item>=60 ? '及格' : '不及格'); 
+> console.log(score);   //19，   85，  99， 25
+> console.log(result);  //不及格，及格，及格，不及格
+> ```
 
 
 
@@ -588,54 +246,33 @@ f1 == f2;   // false
 
 
 
+## JSON[^ 1]
 
-### 内置对象
+一种数据交换格式，实际上是 JavaScript 的一个子集。
 
-+ <span style="font-size:20px">Math对象</span>  
+JSON.parse()、JSON.stringify()
 
-+ <span style="font-size:20px">Date对象</span>
-
-- <span style="font-size:20px">数组Array对象</span>
-
-+ <span style="font-size:20px">String对象</span>
-
-
-
-### JSON
-
-#### JSON 概述
-
-JSON 是 JavaScript Object Notation 的缩写，是一种数据交换格式
-
-
-
-在 JSON 出现之前，大家一直用 XML 传递数据。因为 XML 是一种纯文本格式，适合在网络上交换数据。XML 本身不复杂，但加上DTD、XSD、XPath、XSLT等一大堆复杂的规范以后令人头大。
-
-于是出现了 JSON 这种轻量级的数据交换格式
+> 在JSON中，一共就这么几种**数据类型：**
+>
+> • number：和JavaScript的number完全一致
+>
+> • boolean：就是JavaScript的true或false
+>
+> • string：就是JavaScript的string
+>
+> • null：就是JavaScript的null
+>
+> • array：就是JavaScript的Array表示方式——[]；
+>
+> • object：就是JavaScript的{ ... }表示方式。
 
 
 
-JSON 实际上是 JavaScript 的一个子集。在JSON中，一共就这么几种数据类型：
+# DOM[^ 2]
 
-• number：和JavaScript的number完全一致
-
-• boolean：就是JavaScript的true或false
-
-• string：就是JavaScript的string
-
-• null：就是JavaScript的null
-
-• array：就是JavaScript的Array表示方式——[]；
-
-• object：就是JavaScript的{ ... }表示方式。
-
-以及上面的任意组合
+规定了访问 HTML 和 XML 的应用程序接口
 
 
-
-# DOM——文档对象模型
-
-文档对象模型，是document object model的简称DOM（文档对象模型）：规定了访问 HTML 和 XML 的应用程序接口
 
 ## 节点
 
@@ -675,86 +312,51 @@ JSON 实际上是 JavaScript 的一个子集。在JSON中，一共就这么几�
 
 ### DOM事件流
 
-事件流从页面中接受事件的顺序
+事件流——DOM 事件发生时在元素节点之间按照特定的顺序传播
 
-DOM事件流事件发生时在元素节点之间按照特定的顺序传播，这个传播过程即DOM事件流
+1. 捕获阶段——由DOM最顶层节点开始逐级向下传播到DOM最顶层节点的过程
+2. 当前目标阶段
 
-三个阶段：1.捕获阶段  由DOM最顶层节点开始逐级向下传播到DOM最顶层节点的过程
+3. 冒泡阶段——事件开始时由最具体的元素接受后逐级向上传播到DOM最顶层节点的过程
 
-​    2.当前目标阶段
+![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607827215374-7e13973d-d5e7-4698-98e5-fe5d9e5f1bb3.png)
 
-​    3.冒泡阶段  事件开始时由最具体的元素接受后逐级向上传播到DOM最顶层节点的过程
-
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607826947254-1047eabf-71bf-403e-8092-e5a74e3391d2.png)![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607827215374-7e13973d-d5e7-4698-98e5-fe5d9e5f1bb3.png)
-
-js代码中只能执行捕获或冒泡其中的一个阶段
+js 代码中只能执行捕获或冒泡其中的一个阶段
 
 - onclick 和 attachEvent 只能得到冒泡阶段
 - addEventListener(type, listener[, useCapture])第三个参数若为true，表示在事件捕获阶段调用事件处理程序；fasle默认表示在事件冒泡阶段调用事件处理程序
 - 实际开发很少使用事件捕获
 - 有些事件无冒泡  *onblur、onfocus、onmouseenter、onmouseleave*
-- 冒泡有时带来麻烦；有时帮助很巧妙地做某些事件
 
 
 
-### 注册事件
++ <span style="font-size:22px">阻止事件冒泡:</span>
 
-给元素添加事件
+    标准写法  利用事件对象里的stopPropagation()方法 **e.stopPropagation()**
 
-#### 传统注册方法  
+    ```js
+    outer.addEventListener("click", () => {
+        console.log("click outer")
+    })
+    inner.addEventListener("click", (e) => {
+        e.stopPropagation();    // 阻止事件冒泡到上层 触发下载
+    		console.log("click inner")
+    }, true)
+    ```
 
-on开头的事件
+    > 上例中，添加`e.stopPropagation`后点击内层`closeBtn`触发`inner`后将不再触发`outer`
 
-​     注册事件的唯一性：同一元素同一事件只能设置同一个处理函数，后注册的会覆盖前面
++ <span style="font-size:22px">事件委托:</span>
 
-```
-<button onclick=“alert('hi~')”></button>
-btn.onclick = function() {} 
-```
+    原理不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，利用冒泡原理影响设置每个子节点
 
-#### 事件监听注册方式
+    > Eg——ul 和 li：
+    >
+    > 给 ul 注册点击事件，然后利用事件对象的 target 来找到当前点击的 li，因为点击 li，事件会冒泡到 ul 上， ul 有注册事件，就会触发事件监听器
 
-eventTarget.addEventListtener(type, listener[, useCapture])
+    作用——只操作了一次DOM，提高了程序性能
 
-   type:事件类型字符串，如click、mouseover
 
-listener:事件处理函数，事件发生时调用该监听函数
-
-useCapture:可选参数，布尔值，默认false
-
-eventTarget.attachEvent(eventNameWitchOn, callback)
-
-eventNameWithOn：事件类型字符串，如onclick、onmouseover
-
-callback:事件处理函数，目标触发事件时回调函数被调用
-
-### 删除事件
-
-### 阻止事件冒泡
-
-标准写法  利用事件对象里的stopPropagation()方法 **e.stopPropagation()**
-
-```js
-outer.addEventListener("click", () => {
-    console.log("click outer")
-})
-inner.addEventListener("click", (e) => {
-    e.stopPropagation();    // 阻止事件冒泡到上层 触发下载
-		console.log("click inner")
-}, true)
-```
-
-上例中，添加`e.stopPropagation`后点击内层`closeBtn`触发`inner`后将不再触发`outer`
-
-### 事件委托
-
-原理不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，利用冒泡原理影响设置每个子节点
-
-*点击每个 li 都会弹出对话框，以前需要给每个 li 注册事件，是非常辛苦的，而且访问 DOM 的次数越多，这就会延长整个页面的交互就绪时间。* 
-
-*给 ul 注册点击事件，然后利用事件对象的 target 来找到当前点击的 li，因为点击 li，事件会冒泡到 ul 上， ul 有注册事件，就会触发事件监听器*
-
-作用只操作了一次DOM，提高了程序性能
 
 # BOM
 
@@ -842,9 +444,8 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
     > })
     > ```
     >
-    > 
-
-​		
+    
+    ​		
 
 + <span style="font-size:22px">location 对象的方法</span>![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607943026547-daaffd15-cfc0-4be8-bac6-fd43f21ce0ff.png)
 
@@ -870,8 +471,21 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
 
 + ECMAScript:
 
-    [JS脚本加载中，defer和async的区别 - 知乎](https://zhuanlan.zhihu.com/p/30898865)	
+    + script 标签：
+
+        [JS脚本加载中，defer和async的区别 - 知乎](https://zhuanlan.zhihu.com/p/30898865)	
+
+    + 变量：
+
+        [JS中数据类型检测四种方式的优缺点](https://juejin.cn/post/6844904115097567239)
+        
     + 方法：
-    
+
         [[js数组方法forEach、map、filter、reduce、every、some总结](https://segmentfault.com/a/1190000016025949)](https://segmentfault.com/a/1190000016025949)
+
+
+
+
+[^ 1]: JavaScript Object Notation
+[^ 2]: document object model，文档对象模型
 
