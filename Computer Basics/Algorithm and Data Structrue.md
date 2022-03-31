@@ -441,16 +441,14 @@ Trie是一种树状信息检索数据结构
   
 + <span style="font-size:20px">归并排序——重复将两个有序表合成新有序表：</span>
 
-    <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:50%;" >
+    <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:40%;" >
 
     ```java
     public static int[] mergeSort(int[] arr) {
-      // ...递归终止:
-      
-      // ...切割成两子序列:
+      // 1....递归终止:
+      // 2...切割成两子序列:
       int[] left = Arrays.copyOfRange(arr, 0, middle);
-      
-      // 递归切割合并：
+      // 3.递归切割合并：
       return mergeTwo(mergeSort(left), mergeSort(right));
     }
     private static int[] mergeTwo(int[] left, int[] right) {
@@ -460,7 +458,7 @@ Trie是一种树状信息检索数据结构
       // ...依次选取两序列中较小值不断放入新数组
     }
     ```
-
+    
 + <span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
 
     ```java

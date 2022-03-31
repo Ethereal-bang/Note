@@ -1,6 +1,6 @@
-# 配置
+# 起步
 
-## Java SE
+## 配置
 
 + JDK 和 JRE：
 
@@ -15,7 +15,7 @@
 
 
 
-# Java 程序编译
+## Java 程序编译
 
 创建文件 `.java`（文件名需与类名一致）
 
@@ -146,11 +146,6 @@ public class Hello {
 
 ## 运算符
 
-+ <span style="font-size:20px">算术运算符：</span>
-
-    + `/`除法
-    + `%`取余
-
 + <span style="font-size:20px">位运算:</span>
 
     + &：按位与
@@ -168,6 +163,8 @@ public class Hello {
     + <<<：无符号右移运算符
 
     均是转换为二进制计算
+
+
 
 ## 数据结构
 
