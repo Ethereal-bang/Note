@@ -57,8 +57,15 @@
 
 
 
-
 # 类型声明
+
++ <span style="font-size:20px">变量：
+
+    ```ts
+    const res: number[] = [];
+    ```
+
+    
 
 + <span style="font-size:20px">返回值：</span>
 

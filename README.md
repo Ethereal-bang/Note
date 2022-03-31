@@ -14,7 +14,7 @@
 
 + [Class.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Class.md)
 
-+ [Promise](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Promise)
++ [Promise.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/Promise.md)
 
 + [RegExp.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/JS-More/ECMAScript/RegExp.md)
 

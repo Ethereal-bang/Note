@@ -518,6 +518,13 @@ Integer i = new Integer(1);
 
 
 
+## 内置类
+
++ <span style="font-size:20px">Math:</span>
+    + Math.exp()——e 的参数次方
+
+
+
 ## static 关键字
 
 可以用来修饰：属性、方法、代码块、内部类
