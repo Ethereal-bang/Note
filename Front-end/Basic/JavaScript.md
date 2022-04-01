@@ -129,19 +129,6 @@ function sum(a, b) {
 
 
 
-## 方法
-
-+ <span style="font-size:20px">Array:</span>
-
-    map()——返回一个新的 Array，每个元素为调用 func 的结果
-    filter()——返回一个符合 func 条件的元素数组
-    some()——返回一个 boolean，判断是否有元素是否符合 func 条件
-    every()——返回一个 boolean，判断每个元素是否符合 func 条件
-    forEach()——没有返回值，只是针对每个元素调用 func
-    reduce()——有返回值，重点是计算数组，返回一个值
-
-
-
 ## 函数
 
 ### arguments：
@@ -265,6 +252,28 @@ JSON.parse()、JSON.stringify()
 > • array：就是JavaScript的Array表示方式——[]；
 >
 > • object：就是JavaScript的{ ... }表示方式。
+
+
+
+## 方法
+
++ <span style="font-size:20px">Array:</span>
+
+    map()——返回一个新的 Array，每个元素为调用 func 的结果
+    filter()——返回一个符合 func 条件的元素数组
+    some()——返回一个 boolean，判断是否有元素是否符合 func 条件
+    every()——返回一个 boolean，判断每个元素是否符合 func 条件
+    forEach()——没有返回值，只是针对每个元素调用 func
+    reduce()——有返回值，重点是计算数组，返回一个值
+
+
+
+## 遍历
+
+### 字符串
+
++ for...of——得到单个字符
++ for...in——得到字符索引
 
 
 

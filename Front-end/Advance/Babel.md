@@ -1,6 +1,6 @@
 # Babel
 
-JavaScript 编译器，把最新版的 javascript 编译成当下可以执行的版本
+JavaScript 编译器，把新版的 JS 编译成当下可以执行的版本
 
 + **Babel 运行原理：**
 

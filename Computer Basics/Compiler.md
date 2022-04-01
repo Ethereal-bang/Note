@@ -12,7 +12,7 @@
 
 + <span style="font-size:22px">编译器如何工作：</span>
 
-    Babel可以将最新的Javascript语法编译成当前浏览器兼容的JavaScript代码，Babel工作流程分为三个步骤，由下图所示：
+    Babel 可以将最新的 JS 语法编译成当前浏览器兼容的 JS 代码，Babel 工作流程分为三个步骤，由下图所示：
 
     ![img](https://segmentfault.com/img/remote/1460000018753710)
 
