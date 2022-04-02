@@ -59,13 +59,13 @@
 
 # 类型声明
 
-+ <span style="font-size:20px">变量：
++ <span style="font-size:20px">变量：</span>
 
     ```ts
     const res: number[] = [];
     ```
 
-    
+    > TS 变量声明后将不能像 JS 一样随意更改类型——报错类型不匹配。
 
 + <span style="font-size:20px">返回值：</span>
 
@@ -75,11 +75,12 @@
         const bubbleSort = (nums: number[]): void => {}
         ```
 
-        
 
 
 
-# 基础类型
+# 类型
+
+## 基础类型
 
 + <span style="font-size:22px">boolean</span>
 
@@ -168,13 +169,13 @@
 
 
 
-# 联合类型与交叉类型
+## 联合类型与交叉类型
 
 联合类型`|`、交叉类型`&`
 
 
 
-# TypeScript 断言
+## 断言
 
 + <span style="font-size:20px">类型断言：</span>
 
@@ -191,8 +192,7 @@
 
 
 
-
-# 接口 Interface
+## 接口 Interface
 
 Interface 是一种描述对象或函数的东西
 
@@ -267,7 +267,6 @@ Interface 是一种描述对象或函数的东西
         ![image-20211108215250905](https://gitee.com/ethereal-bang/images/raw/master/20211108215250.png)
 
         没有`Constructor`，显示`aa`的类型是 any。
-
 
 
 
