@@ -122,6 +122,15 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
     server.on('error', onError);
     server.on('listening', onListening);
     ```
+    
+    > ```js
+    > function onListening() {
+    >   // ...
+    >   console.log(`Server is listening on http://localhost:${addr.port}`)
+    > }
+    > ```
+
+
 
 ## /app.js
 
@@ -348,6 +357,8 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
     + 基本模板中 <span style="color:red">`block`</span>用于标记 “可在派生模板中替换的内容部分“
     + 扩展的模板中<span style="color:red">`extends`</span>标识使用的模板；<span style="color:red">`block section_name`</span>指示覆盖部分的新内容
+
+
 
 # 一、创建站点框架
 

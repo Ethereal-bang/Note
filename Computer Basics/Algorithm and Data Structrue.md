@@ -499,6 +499,14 @@ Trie是一种树状信息检索数据结构
 
 
 
+# 查找算法
+
++ <span style="font-size:22px">线性查找：</span>
+
++ <span style="font-size:22px">二分查找：</span>
+
+    
+
 
 # 哈希表
 

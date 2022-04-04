@@ -28,6 +28,10 @@
 # Yarn
 
 + 初始化项目——`yarn init`
++ 安装依赖——`yarn run`
++ 运行命令——`yarn run <command>`
+
+
 
 
 # REF

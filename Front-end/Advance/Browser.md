@@ -58,11 +58,11 @@
 
 # JS 事件循环机制
 
-## JS 单线程
+**JS 单线程**靠**事件循环** (*event loop*) 实现异步
 
-那么 **JS 单线程是如何实现异步**的呢：
 
-就是通过**事件循环**(*event loop*)实现异步
+
+## Task Stack
 
 
 
@@ -77,12 +77,10 @@ console.log(3)
 // 1 3 2
 ```
 
-上面的问题里，`setTimout`内匿名函数没有立即执行，而是添加到**任务队列**，等满足一定条件取执行
+> 上面的问题里，`setTimout`内匿名函数没有立即执行，而是添加到**任务队列**，等满足一定条件取执行
 
-
-
-+ 异步任务操作会将相关回调添加到任务队列
-+ 而不同的异步操作添加到任务队列的时机也不同，如`onclick`、`setTimeout`、ajax，这些异步操作是由浏览器内核执行
++ **异步操作将回调添加到任务队列**
++ 不同的异步操作添加到任务队列的时机也不同，如`onclick`、`setTimeout`、ajax，这些异步操作是由浏览器内核执行
 
 
 
@@ -128,6 +126,12 @@ console.log(3)
     + async、await
     + process.nextTick
     + MutationObserver（HTML5 新特性，监控某个节点）	
+
+
+
+## 完整流程
+
+![流程图](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9d505ac5f51f4a9396504c18091971c7~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp)
 
 
 
