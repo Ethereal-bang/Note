@@ -2,13 +2,12 @@
 
 包管理器
 
-# npm
 
-+ **查看 npm 全局安装位置：**
 
-    ```shell
-    $npm root -g
-    ```
+> WebStorm 设置里可更改创建项目默认的包管理器
+
+
+
 + <span style="font-size:22px">-S 选项——依赖包安装位置：</span>
 
     + --save-dev：编辑代码的辅助工具——只在开发阶段起作用，开发完成后不需存在项目里
@@ -23,15 +22,27 @@
 
         > Eg：项目脚手架 Vue CLI、服务型工具依赖 http-server
 
+
+
+# npm
+
++ 更新依赖——`npm update`
+
++ **查看 npm 全局安装位置：**
+
+    ```shell
+    $npm root -g
+    ```
 + npm5 之后的版本除了把包下载到 `node_modules/` 中还会修改 package.json。
 
 # Yarn
 
 + 初始化项目——`yarn init`
++ 安装依赖——`yarn install`：创建 lock file
 + 安装依赖——`yarn run`
 + 运行命令——`yarn run <command>`
 
-
++ 更新依赖——`yarn upgrade`
 
 
 # REF

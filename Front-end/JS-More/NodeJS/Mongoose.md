@@ -26,7 +26,7 @@ Mongoose 作为 [MongoDB](https://www.mongodb.com/what-is-mongodb)（面向文�
 1. <span style="font-size:20px">安装 Mongoose：</span>
 
     ```shell
-    $ npm i mongoose
+    $ npm i mongoose -S
     ```
 
     安装 Mongoose 会添加所有依赖项，包括 MongoDB 数据库驱动程序，但不会安装 MongoDB 本身。
@@ -77,7 +77,7 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
             required: true,
         },
         author: {
-            type: Schema.ObjectId,   //?
+            type: Schema.ObjectId,   //
             required: true,
         },
     })

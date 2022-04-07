@@ -234,22 +234,38 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
     ```js
     router.get('/', function(req, res, next) {	// next涉及到多个路由处理器时
+      res.statusCode = 200;
       res.send('respond with a resource');
     });
     
     module.exports = router;
     ```
-
+    
     ```js
     // app.js:
     app.use('/users', usersRouter);
     ```
-
+    
     在收到`/users/`URL 时将使用此路由。
-
+    
     > 启动应用并访问 http://localhost:3000/users/ ，浏览器会响应："respond with a resource" 
 
 > 路由相当于接口的不同网址，请求到哪个网址（*routes 中定义*）就返回哪些数据或是作出相应数据库操作（*controller* 中定义）
+
++ **发送数据：**
+
+    ```js
+    res.status(200)
+      .json({
+      flag: true,
+      data: "book!!",
+    })
+    // ...
+    res.statusCode = 200;
+    res.send("book")
+    ```
+
+    
 
 ## /views——视图（模板）
 
@@ -822,7 +838,7 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
             });
         ```
 
-+ [No write concern mode named](https://stackoverflow.com/questions/57179043/error-while-saving-data-in-mongodb-atlas-with-mongoose):
++ <span style="font-size:20px">[No write concern mode named](https://stackoverflow.com/questions/57179043/error-while-saving-data-in-mongodb-atlas-with-mongoose):</span>
 
     + Q：当操作数据库记录时，报错。
 
@@ -835,7 +851,35 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
         mongoose.connect(mongoDB)
         ```
 
++ <span style="font-size:20px">跨域：</span>
 
+  ```js
+  // app.js
+  app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();
+  })
+  ```
+  
+  > Note：
+  >
+  > 请求头设置要在路由之前。
+  
++ <span style="font-size:20px">Cannot set headers after they are sent to the client：</span>
+
+    + S_Desc：writeHeader 改为 setHeader 
+
+    + S：
+
+        ```js
+        app.use((req, res, next) => {
+          res.setHeader("Access-Control-Allow-Origin", "*");
+          res.setHeader("Content-Type", "application/json");
+          next();
+        })
+        ```
+
+        
 
 # Refs
 

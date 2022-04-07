@@ -128,34 +128,6 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 # 元素渲染
 ## JSX
 
-+ <span style="font-size:22px">Why JSX:</span>
-
-    ```jsx
-    const element = <h1>Hello,world</h1>;
-    ```
-
-    + 本质语法糖
-    + 在 React 中配合使用 JSX，JSX 可以很好地描述 UI 应该呈现出它应有交互的本质形式，创建虚拟 DOM 更方便。
-    + 不强制
-
-    > **XML 和 JSON：**
-    > 起初使用 XML 存储数据：
-    >
-    > ``` xml
-    > <student>
-    > 	<name>TOM</name>
-    >     <age>19</age>
-    > </student>
-    > ```
-    >
-    > 人们发现，结构比存储内容更加复杂。于是有了 JSON 使用更多，但并不是完全取代。
-    >
-    > ``` json
-    > "{" name ":" Tom "," age ":" 19 "}"	// 为方便看，我加了几个空格分隔
-    > ```
-
-### JSX 语法规则
-
 + <span style="font-size:20px"> {} 嵌入表达式</span>
 
     ``` JSX
@@ -290,6 +262,19 @@ return (
 ```
 
 
+
+## 组件渲染
+
++ Clinet 和 Server side 渲染==？==
+
++ React 18 弃用原来的根 API，改为 `createRoot`:
+
+    ```js
+    const ReactDOMClient = require("react-dom/client");
+    
+    const root = ReactDOMClient.createRoot(document.getElementById('root')!);
+    root.render(<App />);
+    ```
 
 
 
@@ -1598,7 +1583,7 @@ $npm i axios -S
 
 # DEBUG
 
-+ md 文件中 html 标签不能识别：
++ <span style="font-size:20px">md 文件中 html 标签不能识别：</span>
 
     + Q_Desc：转换结果为字符串
 
@@ -1606,4 +1591,8 @@ $npm i axios -S
         <ReactMarkdown skipHtml={false} children={markdown} />
         ```
 
-        
++ <span style="font-size:20px">使用 createRoot() </span>时，[Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'. Type 'null' is not assignable to type 'Element'.ts(2345)](https://stackoverflow.com/questions/63520680/argument-of-type-htmlelement-null-is-not-assignable-to-parameter-of-type-el)
+
+    + S_Desc：获取节点可能为空值，需加上 TS 断言或判断 
+
+    + S：`ReactDOMClient.createRoot(document.getElementById('root')!)`

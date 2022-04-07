@@ -19,19 +19,45 @@
 
 
 
-## 客户端应用——MongoDB Compass
+## MongoDB Compass
 
-+ <span style="font-size:20px">连接：</span>
+客户端应用
 
-    格式：'**username:password@hostname/dbname**' 
++ <span style="font-size:20px">连接：</span> 
 
     ```
     mongodb://localhost
     ```
-
+    
     连接后：
 
     ![image-20220215122350055](https://gitee.com/ethereal-bang/images/raw/master/20220215122357.png)
+
+
+
+# Connection
+
++ <span style="font-size:22px">连接字符串 URL 格式：</span>
+
+    ```js
+    // 基本格式
+    mongodb://username:password@host/dbname
+    
+    // 标准格式
+    mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
+    ```
+
+    ```js
+    /* Eg: */
+    "mongodb://localhost"
+    "mongodb+srv://127.0.0.1/blog"
+    ```
+
++ <span style="font-size:22px">DNS Seed List Connection Format:</span>
+
+    **作用**——更加灵活的部署且可以轮流更改服务器而无需重新配置 Client 端
+
+    **使用** DNS 种子列表——连接字符串前缀改为 `mongodb+srv:` 代替 `mongodb:`
 
 
 
@@ -48,4 +74,10 @@
 + use <> ——连接到指定数据库
 
     
+
+# REF
+
++ Connection：
+
+    [Connection String URI Format — MongoDB Manual](https://www.mongodb.com/docs/manual/reference/connection-string)
 

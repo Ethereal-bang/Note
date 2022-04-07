@@ -2,85 +2,24 @@
 
 # Node.js 介绍
 
-+ 在 Node.js 里运行 JavaScript，跟在浏览器里运行 JavaScript 有什么不同？
++ **Node 与浏览器运行 JS 的不同：**
 
-    二者采用的是同样的 JS 引擎。在 Node.js 里写 JS，和在前端写 JS，几乎没有不同。在写法上的区别在于：Node.js 没有浏览器、页面标签相关的 API，但是新增了一些 Node.js 相关的 API。通俗来说，对于开发者而言，在前端写 JS 是用于控制浏览器；而 **Node.js 环境写 JS 可以控制整个计算机**。
-
-    JS 的组成分为三个部分：
-
-    + ECMAScript：JS 的语法
-    + DOM：标签元素相关的 API
-    + BOM：浏览器相关的 API
-
-    而 Node.js 的组成分为：
+    Node.js 的组成分为：
 
     + ECMAScript：ES 的所有语法都可以在 Node 环境中使用
-    + Node 环境提供的一些**附加 API**（*包括文件、网络相关的 API*）
++ Node 环境提供的一些**附加 API**（*包括文件、网络相关的 API*）
 
++ **更新 node 版本：**
 
+    + Linux——n 模块
 
-+ Node.js 使得 JS 既可以在浏览器前端进行 DOM 操作，又可以在后端调用操作系统资源，是目前最简单的全栈式语言
+    + Windows：
 
-
-
-# 认识 npm
-
-npm 其实是 Node.js 的包管理工具（*package manager*）
-
-
-
-# 执行 Node 程序
-
-JS 的后端开发，我们编写的程序不再能在浏览器中执行，而是以命令行方式运行。因此需要编写 `.js`文件并且保存到某个目录，才能够执行。
-
-
-
-+ 使用严格模式
-
-    在 JS 文件开头写上`'use strict';`，那么 Node 在执行该 JS 时将使用严格模式。
-
-
-
-+ <span style="font-size:18px">示例：创建一个 Web 服务器</span>
-
-    以下示例将创建一个 Web 服务器，监听对URL `http://127.0.0.1:8000/` 所有种类的 HTTP 请求。
-
-    > 127.0.0.1 指本机
-
-    1. 在项目文件夹存入文件：
-    
-        ```js
-        // 加载 HTTP 模块
-        const http = require("http");
-        const hostname = '127.0.0.1';
-        const port = 3000;
-        
-        // 创建 HTTP 服务器
-        const server = http.createServer((req, res) => {
-        
-          // 用 HTTP 状态码和内容类型（Content-Type）设置 HTTP 响应头
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'text/plain');
-        
-          // 发送响应体
-          res.end('Hello World\n');
-        });
-        
-        // 监听 3000 端口的请求，注册一个回调函数记录监听开始
-        server.listen(port, hostname, () => {
-          console.log(`服务器运行于 http://${hostname}:${port}/`);
-        });
+        ```shell
+        $ where node
         ```
-    
-    2. 终端进入项目文件夹
-    
-    3. 终端输入：
-    
-        ```
-        node "hello.js"
-        ```
-    
-        浏览器查看 http://localhost:8000，可以看到一个写有”Hello World“的网页。
+
+        在该路径覆盖安装所需版本
 
 
 
