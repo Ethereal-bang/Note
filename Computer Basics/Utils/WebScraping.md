@@ -109,3 +109,9 @@ Web Scraper 是适用于普通用户的爬虫工具，可以方便的通过鼠�
 
     [puppeteer实现浏览器自动化和爬虫](https://juejin.cn/post/6908624048083697672)
 
+
+
+# DEBUG
+
++ [Could not find expected browser chrome locally](https://stackoverflow.com/questions/68051648/could-not-find-expected-browser-chrome-locally)
+    + S_Desc：`yarn add puppeteer -D` 改为 `-S`

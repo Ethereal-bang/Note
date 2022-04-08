@@ -863,37 +863,6 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
 
 
 
-## 样式的模块化（css in js    /   JSS）
-
-+ <span style="font-size:20px">JSS 是什么</span>
-
-    CSS in JS，就是"行内样式"（*inline style*）和"行内脚本"（*inline script*）
-
-    JSS 就是将应用的 CSS 样式写在 JS 文件里面，而不是独立未一些`.css`，``.scss`或者`less`之类的文件，这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义
-
-上例的`Hello.jsx`文件中，若有多个组件，每个组件的样式都通过这种方式引入的话会造成样式冲突：
-
-```jsx
-import './Hello.css'
-import './Welcome.css'
-```
-
-解决方法是样式模块化：利用对象（*styles*）的形式访问。
-
-```jsx
-import styles from './hello.module.css'
-
-export default class Hello extends Component {
-  render() {
-    return <h2 className={styles.title}>Hello, React</h2>	
-  }
-}
-```
-
-同时，需添加一个 ts 样式声明文件==？==
-
-
-
 ## 加载媒体与字体文件
 
 + <span style='font-size:20px'>加载图片</span>
@@ -933,6 +902,30 @@ export default class Hello extends Component {
     
 
 
+
+# 样式
+
++ <span style="font-size:20px">CSS in JS——样式的模块化：</span>
+
+    这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义，且避免全局样式冲突
+
+    ```js
+    import styles from './hello.module.css'
+    
+    export default class Hello extends Component {
+      render() {
+        return <h2 className={styles.title}>Hello, React</h2>	
+      }
+    }
+    ```
+
++ 添加多个 class：
+
+    ```jsx
+    <li className={styles["menu"] + " " + styles["genremenu"]}>
+    ```
+
+    
 
 # React Hooks
 
