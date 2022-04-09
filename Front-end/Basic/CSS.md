@@ -205,6 +205,7 @@ position 属性
 ## z 方向
 
 + `z-index` 控制重叠元素间 z-order
++ `z-index` 不能使 <span style="color:orange">Flow 布局</span>元素先于<span style="color:orange">脱离文档流的元素</span>显示
 
 
 
