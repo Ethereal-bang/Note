@@ -919,13 +919,29 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
     }
     ```
 
-+ 添加多个 class：
+    > **添加多个 class：**
+    >
+    > ```jsx
+    > <div className={styles["menu"] + " " + styles["genremenu"]} />	
+    > /*<div class=".menu .genremenu" />*/
+    > ```
+
++ <span style="font-size:20px">内联样式 {{}} :</span>
+
+    配合 JS：
 
     ```jsx
-    <li className={styles["menu"] + " " + styles["genremenu"]}>
+    {bannerData.map(item => {
+      return <li style={(item.key===cur) ? {backgroundColor:"#ff2832"} : {}} key={item.key}>{item.key}</li>
+    })}
     ```
 
-    
+    > **Note:**
+    >
+    > + `style={}` 内的中括号内会认为是 CSS 样式，因此这里条件语句没有用 `if() {}`。
+    > + CSS 代码 key: value 中 value 要加 `" "`
+
+
 
 # React Hooks
 
@@ -970,9 +986,9 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
 
 
 
-## useEffect()
+## useEffect())
 
-与 class 中的生命周期函数极为类似。
+给函数组件提供了操作副作用(*——数据获取、订阅、修改 DOM* )的能力与 class 中的生命周期函数极为类似。
 
 + <span style="font-size:22px">基本用法：</span>
 
@@ -994,7 +1010,7 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
 
 + <span style="font-size:22px">第二个参数</span>
 
-    有时，不需要`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，**使用一个数组指定副效应函数的依赖项，只有依赖项发生变化才会重新渲染**。
+    有时，不需要`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，**使用一个数组指定副效应函数的依赖项，只有依赖项发生变化才会重新渲染**。按照规范，每个 Hook 中的变化量都应写入依赖项里。
 
     ```js
     function Welcome(props) {
@@ -1083,11 +1099,47 @@ function Example() {
 }
 ```
 
++ **解决 setState 更新不及时：**
+
+    setState 的**函数式更新模式**允许指定 state 该如何改变，而不用引用当前 state：
+
+    ```jsx
+    function Counter() {
+      const [count, setCount] = useState(0);
+    
+      useEffect(() => {
+        const id = setInterval(() => {
+          setCount(c => c + 1); // ✅ 在这不依赖于外部的 `count` 变量
+        }, 1000);
+        return () => clearInterval(id);
+      }, []); // ✅ 我们的 effect 不使用组件作用域中的任何变量
+      return <h1>{count}</h1>;
+    }
+    ```
+
+    > setState 的回调的参数永远获得的都是最新值不会受闭包等影响
+
 
 
 ## useContext()——共享状态
 
 如果需要在组件间共享状态，可以使用`useContext()`
+
+
+
+## 自定义 Hook
+
+重用状态逻辑
+
+
+
+## useRef
+
+
+
+## useCallback
+
++ **对比 useEffect()** ：
 
 
 
@@ -1587,5 +1639,8 @@ $npm i axios -S
 + <span style="font-size:20px">使用 createRoot() </span>时，[Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'. Type 'null' is not assignable to type 'Element'.ts(2345)](https://stackoverflow.com/questions/63520680/argument-of-type-htmlelement-null-is-not-assignable-to-parameter-of-type-el)
 
     + S_Desc：获取节点可能为空值，需加上 TS 断言或判断 
-
     + S：`ReactDOMClient.createRoot(document.getElementById('root')!)`
+    
++ <span style="font-size:20px">setState 更新不及时：</span>
+
+    + S_Desc：改为函数式更新

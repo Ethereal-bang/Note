@@ -97,7 +97,11 @@
 
     + border-box：会包括 border 宽度
 
-    
++ <span style="font-size:20px">background:</span>
+
+    元素默认背景色是 transparent 透明，意味着如果不设置元素背景色将会显示为下方元素（*z-index*) 的颜色
+
+
 
 # CSS 定位
 
