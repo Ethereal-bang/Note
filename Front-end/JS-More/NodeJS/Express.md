@@ -879,7 +879,10 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
         })
         ```
 
-        
++ <span style="font-size:20px">[304](https://stackoverflow.com/questions/18811286/nodejs-express-cache-and-304-status-code)：</span>
+
+    + Q_Desc:同一页面中第一次请求得到 200，重复请求返回 304（*显式设置状态码也不行* ）
+    + R: Express 的缓存机制
 
 # Refs
 

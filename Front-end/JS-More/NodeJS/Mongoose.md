@@ -239,12 +239,14 @@ const BookSchema = new Schema({
   
 // bookInstanceController.js:
 exports.bookinstance_list = function(req, res, next) {
-    BookInstance.find({"book i"})
+    BookInstance.find({bo})
         .populate('book')   // 因为bookInstance中book字段是其他文档的引用
         // 有上述语句才能取到bookInstance中的book字段，以及book文档中字段
         .exec(function (err, list_bookinstances) {
      
 ```
+
+
 
 ```jade
 // bookinstance_list.pug
@@ -286,6 +288,25 @@ each val in bookinstance_list
  ## 移除记录
 
 + `.findByIdAndRemove(id, options, callback)`
+
+
+
+# API
+
+## Model
+
++ **find()：**
+
+    ```js
+    // find all documents
+    await MyModel.find({});
+    
+    // filter, [fileds]
+    MyModel.find({name: "J"}, "age money")
+    ```
+
+
+
 
 # Ref
 

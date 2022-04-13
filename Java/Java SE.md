@@ -94,11 +94,18 @@ public class Hello {
 
 
 
-### String
+<span style="font-size:20px">String:</span>
 
 + charAt(`index`):——取某位字符
-
 + String.valueOf()——返回其他类型的字符串表示形式
+
+
+
+<span style="font-size:20px">float:</span>
+
++ println 默认小数点后一位 (*即 1.0* )
+
++ printf %f 默认6位
 
 
 
@@ -531,6 +538,7 @@ Integer i = new Integer(1);
 
 + <span style="font-size:20px">Math:</span>
     + Math.exp()——e 的参数次方
+    + Math.PI——圆周率
 
 
 
