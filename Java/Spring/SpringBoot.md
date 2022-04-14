@@ -42,7 +42,7 @@
 
 ## HTTP 接口
 
-1. 同级目录下**新建 conteoller 包**。
+1. 同级目录下**新建 controller 包**。
 
 2. **新建类** HelloController：
 
@@ -206,7 +206,7 @@ arr: [cat,dog]
     }
     ```
 
-5. **Maven 资源过滤：**
+5. **Maven 资源过滤：**放哪里==？==
 
     ```xml
     <resources>
@@ -244,8 +244,10 @@ arr: [cat,dog]
     @Mapper
     @Repository
     public interface UserMapper {
-      	boolean isExists(String username);
+      	int isExists(String username);
     ```
+    
+    > Mapper 的方法面向数据库操作，而 Service 方法面向业务需求（一个业务运用多个 Service 中方法），具体体现在返回类型
     
 7. **整合 MyBatis：**—— application.yaml
 
@@ -302,7 +304,7 @@ arr: [cat,dog]
     
       @Override
       public boolean isExistUser(String username) {
-        return userMapper.isExists(username);
+        return 1 == userMapper.isExists(username);
       }
     ```
     
@@ -314,9 +316,9 @@ arr: [cat,dog]
       @Autowired
       UserService userService;
     
-      @GetMapping("/isExistUser")
-      public boolean isExistUser(String username) {
-        return userService.isExistUser(username);
+      @GetMapping("/register")
+      public boolean isExistUser(@RequestParam("username") username) {
+        if (userService.isExistUser(username)) {//...};
       }
     ```
     
@@ -339,11 +341,13 @@ arr: [cat,dog]
 
 # DEBUG
 
-+ [org.apache.ibatis.binding.BindingException](https://blog.csdn.net/qq_35246620/article/details/77916992)：
-    + Q_Desc：访问接口时，控制台报错如上，即ibatis 无效绑定异常。
-    + A_R：Mapper 映射文件中中 SQL 的 id 名与 Dao 中方法名不一致。
-
-+ Could not resolve type alias 'User'：
++ <span style="font-size:20px">[org.apache.ibatis.binding.BindingException](https://blog.csdn.net/qq_35246620/article/details/77916992)：</span>
+    
+    + Q_Desc：访问接口时，控制台报错如上，即 ibatis 无效绑定异常。
+    + A1_R：<span style="color:orange">Mapper 映射文件</span>中中 SQL 的 id 名与 Dao 中方法名不一致。
+    + A2_R：<span style="color:orange">Mapper 映射文件</span>中 mapper namespace 地址错误
+    
++ <span style="font-size:20px">Could not resolve type alias 'User'：</span>
 
     + Q_Desc：`user-mapper.xml`中使用别名报错：
 
@@ -362,3 +366,19 @@ arr: [cat,dog]
 
     + A_S：改为`com.bei.loginserver.pojo`
 
++ <span style="font-size:20px">java.lang.ClassCastException:</span>java.lang.String cannot be cast to java.lang.Integer
+
+    + Q_Desc：
+
+        ```xml
+        <select id="isExists" parameterType="String" resultType="boolean">
+          select COUNT(*) from dang.user where tel = #{tel}
+        </select>
+        ```
+
+    + A_R：数据库操作返回类型不匹配所填类型
+
+    + A：resultType 改为 int
+
++ <span style="font-size:20px">数据库更改但请求查询结果未更新：</span>
+    + A：在 IDEA 关联的数据库中先刷新

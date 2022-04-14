@@ -180,8 +180,8 @@
 
 - 控制器负责提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
 - 控制器负责解析用户的请求并将其转换为一个模型。
-- 在Spring MVC中一个控制器类可以包含多个方法
-- 在Spring MVC中，对于Controller的配置方式有很多种
+- 在Spring MVC 中一个控制器类可以包含多个方法
+- 在Spring MVC 中，对于Controller的配置方式有很多种
 
 
 
@@ -200,9 +200,26 @@
            //返回视图位置
            return "test";
       }
-    
     }
     ```
+
+
+
++ <span style="font-size:20px">@RequestMapping:</span>
+
+    可以定义在类或方法上，若类定义处未标注 @RequestMapping，则方法处标记的 URL 相对于WEB 应用的根目录
+
+    
+
++ <span style="font-size:20px">@RequestParam:</span>
+
+    写在方法的形参里获取路由参数
+
+    ```java
+    public String getUser(@RequestParam("tel") String tel) {}
+    ```
+
+    
 
 
 
@@ -938,6 +955,8 @@
     [狂神说SpringMVC03：RestFul和控制器](https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&mid=2247483993&idx=1&sn=abdd687e0f360107be0208946a7afc1d&scene=19#wechat_redirect)
     
     [接口文档 · 语雀](https://www.yuque.com/docs/share/99caf972-f70c-41bc-b7ec-5d052ae2e1f5)
+    
+    [springmvc之@Controller、@RequestMapping等注解讲解](https://blog.csdn.net/luckey_zh/article/details/46850155)
 
 
 

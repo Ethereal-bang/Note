@@ -174,6 +174,8 @@
 
 # CRUD——增删改查
 
++ 变量类型为 java 类型不是 Mysql
+
 Create、Retrieve、Update、Delete
 
 ## Select

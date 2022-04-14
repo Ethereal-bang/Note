@@ -728,6 +728,12 @@ Java 中成员的控制权限共有四种，`public`、`protected`、`default`�
 
 ## 类间的关系模型
 
++ **@override：**
+
+    在重写抽象方法/接口方法时不是必要的，但加上 IDE 会检查是否符合要求
+
+
+
 ### 继承
 
 `class A extends B`
@@ -951,8 +957,10 @@ public class Soccer {
 + 面向对象：
 
     [《Java 基础核心总结》- cxuan]()
-    
+
     [多态 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1260455778791232)
+
+    [Java 基础 - @Override 在重写抽象方法/接口方法是必要的么？](https://blog.51cto.com/u_15080022/3893877)
 
 + 注解和反射：
 
