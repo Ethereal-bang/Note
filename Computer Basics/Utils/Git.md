@@ -319,6 +319,20 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 
 
-# 参考链接
+# GitHub
+
+## Github pages 部署
+
+> 要使用 GitHub Pages 功能实现全面效果，项目应该被构造为典型的网站——index.html 入口，原生 JS 等
+
+1. 新建 gh-pages 分支
+
+2. GitHub 里设置： ![image-20220416170638224](https://gitee.com/ethereal-bang/images/raw/master/20220416170645.png)
+
+3. 分支代码更新后 Github 自动执行 Action 重新部署：
+
+    ![image-20220416170821500](https://gitee.com/ethereal-bang/images/raw/master/20220416170821.png)
+
+# REF
 
 [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)

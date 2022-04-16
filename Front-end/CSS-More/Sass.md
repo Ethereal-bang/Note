@@ -34,6 +34,14 @@ gem install compass
 
 
 
++ 命令行：
+
+    ```shell
+    $sass main.scss:out.css
+    ```
+
+    
+
 + VScode 里安装插件 Live Sass Complier，实时将SASS / SCSS文件编译/转换为CSS文件，其参数：
 
     ```json

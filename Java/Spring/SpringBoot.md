@@ -316,7 +316,7 @@ arr: [cat,dog]
       @Autowired
       UserService userService;
     
-      @GetMapping("/register")
+      @RMapping("/register")
       public boolean isExistUser(@RequestParam("username") username) {
         if (userService.isExistUser(username)) {//...};
       }
@@ -342,7 +342,7 @@ arr: [cat,dog]
 # DEBUG
 
 + <span style="font-size:20px">[org.apache.ibatis.binding.BindingException](https://blog.csdn.net/qq_35246620/article/details/77916992)：</span>
-    
+  
     + Q_Desc：访问接口时，控制台报错如上，即 ibatis 无效绑定异常。
     + A1_R：<span style="color:orange">Mapper 映射文件</span>中中 SQL 的 id 名与 Dao 中方法名不一致。
     + A2_R：<span style="color:orange">Mapper 映射文件</span>中 mapper namespace 地址错误
