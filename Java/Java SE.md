@@ -728,9 +728,30 @@ Java 中成员的控制权限共有四种，`public`、`protected`、`default`�
 
 ## 类间的关系模型
 
-+ **@override：**
++ **@override：**——外壳不变，核心重写
 
     在重写抽象方法/接口方法时不是必要的，但加上 IDE 会检查是否符合要求
+
+
+
++ **this、super：**
+
+    super 是当前对象父类的引用
+
+    1. 引用属性、方法：`this.name`、`this.show()`
+
+    2. 引用构造方法：
+
+        ```java
+        public class Chinese extends Person { 
+            Chinese() { 
+               super();
+            } 
+            
+            Chinese(String name) { 
+               super(name); 
+            } 
+        ```
 
 
 
@@ -806,6 +827,12 @@ public class Soccer {
     `Fruit fruit = new Apple()`，`Fruit`类型的对象指向了`Apple`对象的引用，这就是多态——父类引用指向子类对象，因为`Apple`继承于`Fruit`，且覆写了`eat`方法，所以能表现除多种状态的形式
 
  
+
+## 类的关键字
+
++ **final：**表示不能被继承
+
+
 
 # 注解和反射
 
@@ -962,6 +989,8 @@ public class Soccer {
 
     [Java 基础 - @Override 在重写抽象方法/接口方法是必要的么？](https://blog.51cto.com/u_15080022/3893877)
 
+    [Java中this和super的用法总结](https://www.cnblogs.com/hasse/p/5023392.html)
+
 + 注解和反射：
 
     [【狂神说Java】注解和反射_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1p4411P7V3?p=1&share_medium=android&share_plat=android&share_session_id=925bf718-1fd1-4813-b18d-bf4c4f0fa085&share_source=QQ&share_tag=s_i&timestamp=1639368905&unique_k=KZPiLTv)
@@ -969,3 +998,4 @@ public class Soccer {
     [使用注解 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102413966176)
 
     
+

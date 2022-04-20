@@ -474,7 +474,15 @@ db.on('error', console.error.bind(console, "MongoDB 连接错误："));
     });
     ```
 
-    
++ 查询字符串——`req.query `对象："/login?tel=111&pwd=222"
+
+    ```js
+    router.get("/login", userController.login);
+    ```
+
+    > req.query： `{ tel: '111', pwd: '111' }`
+
+
 
 1. <span style="font-size:20px">使用 Router 定义路由：</span>
 

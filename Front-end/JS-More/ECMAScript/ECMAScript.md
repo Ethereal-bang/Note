@@ -1665,7 +1665,7 @@ Map 结构原生提供三个**遍历器生成函数**和一个**遍历方法**  
 keys() 、 values()、entries() 方法 用法类似
 
 ```js
-const map = new Map([   // ?
+const map = new Map([   // 
   ['F', 'No'],
   ['T', 'Yes'],
 ]);

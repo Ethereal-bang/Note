@@ -81,3 +81,10 @@
 
     [Connection String URI Format — MongoDB Manual](https://www.mongodb.com/docs/manual/reference/connection-string)
 
+
+
+# DEBUG
+
++ <span style="font-size:20px">[MongoDB Compass 导出 .csv 数据在 excel 中文乱码：](https://baijiahao.baidu.com/s?id=1634287239598842140&wfr=spider&for=pc)</span>
+
+    S：用记事本打开，另存为选择编码格式 ANSI。再在 Excel 中打开显示正常。

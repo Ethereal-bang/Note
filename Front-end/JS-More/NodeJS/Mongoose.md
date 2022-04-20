@@ -285,9 +285,18 @@ each val in bookinstance_list
 
     
 
- ## 移除记录
+## 移除记录
 
-+ `.findByIdAndRemove(id, options, callback)`
+```js
+Goods.deleteMany({})
+  .exec((error, result) => {
+  if (error) {
+    res.send(error);
+  } else {
+    res.send("删除成功" + result.deletedCount);
+  }
+})
+```
 
 
 
@@ -305,6 +314,8 @@ each val in bookinstance_list
     MyModel.find({name: "J"}, "age money")
     ```
 
++ **findByIdAndRemove(id, options, callback):**
+
 
 
 
@@ -314,3 +325,13 @@ each val in bookinstance_list
 
     [Mongoose v6.1.8: API docs](https://mongoosejs.com/docs/api.html)
 
+
+
+# DEBUG
+
++ <span style="font-size:20px">查询不到数据库中 documents：</span>
+
+    + Q_Desc：MongoDB Compass 中有数据但查询结果为空
+
+    + S_R：数据字段与定义的 Schema 字段不匹配
+    + S：mongoose 的方式添加数据
