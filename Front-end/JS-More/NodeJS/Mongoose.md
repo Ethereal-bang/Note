@@ -333,5 +333,4 @@ Goods.deleteMany({})
 
     + Q_Desc：MongoDB Compass 中有数据但查询结果为空
 
-    + S_R：数据字段与定义的 Schema 字段不匹配
-    + S：mongoose 的方式添加数据
+    + S_R：数据字段与定义的 Schema 字段不匹配（凡是 Mongoose 操作涉及到的字段都要在 Schema 中有定义）
