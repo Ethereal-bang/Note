@@ -871,7 +871,11 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
   
   > Note：
   >
-  > 请求头设置要在路由之前。
+  > + 请求头设置要在路由之前
+  >
+  > + 不写 next()，一个请求会处于一直处理的状态：
+  >
+  >     ![image-20220422213841299](https://gitee.com/ethereal-bang/images/raw/master/20220422213848.png)
   
 + <span style="font-size:20px">Cannot set headers after they are sent to the client：</span>
 
