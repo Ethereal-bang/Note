@@ -759,6 +759,24 @@ TS 引入了条件类型使得我们可以根据某些条件得到不同的类�
 
 抽象类不可以赋值给类
 
++ Demo:
+
+    ```tsx
+    class Solution {
+        nums: number[];
+      
+        constructor(nums: number[]) {
+            this.nums = nums;
+        }
+    
+        pick(target: number): number {
+    			return 0;
+        }
+    }
+    ```
+
+    > **Note：与** JS 不同的是，属性必须先在类里面声明类型。
+
 
 
 ## 抽象类
