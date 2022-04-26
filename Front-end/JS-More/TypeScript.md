@@ -97,6 +97,10 @@
     
     // Array<number>泛型语法：
     let list: Array<number> = [1, 2, 3]; 
+    
+    // 二维数组
+    let list: Array<Array<number>>;
+    let list: number[][];
     ```
     
     >  **`Array<number>`：**
