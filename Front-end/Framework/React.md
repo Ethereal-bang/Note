@@ -60,6 +60,7 @@
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <script type="text/babel">
+        ```
     
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
@@ -1044,6 +1045,7 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
           fetchData()
             .catch(console.error);
         }, []);	// 只执行一次
+        ```
 
     + 事件监听或订阅（*setting up a subscription*）
 
@@ -1644,3 +1646,5 @@ $npm i axios -S
 + <span style="font-size:20px">setState 更新不及时：</span>
 
     + S_Desc：改为函数式更新
+
++ <span style="font-size:20px">[A component is changing an uncontrolled input to be controlled](https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro)</span>
