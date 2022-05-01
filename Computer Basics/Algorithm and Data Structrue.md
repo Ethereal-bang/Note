@@ -756,9 +756,13 @@ Trie是一种树状信息检索数据结构
 
 ### 双指针
 
++ 数组值原地交换：
+
+    [905.按奇偶排序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/sort-array-by-parity/submissions/)
+
 ### 逆向双指针
 
-+ 用来避免后面值被前面覆盖。
++ 用来避免后面值被前面覆盖：
 
     [88.合并两个有序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/merge-sorted-array/)
 

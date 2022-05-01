@@ -72,14 +72,11 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
     const Schema = mongoose.Schema;
     
     const BookSchema = new Schema({
-      title: {
-            type: String,
-            required: true,
-        },
-        author: {
-            type: Schema.ObjectId,   //
-            required: true,
-        },
+      title: {type: String, required: true,},
+      author: {
+        type: Schema.Types.ObjectId,
+        ref: "Author"
+      },
     })
     ```
 
@@ -90,6 +87,8 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
     ```
 
     这里的`Book`时创建的数据库集合的别名，第二个参数时创建模型使用到的模式
+    
+    > 接受第三个参数——命名 Collection（默认在第一个参数小写后加 's'
 
 定义模型类后，可以使用它们来创建、更新或删除记录，以及通过查询来获取所有记录或特定子集
 
@@ -203,12 +202,12 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
 
     ```js
     await User.create({
-            name: req.query.name,
-            pwd: req.query.pwd,
-        })
-            .then(user => {
-                res.send("注册成功: " + user);
-            })
+      name: req.query.name,
+      pwd: req.query.pwd,
+    })
+      .then(user => {
+      res.send("注册成功: " + user);
+    })
     ```
 
     
@@ -223,16 +222,6 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
 下例是以上查询函数的综合运用：
 
 ```js
-// models/bookInstance.js:
-const BookInstanceSchema = new Schema({
-    book: { type: Schema.Types.ObjectId, ref: 'Book', required: true },	// 引用Book文档
-})
-BookInstanceSchema
-    .virtual('url')	// 虚拟属性 url
-    .get(function () {
-        return '/catalog/bookinstance/' + this._id;
-    });
-
 // models/book.js:
 const BookSchema = new Schema({
     title: {type: String, required: true},
@@ -240,20 +229,14 @@ const BookSchema = new Schema({
 // bookInstanceController.js:
 exports.bookinstance_list = function(req, res, next) {
     BookInstance.find({bo})
-        .populate('book')   // 因为bookInstance中book字段是其他文档的引用
-        // 有上述语句才能取到bookInstance中的book字段，以及book文档中字段
+        .populate('book')
         .exec(function (err, list_bookinstances) {
      
 ```
 
+> 有了 populate 后查询结果中 ObjectId 自动转换为相应实例字段
 
 
-```jade
-// bookinstance_list.pug
-each val in bookinstance_list
-	li
-		a(href=val.url) #{val.book.title} : #{val.imprint}	// 分别是虚拟属性url及引用book文档属性title
-```
 
 + `.sort`——按排序返回记录
 
@@ -283,7 +266,14 @@ each val in bookinstance_list
     })
     ```
 
-    
+
+
+
+## 修改记录
+
+
+
+
 
 ## 移除记录
 
@@ -332,5 +322,20 @@ Goods.deleteMany({})
 + <span style="font-size:20px">查询不到数据库中 documents：</span>
 
     + Q_Desc：MongoDB Compass 中有数据但查询结果为空
++ S_R：数据字段与定义的 Schema 字段不匹配（凡是 Mongoose 操作涉及到的字段都要在 Schema 中有定义）
+    
++ <span style="font-size:20px">populate 查询出错：</span>
 
-    + S_R：数据字段与定义的 Schema 字段不匹配（凡是 Mongoose 操作涉及到的字段都要在 Schema 中有定义）
+    + Q_Desc：加上 populate 后查询结果 undefined，去掉正常（相应字段显示 ObjectId
+
+        ```js
+        User.findOne({ tel })
+          .populate("ShoppingCart")    
+          .exec((err, shoppingCartList) => {
+          console.log(shoppingCartList);
+        ```
+
+    + S：对应参数改为小写：`populate("shoppingCart")`
+
+    + S_R：参数路径对应的是 Collection 名，不是 Modal 名。
+

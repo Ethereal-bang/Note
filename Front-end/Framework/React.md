@@ -489,20 +489,11 @@ return (
 
 + <span style="font-size:20px">函数式组件使用 props</span>
 
-    函数式组件只能通过入参来使用 props，而不能使用 state 和 refs。除非用较新版本的 hooks
+    函数式组件通过传入参数来使用 props
 
     ``` jsx
-    /* 创建组件 */
     function Person (porps) {
       const {name, age, sex} = props;
-      return (
-      <ul>
-          <li>姓名：{name}</li>
-          <li>性别：{sex}</li>
-          <li>年龄：{age}</li>
-      </ul>
-      )
-    }
     ```
     
     
@@ -1394,8 +1385,6 @@ export const counterSlice = createSlice({
     ```shell
     # v5版本
     $npm i react-router-dom
-    # react-router没有提供原生ts支持，所以还需安装其类型定义
-    $npm i @types/react-router-dom -D
     ```
 
 ## 路由初始化
@@ -1424,20 +1413,34 @@ function App() {
 
 ## 路由跳转
 
-```tsx
-import {Link} from "react-router-dom";
++ 组件：
 
-const ShowPage = () => {
-    return (
-        <>
-            <ShowCnt />
-            <Link to={"/"}>回到首页</Link>
-        </>
-    )
-}
+    ```tsx
+    import {Link} from "react-router-dom";
+    
+    const ShowPage = () => {
+        return (
+            <>
+                <ShowCnt />
+                <Link to={"/"}>回到首页</Link>
+            </>
+        )
+    }
+    ```
 
-export default ShowPage;
-```
++ JS：
+
+    ```js
+    import { useNavigate } from "react-router-dom";
+    
+    const navigate = useNavigate();
+    navigate("/path", {	// 路径不是相对于当前
+      replace: false,	// 默认false，true则不能回退
+    	state: { name: 'x' }	// 路由传参
+    })
+    ```
+
+    
 
 ## 路由传参
 
@@ -1469,6 +1472,16 @@ export default ShowPage;
     > 效果：
     >
     > URL 为 "/show" 时不显示`<h2>`内容，为 "/show/2" 时显示出 2.
+
++ 获取路由参数：
+
+    ```tsx
+    import {useLocation} from "react-router-dom";
+    
+    const location = useLocation();
+    ```
+
+    > 获取到的 location 有如下字段：`pathname`、`search`、`state`。
 
 
 
@@ -1648,3 +1661,17 @@ $npm i axios -S
     + S_Desc：改为函数式更新
 
 + <span style="font-size:20px">[A component is changing an uncontrolled input to be controlled](https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro)</span>
+
+    + Q_Desc：
+
+        ```tsx
+        const [submitInfo, setSubmitInfo] = useState<Info>();
+        
+        return (
+          <input value={submitInfo?.tel} onChange={changeTel} />
+        )
+        ```
+
+    + R:value 值从 undefined 变为其余类型
+
+    + S：给 state 设置初始值（让该字段不为 undefined）

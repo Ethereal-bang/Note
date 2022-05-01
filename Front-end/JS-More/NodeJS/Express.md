@@ -896,6 +896,16 @@ res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.a
     + Q_Desc:同一页面中第一次请求得到 200，重复请求返回 304（*显式设置状态码也不行* ）
     + R: Express 的缓存机制
 
++ <span style="font-size:20px">[TypeError: Router.use() requires middleware function but got a Object](https://stackoverflow.com/questions/27465850/typeerror-router-use-requires-middleware-function-but-got-a-object)</span>
+
+    + S：导出路由
+
+        ```js
+        module.exports = router;
+        ```
+
+        
+
 # Refs
 
 + 新建一个 Express 项目:
