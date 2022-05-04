@@ -188,13 +188,15 @@
     **`as`：**
 
     ```typescript
-    let someValue: any = "this is a string";
+    interface LocationState {
+        name: string,
+        num: number,
+    }
     
-    # let strLength: number = (<string>someValue).length;
-    # let strLength: number = (someValue as string).length;
+    const state = useLocation().state as LocationState;
     ```
-
-
+    
+    > 避免后来使用 state 时提示 ” Argument of type 'unknown' is not assignable to parameter of type ... “
 
 ## 接口 Interface
 

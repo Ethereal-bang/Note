@@ -1438,9 +1438,12 @@ function App() {
       replace: false,	// 默认false，true则不能回退
     	state: { name: 'x' }	// 路由传参
     })
-    ```
-
     
+navigate(-1);	// 回退，数字代表回退层数
+    ```
+    
+
+
 
 ## 路由传参
 

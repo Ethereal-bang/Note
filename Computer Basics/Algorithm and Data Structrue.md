@@ -280,10 +280,14 @@ KMP 主要用在字符串匹配
   
   ==后序遍历?==：（颠倒前序结果集）
   
-+ <span style="font-size:20px">二叉树的层序遍历：</span>
++ <span style="font-size:20px">[二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)：</span>
 
     > root = [3,9,20,null,null,15,7]
     > 输出：[ [3], [9,20], [15,7] ]
+    
+    遍历节点，按照层数存入数组。
+
+
 
 
 ### 二叉搜索树

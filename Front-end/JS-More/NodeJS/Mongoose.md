@@ -73,13 +73,10 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
     
     const BookSchema = new Schema({
       title: {type: String, required: true,},
-      author: {
-        type: Schema.Types.ObjectId,
-        ref: "Author"
-      },
+    	// ...
     })
     ```
-
+    
 2. <span style="font-size:20px">创建模型：</span>——`mongoose.model()`从模式创建模型
 
     ```js
@@ -97,8 +94,7 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
     下面是一个模式的示例，含有许多常见字段类型和声明方式：
 
     ```js
-    const Schema = new Schema(
-    {
+    const Schema = new Schema({
       name: String,
       binary: Buffer,
       updated: { type: Date, default: Date.now },
@@ -125,11 +121,6 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
             ```
 
         + Mixed——任意
-
-    + 声明字段方法：
-
-        + 键值对：`name: String`
-        + 字段名后跟一对象
 
 + <span style="font-size:20px">验证器：</span>
 
@@ -215,7 +206,7 @@ MongoDB 数据库中，每个模型都映射至一组文档。这些文档包含
 ## 查询记录
 
 + `.find(filter, projection)`，`.findOne()`——返回查询记录结果
-+ `.findById()`
++ `.findById()`（*接受字符串参数*）
 + `.populate()`——连表查询 联合其他文档
 + `.exec()`——执行查询（*放在查询链的末端*）
 
@@ -227,14 +218,37 @@ const BookSchema = new Schema({
     title: {type: String, required: true},
   
 // bookInstanceController.js:
+// 回调函数形式
 exports.bookinstance_list = function(req, res, next) {
     BookInstance.find({bo})
         .populate('book')
-        .exec(function (err, list_bookinstances) {
-     
+        .exec(function (err, list_bookinstances) {/*...*/}
+// async await形式
+exports.bookinstance_list = async (req, res, next) {
+		const list_bookinstances = await BookInstance.find({bo}).populate('book').exec()
+    // ...
+}
 ```
 
-> 有了 populate 后查询结果中 ObjectId 自动转换为相应实例字段
+
+
++ `populate`：
+
+    有了 populate 后查询结果中 ObjectId 自动转换为相应实例字段
+
+    ```js
+    const ShoppingCartSchema = new Schema({
+        goodsList: {
+            type: [Schema.Types.ObjectId],
+            ref: "Goods",
+        },
+    })
+    
+    ShoppingCart.findById(id)
+      .populate("goodsList").exec();
+    ```
+
+    > populate 的 path 参数对应的是该 Model 字段
 
 
 
@@ -271,7 +285,27 @@ exports.bookinstance_list = function(req, res, next) {
 
 ## 修改记录
 
++ updateOne():
 
+    ```js
+    await ShoppingCart
+      .updateOne(
+      {tel},	// filter
+      shoppingCart)	// fields
+      .exec();
+    ```
+
+    > 其中，shoppingCart 对象对应着全部字段：
+    >
+    > ```js
+    > const shoppingCart = await ShoppingCart
+    > 	.findOne({tel}).populate("goodsList")
+    > 	.exec();
+    > // 1.调整购物车商品总数
+    > shoppingCart.count += num;
+    > // 2.添加该商品ID
+    > shoppingCart.goodsList.push(id);
+    > ```
 
 
 
@@ -323,7 +357,7 @@ Goods.deleteMany({})
 
     + Q_Desc：MongoDB Compass 中有数据但查询结果为空
 + S_R：数据字段与定义的 Schema 字段不匹配（凡是 Mongoose 操作涉及到的字段都要在 Schema 中有定义）
-    
+  
 + <span style="font-size:20px">populate 查询出错：</span>
 
     + Q_Desc：加上 populate 后查询结果 undefined，去掉正常（相应字段显示 ObjectId
@@ -337,5 +371,5 @@ Goods.deleteMany({})
 
     + S：对应参数改为小写：`populate("shoppingCart")`
 
-    + S_R：参数路径对应的是 Collection 名，不是 Modal 名。
+    + S_R：参数路径对应的是 `User` Schema 下对应属性。
 
