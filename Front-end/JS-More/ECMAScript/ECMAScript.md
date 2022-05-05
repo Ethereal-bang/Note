@@ -1565,6 +1565,7 @@ Set 数据结构类似于数组，但里面的值是唯一的
 
 + set结构的 **size** 属性——去重后长度let set = new Set(['red', 'green', 'blue']);
   
+    ```js
     for (let item of set.keys()) {
       console.log(item);
     }
@@ -1585,6 +1586,9 @@ Set 数据结构类似于数组，但里面的值是唯一的
     // ["red", "red"]
     // ["green", "green"]
     // ["blue", "blue"]
+    ```
+    
+    
 
 
 上面代码中，`entries`方法返回的遍历器，同时包括键名和键值，

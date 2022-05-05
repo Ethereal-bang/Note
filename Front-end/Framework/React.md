@@ -279,6 +279,18 @@ return (
 
 
 
++ <span style="font-size:20px">UI 自动更新:</span>
+
+    State 改变 React 会自动更新相应的 UI，而 JSX 的 State 更新不会引起 UI 变化：
+
+    ```jsx
+    {signFlag ? () : ()}
+    ```
+
+    > 如上，signFlag 的更新并不会导致重新渲染
+
+
+
 # 组件
 
 组件允许我们将 UI 拆分为独立可复用的代码片段，并对每个片段进行独立构思。组件，从概念上类似于 JS 函数。接受任意的入参（*props*），并返回描述页面内容的 React 元素。
@@ -1439,6 +1451,8 @@ function App() {
     	state: { name: 'x' }	// 路由传参
     })
     
+    ```
+
 navigate(-1);	// 回退，数字代表回退层数
     ```
     
