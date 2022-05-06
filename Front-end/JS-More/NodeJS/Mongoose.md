@@ -282,6 +282,19 @@ exports.bookinstance_list = async (req, res, next) {
 
 
 
++ <span style="font-size:20px">模糊匹配：</span>
+
+    ```js
+    const { name } = req.query;
+    const docs = await Goods.find({ name: {
+      $regex: name,
+    }}).exec();
+    ```
+
+    
+
+
+
 
 ## 修改记录
 

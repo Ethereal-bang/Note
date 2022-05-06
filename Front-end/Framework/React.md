@@ -464,6 +464,17 @@ return (
     ```
 
     > 这个储存数组的例子可以看出，不能用`musicList.push(data.result.hots)`，因为是替换 state 变量。
+    
++ > 数组式 State 更新：
+    >
+    > ```tsx
+    > setHoverState((hoverState) => [
+    >   ...hoverState.slice(0, index),
+    >   flag,
+    >   ...hoverState.slice(index + 1)
+    > ])
+    > // 更新index位为flag
+    > ```
 
 
 
@@ -867,46 +878,6 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
 
 
 
-## 加载媒体与字体文件
-
-+ <span style='font-size:20px'>加载图片</span>
-
-    
-
-习惯上新建一个`assets`文件夹存放媒体资源，如图：
-    
-![image-20210605144832793](https://i.loli.net/2021/06/05/O1kUzI2gt9loN5h.png)
-    
-引入媒体资源时，依旧使用`import`语句，例如：
-    
-![image-20210605144927794](https://i.loli.net/2021/06/05/rgZLVAxdtqm1vbw.png)
-    
-因为 ts 已经对`.svg`等文件声明，因此无需像引入`.css`文件一样在`custom.d.ts`文件中重复声明
-
-+ <span style='font-size:20px'>加载字体</span>
-
-  
-    将`.ttf`字体文件放入`fonts`文件夹，因为字体是全局样式，因此在`index.css`和`index.tsx`中设置及引用：
-    
-    ```css
-    // index.css
-    @font-face {
-        font-family: 'Brush';
-        src: local('Brush'), url(./assets/fonts/Brush.ttf);
-    }
-    ```
-    
-    ```css
-    // App.modules.css
-    h1 {
-          font-family: 'Brush';
-          font-size: 72px;
-    }
-    ```
-    
-
-
-
 # 样式
 
 + <span style="font-size:20px">CSS in JS——样式的模块化：</span>
@@ -944,6 +915,40 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
     >
     > + `style={}` 内的中括号内会认为是 CSS 样式，因此这里条件语句没有用 `if() {}`。
     > + CSS 代码 key: value 中 value 要加 `" "`
+
+
+
+## 加载媒体与字体文件
+
+习惯上新建`src/assets`文件夹存放媒体资源，如图：
+
+![image-20210605144832793](https://i.loli.net/2021/06/05/O1kUzI2gt9loN5h.png)
+
++ <span style='font-size:20px'>加载图片</span>
+   引入媒体资源时，依旧使用`import`语句，例如：
+  ![image-20210605144927794](https://i.loli.net/2021/06/05/rgZLVAxdtqm1vbw.png)
+
++ <span style='font-size:20px'>加载字体</span>
+
+  
+    将`.ttf`字体文件放入`fonts`文件夹，因为字体是全局样式，因此在`index.css`和`index.tsx`中设置及引用：
+    
+    ```css
+    // index.css
+    @font-face {
+        font-family: 'Brush';
+        src: local('Brush'), url(./assets/fonts/Brush.ttf);
+    }
+    ```
+    
+    ```css
+    // App.modules.css
+    h1 {
+          font-family: 'Brush';
+          font-size: 72px;
+    }
+    ```
+    
 
 
 
