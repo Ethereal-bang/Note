@@ -321,19 +321,14 @@ JSON.parse()、JSON.stringify()
 
 ### DOM事件流
 
-事件流——DOM 事件发生时在元素节点之间按照特定的顺序传播
-
-1. 捕获阶段——由DOM最顶层节点开始逐级向下传播到DOM最顶层节点的过程
-2. 当前目标阶段
-
-3. 冒泡阶段——事件开始时由最具体的元素接受后逐级向上传播到DOM最顶层节点的过程
+事件流——DOM 事件发生时在元素节点之间按照特定的顺序传播：
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607827215374-7e13973d-d5e7-4698-98e5-fe5d9e5f1bb3.png)
 
 js 代码中只能执行捕获或冒泡其中的一个阶段
 
-- onclick 和 attachEvent 只能得到冒泡阶段
-- addEventListener(type, listener[, useCapture])第三个参数若为true，表示在事件捕获阶段调用事件处理程序；fasle默认表示在事件冒泡阶段调用事件处理程序
+- **onclick** 和 attachEvent 只能得到**冒泡阶段**
+- addEventListener(type, listener[, useCapture]) 第三个参数若为true，表示在<span style="color:red">事件捕获阶段调用</span>事件处理程序；fasle 默认，<span style="color:red">事件冒泡阶段调用</span>
 - 实际开发很少使用事件捕获
 - 有些事件无冒泡  *onblur、onfocus、onmouseenter、onmouseleave*
 
@@ -364,6 +359,10 @@ js 代码中只能执行捕获或冒泡其中的一个阶段
     > 给 ul 注册点击事件，然后利用事件对象的 target 来找到当前点击的 li，因为点击 li，事件会冒泡到 ul 上， ul 有注册事件，就会触发事件监听器
 
     作用——只操作了一次DOM，提高了程序性能
+    
++ <span style="font-size:22px">e.target VS e.currentTarget：</span>
+
+    target 指触发的元素，而 currentTarget 是绑定事件的元素
 
 
 
@@ -492,7 +491,9 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
 
         [[js数组方法forEach、map、filter、reduce、every、some总结](https://segmentfault.com/a/1190000016025949)](https://segmentfault.com/a/1190000016025949)
 
++ DOM：
 
+    [currentTarget VS target - 掘金](https://juejin.cn/post/6844904047913205767)
 
 
 [^ 1]: JavaScript Object Notation

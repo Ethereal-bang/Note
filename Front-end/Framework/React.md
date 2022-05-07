@@ -291,6 +291,37 @@ return (
 
 
 
+## 重复渲染
+
+> 通过 JS 快速渲染多个具相似结构元素。
+
++ <span style="font-size:18px">[]:</span>
+
+    ```tsx
+    <ul>
+    	{list.map((item, index) => (
+      	<li key={index}>item</li>
+      ))}
+    </ul>
+    ```
+
++ <span style="font-size:18px">Map:</span>
+
+    ```tsx
+    {booksMap && Array.from(booksMap).map((item, index) => (
+      <img
+        key={item[0]}
+        src={item[1].img}
+        />
+    ```
+
+    转为数组后操作
+
+    > 1. Map 转为数组后 0  对应 key，1 对应 value
+    > 2. `booksMap && ` 的作用是确保其不为空（Array.from 不接受可能为 undefined 的参数）
+
+
+
 # 组件
 
 组件允许我们将 UI 拆分为独立可复用的代码片段，并对每个片段进行独立构思。组件，从概念上类似于 JS 函数。接受任意的入参（*props*），并返回描述页面内容的 React 元素。
@@ -889,7 +920,12 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
     
     export default class Hello extends Component {
       render() {
-        return <h2 className={styles.title}>Hello, React</h2>	
+        return <h2 className={styles.title}>
+          <i className={
+            check 
+            ? styles["checked"]
+      			: styles["check"]} />
+        </h2>	
       }
     }
     ```
@@ -1531,6 +1567,23 @@ $npm i axios -S
 
 
 
+## 数据渲染
+
++  <span style="font-size:18px">dataset：</span>
+
+    ```tsx
+    {shoppingList).map((item, index) => (
+      <i
+        key={index}
+        data-price={item.price_now}
+        onClick={checkGoods}
+    	/>
+    ```
+
+    > 点击事件通过 e.currentTarget.dataset.price 获取到数据
+
+
+
 # Antd
 
 基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。
@@ -1562,6 +1615,18 @@ $npm i axios -S
     ```ts
     declare module "*.md";
     ```
+
++ <span style="font-size:22px">React 事件——Event：</span>
+
+    + MouseEvent<T = element>
+
+    > EG:
+    >
+    > ```tsx
+    > function checkGoods(e: React.MouseEvent<HTMLElement>): void {
+    >   console.log(e.currentTarget.dataset)
+    > }
+    > ```
 
 
 
