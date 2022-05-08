@@ -153,6 +153,16 @@
     `object`表示**非原始类型**(*除 `string`、`boolean`、`number`、`bigint`、`symbol`、`null` 和 `undefined`* )
 
     `Object`表示 Object 类的实例的类型
+    
+    {} 指没有成员的空对象：
+    
+    ```ts
+    // Type {}
+    const obj = {};
+    
+    // Error: Property 'prop' does not exist on type '{}'.
+    obj.prop = "semlinker";
+    ```
 
 
 

@@ -512,8 +512,9 @@ Integer i = new Integer(1);
 
 
 + <span style="font-size:20px">Integer：</span>
-    + Integer.MIN_VALUE
-
+    
++ Integer.MIN_VALUE
+    
 + <span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
 
     经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
@@ -640,7 +641,7 @@ import java.util.*;
         public interface Compute {}
         ```
 
-        Interface 只能使用两种访问修饰符——static 对整个项目可见、default 只具有==包访问权限？==
+        Interface 只能使用两种访问修饰符——static 对整个项目可见、default 只具有包访问权限
 
     + **特征**：
 
@@ -658,7 +659,7 @@ import java.util.*;
 
 + <span style="font-size:22px">抽象类——abstract：</span>
 
-    抽象类是一种抽象能力弱于 Interface 的类
+    抽象类是一种抽象能力弱于 Interface 的类，可以有抽象方法或非抽象方法；不支持多继承
 
     + **定义——**可以像这样定义抽象类：
 

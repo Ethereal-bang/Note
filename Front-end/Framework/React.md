@@ -496,16 +496,41 @@ return (
 
     > 这个储存数组的例子可以看出，不能用`musicList.push(data.result.hots)`，因为是替换 state 变量。
     
-+ > 数组式 State 更新：
-    >
-    > ```tsx
-    > setHoverState((hoverState) => [
-    >   ...hoverState.slice(0, index),
-    >   flag,
-    >   ...hoverState.slice(index + 1)
-    > ])
-    > // 更新index位为flag
-    > ```
++ <span style="font-size:22px">State 更新：</span>
+
+  + **引用型 State** 更新注意点：
+
+    setState 函数以返回的变量地址判断是否更新，即一下情况 state 不会成功更新：
+
+    ```tsx
+    setState(stateObj => {
+      let tmp = stateObj;
+      tmp.cnt++;
+      return tmp;
+    })
+    ```
+
+    > 因为 `tmp` 和 `stateObj` 指向的同一个地址（`tmp` === `stateObj`。
+
+  + **数组式** State 更新：
+
+      ```tsx
+      setHoverState((hoverState) => [
+        ...hoverState.slice(0, index),
+        flag,
+        ...hoverState.slice(index + 1)
+      ])
+      // 更新index位为flag
+      ```
+
+  + **Map** 结构：（[ [key-value], [key-value] ]）
+
+      ```tsx
+      setMap(map => {
+        map.set(id, 1);
+        return new Map(Array.from(map));
+      })
+      ```
 
 
 
