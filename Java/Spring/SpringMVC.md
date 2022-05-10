@@ -219,6 +219,18 @@
     public String getUser(@RequestParam("tel") String tel) {}
     ```
 
+
+
+
++ <span style="font-size:20px">@PathVariable:</span>获取路径参数
+
+    ```java
+    @RequestMapping("/getUser/{tel}")
+    public User getUser(@PathVariable String tel) {
+    ```
+
+    
+
     
 
 

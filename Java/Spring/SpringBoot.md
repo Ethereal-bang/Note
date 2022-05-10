@@ -295,9 +295,9 @@ arr: [cat,dog]
     ```java
     @Service
     public class UserServiceImpl implements UserService {
-      @Autowired
       private UserMapper userMapper;
     
+      @Autowired
       public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
       }
@@ -316,7 +316,7 @@ arr: [cat,dog]
       @Autowired
       UserService userService;
     
-      @RMapping("/register")
+      @Mapping("/register")
       public boolean isExistUser(@RequestParam("username") username) {
         if (userService.isExistUser(username)) {//...};
       }
@@ -381,4 +381,26 @@ arr: [cat,dog]
     + A：resultType 改为 int
 
 + <span style="font-size:20px">数据库更改但请求查询结果未更新：</span>
+  
     + A：在 IDEA 关联的数据库中先刷新
+
++ <span style="font-size:20px">不建议使用字段注入:</span>
+
+    + Q_Desc：@Autowired 警告
+
+        ```java
+        @Autowired
+        private UserMapper userMapper;
+        ```
+
+    + S：
+
+        ```java
+        private UserMapper userMapper;
+        
+        @Autowired
+        public void setUserMapper(UserMapper userMapper) {
+          this.userMapper = userMapper;
+        }
+        ```
+

@@ -98,8 +98,6 @@ Servlet——用 Java 编写的服务器端程序。其主要功能在于交互�
     </welcome-file-list>
     ```
 
-    
-
 
 
 ## Tomcat
@@ -172,8 +170,9 @@ Servlet——用 Java 编写的服务器端程序。其主要功能在于交互�
         在该文件添加一行：`-Dfile.encoding=UTF-8`
 
 + [ org.apache.catalina.startup.Catalina.stopServer 未配置关闭端口。通过OS信号关闭服务器。服务器未关闭](https://www.cxymm.net/article/qq_44723773/110526082)
-    + A_Solu: 配置文件 conf/server.xml 中修改关闭端口
-
+  
+  + A_Solu: 配置文件 conf/server.xml 中修改关闭端口
+  
 + [java.lang.ClassNotFoundException: org.springframework.web.servlet.DispatcherServlet](https://blog.csdn.net/qq_41985361/article/details/113035128)
 
     + Q_Desc：项目打包时没有导 lib

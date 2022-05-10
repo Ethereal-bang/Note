@@ -42,6 +42,20 @@ SQLyog 是一款简洁高效、功能强大的<span style="color:red">图形化 
 
     <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093627.png" alt="image-20211130093627570" style="zoom:50%;" />
 
++ <span style="font-size:20px">导入本地 .csv 文件：</span>
+
+    1. 选中表，依次建立对应各字段
+
+    2. 选择该表 “导入使用本地加载的CSV数据”
+
+    3. 更改相关设置：
+
+        ![image-20220509184026558](https://gitee.com/ethereal-bang/images/raw/master/20220509184035.png)
+
+    4. 导入
+
+
+
 ## Navicat
 
 1. 新建连接
