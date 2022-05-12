@@ -233,6 +233,18 @@ Create、Retrieve、Update、Delete
     sqlSession.commit();
     ```
 
+### 模糊查询
+
++ <span style="font-size:20px">LIKE、CONCAT():</span>
+
+    ```xml
+    <select id="searchByName" parameterType="String" resultType="Goods">
+      select * from goods where name LIKE CONCAT('%', #{name}, '%');
+    </select>
+    ```
+
+
+
 ## Update
 
 ```xml

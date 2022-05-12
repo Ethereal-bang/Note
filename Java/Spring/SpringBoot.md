@@ -404,3 +404,45 @@ arr: [cat,dog]
         }
         ```
 
+## MyBatis
+
+### DAO
+
++ <span style="font-size:20px">Cannot determine value type from string 'xxx':</span>
+    + Q：执行查询时报错如上——字段和属性名没有对上。
+    + R：实体类没有加上无参构造和全参构造 / 数据库字段属性和实体类型不匹配
+
+
+
+### Controller
+
++ <span style="font-size:20px">一级导航路径匹配错误：</span>:
+
+    + Q_Desc：访问 /user 为白页，而 /user/ 正确
+
+        ```java
+        @RestController
+        @RequestMapping("/user")
+        public class GoodsController {
+            @RequestMapping("/")
+            public String goods() {}
+        ```
+
+    + S：将 @RequestMapping("/") 改为 @RequestMapping("")
+
+
+
+## 项目启动
+
++ dangServer<span style="font-size:20px">[Application: 无法检索应用程序 JMX 服务 URL：](https://youtrack.jetbrains.com/issue/IDEA-204797)</span>
+
+    + R：IntelliJ IDEA 使用本地 JMX 连接器来检索 Spring Boot 执行器端点的数据。本地 JMX 监视有一些限制，特别是，如果 Spring Boot 应用程序和 IntelliJ IDEA JVM 具有不同的位数，则无法获取本地 JMX连接器地址
+
+    + S：在 Spring Boot运行配置的 VM 选项中添加以下内容：
+
+        ```
+        -Dcom.sun.management.jmxremote.port={some_port} 
+        -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+        ```
+
+        > 其中 {some_port} 换为非项目运行的其他端口

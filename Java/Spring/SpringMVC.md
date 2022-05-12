@@ -209,6 +209,10 @@
 
     可以定义在类或方法上，若类定义处未标注 @RequestMapping，则方法处标记的 URL 相对于WEB 应用的根目录
 
+    > **路径匹配 Note：**
+    >
+    > 大小写严格匹配、/ 严格匹配
+
     
 
 + <span style="font-size:20px">@RequestParam:</span>
@@ -229,9 +233,6 @@
     public User getUser(@PathVariable String tel) {
     ```
 
-    
-
-    
 
 
 
@@ -991,3 +992,4 @@
         数据库字段顺序：password、age、mobile
 
     + A_Solu：将 User 属性顺序与数据库对应
+

@@ -512,9 +512,9 @@ Integer i = new Integer(1);
 
 
 + <span style="font-size:20px">Integer：</span>
-    
+  
 + Integer.MIN_VALUE
-    
+  
 + <span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
 
     经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
@@ -538,10 +538,21 @@ Integer i = new Integer(1);
 ## 内置类
 
 + <span style="font-size:20px">Math:</span>
+    
     + Math.exp()——e 的参数次方
     + Math.PI——圆周率
+    
++ <span style="font-size:20px">Pattern：</span>
 
+    用于正则。
 
+    + Pattern.matches(reg, str)——是否匹配
+
+        ```java
+        if (Pattern.matches("/[\\u4e00-\\u9fa5\\w]/", name)) {
+        ```
+
+        
 
 ## static 关键字
 
@@ -624,8 +635,6 @@ Integer i = new Integer(1);
 ```java
 import java.util.*;
 ```
-
-
 
 
 

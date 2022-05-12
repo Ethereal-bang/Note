@@ -333,6 +333,14 @@ SQL——Structured Query Language：结构化查询语言
 
 + <span style="font-size:22px">查询结果参与运算：</span>
 
++ <span style="font-size:22px">查询结果排序：</span>
+
+    ```mysql
+    SELECT * FROM goods WHERE TYPE = 'bookRanking' ORDER BY ranking ASC;
+    ```
+
+
+
 ### 条件查询
 
 + <span style="font-size:22px">WHERE：</span>
@@ -555,14 +563,19 @@ DROP VIEW `View_Choosebb`;
 
     + **百分号（%）通配符：**
 
-        最常使用，表示任意字符出现任意次数
+        最常使用，表示该位置任意字符出现任意次数
 
         ```sql
         -- 将address是'南海苑'开头的，年龄增加一岁
         UPDATE test SET age=age-1 WHERE address LIKE '南海苑%';
+        
+        -- 查找name字段中含有字符串100的
+        SELECT * FROM goods WHERE `name` LIKE '%100%';
         ```
 
-+ <span style="font-size:22px">正则表达式：</span>
+    + **下划线（_）通配符：**
+
+        代表该位置出现单个字符，字符的长度不能为 0
 
 
 
