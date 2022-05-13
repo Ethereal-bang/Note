@@ -1,54 +1,63 @@
-# 购买云服务器
+# 准备
 
-于阿里云购买 ECS 服务器。
+## 云服务器
 
-实例名称：`iZuf6b87fb1fzd0htv51ccZ`。
++ <span style="font-size:20px">购买:</span>
 
-IP 地址： `101.132.100.245`。
+    实例名称：`iZuf6b87fb1fzd0htv51ccZ`。
 
-系统用户名： `root`。
+    IP 地址： `101.132.100.245`。
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211102233808.png" alt="image-20211102233808525" style="zoom:150%;" />
+    系统用户名： `root`。
 
+    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211102233808.png" alt="image-20211102233808525" style="zoom:150%;" />
 
++ <span style="font-size:20px">登录:</span>
 
-1. 进入阿里云服务器控制台选择[服务器实例](https://ecs.console.aliyun.com/?spm=5176.8789780.J_5834642020.2.6f8545b5B407Vw&accounttraceid=2c30dda864ae4b909e4b38dae8d8a5b8fqxw#/server/region/cn-shanghai)，重置密码设置个人的**云服务登录密码**。
-
-
-
-# 登录云服务器
-
-+ <span style="font-size:20px">Shell 登录：</span>
+    <span style="font-size:20px">Shell 登录：</span>
 
     ```shell
     ssh root@101.132.100.245
     ```
 
-+ <span style="font-size:20px">SSH 工具登录：</span>
-
-    选择一款 SSH 工具登录远程服务器。常见的SSH工具有 putty、xshell、xftp、SecureCRT 等。
+    <span style="font-size:20px">SSH 工具登录：</span>
 
     1. 这里选择了 XShell、XFtp。
 
     2. Xshell 中首次创建会话：
 
-        其中名称自定义，主机填公网 IP，其他默认。
+        > 其中名称自定义，主机填公网 IP，其他默认。
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211103000016.png" alt="image-20211103000016704" style="zoom:50%;" />
+    3.  Xshell 中连接远程服务器：
 
-​			3. Xshell 中连接远程服务器：
+        > 首先出现 SSH 警告，点接受并保存。
 
-​				首先出现 SSH 警告，点接受并保存。然后输入系统用户名`root`和上一步中重置的密码。
+## 环境配置
 
-​				然后在上部栏选择**新建文件传输**：
+### 宝塔
 
-​			<img src="https://gitee.com/ethereal-bang/images/raw/master/20211103001131.png" alt="image-20211103001131433" style="zoom:50%;" />
+> **前提：**
+>
+> 1. 停止运行实例
+> 2. 更改操作系统，选择镜像市场，选择宝塔面板
 
-​			之后自动打开登录后的 Xftp。
+<span style="font-size:20px">Linux 面板：</span>
+
+1. 执行命令安装：
+
+    ```shell
+    yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh ed8484bec
+    ```
+
+2. 安装完成会返回面板地址，输入面板用户名、密码，绑定宝塔账号 后进入。
+
+    > bt default 返回面板初始用户名和密码
+
+> 进入 Linux 面板后就可以方便地管理服务器了，配置环境更加便捷无需进行后面的步骤。
 
 
 
-# 在云服务器上安装 Node.js、Express
+### 在云服务器上安装 Node.js、Express
 
 以下的操作都是在云服务器 CentOS 系统进行的。
 
@@ -68,7 +77,7 @@ IP 地址： `101.132.100.245`。
 
 
 
-## 下载 Node.js
+<span style="font-size:22px">下载 Node.js:</span>
 
 1. Node.js 官网中查找Linux对应的二进制安装包（`.xz`文件），复制链接地址：
 
@@ -104,9 +113,9 @@ IP 地址： `101.132.100.245`。
 
 
 
-## 配置 Node.js 环境变量
+<span style="font-size:22px">配置 Node.js 环境变量</span>
 
-不配置的话无法在全局任意位置使用node和npm指令。
+> 不配置的话无法在全局任意位置使用node和npm指令。
 
 1. 打开文本编辑器编辑`/etc/profile`：
 
@@ -147,7 +156,7 @@ IP 地址： `101.132.100.245`。
 
     
 
-## 安装 Express
+<span style="font-size:22px">安装 Express</span>
 
 1. 安装 express 框架：
 
@@ -237,11 +246,6 @@ IP 地址： `101.132.100.245`。
     把每个页面的响应文件存在对应页面文件夹，使其不相互影响。
 
 3. 引用静态文件：
-
-
-
-
-# GitHub Pages + Jekyll
 
 
 
