@@ -743,31 +743,33 @@ Trie是一种树状信息检索数据结构
 >
 > **动态规划**是由前一个状态推导出来的，而**贪心算法**是局部直接选最优的
 
-+ <span style="font-size:20px">步骤：</span>
+**步骤：**
 
-    1. **确定 dp 数组**(*dynamic programming table* )及下标含义
-    2. 确定**递推公式**（每一个状态由上一个状态推导）
-    3. dp **数组初始化**
-    4. 确定**遍历顺序**
+1. **确定 dp 数组**(*dynamic programming table* )及下标含义
+2. 确定**递推公式**（每一个状态由上一个状态推导）
+3. dp **数组初始化**
+4. 确定**遍历顺序**
 
-    > Eg——斐波拉契：
-    >
-    > ```js
-    > // 1.确定dp数组
-    > int[] db = new int[n + 1];
-    > // 2.确定递推公式——db[i]= db[i-1]+db[i-2]
-    > // 3.db初始化
-    > db[0] = 0;
-    > if (n > 0)
-    >   db[1] = 1;
-    > // 4.确定遍历顺序
-    > for (int i = 2; i <= n; i++) {
-    >   db[i] = db[i - 1] + db[i - 2];
-    > }
-    > return db[n];
-    > ```
+> Eg——斐波拉契：
+>
+> ```js
+> // 1.确定dp数组
+> int[] db = new int[n + 1];
+> // 2.确定递推公式——db[i]= db[i-1]+db[i-2]
+> // 3.db初始化
+> db[0] = 0;
+> if (n > 0)
+>   db[1] = 1;
+> // 4.确定遍历顺序
+> for (int i = 2; i <= n; i++) {
+>   db[i] = db[i - 1] + db[i - 2];
+> }
+> return db[n];
+> ```
 
-+ [70.爬楼梯 - 力扣（LeetCode）](https://leetcode-cn.com/problems/climbing-stairs/submissions/)
+**例题：**
+
+[70.爬楼梯 - 力扣（LeetCode）](https://leetcode-cn.com/problems/climbing-stairs/submissions/)
 
 
 
@@ -794,6 +796,57 @@ Trie是一种树状信息检索数据结构
 3. 返回最后一次覆盖答案为本次抽样结果
 
     > 最终每个样本概率为 1 / n
+
+
+
+## 前缀和
+
+### 前缀和 + 哈希表
+
+**步骤：**
+
+1. Map 维护各前缀和及其出现次数，pre 记录前缀和 [0,i]，res 记录满足 pre - key = k 的次数
+2. 遍历数组
+    1. 更新 pre
+    2. 存在 key = k-pre：res 累加该 pre 出现次数
+    3. 统计当前 pre 出现次数
+
+> **补充：**
+>
+> pre 的意义随题意变化，不一定为 [0, i] 的和
+
+**模板：**
+
+```java
+/* 560. */
+function subarraySum(nums: number[], k: number): number {
+    let preSum = 0, res = 0;
+    let map = new Map([[0, 1]]);
+    for (const n of nums) {
+      	// 1.
+        preSum += n;
+      	// 2.
+        if (map.has(preSum - k)) {  
+            res += map.get(preSum - k);
+        }
+      	// 3.
+        if (map.has(preSum)) {
+            map.set(preSum, map.get(preSum) + 1);
+        } else {
+            map.set(preSum, 1);
+        } 
+    }
+    return count;
+};
+```
+
+**例题：**
+
+[1.两数之和 - 力扣（LeetCode）](https://leetcode.cn/problems/two-sum/submissions/)——pre 理解为当前数值
+
+[560.和为k的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-sum-equals-k/)——pre 为 [0, i] 的和
+
+[[1248. 统计「优美子数组」- 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/submissions/)——pre 统计奇数出现次数
 
 
 

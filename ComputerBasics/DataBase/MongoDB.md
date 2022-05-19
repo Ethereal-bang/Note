@@ -37,6 +37,12 @@
 
 # Connection
 
++ <span style="font-size:22px">命令行启动：</span>
+
+    ```shell
+    mongo
+    ```
+
 + <span style="font-size:22px">连接字符串 URL 格式：</span>
 
     ```js
@@ -73,7 +79,67 @@
 
 + use <> ——连接到指定数据库
 
-    
+
+
+# Collection 集合
+
+
+
+# Authentication
+
+> MongoDB 的用户对应每个数据库操作权限，而管理员具有操作用户的权限
+
+<span style="font-size:20px">创建管理员：</span>
+
++ `use admin`
+
+1. 新建**管理员**账户：
+
+    ```shell
+    db.createUser({ user: "admin", pwd: "password", roles: [{ role: "userAdminAnyDatabase", db: "admin" }] })
+    ```
+
+    > **admin 用户**用于管理账号，不能进行关闭数据库等操作
+
+2. 新建 **root** 账户：
+
+    ```shell
+    db.createUser({user: "root",pwd: "password", roles: [ { role: "root", db: "admin" } ]})
+    ```
+
+3. 验证：
+
+    ```shell
+    db.auth('root', 'password');
+    ```
+
+    > 验证后才能执行创建其他用户的操作。
+
+<span style="font-size:20px">创建其他用户：</span>
+
+```shell
+use test
+db.createUser(
+  {
+    user: "myTester",
+    pwd:  passwordPrompt(),  # or cleartext password
+    roles: [ { role: "readWrite", db: "test" },
+             { role: "read", db: "reporting" } ]
+  }
+)
+```
+
+> **部分 Role：**
+>
+> Read：允许用户读取指定数据库
+> readWrite：允许用户读写指定数据库
+> readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限
+> readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限
+> userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限
+> dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。
+> root：只在admin数据库中可用。超级账号，超级权限
+
+
 
 # REF
 
@@ -85,6 +151,31 @@
 
 # DEBUG
 
+<span style="font-size:22px">MongoDB:</span>
+
++ <span style="font-size:20px">[***aborting after fassert() failure](https://stackoverflow.com/questions/34555603/mongodb-failing-to-start-aborting0-after-fassert-failure)</span>
+
+    Q_Desc：突然无法启动 Mongo，部分报错日志如上，启动时返回：
+
+    > ```
+    > about to fork child process, waiting until server is ready for connections.
+    > forked process: 5412
+    > ERROR: child process failed, exited with 14
+    > To see additional information in this output, start without the "--fork" option.
+    > ```
+
+    S：removing temporary file which didnt delete itself and its blocking normal operation
+
+    ```shell
+    sudo rm /tmp/mongodb-27017.sock
+    ```
+
 + <span style="font-size:20px">[MongoDB Compass 导出 .csv 数据在 excel 中文乱码：](https://baijiahao.baidu.com/s?id=1634287239598842140&wfr=spider&for=pc)</span>
 
     S：用记事本打开，另存为选择编码格式 ANSI。再在 Excel 中打开显示正常。
+
+<span style="font-size:22px">Authentication:</span>
+
++ <span style="font-size:20px">[MongoServerError: Authentication failed.](https://stackoverflow.com/a/55751766/16622827)</span>
+    + Q_Desc：MongoDB Compass 中能成功登录的 URL 串在 Node 中连接失败。
+    + R：混淆了管理员账户和用户账户权限

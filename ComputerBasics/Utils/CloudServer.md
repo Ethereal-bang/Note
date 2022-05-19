@@ -32,6 +32,8 @@
 
         > 首先出现 SSH 警告，点接受并保存。
 
+
+
 ## 环境配置
 
 ### 宝塔
@@ -213,7 +215,7 @@
 
     ESC，`:wq`保存并退出。
 
-4. 配置==实例安全组？==：
+4. 配置实例安全组：
 
     ![image-20211104134213161](https://gitee.com/ethereal-bang/images/raw/master/20211104134220.png)
 
@@ -277,6 +279,87 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 
 
+# 宝塔：前后端分离部署
+
+## 后端：发布 Node 项目
+
+> **入口：**Linux 面板 / 网站 / Node 项目 / 添加 Node 项目
+
+**添加项目:**
+
+![image-20220514111725307](https://gitee.com/ethereal-bang/images/raw/master/20220514111828.png)
+
+**添加子域名泛解析：**
+
+访问子域名时解析其指向同一 ip
+
+![image-20220515141515672](https://gitee.com/ethereal-bang/images/raw/master/20220515141546.png)
+
+**域名反向代理：**
+
+> 上一步填写了真实端口并添加了域名,点开配置文件会发现已经做好了域名反代:
+>
+> ```
+> server
+> {
+>     listen 80;
+>     server_name dangServer.giantBear.top;
+> 
+>     location / {
+>         proxy_pass http://127.0.0.1:3001;
+> ```
+
+
+
+# 数据库
+
+> 项目内**密码简易加密**方式：
+>
+> 用户名、密码放在根目录下 config.json，require 使用。将文件加入 .gitignore。
+
+## MongoDB
+
+1. Linux 面板**下载 MongoDB**
+
+    > 在数据库菜单下新建数据库并不能选择 Mongodb，而软件对应的设置也少得可怜。于是用 SSH 方式设置。
+
+2. SSH **进入 MongoDB 服务：**，添加超管账户
+
+3. **修改配置文件**，启用密码登录：
+
+    ```shell
+    net:
+      port: 27017
+    #  bindIp: 0.0.0.0
+        
+    security:
+    #  authorization: enabled
+    ```
+
+4. **远程访问：**
+
+    ```
+    mongodb://<user>:<pwd>@host[:port]
+    ```
+
+5. **项目访问：**
+
+    ```shell
+    mongodb://<user>:<pwd>@host[:port]/<database>
+    ```
+
+    
+
+# FTP
+
+> 安装软件：Pure-Ftpd
+
++ FTP 地址：ftp://101.132.100.245/[:21]
+
+1. 添加 FTP，设置登入的用户名、密码，能查看的文件夹
+
+
+
 # REF
 
 [阿里云ECS服务器前后端项目部署 - 掘金](https://juejin.cn/post/6908323868360835085)
@@ -285,15 +368,20 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 [阿里云ECS服务器建站指南（进阶篇）：发布你的个人主页 - 知乎](https://zhuanlan.zhihu.com/p/48343027)
 
-[个人博客第5篇安装node.js和Hexo - 知乎](https://zhuanlan.zhihu.com/p/105715224)
-
 [Quickstart fro GitHub Pages - GitHub Docs](https://docs.github.com/cn/pages/quickstart)
 
-+ GitHub Pages + Jekyll：
-
-    [搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
-    
 + 部署前端：
 
     [阿里云ECS服务器前后端项目部署 - 掘金](https://juejin.cn/post/6908323868360835085#heading-15)
 
+
+
+# DEBUG
+
++ <span style="font-size:20px">[打开FTP服务器上的文件夹时发生错误。请检查是否有权限访问该文件夹](https://blog.51cto.com/u_15127679/4363643)</span>
+
+    Q_Desc：资源文件夹访问时报错如上。
+
+    S：Internet 设置中取消勾选 “使用被动FTP(用于防火墙和DSL调制解调器的兼容)”
+
+    ​	
