@@ -358,6 +358,14 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 1. 添加 FTP，设置登入的用户名、密码，能查看的文件夹
 
+2. 访问 FTP
+
+    + Xftp：注意协议为 FTP（一般远程传输文件时使用的是 SFTP）
+
+        <img src="https://gitee.com/ethereal-bang/images/raw/master/20220520213429.png" alt="连接属性设置" />
+
+    + 资源管理器
+
 
 
 # REF
