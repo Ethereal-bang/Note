@@ -229,15 +229,15 @@ KMP 主要用在字符串匹配
 
 + <span style="font-size:20px">二叉树的递归遍历：</span>
 
-    ```java
-    // 前序
-      if (root != null) { // 以防二叉树为空
-        res.add(root.val);	// b只需调整这句话的位置
-        if (root.left != null)
-          res.addAll(preorderTraversal(root.left));
-        if (root.right != null)
-          res.addAll(preorderTraversal(root.right));
-      }
+    以中序遍历为例
+    
+    ```js
+    if (!root) return;
+    // 1.遍历左子树
+    order(root.left)
+    // 2.对root操作
+    // 3.遍历右子树
+    order(root.right)
     ```
 
 + <span style="font-size:20px">二叉树的迭代遍历：</span>
@@ -846,7 +846,7 @@ function subarraySum(nums: number[], k: number): number {
 
 [560.和为k的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-sum-equals-k/)——pre 为 [0, i] 的和
 
-[[1248. 统计「优美子数组」- 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/submissions/)——pre 统计奇数出现次数
+[1248. 统计「优美子数组」- 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/submissions/)——pre 统计奇数出现次数
 
 
 

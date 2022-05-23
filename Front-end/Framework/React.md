@@ -83,19 +83,14 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 ### React 脚手架创建
 
-1. 全局安装：`npm i create-react-app -g`。
+1. 全局安装：`npm i create-react-app`。（官方建议不全局安装以此获取最新版本）
 
-2. `create-react-app react_staging`（*其中 `react_staging` 是想取的名字——不能含中文*）
+2. `create-react-app my-appn start`
 
-3. 最好[安装 Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)与 react 配合使用
-
-4. 在创建的文件夹路径下`yarn start`，或在 VS Code 终端（ ctrl + \` ）输入 yarn start，浏览器弹出
-
-    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210528190553720.png" alt="image-20210528190553720" style="zoom:33%;" />
 
 + <span style='font-size:20px'>TypeScript 配置</span>
 
-    大体步骤同上，命令行内输入`npx create-react-app my-app-ts --template typescript`
+    第二步改为 `npx create-react-app my-app --template typescript`
 
 
 
@@ -797,19 +792,6 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 + <span style="font-size:20px">生命周期图</span>
 
 
-    旧 React：
-    
-    组件渲染有三个路线。
-    
-    ![image-20210520131203496](https://i.loli.net/2021/05/20/8GDFzEgIUrSfy9q.png)
-    
-    新 React：
-    
-    将废弃`componentWillMount`、`componentWillRecieveProps`、`componentWillUpdate`三个钩子。
-    
-    新增了`getDerivedStateFromProps`、`getSnapshotBeforeUpdate`。
-    
-    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210524124359645.png" alt="image-20210524124359645" style="zoom:55%;" />
 
 + <span style="font-size:20px">关于生命周期的API</span>
 
@@ -1486,8 +1468,19 @@ function App() {
 > **Notes:**
 >
 > + Route 组件内的写法有变动`element={<HomePage />}`，以前是`component={HomePage}`
+>
 > + BrowserRouter 内还要包裹一层 Routes 组件
-> + 没有 exact 属性，现在默认精准匹配路径，与 Route 顺序无关
+>
+> + 没有 exact 属性，现在默认精准匹配路径
+>
+> + Route 顺序在一下情况起作用：
+>
+>     ```jsx
+>     <Route path={"/"} element={<h1>默认</h1>} />
+>     <Route path={"*"} element={<h1>404</h1>} />
+>     ```
+
+
 
 ## 路由跳转
 
@@ -1733,6 +1726,16 @@ $npm i axios -S
 
 
 
+## 导出 Excel
+
+```shell
+$yarn add exceljs
+```
+
+
+
+
+
 # REF
 
 + 总：
@@ -1772,7 +1775,7 @@ $npm i axios -S
 
     + S_Desc：改为函数式更新
 
-+ <span style="font-size:20px">[A component is changing an uncontrolled input to be controlled](https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro)</span>
++ <span style="font-size:18px">[A component is changing an uncontrolled input to be controlled](https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro)</span>
 
     + Q_Desc：
 
@@ -1787,3 +1790,16 @@ $npm i axios -S
     + R:value 值从 undefined 变为其余类型
 
     + S：给 state 设置初始值（让该字段不为 undefined）
+
++ <span style="font-size:18px">[Failed to parse source map: 'webpack://antd/./components/config-provider/style/index.less' URL is not supported](https://stackoverflow.com/questions/71500112/antd-source-map-not-supported-in-react)</span>
+
+    Q_Desc：`react-script` 升级到 `5.0.0` 之后出现此问题
+
+    S：
+
+    ```diff
+    - import '~antd/dist/antd.css';
+    + import '~antd/dist/antd.less';
+    ```
+
+    

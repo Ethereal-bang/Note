@@ -50,13 +50,13 @@
 ### Advance
 + [请求.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Request.md)
 
-+ [同步与异步.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Async.md)
++ [事件循环.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/EventLoop.md)
 
 + [This与闭包.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/This.md)
 
 + [设计模式.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/DesignPatterns.md)
 
-+ [Currying.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Currying.md)
++ [柯里化.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Currying.md)
 
 + [函数防抖与节流.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/DebounceAndThrottle.md)
 
@@ -64,7 +64,7 @@
 
 + [WebSocket.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/WebSocket.md)
 
-+ [Browser.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Browser.md)
++ [浏览器.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Advance/Browser.md)
 
 ### Utils
 + [Webpack.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Webpack.md)
