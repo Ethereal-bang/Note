@@ -102,9 +102,45 @@ JS 之所以有`this`的设计取决于内存的数据结构
 
 
 
-# this 与 function
+# 函数上下文的 This
 
-函数执行时，[`this` 关键字](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)并不会指向正在运行的函数本身，而是指向调用该函数的对象。所以，如果你想在函数内部获取函数自身的引用，只能使用函数名或者使用[arguments.callee](https://developer.mozilla.org/zh-cn/docs/JavaScript/Reference/Functions_and_function_scope/arguments/callee)属性([严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)下不可用)，如果该函数是一个匿名函数,则你只能使用后者。
+函数内部，this 值**取决于函数被调用**的方式
+
+1. **全局调用：**
+
+    ```js
+    function f1() {
+        console.log(this === globalThis)	// true
+    }
+    f1()
+    ```
+
+    > this 的值不是由该调用设置的，所以 this 默认指向全局对象。即 `window.f1()`
+
+    ```js
+    function f1() {
+    		"use strict"    
+      	console.log(this === undefined)
+    }
+    f1()
+    ```
+
+    > 严格模式下进入执行环境未设置 this 值，undefined
+
+2. **作为方法调用：**
+
+    ```js
+    let obj = {
+      show: function () {
+        console.log(this.age)	// 1
+      }
+      say: () => {
+        console.log(this.age)	// undefined
+      }
+    }
+    obj.age = 1;
+    ```
+
 
 
 
@@ -116,7 +152,47 @@ JS 之所以有`this`的设计取决于内存的数据结构
 
 ## this 与箭头函数
 
-如定义为箭头函数，this 值与定义时环境无关。
+箭头函数没有自己的 this，只会**从自己的作用域链的上一层继承 this**
+
+> 简单理解为 和定义时最近一层非箭头函数所在环境的 this 保持一致
+>
+> ```js
+> let obj = {
+>     name: "Jim",
+>     say: function () {
+>         const arrow = () => console.log(this)   // Jim
+>         arrow()
+>     }
+> }
+> ```
+
+
+
+1. **非方法函数：**
+
+    ```js
+    function Person(){
+      this.age = 0;
+    
+      setInterval(() => {
+        this.age++; // this正确地指向 p 实例
+      }, 1000);
+    }
+    ```
+
+    > 上例如果用普通函数，this 指向的是 window
+
+2. **箭头函数作方法:**
+
+    ```js
+    this.some = 1;
+    const obj = {
+        a: () => {
+            console.log(this)	// window
+        }
+    }
+    obj.a()  // 全局this {a: 1}
+    ```
 
 
 
@@ -173,7 +249,7 @@ class Rectangle {
 
 
 
-# 案例
+# Eg
 
 + 闭包与 for 循环
 
@@ -198,3 +274,6 @@ class Rectangle {
 
 [JavaScript 的 this 原理 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2018/06/javascript-this.html)
 
+[箭头函数 - JavaScript|MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
+[JS中的箭头函数与this](https://juejin.cn/post/6844903573428371464)

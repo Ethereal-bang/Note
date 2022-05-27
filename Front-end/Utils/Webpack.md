@@ -106,7 +106,7 @@ Webpack 有以下**核心概念**：
 
 <span style="font-size:20px">在项目里使用 Webpack：</span>
 
-最好将 Webpack 本身也当作一个依赖放到项目里，这样就可以选择一个本地的 Webpack 版本而不用使用全局的了	==？==
+最好将 Webpack 本身也当作一个依赖放到项目里，这样就可以选择一个本地的 Webpack 版本而不用使用全局的了
 
 1. 添加配置文件`package.json`：
 
