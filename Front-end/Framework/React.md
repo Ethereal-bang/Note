@@ -6,84 +6,27 @@
 
 + <span style="font-size:20px">学习用环境配置</span>
 
-    不适用于实际生产环境，学习足够
-
-    1. 安装较新版本 Node.js
-
-    2. 创建一个新的项目
-
-        命令行依次输入：
-
-        ``` 
-        npx create-react-app my-app
-        cd my-app
-        npm start
-        ```
-
-        结果是在  C 盘 HP 文件夹内创建了一个 my-app 文件夹。
-
-    3. 浏览器中弹出<img src="https://i.loli.net/2021/04/25/eFEmUskDdQpwSLR.png" alt="image-20210425110124810" style="zoom:23%;" />
-
-    4. 在该文件夹中找到 src.js 或 App.js 文件，将代码修改为
-
-        ``` jsx
-        import React, { Component } from 'react';
-        import logo from './logo.svg';
-        import './App.css';
-         
-        class App extends Component {
-          render() {
-            return (
-              <div className="App">
-                <div className="App-header">
-                  <img src={logo} className="App-logo" alt="logo" />
-                </div>
-                <p className="App-intro">
-                  你可以在 <code>src/App.js</code> 文件中修改。
-                </p>
-              </div>
-            );
-          }
-        }
-         
-        export default App;
-        ```
-
-    5. 该网站`http://localhost:3000/`刷新
-
-    6. 浏览器中添加扩展程序`React Developer Tools`到 Chrome
-
     7. 在`<head></head>`标签内插入以下 react 库：
 
         ``` html
         <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-        <script type="text/babel">
         ```
-    
+        
     8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
-
 ## React 脚手架
-
-React 脚手架快速创建一个基于 xxx 库的模板项目
-
-+ 包含了所有需要的配置（语法检查、jsx 编译、devServer...）
-+ 下载好了所有相关的依赖
-+ 可直接运行一个简单效果
 
 React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 项目的整体技术架构为：react + webpack + es6 +eslint ...
 
-使用脚手架开发项目的特点：模块化、组件化、工程化
-
 
 
 ### React 脚手架创建
 
-1. 全局安装：`npm i create-react-app`。（官方建议不全局安装以此获取最新版本）
+1. `npm i create-react-app`。（官方建议不全局安装以此获取最新版本）
 
 2. `create-react-app my-appn start`
 
@@ -94,153 +37,19 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 
 
-+ <span style="font-size:20px">react 脚手架项目结构</span>
-+ public --- 静态资源文件夹：
-
-    + favicon.icon ------ 网站页签图标
-        + **index.html-------主页面**
-
-    + logo192.png ------- logo图
-
-    + logo512.png ------- logo图
-
-    + manifest.json ----- 应用加壳的配置文件
-
-    + robots.txt -------- 爬虫协议文件
-
-+ src --- 源码文件夹：
-
-    + App.css
-        + **App.js --------- App组件**
-        + App.test.js
-        + index.css
-        + **index.js -------- 入口文件**
-        + logo.svg ------- logo图
-        + reportWebVitals.js --- 页面性能分析文件(需要web-vitals库的支持)
-        + setupTests.js ---- 组件单元测试的文件(需要jest-dom库的支持)
-
-
-
 # 元素渲染
 ## JSX
 
 + <span style="font-size:20px"> {} 嵌入表达式</span>
-
-    ``` JSX
-    const name = 'Josh';
-    const element = <h1>Hello, {name}</h1>;
-    ```
-    
-    在 JSX 语法中，可以在`{}`内放置任何有效的 JS 表达式，同时 **JSX 本身也是一个表达式**
-
 + <span style="font-size:20px">"" 写入字面量</span>
-
-    可以通过**使用`" "`将属性值指定为字符串字面量**
-    
-
-    ``` jsx
-    const element = <h2 className="title" id={myId.toLowerCase()} />
-    ```
++ <span style="font-size:20px">内联样式 {{}} </span>
 
 
 > 注意：**小驼峰命名**
 >
 > 因为 JSX 语法上更接近 JS 而不是 HTML，所以 React DOM 使用“小驼峰命名”来定义属性的名称，而不使用 HTML 属性名称的命名约定
 >
-> 例如，JSX 里的`class`变成**`className`**，而`tabindex`变成`tabIndex`。
-
-+ <span style="font-size:20px">内联样式 {{}} </span>
-
-    内联样式，要用 **style={{key: value, key: value}}** 的形式写
-
-    ```jsx
-    const VDOM = (
-      <h2 className="title">
-      	<span style={{color:'white', fontSize:'29px'}}>{myDate.toLowerCase()}</span>  
-      </h2> 		
-    )   
-    ```
-
-+ <span style="font-size:20px">使用 JSX 指定子元素</span>
-
-  
-    JSX 标签里能够包含很多子元素（*嵌套标签*）：
-    
-    ``` jsx
-    const element = (
-    	<div>
-        	<h1>Hello</h1>
-            <h2>Good to see you.</h2>
-        </div>
-    );
-    ```
-    
-    简洁写法：若一个标签里面没有内容，可以使用**`/>`闭合空标签**
-    
-    ``` jsx
-    const element = <img src={user.avatarUrl} />
-    ```
-
-+ <span style="font-size:20px">JSX 表示对象</span>
-
-    Babel 会把 JSX 译为`React.createElement()`函数调用，
-
-    例如创建以下虚拟 DOM 时：
-    
-    ``` jsx
-    const element = (
-    	<h1 className="greeting">
-            Hello, world
-        </h1>
-    );
-    ```
-
-    `React.createElement()`实际上创建了一个这样的对象：
-    
-    ``` jsx
-    // 这是简化后的结构
-    const element = {
-        type: 'h1',
-        props: {
-            className: 'greeting',
-            children: 'Hello, world'
-        }
-    };
-    ```
-    
-    这些对象被称为”React 元素“，描述了希望在屏幕上看到的内容。React 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。
-
-+ <span style="font-size:20px">根标签只能有一个</span>
-
-+ <span style="font-size:20px">标签首字母大小写区分</span>
-
-    **小写**字母开头，将该标签转为 HTML 中同名元素；若无，报错。
-
-    **大写**字母开头，react 渲染对应组件；若没有定义该组件，报错。
-
-+ <span style="font-size:20px">创建虚拟 DOM</span>
-
-  
-    元素是构成 React 应用的最小砖块，就是虚拟 DOM。
-    
-    元素描述了你在屏幕上想看到的内容
-    
-+ <span style="font-size:20px">将元素渲染为 DOM</span>
-
-    将元素渲染为 DOM，即将虚拟 DOM 渲染到页面
-
-    准备好一个根 DOM 节点`<div>`——该节点内所有内容都将由 React DOM 管理：
-
-    ``` jsx
-    <div id="root"></div>  
-    ```
-
-    想要将一个 React 元素渲染到根 DOM 节点中，只需要把它们一起传入**`ReactDom.render()`**：
-
-    ``` jsx
-    const element = <h1>Hello</h1>;
-    ReactDOM.render(element, document.getElementById('root'));
-    ```
+> 例如，JSX 里的`class`变成**`className`**
 
 
 
@@ -570,6 +379,24 @@ return (
       const {name, age, sex} = props;
     ```
     
++ <span style="font-size:20px">children prop：</span>
+
+    ```tsx
+    interface Props {
+        children: ReactNode,
+    }
+    
+    const MainLayout = (prop: Props) => {
+    	return <div>{props.children}</div>
+    }
+    
+    const Home = () => {
+      return <MainLayout>
+      	<h2>这就是传给Layout的children</h2>
+      </MainLayout>
+    }
+    ```
+
     
 
 ### refs
@@ -1003,10 +830,9 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
 
     > 相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
     >
-    > 但是钩子灵活性太大，不理解容易写出混乱且无法维护的代码。而类有很多强制的语法约束不容易搞乱。
-
     
 
+    
 + **类和函数的差异**：
   
     类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
@@ -1017,24 +843,7 @@ Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkr
     
 + **副效应**
   
-    函数式编程把那些根数据计算无关的操作都称为副效应（*side effect*）。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称为不纯的函数
-    
     纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
-    
-    
-    
-+ **钩子的作用**
-  
-    钩子就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应用来返回组件的 HTML 代码，所有其他的操作（*副效应*）都应通过钩子引入。
-    
-    由于副效应非常多，所以钩子有许多种。React 为常见的操作（*副效应*）都提供了专用的钩子。——从 "react" 引用
-    
-    + **`useState()`**：保存状态
-        + **`useContext()`***：保存上下文
-        + **`useRef()`**：保存引用
-        + ...
-    
-    上面这些钩子都是引入某种特定的副效应，而 **`useEffect()`** 是通用的副效应钩子，找不到对应的钩子时就可以用它。
 
 
 
@@ -1165,7 +974,7 @@ function Example() {
           setCount(c => c + 1); // ✅ 在这不依赖于外部的 `count` 变量
         }, 1000);
         return () => clearInterval(id);
-      }, []); // ✅ 我们的 effect 不使用组件作用域中的任何变量
+      }, []); // ✅ effect 不使用组件作用域中的任何变量
       return <h1>{count}</h1>;
     }
     ```
@@ -1174,9 +983,29 @@ function Example() {
 
 
 
-## useContext()——共享状态
+## useContext()
 
-如果需要在组件间共享状态，可以使用`useContext()`
+组件树间共享数据的方法
+
+```jsx
+const ThemeContext = React.createContext(theme);
+
+function App() {
+  return (
+  	<ThemeContext.Provider value={themes.dark}>
+      <div>
+      	<Button />
+      </div>
+    </ThemeContext.Provider>
+	)}
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
+```
+
+调用了 useContext 的组件总会在 context 值变化时重新渲染。如果重渲染组件的开销较大，可通过使用 memoization 来优化。
 
 
 
@@ -1186,13 +1015,48 @@ function Example() {
 
 
 
-## useRef
+## useRef——保存引用
+
+使用 useRef() 返回 ref 对象，其 .current 属性初始化参数，.current 可重新赋值，但每次返回的都是同一值（类似闭包的效果）
+
+```js
+const refContainer = useRef(initVal);
+```
+
+每次渲染时返回的都是同一 ref 对象
+
+> **Eg**——保存 state 快照：
+>
+> ```tsx
+> const [cnt, setCnt] = useState(0);
+> const cntRef = useRef(cnt);
+> 
+> const click = () => {
+>     setCnt(cnt => cnt + 1)
+>     console.log(cntRef)	// 始终为0
+> }
+> ```
+
+> **Eg**——获取上一 state 状态：
+>
+> ```tsx
+> const [cnt, setCnt] = useState(0);
+> const cntRef = useRef(cnt);
+> 
+> const click = () => {
+>     setCnt(cnt => cnt + 1)
+>  		cntRef.current = cnt;	// 虽然上一步更改了cnt但此时得到的还是更改前值
+>   	console.log(cntRef)	// 0,1,...
+> }
+> ```
 
 
 
 ## useCallback
 
-+ **对比 useEffect()** ：
+传入 useCallback 返回该回调函数的 memoized 版本——仅在某个依赖项改变时才会更新
+
+**用途：**避免非必要渲染
 
 
 

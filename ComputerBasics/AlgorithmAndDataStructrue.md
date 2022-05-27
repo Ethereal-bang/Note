@@ -773,6 +773,80 @@ Trie是一种树状信息检索数据结构
 
 
 
+## 树、图 遍历
+
+### 层序遍历
+
+**思路：**
+
+stack 存储每一层节点，遍历其中每一节点加入其子节点
+
+**模板：**
+
+```js
+while (stack.length >= 1) {
+  let lastSize = stack.length; 
+  for (let i = 1; i <= lastSize; i++) {	// i仅为了控制遍历节点个数
+ 		// 取出节点并加入其children
+    let node = stack.shift();
+    if (node.left) {
+      stack.push(node.left);
+    } 
+    if (node.right) {
+      stack.push(node.right);
+    }
+  }
+}
+```
+
+## DFS
+
+<span style="font-size:20px">图:</span>
+
+**图解：**
+
+<img src="https://gitee.com/ethereal-bang/images/raw/master/20220527105721.png" alt="图解">
+
+**模板：**
+
+```ts
+function maxAreaOfIsland(grid: number[][]): number {
+    let m = grid.length, n = grid[0].length;
+    // 遍历每一块，遇到土地dfs留最大面积
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (grid[i][j] === 1) { // dfs开始遍历土地
+                // ...操作
+              	dfs(i, j);
+            }
+        }
+    }
+    return max;
+
+    function dfs(x: number, y: number): void {
+        // 超出边界或遇到海洋返回0
+        if (x >= m || x < 0 || y >= n || y < 0 || grid[x][y] !== 1) return;
+        // ...操作
+        // 遍历过的土地置为0避免重复遍历
+        grid[x][y] = 0;
+        // 从上下左右四个方向遍历
+        dfs(x + 1, y);
+        dfs(x - 1, y);
+        dfs(x, y + 1);
+        dfs(x, y - 1);
+        return num;
+    }
+};
+```
+
+**例题：**
+
+[200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)
+
+[695. 岛屿的最大面积](https://leetcode.cn/problems/max-area-of-island/)
+
+
+
 ## 随机返回索引
 
 从所有样本中抽取若干个，要求每个样本被抽到的概率相等。

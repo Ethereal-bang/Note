@@ -127,6 +127,30 @@ function sum(a, b) {
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607578347323-24899f12-12a2-403d-9eed-f534b58cf05e.png)
 
+### boolean
+
++ 转换真值：
+
+    ```js
+    if (0)	// false
+      
+    if ([])	// true
+    if ({})
+      
+    if ("") // false
+    ```
+
+    > **Sum:**
+    >
+    > + 0、空字符串 为 flase，其余为 true
+    >
+    > + 对象都是 true，判断其为空可如下：
+    >
+    >     ```js
+    >     if (arr.length) {
+    >     if (Object.keys(obj).length) {
+    >     ```
+
 
 
 ## 函数
