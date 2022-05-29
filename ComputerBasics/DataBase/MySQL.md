@@ -579,7 +579,39 @@ DROP VIEW `View_Choosebb`;
 
 
 
-# 关于中文乱码
+# 数据库设计
+
+## 多表关系设计
+
+<span style="font-size:20px">一对多关系：</span>
+
+> 最常见的关系，例如班级-学生、客户-订单
+
+**建表原则：** 在从表（多方）创建一个字段， 字段作为外键指向主表（一方）的主键
+
+
+
+<span style="font-size:20px">多对多关系：</span>
+
+**建表原则：** 创建中间关系表，至少有两个字段——分别作为外键指向各自一方的主键
+
+![MySQL：多表关系设计（一对多 / 多对多 / 一对一）_Back end_02](https://s7.51cto.com/images/blog/202107/16/e3d1940e0eafdbeddd4c2cfeb028f196.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=)
+
+
+
+<span style="font-size:20px">一对一关系：</span>
+
+> 实际开发中应用不多，因为一对一可以创建成一张表
+
+**建表原则：**主表的 PRIMARY KEY 和从表的 Unique 外键，形成主外键关系
+
+![MySQL：多表关系设计（一对多 / 多对多 / 一对一）_建表_03](https://s7.51cto.com/images/blog/202107/16/7c65d3e864d52fbd20e61c36d3eb6056.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=)
+
+
+
+# Others
+
+## 关于中文乱码
 
 + <span style="font-size:20px">查看字符集设置情况：</span>
 
@@ -666,7 +698,11 @@ DROP VIEW `View_Choosebb`;
 
     [sql语句like的用法 有些正则表达式可以通过like实现-CSDN](https://blog.csdn.net/shadowyelling/article/details/7913126)
 
-+ 关于中文乱码：
++ 数据库设计：
+
+    [MySQL：多表关系设计（一对多 / 多对多 / 一对一）](https://blog.51cto.com/u_15127650/3351867)
+    
++ Others：
 
     [MySQL字符集 GBK/GB2312/UTF8区别 解决 MYSQL中文乱码问题以及error 1406:data too long for column 'name' at row 1](https://blog.csdn.net/zsm653983/article/details/7970179)
 

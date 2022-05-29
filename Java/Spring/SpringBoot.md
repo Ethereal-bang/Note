@@ -14,7 +14,7 @@
 
 1. <img src="https://gitee.com/ethereal-bang/images/raw/master/20220222140342.png" alt="image-20220222140335022" style="zoom:53%;" />
 
-2. 这里如果勾上 Developer Tools 的 “Spring Boot DevTools” 则可热部署
+2. 勾选 Spring Web （这里如果勾上 Developer Tools 的 “Spring Boot DevTools” 则可热部署）
 
     <img src="https://gitee.com/ethereal-bang/images/raw/master/20220222140434.png" alt="image-20220222140434501" style="zoom:33%;" />
 
@@ -164,13 +164,26 @@ arr: [cat,dog]
 
     ![image-20220227102145301](https://gitee.com/ethereal-bang/images/raw/master/20220227102152.png)
 
-2. **导入依赖：**
+2. **导入持久层相关依赖：**
 
     ```xml
     <dependency>
-        <groupId>org.mybatis.spring.boot</groupId>
-        <artifactId>mybatis-spring-boot-starter</artifactId>
-        <version>2.1.1</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>2.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
     ```
 
@@ -206,7 +219,7 @@ arr: [cat,dog]
     }
     ```
 
-5. **Maven 资源过滤：**放哪里==？==
+5. ==**Maven 资源过滤：**放哪里？==
 
     ```xml
     <resources>
@@ -331,11 +344,97 @@ arr: [cat,dog]
 
 
 
+## 逆向工程
+
+> 分析数据库中数据表，自动生成 JavaBean（与数据库表对应的实体类）、dao 接口（数据访问层接口，定义了访问数据的方法）、SQLMap (sql 语句映射文件，与dao层接口类一一对应)
+
+1. **配置 plugin**——逆向工程插件
+
+    ```xml
+    <!-- 逆向工程的插件 -->
+    <plugin>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-maven-plugin</artifactId>
+      <version>1.3.2</version>
+      <configuration>
+        <verbose>true</verbose>
+        <overwrite>true</overwrite>
+        <!--定义配置文件，与下文位置一致-->
+        <configurationFile>
+          ${basedir}/src/main/resources/mybatis-generator.xml
+        </configurationFile>
+      </configuration>
+    </plugin>
+    ```
+
+2. **MyBatis-Generator 配置文件**——xml
+
+    Demo：
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!-- MyBatis-Generator 相关配置 -->
+    <!DOCTYPE generatorConfiguration
+            PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+            "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    
+    <generatorConfiguration>
+        <!--指定连接数据库的 JDBC 驱动包的所在位置——本机的完整路径-->
+        <classPathEntry location="E:\Java\JDBC\mysql-connector-java-8.0.29.jar" />
+        <context id="mysqlContext" targetRuntime="mybatis3" defaultModelType="flat">
+            <commentGenerator>
+                <property name="suppressDate" value="true"/>
+                <property name="suppressAllComments" value="true"/>
+            </commentGenerator>
+            <!--配置数据库连接信息-->
+            <jdbcConnection
+                    driverClass="com.mysql.cj.jdbc.Driver"
+                    connectionURL="jdbc:mysql://localhost:3306/forum?serverTimezone=UTC"
+                    userId="root"
+                    password="theday1012"
+            >
+                <property name="nullCatalogMeansCurrent" value="true" />
+            </jdbcConnection>
+            <!--配置实体pojo类-->
+            <javaModelGenerator
+                    targetPackage="com.bei.forumserver.pojo"
+                    targetProject="src/main/java"
+            >
+                <property name="constructorBase" value="true"/>
+            </javaModelGenerator>
+            <!--mapper.xml-->
+            <sqlMapGenerator
+                    targetPackage="mybatis"
+                    targetProject="src/main/resources"
+            />
+            <!--mapper类-->
+            <javaClientGenerator
+                    type="MIXEDMAPPER"
+                    targetPackage="com.bei.forumserver.mapper"
+                    targetProject="src/main/java"
+            />
+            <!--要生成的表-->
+            <table
+                    tableName="%"
+            />
+        </context>
+    </generatorConfiguration>
+    ```
+
+    > **Note:**
+    >
+    > + `classPathEntry` 的 jar 包必须与项目依赖版本相同
+    > + [`<property name="nullCatalogMeansCurrent" value="true" />`——只生成当前数据库下的表](https://blog.csdn.net/q258523454/article/details/82292045)
+
+
+
 # REF
 
-+ 整合 MyBatis：
+[SpringBoot整合MyBatis---一篇就够了 - 知乎](https://zhuanlan.zhihu.com/p/143798465)
 
-    [SpringBoot整合MyBatis---一篇就够了 - 知乎](https://zhuanlan.zhihu.com/p/143798465)
+[Springboot 整合Mybatis 逆向工程（详解版）](https://segmentfault.com/a/1190000020782343)
+
+[Mybatis代码生成器Mybatis-Generator使用详解 ](https://www.cnblogs.com/throwable/p/12046848.html)
 
 
 
@@ -432,7 +531,18 @@ arr: [cat,dog]
 
 
 
-## 项目启动
+## 配置
+
++ <span style="font-size:20px">[com.mysql.cj.jdbc.Driver 报红](https://blog.csdn.net/qq_41999034/article/details/104299691)：</span>
+
+    若外部库中没有下载 mysql-connector-java，在 pom.xml 文件中引入以下依赖：
+
+    ```xml
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    ```
 
 + dangServer<span style="font-size:20px">[Application: 无法检索应用程序 JMX 服务 URL：](https://youtrack.jetbrains.com/issue/IDEA-204797)</span>
 
