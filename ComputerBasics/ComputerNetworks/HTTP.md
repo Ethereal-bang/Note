@@ -141,6 +141,20 @@ HTTP1.X 版本的缺陷概括来说是：线程阻塞，在同一时间，同一
 
 
 
+## Session
+
++ 存储到**服务器端**
++ Session 中可以保存**任意类型数据**
++ 为防止内存溢出，服务器会把长时间内没有活跃的Session从内存删除。这个时间就是 Session 的**有效时间**。超过了超时时间没访问过服务器，Session就自动失效——默认时间 30 min
+
+<span style="font-size:20px">原理：</span>
+
+1. **客户端第一次访问服务器**，请求中不携带任何标识，所以此时<span style="color:orange">服务器</span>无法找到与之对应的 session，因此<span style="color:orange">新建 session 对象</span>
+2. **服务器进行响应时**，<span style="color:orange">服务器将 session 标识</span>放到响应头的 Set-Cookie中，以 key-value 的形式<span style="color:orange">返回给客户端</span>，例： `JSESSIONID=${val}`。其中 `val` 对应该客户端创建的 session 的 ID
+3. **客户端再次访问服务器**，客户端将此 key-value <span style="color:orange">放到 cookie 中一并请求服务器</span>，服务器就根据此 ID 寻找对应 session 对象
+
+
+
 ## JWT
 
 JWT——JSON Web Token，代替传统 session 认证的解决方案
@@ -274,4 +288,5 @@ JWT——JSON Web Token，代替传统 session 认证的解决方案
     [node笔记：node express 下 jsonwebtoken+express-jwt实现token登录验证两种方式](https://blog.csdn.net/weixin_45295262/article/details/111828505)
 
     [前后端分离之JWT（JSON Web Token）的使用 - SegmentFault](https://segmentfault.com/a/1190000010444825)
-
+    
+    [HttpSession详解 - myseries - 博客园](https://www.cnblogs.com/myseries/p/11588267.html)

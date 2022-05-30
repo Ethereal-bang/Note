@@ -219,7 +219,7 @@ arr: [cat,dog]
     }
     ```
 
-5. ==**Maven 资源过滤：**放哪里？==
+5. ==Maven 资源过滤：什么用?==
 
     ```xml
     <resources>
@@ -231,6 +231,7 @@ arr: [cat,dog]
             <filtering>true</filtering>
         </resource>
     </resources>
+    </build>
     ```
 
 <hr>
@@ -253,8 +254,7 @@ arr: [cat,dog]
 6. **创建接口类：**—— .mapper / .dao
 
     ```java
-    //@Mapper : 表示一个 MyBatis 的 Mapper
-    @Mapper
+    @Mapper//表示一个 MyBatis 的 Mapper
     @Repository
     public interface UserMapper {
       	int isExists(String username);
@@ -426,15 +426,120 @@ arr: [cat,dog]
     > + `classPathEntry` 的 jar 包必须与项目依赖版本相同
     > + [`<property name="nullCatalogMeansCurrent" value="true" />`——只生成当前数据库下的表](https://blog.csdn.net/q258523454/article/details/82292045)
 
+3. Eg——Example 类的使用：
 
+    ```java
+    public boolean isExist(String email) {
+      UsersExample example = new UsersExample();
+      UsersExample.Criteria criteria = example.createCriteria();
+      criteria.andEmailEqualTo(email);
+      return usersMapper.countByExample(example) == 1;
+    }
+    ```
+
+    > `createCriteria()` 来增加条件
+
+
+
+# 项目结构
+
+## 入口文件
+
+```java
+@SpringBootApplication
+@MapperScan(basePackages = {"com.bei.forumserver.mapper"})	
+public class ForumServerApplication {
+```
+
+> 配置了 Mapper 包扫描位置后可以不在每一个 Mapper 类加上 @Mapper
+
+
+
+# Others
+
+## 基于 QQ 邮箱的小体量认证
+
+> 电子邮件的在网络中传输和网页一样需要遵从特定的协议，常用的电子邮件协议包括 SMTP，POP3，IMAP。其中邮件的创建和发送只需要用到 SMTP[^1] 协议
+
+**配置邮件客户端：**
+
+1. QQ 邮箱账户设置开启 **POP3/SMTP 服务**
+
+2. 通过生成授权码设置密码
+
+    hzcq nnyu bthw bcgg
+
+**Java 代码：**
+
+1. 引入依赖：
+
+    [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
+
+    ```xml
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    ```
+
+2. 实现发送随机验证码：
+
+    ```java
+    public static double send(String email) {
+      // 指定发送邮件主机
+      String host = "smtp.qq.com";    // QQ邮件服务器
+      // 获取系统属性
+      Properties properties = System.getProperties();
+      // 设置邮件服务器
+      properties.setProperty("mail.smtp.host", host);
+      properties.put("mail.smtp.auth", "true");
+      // 获取默认session对象
+      Session session = Session.getDefaultInstance(properties, new Authenticator() {
+        public PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication("shen.ruofeng@qq.com", "hzcqnnyubthwbcgg"); //发件人邮件用户名、授权码
+        }
+      });
+      try {
+        // 创建默认的 MimeMessage 对象
+        MimeMessage message = new MimeMessage(session);
+        // Set From: 头部头字段
+        message.setFrom(new InternetAddress(senderEmail));
+        // Set To: 头部头字段
+        message.addRecipient(Message.RecipientType.TO,
+                             new InternetAddress(email));
+        // Set Subject: 头部头字段
+        message.setSubject("邮子论坛登录认证");
+        // 设置消息体
+        double randomNum = Math.random() * 1000;
+        message.setText("您的认证码是" + randomNum);
+        // 发送消息
+        Transport.send(message);
+        System.out.println("Sent message successfully");
+        return randomNum;
+      } catch (MessagingException mex) {
+        mex.printStackTrace();
+      }
+      return -1;
+    ```
+
+    
 
 # REF
 
-[SpringBoot整合MyBatis---一篇就够了 - 知乎](https://zhuanlan.zhihu.com/p/143798465)
++ 整合 MyBatis：
 
-[Springboot 整合Mybatis 逆向工程（详解版）](https://segmentfault.com/a/1190000020782343)
+    [SpringBoot整合MyBatis---一篇就够了 - 知乎](https://zhuanlan.zhihu.com/p/143798465)
 
-[Mybatis代码生成器Mybatis-Generator使用详解 ](https://www.cnblogs.com/throwable/p/12046848.html)
+    [Springboot 整合Mybatis 逆向工程（详解版）](https://segmentfault.com/a/1190000020782343)
+
+    [Mybatis代码生成器Mybatis-Generator使用详解 ](https://www.cnblogs.com/throwable/p/12046848.html)
+
++ Others：
+
+    [Java 发送邮件 | 菜鸟教程](https://www.runoob.com/java/java-sending-email.html)
+
+    [基于JavaMail的Java邮件发送：简单邮件发送](https://blog.csdn.net/xietansheng/article/details/51673073)
 
 
 
@@ -533,6 +638,10 @@ arr: [cat,dog]
 
 ## 配置
 
++ <span style="font-size:20px">java.lang.IllegalArgumentException: Result Maps collection does not contain value:</span>
+
+    未解决
+
 + <span style="font-size:20px">[com.mysql.cj.jdbc.Driver 报红](https://blog.csdn.net/qq_41999034/article/details/104299691)：</span>
 
     若外部库中没有下载 mysql-connector-java，在 pom.xml 文件中引入以下依赖：
@@ -556,3 +665,7 @@ arr: [cat,dog]
         ```
 
         > 其中 {some_port} 换为非项目运行的其他端口
+
+
+
+[^1]: Simple Mail Transfer Protocol，简单邮件传输协议

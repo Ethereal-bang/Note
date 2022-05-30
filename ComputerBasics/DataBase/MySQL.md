@@ -75,6 +75,25 @@ SQLyog 是一款简洁高效、功能强大的<span style="color:red">图形化 
     2. 方便存储和管理数据
     3. 使用了统一的方式操作数据库：SQL——所有的关系型数据库都可以使用通用的 SQL 语句进行管理
 
+```sql
+CREATE TABLE `user` (
+  `user_id` INT AUTO_INCREMENT,
+  PRIMARY KEY (`user_id`));
+```
+
+
+
+# Table
+
+## Colum
+
+<span style="font-size:20px">AUTO_INCREMENT:</span>
+
+- 一个表中只能有一个自增列。
+- 自增列的数据类型只能使用整数和浮点数。
+- 自增列的初始值是 `1`。你可以在创建表的时候置顶自增列的初始值，也可以修改自增列的值。
+- 删除一些行后，删除的自增列的值不能重用。
+
 
 
 # SQL
@@ -154,8 +173,6 @@ SQL——Structured Query Language：结构化查询语言
     ```mysql
     alter database `db3` character set utf8;
     ```
-
-    
 
 + <span style="font-size:22px">删除数据库：</span>
 
@@ -672,29 +689,23 @@ DROP VIEW `View_Choosebb`;
 
     [再见乱码：5分钟读懂MySQL字符集设置 - 程序猿小卡 - 博客园](https://www.cnblogs.com/chyingp/p/mysql-character-set-collation.html)
 
-+ DDL：
++ Table：
+
+    [MySQL AUTO_INCREMENT 自增列](https://www.sjkjc.com/mysql/auto-increment)
+
++ SQL：
 
     [MySQL decimal、numeric数据类型介绍-CSDN](https://blog.csdn.net/love_xsq/article/details/42294533)
 
-+ DML：
-
     [SQL truncate、delete与drop区别 - 编程笔记 - 博客园](https://www.cnblogs.com/8765h/archive/2011/11/25/2374167.html)
-
-+ 查询数据：
 
     [连接查询 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1177760294764384/1179610888796448)
 
     [SQL COUNT() 函数 | 菜鸟教程](https://www.runoob.com/sql/sql-func-count.html)
 
-+ 约束：
-
     [mysql在学号列创建主码约束_MySQL 数据完整性_weixin_39997037的博客-CSDN博客](https://blog.csdn.net/weixin_39997037/article/details/113681744)
 
-+ 索引：
-
     [MySQL 索引 | 菜鸟教程](https://www.runoob.com/mysql/mysql-index.html)
-
-+ 用通配符进行过滤：
 
     [sql语句like的用法 有些正则表达式可以通过like实现-CSDN](https://blog.csdn.net/shadowyelling/article/details/7913126)
 

@@ -361,27 +361,31 @@
 1. **封装返回格式类：**
 
     ```java
-    package com.bei.loginserver.common;
-    
-    public class JsonResult<T> {
-    
-        private boolean flag;   // 请求成功与否
-        private String message; // 请求提示
-        private T data; // 提示信息/数据
-    
-        // 请求失败
-        public JsonResult(String message) {
-            this.flag = false;
-            this.message = message;
+    public class Res {
+        private boolean flag;
+        private String msg;
+        private Map<String, Object> data = new HashMap<>();
+        private Res() {}
+        public static Res ok() {
+            Res res  = new Res();
+            res.setFlag(true);
+            res.setMsg("查询成功");
+            return res;
         }
-    
-        // 请求成功
-        public JsonResult(boolean flag, T data) {
-            this.flag = true;
-            this.data = data;
+        public static Res err() {
+            Res res  = new Res();
+            res.setFlag(false);
+            res.setMsg("查询失败");
+            return res;
         }
-    
-      	// Getter...
+        public Res data(String key, Object val) {
+            this.data.put(key, val);
+            return this;
+        }   
+        public Res setMsg(String msg) {
+            this.msg = msg;
+            return this;
+        }
     }
     ```
 
@@ -390,23 +394,14 @@
 2. **Controller 中返回该格式：**
 
     ```java
-    @RestController
-    public class UserController {
-        @Autowired
-        UserService userService;
-    
-        @GetMapping("/register")
-        public JsonResult<String> register(User user) {
-            if (user.getAccount() == null || user.getPwd() == null) {
-                return new JsonResult<>("请提供合法参数！");
-            }
-            return new JsonResult<String>(true, "success");
-        }
+    @RequestMapping("/login")
+    public Res login(@RequestParam("email") char email) {
+      return Res.ok().setMsg("空");
+    }
     ```
-
+    
 3. 调用测试：——data 对象就是刚才定义的格式
 
-    ![image-20220311210546789](https://gitee.com/ethereal-bang/images/raw/master/20220311210546.png)
 
 
 
