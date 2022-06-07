@@ -255,7 +255,6 @@ arr: [cat,dog]
 
     ```java
     @Mapper//表示一个 MyBatis 的 Mapper
-    @Repository
     public interface UserMapper {
       	int isExists(String username);
     ```

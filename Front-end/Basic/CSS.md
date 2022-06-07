@@ -154,9 +154,17 @@
 
     <span style="color:green">不需固定居中元素宽高</span>
 
+
+
 ## 水平定位
 
-+ <span style="font-size:22px">[vertical-align](https://developer.mozilla.org/zh-CN/docs/Web/CSS/vertical-align):</span>
++ <span style="font-size:20px">text-align:</span>
+
+
+
+## 垂直定位
+
++ <span style="font-size:20px">[vertical-align](https://developer.mozilla.org/zh-CN/docs/Web/CSS/vertical-align):</span>
 
     只作用于 inline、table-cell 元素，决定垂直对齐方式
 

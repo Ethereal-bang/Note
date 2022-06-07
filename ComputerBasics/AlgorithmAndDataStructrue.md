@@ -775,7 +775,7 @@ Trie是一种树状信息检索数据结构
 
 ## 树、图 遍历
 
-### 层序遍历
+### BFS
 
 **思路：**
 
@@ -785,7 +785,7 @@ stack 存储每一层节点，遍历其中每一节点加入其子节点
 
 ```js
 while (stack.length >= 1) {
-  let lastSize = stack.length; 
+  let lastSize = stack.length; 	// 一定要先保存
   for (let i = 1; i <= lastSize; i++) {	// i仅为了控制遍历节点个数
  		// 取出节点并加入其children
     let node = stack.shift();
@@ -806,6 +806,11 @@ while (stack.length >= 1) {
 **图解：**
 
 <img src="https://gitee.com/ethereal-bang/images/raw/master/20220527105721.png" alt="图解">
+
+**思路: **
+
+1. 外层循环遍历每一个节点
+2. 对节点深度遍历——其联通节点
 
 **模板：**
 
@@ -829,11 +834,7 @@ function maxAreaOfIsland(grid: number[][]): number {
         // ...操作
         // 遍历过的土地置为0避免重复遍历
         grid[x][y] = 0;
-        // 从上下左右四个方向遍历
-        dfs(x + 1, y);
-        dfs(x - 1, y);
-        dfs(x, y + 1);
-        dfs(x, y - 1);
+        // ...从上下左右四个方向遍历
         return num;
     }
 };
@@ -841,9 +842,11 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 **例题：**
 
-[200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)
+[200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)——节点连通即是组成一个岛屿
 
 [695. 岛屿的最大面积](https://leetcode.cn/problems/max-area-of-island/)
+
+[547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份
 
 
 

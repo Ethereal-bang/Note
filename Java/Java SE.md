@@ -38,6 +38,21 @@ $ java Hello
     + 类名、接口名：多单词组成时，所有单词的首字母大写（XxxYyyZzz）
     + 变量名、方法名：多单词组成时，第一个单词首字母小写，第二个单词开始每个单词首字母大写（xxxYyyZzz）
     + 常量名：所有字母都大写。多单词时每个单词用下划线连接（XXX_YYY_ZZZ）
+    
++ <span style="font-size:20px">Doc 注释：</span>
+
+    ```java
+    /**
+    * 描述部分(description) 
+    *
+    * 标记部分(block tags)
+    */
+    ```
+
+    > **Note：**
+    >
+    > + 两部分中间需空行
+    > + @param, @return, @see 等
 
 
 
@@ -537,22 +552,32 @@ Integer i = new Integer(1);
 
 ## 内置类
 
-+ <span style="font-size:20px">Math:</span>
-  
-    + Math.exp()——e 的参数次方
-    + Math.PI——圆周率
-    
-+ <span style="font-size:20px">Pattern：</span>
+<span style="font-size:20px">Math:</span>
 
-    用于正则。
++ Math.exp()——e 的参数次方
++ Math.PI——圆周率
 
-    + Pattern.matches(reg, str)——是否匹配
+<span style="font-size:20px">Pattern：</span>
 
-        ```java
-        if (Pattern.matches("/[\\u4e00-\\u9fa5\\w]/", name)) {
-        ```
+用于正则。
 
-        
++ Pattern.matches(reg, str)——是否匹配
+
+    ```java
+    if (Pattern.matches("/[\\u4e00-\\u9fa5\\w]/", name)) {
+    ```
+
+
+<span style="font-size:20px">SimpleDateFormat: </span>
+
+用于格式化 Date 类型
+
+```java
+SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+fd.format(date);
+```
+
+
 
 ## static 关键字
 
@@ -967,7 +992,35 @@ public class Soccer {
 
     5. 利用 ClassLoader
 
-        
+
+
+
+# 异常
+
++ **自定义异常类：**
+
+    ```java
+    class ScoreException extends Exception {
+        String message;
+        public ScoreException(int score) {
+            message = "Error,score should be in 0-100. But input " + score;
+        }
+    }
+    ```
+
++ **捕获异常：**
+
+    ```java
+    try {
+      if (score < 0) {
+        throw new ScoreException(score);
+      }
+    } catch (ScoreException err) {
+      System.out.println(err.message);
+    }
+    ```
+
+
 
 # REF
 

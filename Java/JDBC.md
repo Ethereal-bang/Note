@@ -109,17 +109,17 @@
     
 + <span style="font-size:20px">数据类型：</span>
 
-    | SQL数据类型   | Java数据类型             |
-    | :------------ | :----------------------- |
-    | BIT, BOOL     | boolean                  |
-    | INTEGER       | int                      |
-    | BIGINT        | long                     |
-    | REAL          | float                    |
-    | FLOAT, DOUBLE | double                   |
-    | CHAR, VARCHAR | String                   |
-    | DECIMAL       | BigDecimal               |
-    | DATE          | java.sql.Date, LocalDate |
-    | TIME          | java.sql.Time, LocalTime |
+    | SQL数据类型     | Java数据类型             |
+    | :-------------- | :----------------------- |
+    | BIT, BOOL       | boolean                  |
+    | INTEGER         | int                      |
+    | BIGINT          | long                     |
+    | REAL            | float                    |
+    | FLOAT, DOUBLE   | double                   |
+    | CHAR, VARCHAR   | String                   |
+    | DECIMAL         | BigDecimal               |
+    | DATE, TIMESTAMP | java.sql.Date, LocalDate |
+    | TIME            | java.sql.Time, LocalTime |
 
 
 

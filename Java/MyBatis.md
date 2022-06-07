@@ -276,6 +276,60 @@ public void deleteByPrimaryKey(String id) {
 
 
 
+# result
+
+## resultType
+
+指的是查询结果每一项的类型：
+
+```xml
+<select id="showAll" resultType="String">
+  select link from avatar;
+</select>
+```
+
+> Eg——上例返回的是 link 数组，类型 String，不是该 pojo。
+
+
+
+## resultMap
+
+使结果返回成想要的形式
+
+比如实体类字段与数据库字段不同时：
+
+```xml
+<mapper namespace="com.bei.forum.mapper.UsersMapper">
+    <resultMap id="BaseResultMap" type="Users">
+        <id column="_id" jdbcType="INTEGER" property="id" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="avatar_order" jdbcType="INTEGER" property="avatarOrder" />
+    </resultMap>
+
+    <select id="select" parameterType="int" resultMap="BaseResultMap">
+```
+
+> + **id 标签**标识表中主键列和类中属性的对应关系
+> + 注意**sql 返回** `resultType` 和 `resultMap` 的区别
+
++ MySQL 内 **datetime 类型处理：**
+
+    ```xml
+    <resultMap id="BaseResultMap" type="Notices">
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    ```
+
+    ```java
+    // Pojo
+    private Date createTime;
+    public String getCreateTime() {
+      SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+      return fd.format(createTime);
+    }
+    ```
+
+    
+
 # REF
 
 + 总：
@@ -289,3 +343,7 @@ public void deleteByPrimaryKey(String id) {
     [java中Date类型存储到mysql_卓尔游侠-CSDN博客](https://blog.csdn.net/u010928364/article/details/50109193)
 
     [mybatis插入更新删除数据时，成功但是不能写入数据库-CSDN博客](https://blog.csdn.net/chenbetter1996/article/details/82727952)
+
++ resultMap: 
+
+    [mybatis实践篇（三）—— ResultMap映射详细介绍 - CSDN博客](https://blog.csdn.net/zhoushimiao1990/article/details/100085411)

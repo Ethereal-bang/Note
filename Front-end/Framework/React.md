@@ -1373,16 +1373,12 @@ function App() {
       replace: false,	// 默认false，true则不能回退
     	state: { name: 'x' }	// 路由传参
     })
-    
+    navigate(-1);	// 回退，数字代表回退层数    
     ```
 
-navigate(-1);	// 回退，数字代表回退层数
-    ```
-    
 
 
-
-## 路由传参
+## 路由参数传递
 
 + **路由匹配：**
 
@@ -1425,6 +1421,20 @@ navigate(-1);	// 回退，数字代表回退层数
 
 
 
+## 获取路由
+
+**组件内监听路由：**
+
+```jsx
+const location = useLocation();
+// 监听路由
+useEffect(() => {
+  console.log(location.pathname)
+}, [location.pathname])
+```
+
+
+
 # 请求
 
 ## Axios
@@ -1446,6 +1456,24 @@ $npm i axios -S
             .catch(console.error);
     }, []);
     ```
+
+
+
+## Proxy 处理跨域
+
+```json
+{
+  "proxy": "http://localhost:8080"
+}
+```
+
+> 在 **package.json** 加入此行后请求不再报出跨域错误
+>
+> **使用：**
+>
+> ```js
+> axiosInstance.get("/user/verify", {
+> ```
 
 
 
@@ -1666,4 +1694,32 @@ $yarn add exceljs
     + import '~antd/dist/antd.less';
     ```
 
-    
++ <span style="font-size:18px">[HPM] Subscribed to http-proxy events: [ 'error', 'close' ]</span> ==未解决==
+
+    Q_Desc: 
+
+    ```js
+    // setupProxy.js
+    const {createProxyMiddleware} = require("http-proxy-middleware")
+    module.exports = (app)=>{
+        app.use("/api", createProxyMiddleware({
+            target:"http://120.0.0.1:8080",
+            changeOrigin:true,
+            pathRewrite: {
+                "^/api":"/",
+            },
+            logLevel: "debug",
+        }))
+    }
+    ```
+
+    > 项目启动显示：
+    >
+    > ```shell
+    > [HPM] Proxy created: /  -> http://120.0.0.1:8080
+    > [HPM] Proxy rewrite rule created: "^/api" ~> "/"
+    > [HPM] Subscribed to http-proxy events: [ 'error', 'close' ]
+    > ```
+    >
+    > 请求仍没有被代理。
+
