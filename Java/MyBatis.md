@@ -219,6 +219,8 @@ Create、Retrieve、Update、Delete
 </insert>
 ```
 
++ 没有 resultType 字段，因为必然返回数据库受影响行数
+
 + 注意传参时`#{}`和`${}`的区别，`#{}`对传入数据加一个`""`，很大程度防止 SQL 注入
 
 + 注意向 MySQL 中 Date 类型添加数据时容易出现问题，此处这样解决（没有时分秒）：
@@ -290,6 +292,18 @@ public void deleteByPrimaryKey(String id) {
 
 > Eg——上例返回的是 link 数组，类型 String，不是该 pojo。
 
+对于**多表查询结果：**
+
+```xml
+<select id="showComment" parameterType="int" resultType="java.util.Map">
+  select u._id, name, avatar_order,
+  news._id, sender, receiver, carrier_id, type, create_time, content, state
+  from news LEFT JOIN users u on news.sender = u._id where carrier_id = #{id};
+</select>
+```
+
+> 对于多条记录的结果，@Mapper 中返回类型为 Map[]
+
 
 
 ## resultMap
@@ -328,7 +342,8 @@ public void deleteByPrimaryKey(String id) {
     }
     ```
 
-    
+
+
 
 # REF
 

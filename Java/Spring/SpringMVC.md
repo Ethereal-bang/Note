@@ -209,9 +209,17 @@
 
     可以定义在类或方法上，若类定义处未标注 @RequestMapping，则方法处标记的 URL 相对于WEB 应用的根目录
 
+    `@RequestMapping(value = "/show" method = RequestMethod.POST)`，可以不指定 method。
+
     > **路径匹配 Note：**
     >
     > 大小写严格匹配、/ 严格匹配
+
+    <span style="font-size:20px">@GetMapping: </span>
+
+    <span style="font-size:20px">@PostMapping: </span>
+
+    > @PostMapping = @RequestMapping(method = RequestMethod.POST)
 
     
 
@@ -222,7 +230,10 @@
     ```java
     public String getUser(@RequestParam("tel") String tel) {}
     ```
-
+    
+    <span style="font-size:20px">@RequestBody: </span>
+    
+    获取 POST 请求的请求体。
 
 
 

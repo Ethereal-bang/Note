@@ -799,7 +799,7 @@ while (stack.length >= 1) {
 }
 ```
 
-## DFS
+### DFS
 
 <span style="font-size:20px">图:</span>
 
@@ -847,6 +847,67 @@ function maxAreaOfIsland(grid: number[][]): number {
 [695. 岛屿的最大面积](https://leetcode.cn/problems/max-area-of-island/)
 
 [547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份
+
+
+
+## 二分搜索
+
+### 典型二分
+
+<span style="font-size:20px">寻找一相等值:</span>
+
+```js
+while (l <= r) {
+  const mid = Math.floor((l + r) / 2);
+  if (nums[mid] === target) {
+    return mid;    
+  } else if (nums[mid] < target) {
+    l = mid + 1;
+  } else {
+    r = mid - 1;
+  }
+}
+```
+
+[704.二分查找](https://leetcode.cn/problems/binary-search/)
+
+<span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>
+
+1. 寻找最左——区间向左收缩，正确下标 `l`
+2. 寻找最右——区间向右收缩，正确下标 `r`
+
++ 没找到值情况——越界 || 返回下标不为 target
+
+```js
+let l = 0, r = nums.length - 1, res = [];
+// 第一次二分——寻找左边界
+while (l <= r) {
+  const mid = Math.floor((l + r) / 2);
+  if (nums[mid] === target) { // 向左收缩
+#    r = mid - 1;  
+  } /*...else if*/
+}
+// 没找到:
+if (l === nums.length || target !== nums[l]) return [-1, -1];
+res[0] = l;
+// 第二次——寻找右边界
+l = 0, r = nums.length - 1;
+while (l <= r) {
+  const mid = Math.floor((l + r) / 2);
+  if (nums[mid] === target) { // 向右收缩
+#    l = mid + 1;
+  } /*...else if*/
+}
+// 没找到:
+if (r === -1 || target !== nums[r]) return [-1, -1];
+res[1] = r;
+```
+
+[34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/)——找左边界+右边界
+
+
+
+### 抽象二分
 
 
 
