@@ -233,7 +233,7 @@
     
     <span style="font-size:20px">@RequestBody: </span>
     
-    获取 POST 请求的请求体。
+    获取 POST 请求的请求体。仅能出现一次。
 
 
 

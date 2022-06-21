@@ -1022,6 +1022,27 @@ public class Soccer {
 
 
 
+# 输入输出流
+
+> **文件路径：**
+>
+> + 来自内容根的路径："src/exp_final/list.txt"
+> + 绝对路径
+
+## 字符流
+
+FileReader、FileWriter ——以字符为单位处理数据
+
+```java
+FileReader fileReader = new FileReader(fileName);
+int ch;
+while ((ch = fileReader.read()) != -1) {    // 返回-1说明已读到末尾
+  System.out.println((char) ch);
+}
+```
+
+
+
 # REF
 
 [Java教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1252599548343744)

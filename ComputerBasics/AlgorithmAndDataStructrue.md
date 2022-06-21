@@ -1,27 +1,6 @@
-# 链表
-
-单链表中插入或删除结点时，仅需修改指针不需移动元素
-
-+ <span style="font-size:20px">节点插入：</span>
-
-    先操作待插节点：
-
-    ![image-20211124201659202](https://gitee.com/ethereal-bang/images/raw/master/20211124201706.png)
-
-    ```c
-    s->next = p->next;	// 待插节点指针域指向原节点的指针域
-    p->next = s;	// 原节点指针域指向待插节点
-    ```
-
-    双向链表同理。
-
-
-
 # 栈和队列
 
 ## 栈——Stack
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211219135933.jpg" alt="img" style="zoom:43%;" />
 
 + **后进先出**
 + **栈也是线性表：**栈是仅限在表尾进行插入或删除元素的线性表
@@ -909,7 +888,37 @@ res[1] = r;
 
 ### 抽象二分
 
+**步骤：**
 
+1. 确认搜索对象、搜索范围、参考对象
+2. 搜索范围内对搜索对象二分查找
+3. 根据二分的搜索对象值与参考对象比较并调整边界
+
+```ts
+/*875.*/
+// 1.搜索对象-速度,搜索范围-[1,pile最大值],参考对象-h
+let l = 1, r = 1;
+for (const pile of piles) r = Math.max(r, pile);
+// 2.
+while (l <= r) {
+  let speed =  Math.floor((r + l) / 2);
+  let time = 0;
+  for (const pile of piles) {
+    time += Math.ceil(pile / speed);
+  }
+  // 3.
+  if (time <= h) {    // 速度快了或符合,向左收缩
+    r = speed - 1;
+  } else {    // 速度慢了,向右收缩
+    l = speed + 1;
+  }    
+}
+return l;
+```
+
+ [875.爱吃香蕉的珂珂](https://leetcode.cn/problems/koko-eating-bananas/)
+
+[1011. 在 D 天内送达包裹的能力](https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/)
 
 ## 随机返回索引
 

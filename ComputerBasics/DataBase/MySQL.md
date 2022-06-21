@@ -4,43 +4,25 @@
 
 + 配置服务器类型：
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093034.png" alt="image-20211130093034570" style="zoom: 33%;" />
-
 + 配置网站并发连接数：
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093213.png" alt="image-20211130093213718" style="zoom: 33%;" />
-
-![image-20211207112735634](https://gitee.com/ethereal-bang/images/raw/master/20211207112735.png)
 
 + 默认字符集：
 
-    ![image-20211207112638175](https://gitee.com/ethereal-bang/images/raw/master/20211207112645.png)
 
-设置密码
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002524.png" alt="image-20211130002524903" style="zoom: 67%;" />
-
-
-
-进入：
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002747.png" alt="image-20211130002747659" style="zoom:33%;" />
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20211130002732.png" alt="image-20211130002732780" style="zoom:33%;" />
++ 设置密码进入：
 
 + 配置：
 
     `my.ini`是 MySQL 数据库中使用的配置文件，MySQL 服务器启动时会读取这个配置文件，我们可以通过修改这个文件，达到更新配置的目的。
 
-    ![image-20211207001249615](https://gitee.com/ethereal-bang/images/raw/master/20211207001256.png)
+
 
 ## SQLyog
 
 SQLyog 是一款简洁高效、功能强大的<span style="color:red">图形化 </span>MySQL 数据库管理工具
 
-1. 使用 SQLyog 登录数据库：
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130093627.png" alt="image-20211130093627570" style="zoom:50%;" />
 
 + <span style="font-size:20px">导入本地 .csv 文件：</span>
 
@@ -62,7 +44,6 @@ SQLyog 是一款简洁高效、功能强大的<span style="color:red">图形化 
 
 2. 新建查询：
 
-    ![image-20211130091000665](https://gitee.com/ethereal-bang/images/raw/master/20211130091000.png)
 
 
 
@@ -96,7 +77,7 @@ CREATE TABLE `user` (
 
 
 
-# SQL
+# 基础 SQL
 
 SQL——Structured Query Language：结构化查询语言
 
@@ -131,7 +112,7 @@ SQL——Structured Query Language：结构化查询语言
         
     4. [mysql中**\`**符号的用处](https://www.yisu.com/zixun/27328.html)： 数据库字段是 sql 保留的关键字，在写sql语句的时候，用到这些字段的时候需要用``包含起来，不然会报语法错误。
 
-![image-20211130215155708](https://gitee.com/ethereal-bang/images/raw/master/20211130215155.png)
+
 
 ## DDL 操作数据库
 
@@ -158,13 +139,9 @@ SQL——Structured Query Language：结构化查询语言
     show create database db3;
     ```
 
-    要记得`;`：
-
-    ![image-20211130104542199](https://gitee.com/ethereal-bang/images/raw/master/20211130104542.png)
-
     > `information_schema`、`mysql`、`performance_schema`和`sys`是系统库，不要去改动它们。其他的是用户创建的数据库。
-
-    数据库会存在 data 文件夹内：![image-20211130110835987](https://gitee.com/ethereal-bang/images/raw/master/20211130110853.png)
+>
+    > 数据库存在 data 文件夹内
 
 + <span style="font-size:22px">修改数据库：</span>
 
@@ -180,8 +157,6 @@ SQL——Structured Query Language：结构化查询语言
     drop database `db2`;
     ```
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211130111105.png" alt="image-20211130111105156" style="zoom:50%;" />
-
 + <span style="font-size:22px">使用数据库：</span>
 
     ```mysql
@@ -194,13 +169,11 @@ SQL——Structured Query Language：结构化查询语言
 
 
 
-## DDL 操作表结构
+## DDL 作表结构
 
 + <span style="font-size:20px">MySQL 数据类型：</span>
 
     `DECIMAL(M, D)`，M 表示总位数，D 表示小数点后位数，`NUMERIC`同。
-    
-    ![image-20211130131610466](https://gitee.com/ethereal-bang/images/raw/master/20211130131610.png)
     
 + <span style="font-size:22px">创建表——CREATE：</span>
 
@@ -265,7 +238,7 @@ SQL——Structured Query Language：结构化查询语言
     insert into `student` values (785, 'Jim', 19);
     
     # 插入部分数据
-    INSERT INTO `cqupt student` (`studentid`, `name`) VALUES (785, 'Jim'); 
+    INSERT INTO `cqupt student` (`studentid`) VALUE (785); 
     
     # 一次插入多条数据(mysql 语法）
     INSERT INTO test VALUES
@@ -276,8 +249,6 @@ SQL——Structured Query Language：结构化查询语言
     INSERT INTO test SELECT * FROM test_temp;
     ```
 
-    
-
 + <span style="font-size:22px">UPDATE——更新表记录：</span>
 
     <span style="color:red">`update <表名> set <字段名> = <值> [where 条件表达式]`</span>
@@ -287,12 +258,10 @@ SQL——Structured Query Language：结构化查询语言
     update `student` set `sex` = '女';
     
     # 带条件修改数据
-    update `sutdent` set `sex` = '男' where `id` = 3;
-    
     # 一次修改多列
     update `student` set `age` = 26, `address` = '北京' where `id` = 3;
     ```
-
+    
 + <span style="font-size:22px">删除表记录：</span>
 
     <span style="color:red">`delete from <表名> [where 条件表达式]`</span>
@@ -330,8 +299,6 @@ SQL——Structured Query Language：结构化查询语言
     # 返回记录数
     select COUNT(*) from `student`;
     ```
-
-    ![image-20211130214444050](https://gitee.com/ethereal-bang/images/raw/master/20211130214444.png)
 
 + <span style="font-size:22px">指定列的别名进行查询：</span>
 
@@ -371,6 +338,8 @@ SQL——Structured Query Language：结构化查询语言
     ```
 
 
+
+
 ### 聚合查询
 
 `COUNT()`、`MAX`、`MIN`、`SUM`、`AVG`
@@ -380,31 +349,31 @@ SELECT COUNT(*) FROM student;	-- 得出总数
 SELECT MAX(score) FROM choose;	-- 查询score的最大值 
 ```
 
+
+
 ### 多表查询
 
 还可以从多张表同时查询数据，`SELECT * FROM <表1> <表2>`
 
 **连接查询**对多表进行 JOIN 运算，即 先确定一个主表作结果集，然后把其他表的行选择性地连接在主表结果上
 
-+ <span style="font-size:18px">INNER JOIN：</span>
++ <span style="font-size:18px">INNER JOIN：</span>交集
 
-    选出两张表都存在的记录：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203041.png" alt="image-20211202203034100" style="zoom:33%;" />
+    选出两张表都存在的记录
 
 + <span style="font-size:18px">LEFT OUTER JOIN：</span>
 
-    选出左表存在的记录：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203240.png" alt="image-20211202203240723" style="zoom:33%;" />
+    选出左表存在的记录：
 
 + <span style="font-size:18px">RIGHT OUTER JOIN：</span>
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211202203321.png" alt="image-20211202203321728" style="zoom:33%;" />
-
-+ <span style="font-size:18px">FULL OUTER JOIN：</span>
-
-    ![image-20211202203350259](https://gitee.com/ethereal-bang/images/raw/master/20211202203350.png)
++ <span style="font-size:18px">FULL OUTER JOIN：</span>并集
 
 ```mysql
 SELECT stu.`SNO`, stu.`name`, choose.`Score` FROM student stu INNER JOIN choose ON choose.`SNO` = stu.`SNO`;
 ```
+
+
 
 ### 嵌套查询
 
@@ -447,9 +416,13 @@ SELECT stu.`SNO`, stu.`name`, choose.`Score` FROM student stu INNER JOIN choose 
 >     ```
 >
 
+
+
 ### 集合查询
 
 SELECT 的查询结果是<span style="color:red">元组的集合</span>，所以多个 SELECT 的结果可<span style="color:red">进行集合操作</span>
+
+> **多表查询**将数据集合，**集合查询**是将结果集合
 
 + **主要集合操作：**
 
@@ -469,6 +442,40 @@ SELECT SNO
   FROM Choose
   WHERE CourseID = 'C3'
 ```
+
+
+
+### 条件语句
+
+<span style="color:red">`WHERE <条件表达式>`</span>
+
++ **与：**`<条件1> AND <条件2>`
++ **或：**`<> OR <>`
++ **非：**`NOT <条件>`
+
+
+
+## 用通配符进行过滤
+
++ <span style="font-size:22px">LIKE 操作符：</span>
+
+    LIKE 语句在 SQL 结构化查询语言中起重要作用，为在搜索子句中使用通配符，必须使用 LIKE 操作符<span style="color:red">`WHERE <字段名> LIKE <对应值>`</span>
+
+    + **百分号（%）通配符：**
+
+        最常使用，表示该位置任意字符出现任意次数
+
+        ```sql
+        -- 将address是'南海苑'开头的，年龄增加一岁
+        UPDATE test SET age=age-1 WHERE address LIKE '南海苑%';
+        
+        -- 查找name字段中含有字符串100的
+        SELECT * FROM goods WHERE `name` LIKE '%100%';
+        ```
+
+    + **下划线（_）通配符：**
+
+        代表该位置出现单个字符，字符的长度不能为 0
 
 
 
@@ -501,11 +508,6 @@ SELECT SNO
   主键——主键的值能唯一标识表中的每一行( *这就好比所有人都有身份证，每个人的身份证号是不同的，能唯一标识每一个人* )
   
   **删除自增主键约束：**必须先删自增再删主键
-  
-  ```mysql
-  
-  ```
-  
 
 
 
@@ -532,7 +534,7 @@ DROP VIEW `View_Choosebb`;
 
 ## 索引
 
-+ **定义：**帮助 MySQL 提高查询效率的<span style="color:red">数据结构</span>，一般在常用的搜索字段建立索引==？==
++ **定义：**帮助 MySQL 提高查询效率的<span style="color:red">数据结构</span>，一般在常用的搜索字段建立索引
 
 + <span style="font-size:22px">索引分类：</span>
 
@@ -566,40 +568,6 @@ DROP VIEW `View_Choosebb`;
     ```mysql
     DROP INDEX `index_bb2` ON `choosebb`;
     ```
-
-
-
-## 条件语句
-
-<span style="color:red">`WHERE <条件表达式>`</span>
-
-+ **与：**`<条件1> AND <条件2>`
-+ **或：**`<> OR <>`
-+ **非：**`NOT <条件>`
-
-
-
-## 用通配符进行过滤
-
-+ <span style="font-size:22px">LIKE 操作符：</span>
-
-    LIKE 语句在 SQL 结构化查询语言中起重要作用，为在搜索子句中使用通配符，必须使用 LIKE 操作符<span style="color:red">`WHERE <字段名> LIKE <对应值>`</span>
-
-    + **百分号（%）通配符：**
-
-        最常使用，表示该位置任意字符出现任意次数
-
-        ```sql
-        -- 将address是'南海苑'开头的，年龄增加一岁
-        UPDATE test SET age=age-1 WHERE address LIKE '南海苑%';
-        
-        -- 查找name字段中含有字符串100的
-        SELECT * FROM goods WHERE `name` LIKE '%100%';
-        ```
-
-    + **下划线（_）通配符：**
-
-        代表该位置出现单个字符，字符的长度不能为 0
 
 
 
@@ -672,15 +640,49 @@ DROP VIEW `View_Choosebb`;
 
 + 输入中文：将默认字符集均设置为 utf8。
 
-    ![image-20211207131306304](https://gitee.com/ethereal-bang/images/raw/master/20211207131313.png)
-
-+ 命令行查询时中文显示错误：==?==
-
-    ![image-20211207131352620](https://gitee.com/ethereal-bang/images/raw/master/20211207131352.png)
++ 命令行查询时中文显示错误：
 
     设置`set character_set_results=gbk`后显示正常：
 
-    ![image-20211207131433721](https://gitee.com/ethereal-bang/images/raw/master/20211207131433.png)
+
+
+
+# 进阶 SQL
+
+## GROUP BY + COUNT
+
+将查询集分组
+
+```mysql
+SELECT name, COUNT(*)
+FROM `news`
+GROUP BY name	# 相同的carrier_id并在一起
+```
+
+> **Eg 实现：**按名字分组，并统计每人有多少条记录
+
+
+
+## ORDER BY + GROUP BY
+
+```mysql
+SELECT carrier_id, COUNT(*)
+FROM `news`
+GROUP BY carrier_id	# 相同的carrier_id并在一起
+ORDER BY COUNT(carrier_id) desc	# 以carrier_id出现次数排序
+```
+
+> **实现：**返回 10 条以出现次数排序的 `carrier_id`。 
+
+
+
+## 函数
+
++ MAX()
+
+    ```mysql
+    select MAX(price) from products;
+    ```
 
 
 

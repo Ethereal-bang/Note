@@ -314,6 +314,8 @@ function addURLParam(url, name, value) {
         console.log(error);
       });
     ```
+    
+    > Post 请求传值是 JSON 类型
 
 
 

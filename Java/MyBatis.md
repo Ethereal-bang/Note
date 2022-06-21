@@ -278,6 +278,28 @@ public void deleteByPrimaryKey(String id) {
 
 
 
+# Param
+
+**Mapper 方法传值方式：**
+
+1. 简单类型参数对应：`(int id)`
+
+    ```xml
+    <select id="select" parameterType="int" resultMap="BaseResultMap">
+    	select name from users where _id = #{id}
+    ```
+
+2. 对象传值：`User user`
+
+    ```xml
+    <update id="update" parameterType="Users">
+      update users
+      set name = #{name},
+      where id = #{id};        
+    ```
+
+    
+
 # result
 
 ## resultType
