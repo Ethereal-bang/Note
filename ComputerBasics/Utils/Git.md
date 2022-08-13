@@ -239,8 +239,6 @@
      * [new branch]      main       -> upstream/main
     ```
 
-    
-
 3. 合并远程仓库的 master 分支==哪一个仓库？==。
 
     ```
@@ -248,9 +246,16 @@
     Already up to date.
     ```
 
-    
 
 这时本地仓库已经与原仓库完全同步，冲突需解决后合并。
+
+
+
+```shell
+$ git pull origin main --alow-unrelated-histories
+```
+
+> 解决: fatal: refusing to merge unrelated histories
 
 
 
@@ -325,13 +330,8 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 > 要使用 GitHub Pages 功能实现全面效果，项目应该被构造为典型的网站——index.html 入口，原生 JS 等
 
-1. 新建 gh-pages 分支
 
-2. GitHub 里设置： ![image-20220416170638224](https://gitee.com/ethereal-bang/images/raw/master/20220416170645.png)
 
-3. 分支代码更新后 Github 自动执行 Action 重新部署：
-
-    ![image-20220416170821500](https://gitee.com/ethereal-bang/images/raw/master/20220416170821.png)
 
 # REF
 

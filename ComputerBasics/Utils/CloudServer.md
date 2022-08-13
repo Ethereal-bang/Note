@@ -279,6 +279,20 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 
 
+## Github pages 部署
+
+> 要使用 GitHub Pages 功能实现全面效果，项目应该被构造为典型的网站——index.html 入口，原生 JS 等
+
+1. 新建 gh-pages 分支
+
+2. GitHub 里设置：
+
+    ![image-20220812163024827](http://img.giantbear.top/img/20220812163034.png)
+
+3. 分支代码更新后 Github 自动执行 Action 重新部署
+
+
+
 # 宝塔：前后端分离部署
 
 ## 后端：发布 Node 项目
@@ -308,6 +322,10 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 >     location / {
 >         proxy_pass http://127.0.0.1:3001;
 > ```
+
+## 前端
+
+
 
 
 

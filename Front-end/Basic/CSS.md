@@ -191,7 +191,7 @@
 
 脱离文档流，但浮动后仍保持流动性（*占位* ）：
 
-![image-20220407153949099](https://gitee.com/ethereal-bang/images/raw/master/20220407153949.png)
+`float: left`
 
 
 

@@ -1,3 +1,89 @@
+# 链表
+
+<span style="font-size:20px">反转链表:</span>
+
+**迭代:** 
+
+>  保存 next 节点快照后更改 next 指向
+
+**递归**——反转以 `head`  为起点的链表
+
+> 比起迭代空间复杂度更高，重在递归思想
+
++ 图解：
+
+    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/2.jpg" alt="img" style="zoom:25%;" />
+
+    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/4.jpg" alt="img" style="zoom:25%;" />
+
+    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/5.jpg" alt="img" style="zoom:25%;" />
+
+[206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)
+
+[92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)——反转部分链表
+
+[25. K 个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group/)
+
+<span style="font-size:22px">找到某位置:</span>
+
+**倒数第 k 个节点:**
+
++ 思路——<span style="color:orange">快慢指针相距 k 步</span>
+
+    <img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom: 25%;" />
+
+    <img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom:25%;" />
+
+[19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)——找倒数 N+1 节点
+
+**单链表的中间：**
+
++ 思路——`slow` 每走一步 `fast` 走两步
+
+[876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)
+
+**链表的环：**
+
++ 是否有环——`slow` 每走一步 `fast` 走两步，相遇即有环
+
+    ![img](https://labuladong.github.io/algo/images/%e5%8f%8c%e6%8c%87%e9%92%88/3.jpeg)
+
++ 找到环的起点——相遇后让 `slow` 回到 head，两指针同速前进
+
+    ![img](https://labuladong.github.io/algo/images/%e5%8f%8c%e6%8c%87%e9%92%88/2.jpeg)
+
+    > 设相遇时 `slow` 走了 k 步，相遇点与环起点距离 m
+
+[剑指 Offer II 022. 链表中环的入口节点](https://leetcode.cn/problems/c32eOV/)
+
+**链表相交：**
+
++ 思路——让双指针同时指向相交节点
+
+    A 链表遍历完遍历 B，同理 B 链表遍历完遍历 A。让其同时遍历到相同节点 `c1`
+
+    <img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/6.jpeg" alt="img" style="zoom:25%;" />
+
+[160. 相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/)
+
+<span style="font-size:20px">多链表:</span>
+
+[21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/)——合二为一
+
+[86. 分隔链表](https://leetcode.cn/problems/partition-list/)——一分为二
+
+
+
+# 数组
+
+## To 二维数组花式遍历
+
+[48. 旋转图像](https://leetcode.cn/problems/rotate-image/)——原地顺时针旋转二维矩阵：依次沿做对角线和 y 轴翻转
+
+[54. 螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/) / [59. 螺旋矩阵 II](https://leetcode.cn/problems/spiral-matrix-ii/)——模拟形状 / 方向
+
+
+
 # 栈和队列
 
 ## 栈——Stack
@@ -136,142 +222,162 @@ KMP 主要用在字符串匹配
 
 
 
-# 数组
-
-
-
 # 树、图
 
 ## 二叉树
 
-+ <span style="font-size:22px">分类：</span>
+<span style="font-size:22px">分类：</span>
 
-    + **满二叉树：**
++ **满二叉树：**
 
-        每一层结点数都达到最大值——结点总数 <span style="color:red">2^k - 1</span>(k 层数)
+    每一层结点数都达到最大值——结点总数 <span style="color:red">2^k - 1</span>(k 层数)
 
-    + **完全二叉树：**
++ **完全二叉树：**
 
-        满二叉树是完全二叉树的特殊形态——除了最后一层之外其他的每一层都被完全填充，并且所有的节点都向左对齐
+    满二叉树是完全二叉树的特殊形态——除了最后一层之外其他的每一层都被完全填充，并且所有的节点都向左对齐
 
-+ <span style="font-size:20px">存储方式：</span>
+<span style="font-size:20px">存储方式：</span>
 
-    链式存储（指针）、顺序存储（数组）
+链式存储（指针）、顺序存储（数组）
 
-    如何顺序存储：
+如何遍历：父节点`i`，则左孩子`i * 2 +1`，右孩子`i * 2 + 2`
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180600.png" alt="image-20211106180600214" style="zoom:40%;" />
-
-    如何遍历：父节点`i`，则左孩子`i * 2 +1`，右孩子`i * 2 + 2`
 
 
 ### 二叉树的遍历
 
-+ <span style="font-size:20px">二叉树节点表示：</span>
+<span style="font-size:20px">遍历方式：</span>
 
-    ```java
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {};
-        TreeNode(int val) { // 叶子结点
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-    ```
+主要有两种遍历方式：
 
-+ <span style="font-size:20px">遍历方式：</span>
++ 深度优先遍历（递归法、迭代法）：前序遍历、中序遍历、后序遍历
 
-    主要有两种遍历方式：
+    <img src="https://labuladong.github.io/algo/images/%e4%ba%8c%e5%8f%89%e6%a0%91%e7%b3%bb%e5%88%972/1.jpeg" alt="img" style="zoom:35%;" />
 
-    + 深度优先遍历（递归法、迭代法）：前序遍历、中序遍历、后序遍历
-
-        这里的“前”、“中”、“后”指的是二叉树根节点的遍历顺序，例如：
-
-        <img src="https://gitee.com/ethereal-bang/images/raw/master/20211106180259.png" alt="image-20211106180259744" style="zoom:50%;" />
-
-        <img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220106174406085.png" alt="image-20220106174406085" style="zoom:33%;" />
-
-        从递归的角度看，三种算法是完全相同的，或说这三种算法的访问路径是相同的，只是访问结点的时机不同。
-
-    + 广度优先遍历，又译作宽度优先搜索（迭代法）
-
-        + 层次遍历
-
-            沿着树的宽度遍历树的节点(*横向* )
-
-+ <span style="font-size:20px">二叉树的递归遍历：</span>
-
-    以中序遍历为例
+    从递归的角度看，这三种算法的访问路径是相同的，只是访问结点的时机不同。
     
+    > **前中后序位置**——处理每一节点的时间点
+    >
+    > ```java
+    > void traverse(TreeNode root) {
+    >     if (root == null) return;
+    >     // 前序位置
+    >     traverse(root.left);
+    >     // 中序位置
+    >     traverse(root.right);
+    >     // 后序位置
+    > }
+    > ```
+    >
+    > + 前序位置代码——刚刚进入一个二叉树节点的时执行
+    >+ 中序位置代码——一个二叉树节点左子树都遍历完，即将开始遍历右子树的时执行
+    > + 后序位置代码——将要离开一个二叉树节点的时执行
+    >
+    > **前中后序位置使用场景：**
+    >
+    > + 中序——BST 二叉搜索树遍历有序数组
+    >
+    > + 前序
+    >
+    > + 后序——只有后序才能通过返回值获取子树的信息
+    >
+    >     > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
+    
++ 广度优先遍历（迭代法）
+
+    + 层次遍历
+
+        沿着树的宽度遍历树的节点(*横向* )
+
+<span style="font-size:20px">二叉树的迭代遍历：</span>
+
+用 Stack 实现。
+
+前序遍历：（中-左-右，入栈顺序 中-右-左）
+
+```java
+TreeNode node = root;
+stack.add(node);
+while (node != null) {  // 每一次循环：将中节点弹出并存入，左右节点入栈
+  res.add(stack.pop().val);   // 中 出栈
+  // 将左右孩子压入栈（先右后栈从而使出栈顺序中左右
+  if (node.right != null)
+    stack.add(node.right);
+  if (node.left != null)
+    stack.add(node.left);
+  if (stack.isEmpty())
+    break;
+  node = stack.peek();
+}
+```
+
+中序遍历：（左-中-右，入栈顺序 
+
+```java
+TreeNode curNode = root;
+while (curNode != null || !stack.isEmpty()) {
+  if (curNode != null) {  // 一直遍历到左叶子节点，持续入栈
+    stack.add(curNode);
+    curNode = curNode.left;
+  } else {    // 遍历到叶子节点
+    curNode = stack.pop();
+    res.add(curNode.val);   // 中出栈后遍历右孩子入栈
+    curNode = curNode.right;
+  }
+}
+```
+
+==后序遍历?==：（颠倒前序结果集）
+
+<span style="font-size:20px">[二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)：</span>
+
+> root = [3,9,20,null,null,15,7]
+> 输出：[ [3], [9,20], [15,7] ]
+
+遍历节点，按照层数存入数组——纵向 while，横向 for
+
+
+
+#### 二叉树的递归
+
+**思路：**(*以求二叉树最大深度为例* )
+
+1. 遍历一遍二叉树得出答案——后序位置回溯
+
     ```js
-    if (!root) return;
-    // 1.遍历左子树
-    order(root.left)
-    // 2.对root操作
-    // 3.遍历右子树
-    order(root.right)
+       let depth = 0, maxDepth = 0;    // depth记录当前节点深度
+        dfs(root);
+        return maxDepth;
+    
+        function dfs(root: TreeNode | null) {   // preOrder
+            if (!root) return;
+            depth++;
+            if (!root.left && !root.right) {    // 叶子节点，更新最大深度
+                maxDepth = Math.max(maxDepth, depth);
+            }
+            dfs(root.left);
+            dfs(root.right);
+            depth--;    // 回溯
+        }
     ```
 
-+ <span style="font-size:20px">二叉树的迭代遍历：</span>
+2. 分解问题得出答案——动态规划 后序位置主逻辑
 
-  用 Stack 实现。
-  
-  前序遍历：（中-左-右，入栈顺序 中-右-左）
-  
-  ```java
-  TreeNode node = root;
-  stack.add(node);
-  while (node != null) {  // 每一次循环：将中节点弹出并存入，左右节点入栈
-    res.add(stack.pop().val);   // 中 出栈
-    // 将左右孩子压入栈（先右后栈从而使出栈顺序中左右
-    if (node.right != null)
-      stack.add(node.right);
-    if (node.left != null)
-      stack.add(node.left);
-    if (stack.isEmpty())
-      break;
-    node = stack.peek();
-  }
-  ```
-  
-  中序遍历：（左-中-右，入栈顺序 
-  
-  ```java
-  TreeNode curNode = root;
-  while (curNode != null || !stack.isEmpty()) {
-    if (curNode != null) {  // 一直遍历到左叶子节点，持续入栈
-      stack.add(curNode);
-      curNode = curNode.left;
-    } else {    // 遍历到叶子节点
-      curNode = stack.pop();
-      res.add(curNode.val);   // 中出栈后遍历右孩子入栈
-      curNode = curNode.right;
-    }
-  }
-  ```
-  
-  ==后序遍历?==：（颠倒前序结果集）
-  
-+ <span style="font-size:20px">[二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)：</span>
-
-    > root = [3,9,20,null,null,15,7]
-    > 输出：[ [3], [9,20], [15,7] ]
-    
-    遍历节点，按照层数存入数组。
-
+    ```js
+    function maxDepth(root: TreeNode | null): number {
+        if (!root) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right)); // 当前最大深度由子树最大深度推出
+    };-
+    ```
 
 
 
 ### 二叉搜索树
 
-任意节点，左子树上所有节点值均小于根节点，右子树上所有节点值均大于根节点
+**特性:** 
+
++ 任意节点，左子树上所有节点值均小于根节点，右子树上所有节点值均大于根节点
++ 中序遍历结果 为升序
 
 
 
@@ -559,100 +665,102 @@ Trie是一种树状信息检索数据结构
 
 
 
+# 回溯
 
-# 回溯算法
+> 回溯的本质是<span style="color:red">穷举</span>——穷举所有可能选出想要的答案；其实是暴力查找并不是什么高效算法
 
-## 理论基础
+> **主要解决：**
+>
+> + 子集——有多少符合条件的子集
+>
+> + 组合——N 个数找符条件的 k 个数的集合
+> + 切割——一个字符串有几种符条件的切割方式
+> + 排列——N 个数按一定规则全排列有几种方式
+> + 棋盘——N 皇后、解数独...
 
-回溯法是一种搜索方式，只要有递归就会有回溯
+**理解回溯：**
 
-回溯的本质是<span style="color:red">穷举</span>——穷举所有可能选出想要的答案；其实是暴力查找并不是什么高效算法
+决策树的遍历过程，站在回溯树的一个节点上，只需思考 3 个问题：
 
-+ **主要解决：**
-    + 组合问题——N 个数找符条件的 k 个数的集合
-    + 切割——一个字符串有几种符条件的切割方式
-    + 子集——有多少符合条件的子集
-    + 排列——N 个数按一定规则全排列有几种方式
-    + 棋盘——N 皇后、解数独...
+1. 路径——已经做出的选择。
 
-+ **理解回溯：**
+2. 选择列表——当前可以做的选择。
 
-    所有回溯法解决的问题都可抽象为树形结构
+3. 结束条件——到达决策树底层，无法再做选择的条件。
 
-    因为回溯解决的都是<span style="color:red">在集合中递归查找子集</span>，集合的大小构成树的宽度，递归的深度构成树的深度
+回溯搜索的**遍历过程**：
 
-+ <span style="font-size:22px">回溯法模板：</span>
+> 因为回溯解决的都是<span style="color:red">在集合中递归查找子集</span>，集合的大小构成树的宽度，递归的深度构成树的深度
 
-    1. 回溯函数模板——**返回值、参数：**
+<img src="https://img-blog.csdnimg.cn/20210130173631174.png" height="250px">
 
-        习惯函数名取为`backtracking`；返回值一般 void；参数不容易一次性确定，一般先写逻辑、需要什么参数填什么参数
+由图可以看出 for 循环可以理解是<span style="color:red">横向遍历</span>，递归 (backtracing) 就是<span style="color:red">纵向遍历</span>，这样就把这棵树全部遍历。
 
-        `void backtraking(<参数>)`
 
-    2. 回溯函数**终止条件：**
 
-        树中可以看出，一般来说搜到<span style="color:red">叶子叶节点</span>就结束本层递归==？==
+<span style="font-size:20px">子集/组合:</span>
 
-        ```javascript
-        if (<终止条件>) {
-        	// 存放结果
-        	return;
-        }
-        ```
+> 子集——返回树的所有节点
+>
+> 组合——返回符合某条件的节点
 
-    3. 回溯搜索的**遍历过程**：
+[78. 子集](https://leetcode.cn/problems/subsets/)——给定一组不含重复元素的整数数组 `nums`，返回该数组所有可能的子集。
 
-        <img src="https://img-blog.csdnimg.cn/20210130173631174.png" height="250px">
+[77. 组合](https://leetcode.cn/problems/combinations/)——返回所有可能的 `k` 个数的组合。
 
-        ```javascript
-        for (/* 选择：本层集合中元素——树中节点孩子的数量就是集合的大小==？== */) {
-          // 处理节点
-          backtraking(/* 路径， 选择列表 */);
-          // 回溯，撤销处理结果==？==
-        }
-        ```
+[90. 子集 II](https://leetcode.cn/problems/subsets-ii/)——含重复元素
 
-        for 循环就是遍历集合区间，可理解成一个节点有多少个孩子 这个 for 循环就执行多少次。
+[40. 组合总和 II](https://leetcode.cn/problems/combination-sum-ii/)——含重复元素
 
-        由图可以看出 for 循环可以理解是<span style="color:red">横向遍历</span>，递归 (backtracing) 就是<span style="color:red">纵向遍历</span>，这样就把这棵树全部遍历。
+[39. 组合总和](https://leetcode.cn/problems/combination-sum/)——元素无重可复选
 
-    4. 综上，回溯算法模板框架：
+> To **重复元素类型**：
+>
+> 1. 排序
+>
+> 2. 剪枝（同一层不含重复元素
+>
+>     ```js
+>     if (i > start && nums[i] === nums[i - 1]) continue;
+>     ```
 
-        ```java
-        void backtracking(<参数>) {
-          if (终止条件) {
-            // 存放结果;
-            return;
-          }
-          // 1.横向遍历——取第一个数
-          for (/* 选择：本层集合中元素——树中节点孩子的数量就是集合的大小 */) {
-          // 处理节点
-          // 2.递归纵向遍历——取后一个数
-          backtraking(/* 路径， 选择列表 */);
-          // 3.回溯——撤销上次处理结果
-        	}
-        }
-        ```
-        
-        > **回溯——撤销上次处理结果的作用：**
-        >
-        > ![image-20220210101606145](https://gitee.com/ethereal-bang/images/raw/master/20220210101613.png)
-
-## 子集问题
-
-[力扣](https://leetcode-cn.com/problems/subsets/)——给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集。
-
-求子集问题不同于组合问题、分割问题，组合、分割相当于收集树的叶子节点，子集问题是找树的所有节点
+> To **可复选类型:**
+>
+> ```js
+> for (int i = start, i < nums.length; i++) {
+> 	// ...
+>   backtrack(i);	// 是i不是i+1了
+>   // ...
+> }
+> ```
+>
+> 下一回溯的参数还是 `i`，因为当前元素下一子树仍可复选
 
 + **分析：**
 
     <img src="https://img-blog.csdnimg.cn/202011232041348.png">
 
-+ <span style="font-size:22px">解题步骤：</span>
+<span style="font-size:20px">排列:</span>
 
-    1. 递归函数参数：
+> 返回所有叶子节点 
+>
+> 穷举元素的位置，额外使用 `used` 避免重复选择。
 
-        全局变量数组`path`为子集收集元素==？==，二维数组`result`存放子集组合
+[46. 全排列](https://leetcode.cn/problems/permutations/)
+
+[47. 全排列 II](https://leetcode.cn/problems/permutations-ii/)——含重复元素
+
+> 1. 排序
+>
+> 2. 重复元素的**剪枝**逻辑：
+>
+> ```js
+> if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]{
+>     // 如果前面的相邻相等元素没有用过
+>     continue;
+> }
+> ```
+
 
 
 
@@ -668,6 +776,8 @@ Trie是一种树状信息检索数据结构
 
 
 # 动态规划
+
+> 可以优化重叠子问题
 
 ## 背包
 
@@ -698,21 +808,119 @@ Trie是一种树状信息检索数据结构
 
 
 
-# 题型
+# ==整数?==
 
-## 指针
+[剑指Offer001.整数除法](https://leetcode-cn.com/problems/xoh6Oh/)
 
-### 双指针
+二分
+
+
+
+# 解题
+
+## 双指针
+
+### 常规双指针
+
+<span style="font-size:20px">链表:</span>
+
++ 单链表位置：
+
+    [19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)——找倒数 N+1 节点
+
+    [876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)——`fast` 到末尾时 `slow` 到中间
+
+    [剑指 Offer II 022. 链表中环的入口节点](https://leetcode.cn/problems/c32eOV/)——快慢指针相遇
+
++ 两链表：
+
+    [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/)——合二为一
+
+    [86. 分隔链表](https://leetcode.cn/problems/partition-list/)——一分为二
+
++ 两链表位置
+
+    [160. 相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/)——让双指针同时指向相交节点
+
+<span style="font-size:20px">数组:</span>
+
+**快慢指针:**
+
++ 原地修改数组
+
+    [26. 删除有序数组中的重复项](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/)
+
+    <img src="https://labuladong.github.io/algo/images/%e6%95%b0%e7%bb%84%e5%8e%bb%e9%87%8d/1.gif" alt="img" style="zoom:25%;" />
+
+    [27. 移除元素](https://leetcode.cn/problems/remove-element/)
+
+    ```js
+    while (fast < nums.length) {
+      if (nums[fast] != val) {
+        nums[slow] = nums[fast];
+        slow++;
+      }
+      fast++;
+    }
+    ```
+
+    [283. 移动零](https://leetcode.cn/problems/move-zeroes/)——移除元素的变种
 
 + 数组值原地交换：
 
     [905.按奇偶排序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/sort-array-by-parity/submissions/)
 
-### 逆向双指针
++ 滑动窗口==...==
 
-+ 用来避免后面值被前面覆盖：
+**左右指针**——常用于有序数组
 
-    [88.合并两个有序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/merge-sorted-array/)
++ 二分查找
+
++ 两数之和——通过调节 `left` 和 `right` 调整 `sum` 的大小
+
+    [167. 两数之和 II - 输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/)
+
++ [344. 反转字符串](https://leetcode.cn/problems/reverse-string/)
+
++ [5. 最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)——中心向两边移动
+
+**逆向双指针**——避免后面值被前面覆盖：
+
++ [88.合并两个有序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/merge-sorted-array/)
+
+### 滑动窗口
+
+> **O(n):**
+>
+> 因为数组中的每个元素都只会进入窗口一次，然后被移出窗口一次，不会说有某些元素多次进入和离开窗口
+
+**框架:**
+
+```js
+function slidingWindow(s) {
+  let window = new Map<string, number>();
+	let left = 0, right = 0;	// 滑动窗口[l,r)
+	while (right < s.length) {
+  	let r = s.charAt(right);	// 将移入窗口字符
+    right++;	// 增大窗口
+    // ...数据更新
+    
+    while (window needs shrink) {
+      let l = s.charAt(left);	// 将移出窗口字符
+      left++;	// 缩小窗口
+      // ...数据更新
+    }
+	}
+}
+```
+
+[3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)——维护窗口内字符出现次数
+
+[567. 字符串的排列](https://leetcode.cn/problems/permutation-in-string/)——找到某定长窗口内指定字符组合
+
+[438. 找到字符串中所有字母异位词](https://leetcode.cn/problems/find-all-anagrams-in-a-string/)——找到全部定长窗口内指定字符组合
+
+[76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/)——维护窗口内含指定字符
 
 
 
@@ -750,41 +958,101 @@ Trie是一种树状信息检索数据结构
 
 [70.爬楼梯 - 力扣（LeetCode）](https://leetcode-cn.com/problems/climbing-stairs/submissions/)
 
+[198. 打家劫舍](https://leetcode.cn/problems/house-robber/)
+
+[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——稍复杂的状态转移方程
+
+
+
+### To 股票
+
+**状态转移方程:**
+
+<span style="color:orange">dp\[i]\[k][0 or 1]</span>
+
+> i——0 <= i <= n - 1 (n 为天数)
+>
+> k——1 <= k <= K (K 为允许交易的最大次数)
+>
+> 01——当前是否持有股票 (buy, sell, rest)
+
+> 最终题解: dp\[n - 1]\[k][0]
+
+<span style="color:orange">dp\[i]\[k][0] = max{ dp\[i-1]\[k][0], dp\[i-1]\[k][1] + prices[i] }</span>——今天不持有股票
+
+> ​				 max{ 今天 rest,       今天 sell                         }
+
+<span style="color:orange">dp\[i]\[k]\[1] = max{ dp\[i-1]\[k][1], dp\[i-1]\[k-1][0] - prices[i] }</span>——今天持有股票
+
+> ​                 max{ 今天 rest,       今天 buy                         }
+
+**Base case:**
+
+dp\[-1]\[...][0] = dp\[...]\[0][0] = 0
+
+dp\[-1]\[...][1] = dp\[...]\[0][1] = -Infinity
+
+**状态压缩——空间复杂度优化**==...==
+
+
+
+[121. 买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)——K = 1
+
+[122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)——K = +∞
+
+[309. 最佳买卖股票时机含冷冻期](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/)——K = +∞，第 i 天 buy 时，从 i - 2 天转移
+
+[714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)——K = +∞，buy 时利润 - 手续费
+
+[123. 买卖股票的最佳时机 III](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/)——K = 2
+
+[188. 买卖股票的最佳时机 IV](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/)——任意给定 K
+
 
 
 ## 树、图 遍历
 
 ### BFS
 
+> 一般用于找最短路径
+
 **思路：**
 
-stack 存储每一层节点，遍历其中每一节点加入其子节点
+Queue 存储每一层节点，遍历其中每一节点加入其子节点
 
 **模板：**
 
-```js
-while (stack.length >= 1) {
-  let lastSize = stack.length; 	// 一定要先保存
+```typescript
+let queue: Node[],	// 核心数据结构
+	visited: Set<Node>;	// 避免重复访问节点
+queue.push(root);	// 加入起点
+
+while (queue.length !== 0) {
+  let lastSize = queue.length;
   for (let i = 1; i <= lastSize; i++) {	// i仅为了控制遍历节点个数
- 		// 取出节点并加入其children
-    let node = stack.shift();
-    if (node.left) {
-      stack.push(node.left);
-    } 
-    if (node.right) {
-      stack.push(node.right);
-    }
+ 		/* 取出节点并加入其邻接节点 */
+    let node = queue.shift();
+    // ...
+    /* 进入下一层 */
   }
 }
 ```
 
+> **Note:**
+>
+> + 如果遍历的是树的话不需要维护 `visited`
+
+**例:**
+
+[111. 二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)
+
+[752. 打开转盘锁](https://leetcode.cn/problems/open-the-lock/)——找到最少步骤
+
+
+
 ### DFS
 
 <span style="font-size:20px">图:</span>
-
-**图解：**
-
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20220527105721.png" alt="图解">
 
 **思路: **
 
@@ -829,7 +1097,150 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 
 
+#### 后序遍历
+
+> 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
+
+[543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree/)——任意两个结点路径长度中的最大值
+
+
+
+### To 二叉树
+
+> **解题思维模式:** (不是拿递不递归区分)
+>
+> + 是否可以通过遍历一遍二叉树得到答案——遍历: traverse 函数 + 外部变量实现
+> + 是否可以定义一个递归函数 通过子问题 (子树) 的答案推导出原问题的答案——递归: 利用递归函数返回值
+>
+> 无论哪一种思维模式，都要考虑——单独抽出一个节点需要做什么？需要什么时候 (前 / 中 / 后 序位置) 做
+
+[226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree/)——遍历 / 分解
+
+[116. 填充每个节点的下一个右侧节点指针](https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/)——遍历
+
+[114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/)——分解
+
+
+
+#### To 二叉树构造
+
+> 一般都是使用「分解问题」的思路：构造整棵树 = 根节点 + 构造左子树 + 构造右子树
+
+[654. 最大二叉树](https://leetcode.cn/problems/maximum-binary-tree/)——由数组最大值构造
+
+[105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)——由前中序特点分解构造，分解即不断更新序列构造子树
+
+[106. 从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+[297. 二叉树的序列化与反序列化](https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/)
+
+
+
+#### To 二叉搜索树 BST
+
++ 利用**中序遍历特性**满足题目要求：
+
+    [230. 二叉搜索树中第K小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst/)——O(N)
+
+    [538. 把二叉搜索树转换为累加树](https://leetcode.cn/problems/convert-bst-to-greater-tree/)
+
++ 利用左小右大特性**优化**算法效率： 
+
+    每个 TreeNode 节点额外 `size` 字段维护以自己为根的这棵二叉树有多少个节点
+
+    > 有了 `size` 字段外加左小右大的性质，对于每个节点 `node` 就可以通过 `node.left` 推导出 `node` 的排名，从而能将 230 题优化为对数级算法。
+
++ **基础操作**——<span style="color:orange">判断合法性</span>、增<span style="color:orange">删</span>改查
+
+    [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)——参数传递节点值大小范围约束
+
+    [700. 二叉搜索树中的搜索](https://leetcode.cn/problems/search-in-a-binary-search-tree/)
+
+    <span style="color:blue">BST 中插入一个数: </span>——先找再改
+
+    ```java
+    TreeNode insertIntoBST(TreeNode root, int val) {
+      // 找到空位置插入新节点
+      if (root == null) return new TreeNode(val);
+      if (root.val < val) 
+        root.right = insertIntoBST(root.right, val);
+      if (root.val > val) 
+        root.left = insertIntoBST(root.left, val);
+      return root;
+    }
+    ```
+
+    [450. 删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst/)——先找再改
+
+    > **删除节点:**——多种情况
+    >
+    > + 末端节点——直接 `return null`
+    >
+    > + 有一个子节点——子节点接替其位置
+    >
+    > + 两子节点——找到左子树中最大节点 或 右子树中最小节点来接替
+    >
+    >     ![img](https://labuladong.github.io/algo/images/BST/bst_deletion_case_3.png)
+
++ ==**构造** BST:?==
+
+    [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——返回多少种
+
+    [95. 不同的二叉搜索树 II](https://leetcode.cn/problems/unique-binary-search-trees-ii/)——返回所有 BST
+
+
+
+#### To 最近公共祖先==...==
+
+
+
+## To 图
+
+<span style="font-size:20px">存储方式:</span>
+
+```java
+List<Integer>[] graph;	// 邻接表 gragh[i]——i的所有邻居节点
+boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
+```
+
+<span style="font-size:20px">遍历: </span>
+
+```java
+boolean[] visited;	// 记录被遍历过的节点（无环则不用
+boolean[] onPath; 	// 记录从起点到当前节点的路径
+
+/* 图遍历框架 */
+void traverse(Graph graph, int s) {
+    if (visited[s]) return;
+    // 经过节点 s，标记为已遍历
+    visited[s] = true;
+    // 做选择：标记节点 s 在路径上
+    onPath[s] = true;
+    for (int neighbor : graph.neighbors(s)) {
+        traverse(graph, neighbor);
+    }
+    // 撤销选择：节点 s 离开路径
+    onPath[s] = false;
+}
+```
+
+[797. 所有可能的路径](https://leetcode.cn/problems/all-paths-from-source-to-target/)——无环，当作多叉树遍历邻接表
+
+<span style="font-size:20px">特殊算法:</span>
+
+**有向图的环检测：**
+
+
+
 ## 二分搜索
+
+> **搜索区间与 while 条件对应关系:**
+>
+> 搜索区间为 [l, r]——搜索条件 l <= r
+>
+> 搜索区间 [l, r)——l < r
+>
+> 因为搜索区间为空时停止
 
 ### 典型二分
 
@@ -850,7 +1261,7 @@ while (l <= r) {
 
 [704.二分查找](https://leetcode.cn/problems/binary-search/)
 
-<span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>
+<span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>——寻找左/右边界
 
 1. 寻找最左——区间向左收缩，正确下标 `l`
 2. 寻找最右——区间向右收缩，正确下标 `r`
@@ -920,15 +1331,117 @@ return l;
 
 [1011. 在 D 天内送达包裹的能力](https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/)
 
-## 随机返回索引
+
+
+## 回溯法
+
+**递归函数：**
+
+1. <span style="color:orange">横向遍历</span>，选择
+2. <span style="color:orange">纵向递归</span>，下一元素选择
+3. <span style="color:orange">回溯</span>，撤销子树处理结果(*当前 path和 used 只作用于子树* )
+
+**框架：**
+
+```python
+def backtrack(路径, 选择列表):
+    if 满足结束条件:
+        result.add(路径)
+        return
+    
+    for 选择 in 选择列表:
+        做选择
+        backtrack(路径, 选择列表)
+        撤销选择
+```
+
+> 核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」
+>
+
+**组合/子集：**
+
+> + 递归：使用 `start` 控制树枝生长 避免产生重复子集
+> + 递归终止：`i = nums.length`
+
+```typescript
+// 1.1 无重复 不复选
+  function backtrack(start: number) {
+    for (let i = start; i < nums.length; i++) {
+      path.push(nums[i]); // 做选择
+      backtrack(i + 1);
+      path.pop(); // 撤销选择
+    }
+  }
+// 2.1 有重复 不复选
+  nums.sort();
+  function backtrack(start: number) {
+    for (let i = start; i < nums.length; i++) {
+      // 剪枝逻辑，跳过值相同的相邻树枝
+  #   if (i > start && nums[i] == nums[i - 1]) continue;
+      path.push(nums[i]); // 做选择
+      backtrack(i + 1);
+      path.pop(); // 撤销选择
+    }
+  }
+// 3.1 无重复 可复选
+	backtrack(i); // 在1.1基础上修改参数传递
+```
+
+**排列:**
+
+```js
+// 1.2 无重复 不复选
+  for (int i = 0; i < nums.length; i++) {
+    // 剪枝
+  # if (used[i]) continue;
+    used[i] = true;
+    track.addLast(nums[i]);
+    backtrack();
+    track.removeLast();
+    used[i] = false;
+  }
+// 2.2 有重复 不复选
+  nums.sort();
+  function backtrack() {
+    for (let i = start; i < nums.length; i++) {
+      // 剪枝，跳过值相同的相邻树枝
+  #   if (// 2.1 有重复 不复选
+  nums.sort();
+  function backtrack(start: number) {
+    for (let i = start; i < nums.length; i++) {
+      // 剪枝逻辑，跳过值相同的相邻树枝
+  #   if (i > start && nums[i] == nums[i - 1]) continue;
+      path.push(nums[i]); // 做选择
+      backtrack(i + 1);
+      path.pop(); // 撤销选择
+    }
+  }
+// 3.2 无重复 可复选——1.2基础上删除去重剪枝
+```
+
+
+
+## To 随机算法
 
 从所有样本中抽取若干个，要求每个样本被抽到的概率相等。
+
+### 设计数据结构
+
++ 高效地，等概率地随机获取元素——数组作底层容器
++ 保持数组元素的紧凑性，删除元素 O(1)——使用额外哈希表记录索引值，把待删除元素换到最后，然后 pop 掉末尾的元素
++ 数组中含空洞 (*黑名单* )——利用哈希表处理映射关系，让数组在逻辑上紧凑
+
+[380. O(1) 时间插入、删除和获取随机元素](https://leetcode.cn/problems/insert-delete-getrandom-o1/)——不定长数组 + 哈希
+
+[710. 黑名单中的随机数](https://leetcode.cn/problems/random-pick-with-blacklist/)——哈希处理黑名单数的映射
+
+
 
 ### 定长数据流——哈希表预处理
 
 ### 不定长数据流——蓄水池抽样
 
-总的样本数量未知。
+> 无限序列中等概率选取元素
 
 **思路：**从前往后处理每个样本，每个样本成为答案的概率为 1/i ，其中 i 为样本编号 (编号从1开始)，最终 (i = n) 可以确保每个样本成为答案的概率均为 1/ n
 
@@ -943,6 +1456,14 @@ return l;
 3. 返回最后一次覆盖答案为本次抽样结果
 
     > 最终每个样本概率为 1 / n
+
+
+
+### 带权重的随机选择==?==
+
+前缀和 + 二分
+
+1. 构造一个分布符合权重的序列
 
 
 
@@ -997,11 +1518,81 @@ function subarraySum(nums: number[], k: number): number {
 
 
 
+### 前缀和数组
+
+> **适用场景:**原始数组不会被修改的情况下，频繁查询某个区间的累加和
+
+[303. 区域和检索 - 数组不可变](https://leetcode.cn/problems/range-sum-query-immutable/)——快捷计算区间元素和 `preSum[right + 1] - preSum[left]`
+
+> preSum[i] = [0, i) 的和
+
+[304. 二维区域和检索 - 矩阵不可变](https://leetcode.cn/problems/range-sum-query-2d-immutable/)
+
+> <img src="https://labuladong.github.io/algo/images/%e5%89%8d%e7%bc%80%e5%92%8c/5.jpeg" alt="img" style="zoom:25%;" />
+>
+> 以 preSum\[][] = 以原点为顶点矩阵元素和 
+
+
+
+## 差分数组
+
+> **适用场景:** 频繁对原始数组的某个区间的元素进行增减
+
++ **图解：**
+
+    <img src="https://labuladong.github.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/2.jpeg" alt="img" style="zoom:25%;" />
+
+    diff 反推 nums——<span style="color:orange">nums[i] =  nums[i - 1] + diff[i]</span>
+
+    Eg：[1, 3] 元素全部加 3，只需让 `diff[i] + 3`，`diff[j + 1] - 3`
+
+    > `diff[i] + 3` —— nums [i, ...] 所有的元素加 3
+    >
+    > `diff[j + 1] - 3` —— nums [j+1, ...] 所有元素减 3
+    >
+    > 结果——[i, j] 所有元素加 3
+
+    <img src="https://labuladong.github.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/3.jpeg" alt="img" style="zoom:25%;" />
+
++ **increment 方法:**
+
+    ```java
+    /* 区间 [i, j] 均 + val */
+    public void increment(int i, int j, int val) {
+      diff[i] += val;
+      if (j + 1 < diff.length) {
+        diff[j + 1] -= val;
+      }
+    }
+    ```
+
+**实例：**
+
+> 看到题目有关于三元数组 [left, right, val] 的表述时想到差分数组
+
+[370. 区间加法](https://leetcode.cn/problems/range-addition/)——差分数组直接应用
+
+变种：
+
+[1109. 航班预订统计](https://leetcode.cn/problems/corporate-flight-bookings/)——由参得出 diff 后反推出 nums
+
+[1094. 拼车](https://leetcode.cn/problems/car-pooling/)——由参得出 diff 后反推出 nums
+
+
+
+## To 田忌赛马
+
+[870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
+
+
+
 # REF
 
 + 总：
 
     [代码随想录](https://programmercarl.com/)
+    
+    [labuladong 的算法小抄](https://labuladong.github.io/algo/)
     
 + 栈：
 
@@ -1032,3 +1623,4 @@ function subarraySum(nums: number[], k: number): number {
 + 题型：
 
     [【蓄水池抽样】多语言入门「蓄水池抽样」知识点](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247490892&idx=1&sn=c1fe373edc88142cbabd383ef3c0669b)
+

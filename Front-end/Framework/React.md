@@ -37,6 +37,81 @@ React 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
 
 
+## 部署
+
+<span style="font-size:20px">Github Pages: </span>
+
+1. GitHub 仓库新增 gh-pages 分支
+
+2. `yarn add gh-pages`
+
+3. Update package.json:
+
+    ```diff
+    + "homepage": "https://<>.github.io/<>/",
+    	"scripts": {
+    +   "predeploy": "npm run build",
+    +   "deploy": "gh-pages -d build",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+    ```
+> The `predeploy` script will run automatically before `deploy` is run.
+
+之后每次 Update 后执行 deploy 都会自动 push 到仓库 gh-pages 分支。
+
+
+
++ 浏览器报各种 static 资源 404：
+
+    package.json:
+
+    ```json
+    "homepage": ".",
+    ```
+
+    `homepage` 作用就是打包时候, 自动在资源目录前面添加设置的字符串
+
+
+
+<span style="font-size:20px">Routed React App: </span>
+
+使用路由后，浏览器的刷新或是导航会 404。
+
+**Reason:**
+
+GitHub Pages 不像浏览器那样支持 browser history
+
+**Solution:**
+
+使用 Hash Router 代替 Browser Router 包裹 routes: 
+
+```jsx
+return (
+  <HashRouter basename={"/"}>
+    {/* routes... */}
+  </HashRouter>
+)
+```
+
+> 用来防止 GitHub 重定向到 404
+
+<hr />
+
+根路径重定向后空白页
+
+```jsx
+<Route path="/home/*" element={<Home />} />
+<Route path="*" element={<Navigate to={"/home"} replace />} />
+```
+
+> 原错误的重定向写法：
+>
+> `<Route path='*' element={<Link to={'/home'}/>}/>`
+
+
+
+
+
 # 元素渲染
 ## JSX
 
@@ -622,132 +697,82 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 
 
-## 组件的生命周期
-
-+ <span style="font-size:20px">生命周期图</span>
-
-
-
-+ <span style="font-size:20px">关于生命周期的API</span>
-
-    <hr>
-
-组件的生命周期就是在特定的时间点执行：生命周期回调函数 / 生命周期钩子函数
-旧：
-
-1. 初始化阶段：由`ReactDOM.render()`触发--初次渲染
-
-    + constructor()		
-
-    + componentWillMount()
-
-    + render()
-
-    + **componentDidMount()**：组件挂载完毕，常用，一般用来初始化（*：如 开启定时器、发送网络请求、订阅消息*）
-
-2. 更新阶段：由组件内部 `this.setState()`或父组件`render`触发
-
-    + componentWillReceiveProps：组件将要接收**新的** props，第一次传的 props 不算。
-    + shouldComponentUpdata()：控制组件更新的”阀门“，如果这个钩子返回`true`（*默认返回 `true`*），“阀门”开启，可以继续执行
-    + componentWillUpdate()
-    + render
-    + componentDidUpdate：组件更新完毕
-
-3. 卸载组件：由`ReactDOM.unmountComponentAtNode()`触发
-
-    + **componentwillUnmount()**：常用，一般用来收尾（*：如 关闭定时器、取消订阅消息*） 
-
-    
-
-新：
-
-+ static getDerivedStateFromProps：不常用，state 任何时候都取决于 props 时可以使用。
-+ getSnapshotBeforeUpdate：snapshot（*快照*）。在最近一次渲染前输出之前调用，使得组件能在发生更改之前从 DOM 中捕获一些信息，返回的任何值都将作为参数传递给`componentDidUpdate()`。
-
-
-
-总结：
-
-+ 重要的勾子：
-    + render
-    + componentDidMount
-    + componentWillUnmount
-+ 即将废弃的勾子：
-    + componentWillMount
-    + componentWillReceiveProps
-    + componentWillUpdate
-
-
-
 ## Context
 
 Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法
 
-一般方法：![image-20210528204522678](https://i.loli.net/2021/05/28/z85k9BhIj2iArnu.png)
+一般方法：<img src="https://i.loli.net/2021/05/28/z85k9BhIj2iArnu.png" alt="image-20210528204522678" style="zoom:50%;" />
 
-Context：![image-20210528204602287](https://i.loli.net/2021/05/28/NZePigDjxUQkra8.png)
+Context：<img src="https://i.loli.net/2021/05/28/NZePigDjxUQkra8.png" alt="image-20210528204602287" style="zoom:53%;" />
+
+**何时使用：**
+
+Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据。常见的使用场景是 theme。
+
+**Provider：**
+
++ createContext 创建一个 Context 对象
+
+```jsx
+const ThemeContext = createContext("light");
+
+const GrandParent = () => {
+    const [theme, setTheme] = useState("light");
+    return <ThemeContext.Provider value={theme}>
+        <button onClick={() => setTheme("dark")}>
+          Change theme
+      </button>
+        <Child />
+    </ThemeContext.Provider>
+}
+const Child = () => {return <GrandSon />}
+const GrandSon = () => {
+  	const theme = useContext(ThemeContext);
+    return <>
+        <div>主题：{theme}</div>
+    </>
+}
+```
 
 
 
-## 创建简单组件
 
-+ public 文件夹：
 
-    + `index.html`主页面：
+## 组件间通信
 
-        ```html
-        <body>
-            <div id="root"></div>
-        </body>
-        ```
-    
-+ src 文件夹：
+<span style="font-size:20px">父组件 to 子组件——props</span>
 
-    + `index.js`入口文件：
+父组件通过属性向子组件传递值，子组件通过 **props** 来接受
 
-        ```jsx
-        // 引入 react 核心库
-        import React from 'react';
-        // 引入 ReactDom 
-        import ReactDOM from 'react-dom';
-        // 引入 App 组件
-        import App from './App'
-        
-        // 渲染 App 到页面
-        ReactDOM.render(<App/>, document.getElementById('root'));
-        ```
 
-    +  `App.js`App组件：
 
-        ```jsx
-        // 创建外壳组件（囊括其他组件
-        import React, {Component} from 'react'
-        import Hello from './components/Hello.jsx'
-        
-        // 创建并暴露 App 组件
-        export default class App extends Component {
-            render() {
-                return (
-                    <Hello/>
-                )
-            }
-        }
-        ```
-        
-    + components 文件夹（*有多个组件时习惯新建该文件夹存放*）
+<span style="font-size:20px">子组件 to 父组件——回调函数 </span>
 
-        + `Hello.jsx`：
+父组件向子组件传递一个函数，子组件通过这个**回调函数**向父组件传递数据
 
-            ```jsx
-            import React, {Component} from 'react'
-            import './Hello.css'
-            
-            export default class Hello extends Component {
-                render() {
-                    return <h2>Hello, react</h2>
-                }
-            }
-            ```
+```jsx
+const Parent = () => {
+  function callback(n) {
+    console.log("接收子组件传值：", n);
+  }
+  return <Child changeNum={callback} />
+}
+
+const Child = (props) => {
+  return <button onClick={() => props.changeNum(0)}>
+  	向父组件传值0
+  </button>
+}
+```
+
+
+
+<span style="font-size:20px">组件树的全局数据传递——Context </span>
+
+
+
+<span style="font-size:20px">复杂场景——Redux</span>
+
 
 
 
@@ -1070,19 +1095,19 @@ const refContainer = useRef(initVal);
 
 # Redux
 
-+ **Redux 原理：**
+**Redux 原理：**
 
-    应用中所有的 <span style="color:red">state</span> 都以一个对象树的形式储存在一个单一的 <span style="color:red">store</span> 中。 惟一改变 state 的办法是触发 <span style="color:red">action</span>，一个描述发生什么的对象。 为了描述 action 如何改变 state 树，你需要编写 <span style="color:red">reducers</span>。
+应用中所有的 <span style="color:red">state</span> 都以一个对象树的形式储存在一个单一的 <span style="color:red">store</span> 中。 惟一改变 state 的办法是触发 <span style="color:red">action</span>，一个描述发生什么的对象。 为了描述 action 如何改变 state 树，你需要编写 <span style="color:red">reducers</span>。
 
-    ![image-20210719161201719](https://camo.githubusercontent.com/c754e2b863804c2bc08ad8b500ce3a2e101c43bf8259d19e86e3ebf5479d9c88/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30372f32302f6f494a457141363352354d465156742e706e67)
+![image-20210719161201719](https://camo.githubusercontent.com/c754e2b863804c2bc08ad8b500ce3a2e101c43bf8259d19e86e3ebf5479d9c88/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30372f32302f6f494a457141363352354d465156742e706e67)
 
-+ <span style="font-size:20px">配置：</span>
+**配置：**
 
-    ```shell
-    $yarn add react-redux
-    
-    $npm i @types/react-redux
-    ```
+```shell
+$yarn add react-redux
+```
+
+
 
 ## Reducer
 
@@ -1301,25 +1326,30 @@ export const counterSlice = createSlice({
 > - 浏览器路由框架：react-keeper
 > - 手机 app 框架（*react-native*）：react-navigation
 
-+ **React-router-dom：**
+**React-router-dom：**
 
-    用于浏览器，处理 Web App 的路由。会自动安装 React-router 核心框架
+用于浏览器，处理 Web App 的路由。会自动安装 React-router 核心框架
 
-    - 使用`<Link />`组件可以渲染出`<a />`标签
-    - `BrowserRouter />`组件利用 H5 API 实现路由切换
-    - `<HashRouter />`组件利用原生 JS 中`window.location.hash`实现路由切换
+- 使用`<Link />`组件可以渲染出`<a />`标签
+- `<BrowserRouter />`组件利用 H5 API 实现路由切换
+- `<HashRouter />`组件利用原生 JS 中`window.location.hash`实现路由切换
 
-    > 其余扩展性框架：
-    >
-    > - React-router-redux 提供路由中间件，处理 redux 的集成
-    > - React-router-config 用来配置静态路由
+> 其余扩展性框架：
+>
+> - React-router-redux 提供路由中间件，处理 redux 的集成
+> - React-router-config 用来配置静态路由
 
-    ```shell
-    # v5版本
-    $npm i react-router-dom
-    ```
+**BrowserRouter vs HashRouter:**
 
-## 路由初始化
+BrowserRouter 使用 history api。意味着服务端需要支持返回每一路径对应的页面——服务端渲染
+
+HashRouter 使用 /# 拼接路径，利用锚点实现路由跳转
+
+
+
+## 路由配置
+
+<span style="font-size:20px">初始化: </span>
 
 ```tsx
 function App() {
@@ -1341,7 +1371,7 @@ function App() {
 >
 > + Route 组件内的写法有变动`element={<HomePage />}`，以前是`component={HomePage}`
 >
-> + BrowserRouter 内还要包裹一层 Routes 组件
+> + BrowserRouter / HashRouter 内还要包裹一层 Routes 组件
 >
 > + 没有 exact 属性，现在默认精准匹配路径
 >
@@ -1352,6 +1382,18 @@ function App() {
 >     <Route path={"*"} element={<h1>404</h1>} />
 >     ```
 
+<span style="font-size:20px">子路由配置: </span>
+
+依旧用 Routes 组件包裹：
+
+```jsx
+<Routes>
+	<Route path="manage" element={<Manage />} />
+</Routes>
+```
+
+> 因为这里是 /home 的子路由，path 不需要写 /manage
+
 
 
 ## 路由跳转
@@ -1359,8 +1401,6 @@ function App() {
 + 组件：
 
     ```tsx
-    import {Link} from "react-router-dom";
-    
     const ShowPage = () => {
         return (
             <>
@@ -1370,7 +1410,7 @@ function App() {
         )
     }
     ```
-
+    
 + JS：
 
     ```js
@@ -1382,6 +1422,12 @@ function App() {
     	state: { name: 'x' }	// 路由传参
     })
     navigate(-1);	// 回退，数字代表回退层数    
+    ```
+
++ 重定向
+
+    ```jsx
+    <Route path='/' element={<Navigate to={"/home"} replace /> }/>
     ```
 
 
@@ -1440,6 +1486,23 @@ useEffect(() => {
   console.log(location.pathname)
 }, [location.pathname])
 ```
+
+
+
+## 子路由渲染 \<Outlet />
+
+引入 Outlet 组件占位功能，更方便地配置路由结构
+
+Eg——二级路由，一级路由无内容：
+
+```jsx
+<Route path="manage" element={<Outlet/>}>
+  <Route path={"station"} element={<Station/>} />
+  <Route path={"director"} element={<Director/>} />
+</Route>
+```
+
+> 效果：'/manage'——空白页；'/manage/station' 显示对应组件
 
 
 
@@ -1512,13 +1575,61 @@ $npm i axios -S
     $npm i antd -S
     ```
 
-    
+    > Antd 默认支持基于 ES modules 的 tree shaking，对于 js 部分，直接引入 `import { Button } from 'antd'` 就会有按需加载的效果
     
     ```tsx
     // App.tsx
     import 'antd/dist/antd.css';
     ```
     
+
+
+
+<span style="font-size:20px">Form Instance: </span>
+
+Eg：获取验证码
+
+```jsx
+const form = Form.useForm();
+
+return <Form form={form}>
+  <Form.Item name={"phone"} label={"电话"}>
+  	<Input />
+  </Form.Item>
+  <Form.Item>
+    <Button 
+      onClick={() => 
+  getCode(form.getFieldValue("phone"))}
+      >获取验证码</Button>
+  </Form.Item>
+</Form>
+```
+
+> 通过 form.getFieldValue() 获取对应字段值
+
+
+
+<span style="font-size:20px">Form in Modal: </span>
+
+```jsx
+  const [form] = Form.useForm();
+  function handleForm() {
+    form
+      .validateFields()
+      .then(val => {
+          console.log(val)
+          form.resetFields();
+    }, info => {
+      return message.error("Validate Failed: ", info);
+    })
+    setVisible(false);
+  }
+  return <Modal onOk={handleForm}>
+    <Form form={form}>{/* ... */}</Form>
+  </Modal>
+```
+
+> 将 form 的提交逻辑绑定在 Modal 按钮上
 
 
 
@@ -1548,13 +1659,79 @@ $npm i axios -S
 
 
 
+# 懒加载
+
+lazy 函数与 \<Suspense /> 组件
+
+```tsx
+import { lazy, Suspense } from "react";
+
+const Login = lazy(() => import("./login"))
+
+function App() {
+  return (
+  	<Suspense fallback={<Login />}>
+    	<Routes path="/home/*" 
+        element={<Auth>
+        	<Home />
+      	</Auth>}
+      />
+      <Routes path="/login" element={<Login />} />
+    </Suspense>
+  )	
+}
+```
+
+
+
 # React 部分实现
+
+![React 图解](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2017/5/31/2a1a8677868027d33b99a3670f7daea2~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp)
+
+## Virtual DOM
+
+**VDOM:** 
+
+就是由 React Element 构成的一棵树。根据这个由 JavaScript 对象表示的树结构来构建一棵真正的 DOM 树
+
+**Virtual DOM 算法: **
+
+> 当我们需要创建或更新元素时，React 首先会让这个 VitrualDOM 对象进行创建和更改，然后再将 VitrualDOM 对象渲染成真实 DOM；
+>
+> 当我们需要对 DOM 进行事件监听时，首先对 VitrualDOM 进行事件监听，VitrualDOM 会代理原生的 DOM 事件从而做出响应
+
+1. JS 对象结构表示 DOM 树的结构，然后用这个树构建一个真正的 DOM 树，插到文档中
+2. Diff、Edition DIstance 算法——状态变更时，重新构建一颗新的对象树，比较新旧树差异
+3. Patch 算法——差异应用到真实 DOM 树，视图更新
+
+<span style="font-size:22px">深度优先遍历:</span>
+
+1. 对新旧两棵树进行 DFS 遍历，这样每个节点会有一个唯一的标记
+
+    ![dfs-walk](https://camo.githubusercontent.com/b698f28c8fc76b4ee9a1c92ec9c29ab56fd246f60a1f207099e6b7e89c62a52c/687474703a2f2f6c69766f7261732e6769746875622e696f2f626c6f672f7669727475616c2d646f6d2f6466732d77616c6b2e706e67)
+
+2. DFS 时边遍历边比较，有差异的记录到一个对象里
+
+<span style="font-size:22px">差异类型: </span>
+
++ 节点替换
++ 子节点重序——移动、删除、新增 子节点
++ 修改属性
++ 文本内容
+
+<span style="font-size:22px">列表对比算法</span>
+
+<span style="font-size:22px">应用差异</span>
+
+
 
 ## React 的构建
 
 通过 [Babel 转换](https://www.babeljs.cn/repl)可以知道，ReactDOM.render 是由这个方法转义 JSX 代码的：(`ReactDOM.render(<div id="title">day</div>, document.getElementById("root"))`)
 
-![image-20211220185441552](https://gitee.com/ethereal-bang/images/raw/master/20211220185448.png)
+![image-20220807174533506](http://img.giantbear.top/img/20220807174545.png)
+
+
 
 + <Span style="font-size:20px">React.createElement(type,  props, children)：</span>
 
@@ -1562,7 +1739,9 @@ $npm i axios -S
 
     打印`createElement`方法返回的元素：
 
-    ![image-20211220193222873](https://gitee.com/ethereal-bang/images/raw/master/20211220193222.png)
+    ![image-20220808082708869](http://img.giantbear.top/img/20220808082711.png)
+
+    
 
 + <span style="font-size:20px">组件：</span>
 
@@ -1600,7 +1779,7 @@ $npm i axios -S
 
 ## 渲染 .md 文件
 
-+ 使用[react-markdown](https://github.com/remarkjs/react-markdown)
++ 使用 [react-markdown](https://github.com/remarkjs/react-markdown)
 
 + **Demo:**——fetch 识别文件内容
 
@@ -1640,6 +1819,10 @@ $yarn add exceljs
 
     [React 官方中文文档](https://zh-hans.reactjs.org/docs/hello-world.html)
 
++ React 配置：
+
+    [How to Deploy a Routed React App to GitHub Pages](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/)
+
 + 组件：
 
     [React-分享会 · 语雀](https://www.yuque.com/docs/share/42300f26-cb81-4947-ba04-4c207db13505?#a4878cb1)
@@ -1647,6 +1830,10 @@ $yarn add exceljs
 + Redux：
 
     [Hooks | React Redux](https://react-redux.js.org/api/hooks)
+
++ React 部分实现：
+
+    [深度剖析：如何实现一个 Virtual DOM 算法 - GitHub](https://github.com/livoras/blog/issues/13)
 
 + Others：
 

@@ -114,6 +114,27 @@ public class Hello {
 + charAt(`index`):——取某位字符
 + String.valueOf()——返回其他类型的字符串表示形式
 
+> **String 的存储：**
+>
+> ```java
+> String a = "ab";
+> String b = "ab";	// a, b指向同一实例对象(a == b)
+> 
+> String x = "a", y = "b";
+> String c = x + y;	// a, c不指向同一
+> ```
+>
+> ![String创建的字符串存储在公共池，new创建的字符串对象在堆](E:%5CTypora%5Cupload%5Cimage-20220630204836834.png)
+
+> **字符串比较：**
+>
+> 第一个字符大小：
+>
+> + 不相等——返回第一个字符 ASCII 码差值
+> + 相等：
+>     + 依次比较直到字符不同
+>     + 字符一样——返回长度差值
+
 
 
 <span style="font-size:20px">float:</span>
@@ -209,6 +230,7 @@ public class Hello {
     arr = new int[]{1001,1002,1003,1004};//静态初始化：数组的初始化和数组元素的赋值操作同时进行
     
     String[] arr = new String[5];//动态初始化：数组的初始化和数组元素的赋值操作分开进行（长5）
+    String arr[];
     ```
 
     数组元素**默认初始值**：
@@ -449,8 +471,6 @@ public class Apple {
 
 几个相同的名字 Java 是如何判断调用的是哪一个方法呢：每个重载的方法都有独一无二的参数列表。如上例的`int num`与` `，使用时：
 
-![image-20211129183650384](https://gitee.com/ethereal-bang/images/raw/master/20211129183657.png)
-
 ```java
 a.getApple(1)	// 1
 a.getApple("red")	// color
@@ -567,7 +587,6 @@ Integer i = new Integer(1);
     if (Pattern.matches("/[\\u4e00-\\u9fa5\\w]/", name)) {
     ```
 
-
 <span style="font-size:20px">SimpleDateFormat: </span>
 
 用于格式化 Date 类型
@@ -576,6 +595,14 @@ Integer i = new Integer(1);
 SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 fd.format(date);
 ```
+
+
+
+## 内置接口
+
+<span style="font-size:20px">Comparable\<T>:</span>
+
+@Overrider compareTo(object p)——返回 -1，当前对象排到前面
 
 
 
@@ -736,28 +763,23 @@ import java.util.*;
     Person p1 = new Person()
     ```
 
-    匿名对象：
-
-    ```java
-    new Phone().sendEmail();
-    new Phone().price = 1999;
-    ```
-
 + <span style="font-size:20px">public 与 private：</span>
 
     属性：`public`定义的属性外部可以直接访问，`private`定义的属性外部只能通过调用方法间接修改
 
     方法：`private`方法只能在内部方法调用
 
-+ <span style="font-size:20px">this 变量：</span>
+      
 
-    
 
 ## 封装——访问控制权限
 
 Java 中成员的控制权限共有四种，`public`、`protected`、`default`、`private`，可见性如下：
 
-![image-20211128140531598](https://gitee.com/ethereal-bang/images/raw/master/20211128140538.png)
++ public——所有
++ protected——不能不同包
++ default——只能同一包下同一类
++ private——只能同一类
 
 
 
@@ -767,15 +789,13 @@ Java 中成员的控制权限共有四种，`public`、`protected`、`default`�
 
     在重写抽象方法/接口方法时不是必要的，但加上 IDE 会检查是否符合要求
 
-
-
 + **this、super：**
 
     super 是当前对象父类的引用
 
     1. 引用属性、方法：`this.name`、`this.show()`
 
-    2. 引用构造方法：
+    2. 引用构造方法：（子类的构造方法运行时隐式调用`super()`）
 
         ```java
         public class Chinese extends Person { 
@@ -787,8 +807,6 @@ Java 中成员的控制权限共有四种，`public`、`protected`、`default`�
                super(name); 
             } 
         ```
-
-
 
 ### 继承
 
@@ -827,7 +845,7 @@ public class Soccer {
 
     多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时<span style="color:red">实际类型</span>的方法——运行时期才能动态决定调用的子类方法
 
-    对某个类型调用某种方法，执行的实际方法可能是某个子类的 override 方法
+    <span style="color:red">对某个类型调用某种方法，执行的实际方法可能是**其子类的 override 方法**</span>
 
     封装和继承是多态的基础，也就是说多态只是一种<span style="color:red">表现形式</span>
 
@@ -854,63 +872,68 @@ public class Soccer {
      	}
      	public static void main(String[] args) {
      		Fruit fruit = new Apple();	// 虽然是Fruit类型但实际调用的是Apple的方法
-     		fruit.eat();
+     		fruit.eat();	// 调用子类的方法
+        fruilt.num;	// 是父类的属性
      	}
     }
     ```
-
+    
     `Fruit fruit = new Apple()`，`Fruit`类型的对象指向了`Apple`对象的引用，这就是多态——父类引用指向子类对象，因为`Apple`继承于`Fruit`，且覆写了`eat`方法，所以能表现除多种状态的形式
-
- 
-
-## 类的关键字
-
-+ **final：**表示不能被继承
-
-
-
-# 注解和反射
-
-## 注解——Java.Annotation
-
-注解是放在 Java 源码的类、方法、字段、参数前的一种特殊“注释”
-
-**注释**会被编译器直接忽略，**注解**则可以被编译器打包进入class文件，因此，注解是一种用作标注的“元数据”。
-
-+ <span style="font-size:22px">注解分类：</span>
-
-    1. 编译器使用的注解：
-
-        如`@Override`、`@SuppressWarnings`——告诉编译器忽略此处代码产生的警告
-
-        这类注解不会被编译进入`.class`文件
-
-    2. 工具处理`.class`文件使用的注解：
-
-        这类注解会被编译进入`.class`文件，但加载结束后并不会存在于内存中。只被一些底层库使用，一般我们不必自己处理。
-
-    3. 第三类是在程序运行期能够读取的注解：
-
-        加载后一直存在于 JVM 中，这也是最常用的注解
-
-+ <span style="font-size:22px">元注解——meta-annotation：</span>
-
-    元注解负责注解其他注解，Java 定义了 4 个标准 meta-annotation 类型 提供对其它 annotation 类型的说明，这些类型和它们支持的类在 java.lang.annotation 包可以找到：
-
-    + **@Target**——描述注解使用范围
-    + **@Retention**——描述注解生命周期，（SOURCE<CLASS<RUNTIME）
-    + **@Document**——注解将被包含在 javadoc
-    + **@Inherited**——子类可以继承父类中的该注解
-
-    ```java
-    @Target(ElementType.METHOD)
-    public @interface Report {
-        int type() default 0;
-        String level() default "info";
-        String value() default "";
-    }
-    ```
-
+        
+        属性是编译时静态绑定所以直接得到的是父类的，方法是运行期间动态绑定才有多态
+        
+        > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
+    
+     
+    
+    ## 类的关键字
+    
+    + **final：**表示不能被继承
+    
+    
+    
+    # 注解和反射
+    
+    ## 注解——Java.Annotation
+    
+    注解是放在 Java 源码的类、方法、字段、参数前的一种特殊“注释”
+    
+    **注释**会被编译器直接忽略，**注解**则可以被编译器打包进入class文件，因此，注解是一种用作标注的“元数据”。
+    
+    + <span style="font-size:22px">注解分类：</span>
+    
+        1. 编译器使用的注解：
+    
+            如`@Override`、`@SuppressWarnings`——告诉编译器忽略此处代码产生的警告
+    
+            这类注解不会被编译进入`.class`文件
+    
+        2. 工具处理`.class`文件使用的注解：
+    
+            这类注解会被编译进入`.class`文件，但加载结束后并不会存在于内存中。只被一些底层库使用，一般我们不必自己处理。
+    
+        3. 第三类是在程序运行期能够读取的注解：
+    
+            加载后一直存在于 JVM 中，这也是最常用的注解
+    
+    + <span style="font-size:22px">元注解——meta-annotation：</span>
+    
+        元注解负责注解其他注解，Java 定义了 4 个标准 meta-annotation 类型 提供对其它 annotation 类型的说明，这些类型和它们支持的类在 java.lang.annotation 包可以找到：
+    
+        + **@Target**——描述注解使用范围
+        + **@Retention**——描述注解生命周期，（SOURCE<CLASS<RUNTIME）
+        + **@Document**——注解将被包含在 javadoc
+        + **@Inherited**——子类可以继承父类中的该注解
+    
+        ```java
+        @Target(ElementType.METHOD)
+        public @interface Report {
+            int type() default 0;
+            String level() default "info";
+            String value() default "";
+        }
+        ```
+    
 + <span style="font-size:22px">定义注解：</span>
 
     1. 使用`@interface`定义注解：
@@ -994,8 +1017,12 @@ public class Soccer {
 
 
 
-
 # 异常
+
+> Throwable： 有两个重要的子类：Exception（异常）和 Error（错误），二者都是 Java 异常处理的重要子类，各自都包含大量子类
+
++ **方法头部中声明一个异常: **throws
++ **抛出异常：**throw
 
 + **自定义异常类：**
 
@@ -1022,12 +1049,66 @@ public class Soccer {
 
 
 
+# 组件及事件处理
+
+<span style="font-size:20px">Java AWT:</span>
+
+> 早期界面设计
+
+```java
+import java.awt.*;	// FlowLayout,Button
+import java.awt.event.*;	// 引入事件 New MouseListener()
+```
+
+<span style="font-size:20px">Java Swing: </span>
+
+```java
+import javax.swing.*;	// JButton
+
+public Test extends JFrame {}	// JFrame容器
+```
+
+> JPannel 面板
+
+
+
+# 线程
+
+```java
+public static void main(String[] args) {
+	new FactoraialThread thread = new FactorialThread(100);  
+}
+
+class FactoraialThread extends Thread {}
+```
+
+
+
++ 启动线程 thread.start()
+
+
+
 # 输入输出流
+
+> **输入、输出：**
+>
+> 以内存为基准。留出内存叫输出
 
 > **文件路径：**
 >
 > + 来自内容根的路径："src/exp_final/list.txt"
 > + 绝对路径
+
+## Scanner 读取文件
+
+```java
+File file = new File(fileName);
+Scanner scanner = new Scanner(file);
+while (scanner.hasNextInt()) {
+  System.out.println(scanner.nextInt());
+}
+// 1 2 3
+```
 
 ## 字符流
 

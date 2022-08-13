@@ -317,6 +317,22 @@ function addURLParam(url, name, value) {
     
     > Post 请求传值是 JSON 类型
 
+## POST
+
+POST 多种提交数据方式
+
+<span style="font-size:20px">form-data:</span>
+
+```javascript
+let data = new FormData();
+data.append('code','1234');
+data.append('name','yyyy');
+axios.post(url, data)
+  .then(res => {
+      console.log('res=>',res);            
+  })
+```
+
 
 
 

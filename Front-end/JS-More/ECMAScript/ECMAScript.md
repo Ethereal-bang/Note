@@ -1628,18 +1628,7 @@ Set 数据结构类似于数组，但里面的值是唯一的
       .set(3, 'c');
     ```
 
-- **get(key)**
-
-    ```js
-    get`方法读取`key`对应的键值，如果找不到`key`，返回`undefined
-    const m = new Map();
-    const hello = function() {console.log('hello');};
-    
-    m.set(hello, 'Hello ES6!') // 键是函数
-    
-    m.get(hello)  // Hello ES6!
-    m.get(hi)     // undefined
-    ```
+- **get(key)**——找不到 `key` 返回 undefined
 
 - **has(key)**   返回布尔值
 

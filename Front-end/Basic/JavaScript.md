@@ -14,8 +14,8 @@
 
 > script 标签有两个属性——**defer、async：**
 >
-> + 都是异步加载，Async是在外部 JS 加载完成后，浏览器空闲时，Load 事件触发前执行；而 Defer 是在JS加载完成后，整个文档解析完成后执行。
->     Defer 更像是将`<script>`标签放在`</body>`之后的效果，但是它由于是异步加载 JS 文件，所以可以节省时间。
+> 都是异步加载，Async是在外部 JS 加载完成后，浏览器空闲时，Load 事件触发前执行；而 Defer 是在JS加载完成后，整个文档解析完成后执行。
+> Defer 更像是将`<script>`标签放在`</body>`之后的效果，但是它由于是异步加载 JS 文件，所以可以节省时间。
 
 
 
@@ -215,6 +215,16 @@ var arr = [1, 2];	// 字面量创建
 
 
 
++ **二位数组初始化:**
+
+    ```js
+    new Array(m).fill(0).map(() => new Array(n).fill(0)); 
+    ```
+
+    > 长度为 m×n 的二维矩阵。第一个 `fill(0)` 不可省略。
+
+
+
 ## 对象
 
 分为自定义对象、内置对象、浏览器对象
@@ -281,14 +291,28 @@ JSON.parse()、JSON.stringify()
 
 ## 方法
 
-+ <span style="font-size:20px">Array:</span>
+<span style="font-size:20px">Array:</span>
 
-    map()——返回一个新的 Array，每个元素为调用 func 的结果
-    filter()——返回一个符合 func 条件的元素数组
-    some()——返回一个 boolean，判断是否有元素是否符合 func 条件
-    every()——返回一个 boolean，判断每个元素是否符合 func 条件
-    forEach()——没有返回值，只是针对每个元素调用 func
-    reduce()——有返回值，重点是计算数组，返回一个值
+map()——返回一个新的 Array，每个元素为调用 func 的结果
+filter()——返回一个符合 func 条件的元素数组
+some()——返回一个 boolean，判断是否有元素是否符合 func 条件
+every()——返回一个 boolean，判断每个元素是否符合 func 条件
+forEach()——没有返回值，只是针对每个元素调用 func
+reduce()——有返回值，重点是计算数组，返回一个值
+
+sort()
+
+> 如果没有指定 compareFunction，转换成字符串排序。所以此时 80 会排在 9 前面
+
+
+
+<span style="font-size:20px">Math: </span>
+
++ Eg——返回数组随机索引:
+
+    ```js
+    Math.floor(Math.random() * this.arr.length)
+    ```
 
 
 
@@ -513,7 +537,9 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
         
     + 方法：
 
-        [[js数组方法forEach、map、filter、reduce、every、some总结](https://segmentfault.com/a/1190000016025949)](https://segmentfault.com/a/1190000016025949)
+        [js数组方法forEach、map、filter、reduce、every、some总结](https://segmentfault.com/a/1190000016025949)
+        
+        [Array.prototype.sort()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 
 + DOM：
 

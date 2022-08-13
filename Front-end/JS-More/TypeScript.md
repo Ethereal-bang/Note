@@ -2,58 +2,58 @@
 
 # 准备阶段
 
-+ <span style="font-size:22px">安装：</span>
+<span style="font-size:22px">安装：</span>
 
-    1. 安装
+1. 安装
 
-        ```
-        npm i -g typescript
-        ```
+    ```shell
+    npm i -g typescript
+    ```
 
-    2. 验证
+2. 验证
 
-        ```
-        tsc -v
-        ```
+    ```
+    tsc -v
+    ```
 
-    3. 编译 TypeScript 文件
+3. 编译 TypeScript 文件
 
-        ```
-        $ tsc test.ts
-        # test.ts => test.js
-        ```
-
-    
-
-+ <span style="font-size:22px">.ts 的编译：</span>
-
-    **编译器**：ts-loader、awesome-typescript-loader、**babel-loader**。
-
-    **编译器配置文件**：tsconfig.json（可显示声明文件）
-
-    编译器启动时，首先读取`tsconfig.json`，以获取有关如何编译项目的说明
-
-    `"complilerOptions"`定义编译器的工作方式，在其中加上一个属性`noImplicitAny: false`意为不需要显示地声明变量类型`any`，实现 js 与 ts 的混合编写
-
-    各语句含义：<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210603200542608.png" alt="image-20210603200542608" style="zoom: 80%;" />
+    ```
+    $ tsc test.ts
+    # test.ts => test.js
+    ```
 
 
 
-+ <span style="font-size:22px">典型 TypeScript 工作流程：</span>
+<span style="font-size:22px">.ts 的编译：</span>
 
-    ![img](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dea0cbad55b246a8a7e65aec57273ade~tplv-k3u1fbpfcp-watermark.awebp)
+**编译器**：ts-loader、awesome-typescript-loader、**babel-loader**。
 
-    对于大多数使用 TypeScript 开发的 Web 项目，还会对编译生成的 js 文件进行打包处理，然后在进行部署
+**编译器配置文件**：tsconfig.json（可显示声明文件）
+
+编译器启动时，首先读取`tsconfig.json`，以获取有关如何编译项目的说明
+
+`"complilerOptions"`定义编译器的工作方式，在其中加上一个属性`noImplicitAny: false`意为不需要显示地声明变量类型`any`，实现 js 与 ts 的混合编写
+
+各语句含义：<img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210603200542608.png" alt="image-20210603200542608" style="zoom: 80%;" />
 
 
 
-+ <span style="font-size:22px">TS 中的声明文件：</span>
+<span style="font-size:22px">典型 TypeScript 工作流程：</span>
 
-    在 src 文件夹下新建一个`.d.ts`
+![img](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dea0cbad55b246a8a7e65aec57273ade~tplv-k3u1fbpfcp-watermark.awebp)
 
-    只包含类型声明，不含逻辑
+对于大多数使用 TypeScript 开发的 Web 项目，还会对编译生成的 js 文件进行打包处理，然后在进行部署
 
-    不会被编译、打包
+
+
+<span style="font-size:22px">TS 中的声明文件：</span>
+
+在 src 文件夹下新建一个`.d.ts`
+
+只包含类型声明，不含逻辑
+
+不会被编译、打包
 
 
 
