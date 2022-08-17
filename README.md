@@ -97,6 +97,8 @@
 
 + [Complier.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Complier.md)
 
++ [Algorithms Basic.md](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/AlgorithmsBasic.md)
+
 ## C
 
 + [C.md](https://github.com/Ethereal-bang/Note/blob/master/C/C.md)

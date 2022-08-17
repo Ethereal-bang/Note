@@ -787,7 +787,34 @@ export default class Test extends React.Component {
       }
     ```
     
-    
+
+
+
+## 组件复用
+
+```vue
+<script>
+export default {
+	name: "MyList",
+  props: { listData: Array, },
+}
+</script>
+
+<template>
+	<MyList :list-data=bookList /> 
+</template>
+<script>
+import MyList from "../../components/myList/myList";
+export default {
+  componenets: {MyList,},
+  data() {
+    return {bookList: [],},
+  }
+}  
+</script>
+```
+
+
 
 ## 事件
 
@@ -925,6 +952,20 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 
 
+### 请求——taro-axios
+
+> 因为 Taro 不支持解析 `package.json` 里的 `browser` 属性，导致所有使用了该特性的包都可能无法在 Taro 里正常运行。axios 就是其中之一——`Typeerror: adapter is not a function`
+>
+> 因此，**taro-axios** 预先解析了 axios 包中的 `browser` 属性并提供了 Taro 版的请求适配器后，将之打包出了一个 Taro 可用的版本。
+
+**引用：**
+
+```js
+import axios from 'taro-axios'
+```
+
+
+
 # 静态资源引用
 
 在 Taro 中可以像使用 [Webpack](https://webpack.js.org/) 那样自由地`import`或`require`等引用静态资源，而且不需要安装任何 Loaders
@@ -933,11 +974,11 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 
 
-# 小程序
+# 微信小程序
 
 ## 小程序组件
 
-+ <span style="font-size:22px">scroll-view:——可滚动视图区域</span>
++ <span style="font-size:20px">scroll-view:——可滚动视图区域</span>
 
     ```vue
     <scroll-view
@@ -964,46 +1005,65 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 ## API
 
-+ <span style="font-size:22px">媒体：</span>
+<span style="font-size:20px">媒体：</span>
 
-    + Taro.chooseImage(option)：——上传本地图片
++ Taro.chooseImage(option)：——上传本地图片
 
-        ```js
-        uploadPic(e) {  // 点击上传触发此事件
-          Taro.chooseImage({
-            count: 1, // 限定只上传一张
-            success: (res) => {
-              const { tempFilePaths } = res;
-              console.log(res)
-              this.picUrl = tempFilePaths;	// 获得该url
-            },
-            fail: (res => {	// 上传失败回调
-              console.log(res)
-            })
-          })
+    ```js
+    uploadPic(e) {  // 点击上传触发此事件
+      Taro.chooseImage({
+        count: 1, // 限定只上传一张
+        success: (res) => {
+          const { tempFilePaths } = res;
+          console.log(res)
+          this.picUrl = tempFilePaths;	// 获得该url
         },
-        ```
-
-        > 成功回调具有以下字段：
-        >
-        > ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
-
-+ <span style="font-size:22px">获取节点：</span>
-
-    ```vue
-    <script>
-    Taro.createSelectorQuery()
-      .select("#foo")
-      .fields({
-      computedStyle: ["backgroundColor",],  // 获取背景色样式
-    }, res => {
-      console.log(res.backgroundColor)
-    })
-      .exec()
-    </script>
+        fail: (res => {	// 上传失败回调
+          console.log(res)
+        })
+      })
+    },
     ```
-    
-    
+
+    > 成功回调具有以下字段：
+    >
+    > ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
+
+<span style="font-size:20px">获取节点：</span>
+
+```vue
+<script>
+Taro.createSelectorQuery()
+  .select("#foo")
+  .fields({
+  computedStyle: ["backgroundColor",],  // 获取背景色样式
+}, res => {
+  console.log(res.backgroundColor)
+})
+  .exec()
+</script>
+```
+
+<span style="font-size:20px">存储: </span>
+
+Taro.setStorage()
+
+```jsx
+Taro.setStorage({
+  key: "id",
+  data: 1,
+})
+Taro.getStorage({
+  key: "id",
+  success: res => {
+    console.log(res.data)	// 1
+  }
+})
+```
+
+
+
+
 
 # REF
 
@@ -1011,7 +1071,20 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 [Taro 快速上手教程（一） - SegmentFault](https://segmentfault.com/a/1190000016766906)
 
+[fjc0k/taro-axios: 在 Taro 中使用 axios](https://github.com/fjc0k/taro-axios)
 
+
+
+# DEBUG
+
+<span style="font-size:20px; color:red">Only digits (0-9) can be put inside []: </span>
+
+```jsx
+/*原: */
+<BookList book-list={{bookList}} />
+/*改: */
+<BookList :book-list=bookList />
+```
 
 
 

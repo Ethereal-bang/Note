@@ -41,6 +41,7 @@
 + 安装依赖——`yarn install`：创建 lock file
 + 安装依赖——`yarn run`
 + 运行命令——`yarn run <command>`
++ 删除依赖——`yarn remove`
 + 更新依赖——`yarn upgrade`
 
 

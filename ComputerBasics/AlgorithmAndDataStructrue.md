@@ -435,6 +435,13 @@ Trie是一种树状信息检索数据结构
 
 ## 图
 
+<span style="font-size:20px">存储方式:</span>
+
+```java
+List<Integer>[] graph;	// 邻接表 gragh[i]——i的所有邻居节点
+boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
+```
+
 借助哈希表来记录被遍历过的节点来避免陷入死循环
 
 ### 深度优先 DFS
@@ -1196,13 +1203,6 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 ## To 图
 
-<span style="font-size:20px">存储方式:</span>
-
-```java
-List<Integer>[] graph;	// 邻接表 gragh[i]——i的所有邻居节点
-boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
-```
-
 <span style="font-size:20px">遍历: </span>
 
 ```java
@@ -1226,9 +1226,31 @@ void traverse(Graph graph, int s) {
 
 [797. 所有可能的路径](https://leetcode.cn/problems/all-paths-from-source-to-target/)——无环，当作多叉树遍历邻接表
 
+
+
 <span style="font-size:20px">特殊算法:</span>
 
 **有向图的环检测：**
+
+[207. 课程表](https://leetcode.cn/problems/course-schedule/)——建图 + DFS 环检测
+
+**拓扑排序：**——根据节点间的依赖关系排序
+
+[210. 课程表 II](https://leetcode.cn/problems/course-schedule-ii/)——返回正确的上课顺序（先修后修）
+
+**二分图**==...==
+
+
+
+### 并查集 Union-Find
+
+
+
+### 最小生成树算法
+
+<span style="font-size:20px">Kruskal: </span>
+
+
 
 
 
