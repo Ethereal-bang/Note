@@ -75,7 +75,9 @@
         const bubbleSort = (nums: number[]): void => {}
         ```
 
++ <span style="font-size:20px">type vs interface: </span>
 
+    interface 描述<span style="color:orange">数据结构</span>，用 type 描述<span style="color:orange">类型关系</span>
 
 
 # 类型

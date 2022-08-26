@@ -828,9 +828,13 @@ export default {
 </button>
 ```
 
-## 事件传参
+> **Notes**:
+>
+> 注意使用第三方组件时 `@tap` 不生效，用自带的 `:on-click`。`@change` 等同理
 
-通过 dataset。
+### 事件传参
+
+通过 **dataset:**
 
 ```tsx
 <template>
@@ -857,102 +861,143 @@ export default {
 > + 在父标签添加点击事件，避免多个子组件内添加
 > + `data-<property>`属性在`e.target.dataset`中得到的是以对象形式，字段为该`<property>`
 
+**函数传参：**
+
+```jsx
+<view 
+  v-for="genre in genres"
+  @tap="() => genreClick(genre.name)"/>
+<input 
+  value="inputVal"
+  @change="(val) => this.inputVal=val" />
+```
+
 
 
 # 路由功能
 
 Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Route），不需开发者额外配置，我们只需入口文件指定好 pages，就可通过 Taro 提供的 API 跳转到目的页面。或通过自带的`navigator`组件
 
-+ <span style="font-size:22px">页面跳转：</span>
+<span style="font-size:22px">页面跳转：</span>
 
-    可通过 Taro 提供的 API 来跳转到目的页面
+可通过 Taro 提供的 API 来跳转到目的页面
 
-    + Taro.navigateTo()、Taro.redirectTo
-
-        ```jsx
-        // 跳转到目的页面，打开新页面（相当于`history.push`，能回退）
-        Taro.navigateTo({
-          url: '/pages/page/path/name'
-        })
-        
-        // 跳转到目的页面，在当前页面打开（回退要重新加载
-        Taro.redirectTo({
-          url: '/pages/page/path/name'
-        })
-        ```
-
-        注意区别和路径。
-        
-        ```vue
-        <view :on-click="clickTo"></view>
-        
-        <script>
-          export default {
-            methods: {
-          	  clickTo() {
-            	  wx.navigateTo({
-              	  url: 					`../../pages/bookDetail/bookDetail`,
-              })
-            }
-        		}
-          }
-        </script>
-        ```
-        
-        
-
-    + 内置 navigator 组件：
-
-        ```vue
-        <navigator
-        		url="/pages/bookList/bookList"
-            open-type="navigate"
-        >
-          全部书籍
-        </navigator>
-        ```
-
-
-​    
-
-+ <span style="font-size:22px">传参 & 获取路由参数：</span>
-
-    可通过在`url`后添加查询字符串参数进行跳转传参；跳转成功后在目标页面的生命周期方法中，可通过**`Taro.getCurrentInstance().router.params`** 获取路由参数
-
-    例如，在`.navigateTo()`里：
++ Taro.navigateTo()、Taro.redirectTo
 
     ```jsx
-    // 传入参数 id=2&type=test
+    // 跳转到目的页面，打开新页面（相当于`history.push`，能回退）
     Taro.navigateTo({
-      url: '/pages/page/path/index?id=2&type=test'
+      url: '/pages/page/path/name'
     })
-    ```
-
-    生命周期方法中获取：
-
-    ```react
-    class Index extends Component {
-      // 应在页面初始化时把`getCurrentInstance()`结果保存下来供后面使用，而不是频繁地调用此API
-      $instance = getCurrentInstance()
     
-      componentDidMount () {
-        // 获取路由参数
-        console.log($instance.router.params) // 输出 { id: 2, type: 'test' }
-      }
-    
-      render () {
-        return (
-          <View className='index' />
-        )
-      }
-    }
+    // 跳转到目的页面，在当前页面打开（回退要重新加载
+    Taro.redirectTo(/*...*/)
     ```
+    
+    注意区别和路径。
 
-    也可以解构赋值取得参数：`let {id,type} = this.$router.params`。
+    ```vue
+    <view :on-click="clickTo"></view>
+    
+    <script>
+      export default {
+        methods: {
+      	  clickTo() {
+        	  wx.navigateTo({
+          	  url: 					`../../pages/bookDetail/bookDetail`,
+          })
+        }
+    		}
+      }
+    </script>
+    ```
+    
+    
+    
++ 内置 navigator 组件：
+
+    ```vue
+    <navigator
+    		url="/pages/bookList/bookList"
+        open-type="navigate"
+    >
+      全部书籍
+    </navigator>
+    ```
+    
+    > openType 值：
+    >
+    > navigate 默认，switchTab 跳转到 tab
 
 
 
-### 请求——taro-axios
+<span style="font-size:22px">传参 & 获取路由参数：</span>
+
+可通过在`url`后添加查询字符串参数进行跳转传参；跳转成功后在目标页面的生命周期方法中，可通过**`Taro.getCurrentInstance().router.params`** 获取路由参数
+
+例如，在`.navigateTo()`里：
+
+```jsx
+// 传入参数 id=2&type=test
+Taro.navigateTo({
+  url: '/pages/page/path/index?id=2&type=test'
+})
+```
+
+生命周期方法中获取：
+
+```react
+class Index extends Component {
+  // 应在页面初始化时把`getCurrentInstance()`结果保存下来供后面使用，而不是频繁地调用此API
+  $instance = getCurrentInstance()
+
+  componentDidMount () {
+    // 获取路由参数
+    console.log($instance.router.params) // 输出 { id: 2, type: 'test' }
+  }
+
+  render () {
+    return (
+      <View className='index' />
+    )
+  }
+}
+```
+
+也可以解构赋值取得参数：`let {id,type} = this.$router.params`。
+
+
+
+<span style="font-size:22px">页面通信：</span>
+
+相比 query 传参能传递更复杂数据；还能通过 navigateBack 传回值
+
+```js
+// Page A
+Taro.navigateTo({
+  url,
+  success: res => {	// 向被打开页面传送数据
+    res.eventChannel.emit("sendData", {
+      msg: "Try",
+    })
+  }
+})
+// Page B
+onLoad() {
+  const pages = Taro.getCurrentPages(),
+        current = pages[pages.length - 1];  // 堆栈中获取当前页
+  const eventChannel = current.getOpenerEventChannel();  // 页面间事件通信通道
+  eventChannel.on("sendData", data => {
+    console.log(data)	// {msg: "Try"}
+  })
+}
+```
+
+
+
+
+
+# 请求——taro-axios
 
 > 因为 Taro 不支持解析 `package.json` 里的 `browser` 属性，导致所有使用了该特性的包都可能无法在 Taro 里正常运行。axios 就是其中之一——`Typeerror: adapter is not a function`
 >
@@ -975,6 +1020,12 @@ import axios from 'taro-axios'
 
 
 # 微信小程序
+
+## 账户体系
+
+![img](https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg)
+
+
 
 ## 小程序组件
 
@@ -1005,29 +1056,53 @@ import axios from 'taro-axios'
 
 ## API
 
+<span style="font-size:20px">界面: </span>
+
+**Taro.setNavigationBarTitle:**
+
+```jsx
+onLoad: (options) => {	// 不放在onLoad内而是script内话会误改首页
+  Taro.setNavigationBarTitle({
+    title: options.title,
+  })
+}
+```
+
+**[Taro.showToast](https://taro-docs.jd.com/taro/docs/apis/ui/interaction/showToast/)**
+
+```js
+Taro.showToast({
+  title: '成功',
+  icon: 'success',	// success默认,error,loading,none
+  duration: 2000
+})
+```
+
+
+
 <span style="font-size:20px">媒体：</span>
 
-+ Taro.chooseImage(option)：——上传本地图片
+**Taro.chooseImage(option)**：——上传本地图片
 
-    ```js
-    uploadPic(e) {  // 点击上传触发此事件
-      Taro.chooseImage({
-        count: 1, // 限定只上传一张
-        success: (res) => {
-          const { tempFilePaths } = res;
-          console.log(res)
-          this.picUrl = tempFilePaths;	// 获得该url
-        },
-        fail: (res => {	// 上传失败回调
-          console.log(res)
-        })
-      })
+```js
+uploadPic(e) {  // 点击上传触发此事件
+  Taro.chooseImage({
+    count: 1, // 限定只上传一张
+    success: (res) => {
+      const { tempFilePaths } = res;
+      console.log(res)
+      this.picUrl = tempFilePaths;	// 获得该url
     },
-    ```
+    fail: (res => {	// 上传失败回调
+      console.log(res)
+    })
+  })
+},
+```
 
-    > 成功回调具有以下字段：
-    >
-    > ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
+> 成功回调具有以下字段：
+>
+> ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
 
 <span style="font-size:20px">获取节点：</span>
 
@@ -1046,7 +1121,7 @@ Taro.createSelectorQuery()
 
 <span style="font-size:20px">存储: </span>
 
-Taro.setStorage()
+**Taro.setStorage(), Taro.getStorage(), Taro.getStorageSync()**
 
 ```jsx
 Taro.setStorage({
@@ -1062,6 +1137,17 @@ Taro.getStorage({
 ```
 
 
+
+## 代码质量
+
+**组件按需引入：**
+
+```js
+// app.config.js
+{
+  "lazyCodeLoading": "requiredComponents"
+}
+```
 
 
 
@@ -1086,7 +1172,9 @@ Taro.getStorage({
 <BookList :book-list=bookList />
 ```
 
+<span style="font-size:20px; color:red">getUserProfile:fail can only be invoked by user TAP gesture</span>
 
+> getUserProfile 只能由用户点击事件触发
 
 [^ 1]:React 在元素移动应用平台的衍生产物
 [^ 2]:客户端窗口底部或顶部有 tab 栏切换页面

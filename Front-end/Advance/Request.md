@@ -321,6 +321,16 @@ function addURLParam(url, name, value) {
 
 POST 多种提交数据方式
 
+<span style="font-size:20px">raw JSON: </span>
+
+```js
+axios.post(url, {
+  data: {
+    name: "Jack",
+  }
+})
+```
+
 <span style="font-size:20px">form-data:</span>
 
 ```javascript
