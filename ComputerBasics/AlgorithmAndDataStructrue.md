@@ -383,27 +383,67 @@ while (curNode != null || !stack.isEmpty()) {
 
 ## 堆
 
-堆是用数组实现（*所以没有使用父/子指针*）的二叉树，根据“堆属性”来排序，“堆属性”决定树中节点位置。
+**堆: **存储在<span style="color:orange">数组</span>里的 具有<span style="color:orange">堆属性</span>的<span style="color:orange">完全二叉树</span>
 
-+ **常用方法**：构建优先队列、支持堆排序、快速找出一个集合中最值
++ 数组：
 
-+ <span style="font-size:20px">堆与数组：</span>
+    <img src="https://labuladong.github.io/algo/images/heap/1.png" alt="img" style="zoom:13%;" />
 
-    堆是一种具以下特点的的**完全二叉树**（*有顺序的完全二叉树*）：
++ 堆属性：每个节点的值大于或等于左右孩子节点值（最大堆）
 
-    每个节点的值大于或等于左右孩子节点值——最大堆
+    arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]
 
-    ![image-20211208183051861](https://gitee.com/ethereal-bang/images/raw/master/20211208183059.png)
++ 完全二叉树：除了最后一层之外其他的每一层都被完全填充
 
-    对节点按层继续编号，将堆逻辑结构映射到数组中就是如下：
 
-    ![image-20211208183144244](https://gitee.com/ethereal-bang/images/raw/master/20211208183144.png)
 
-    得出，大顶堆：**arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]**
+<span style="font-size:20px">实现优先级队列:</span>Priority Queue
 
-    堆属性非常有用，堆常被作为优先队列使用——可以快速访问到最重要元素
+主要实现几个重要的 API——sink (*下沉* ) , swim (*上浮* ) , insert, delMax
 
-    要注意，堆的根节点存放的是<span style="color:red">最值</span>，但其他节点排序顺序未知
+**sink, swim**——当 insert, del 时维护堆结构
+
+```java
+// 上浮——不断与父节点比较
+private void swim(int index) {
+    // 如果浮到堆顶，就不能再上浮了
+    while (index > 1 && less(parent(index), index)) {
+        // 如果第index个元素比上层大
+        swap(parent(index), index);
+        index = parent(index);
+    }
+}
+// 下沉——与两个子节点比较 与更大值交换
+private void sink(int index) {
+    // 如果沉到堆底，就沉不下去了
+    while (left(index) <= size) {
+        // 先假设左边节点较大
+        int max = left(index);
+        // 如果右边节点存在，比一下大小
+        if (right(index) <= size && less(max, right(index)))
+            max = right(index);
+        // 结点 x 比俩孩子都大，就不必下沉了
+        if (less(max, index)) break;
+        // 否则，不符合最大堆的结构，下沉 x 结点
+        swap(index, max);
+        index = max;
+    }
+}
+```
+
+**delMax, insert**
+
+insert——插入元素添加到堆底的最后，上浮到正确位置
+
+delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让 `B` 下沉到正确位置
+
+
+
+**常用方法**——构建优先队列、支持堆排序、快速找出一个集合中最值
+
+构建优先队列：
+
+[1845. 座位预约管理系统](https://leetcode.cn/problems/seat-reservation-manager/)
 
 
 
@@ -823,7 +863,7 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 
 
-# 解题
+# Solution
 
 ## 双指针
 
@@ -1066,11 +1106,12 @@ while (queue.length !== 0) {
 1. 外层循环遍历每一个节点
 2. 对节点深度遍历——其联通节点
 
-**模板：**
+**二维数组遍历模板：**
 
 ```ts
 function maxAreaOfIsland(grid: number[][]): number {
     let m = grid.length, n = grid[0].length;
+  	// ...由题意排除岛屿
     // 遍历每一块，遇到土地dfs留最大面积
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
@@ -1096,9 +1137,17 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 **例题：**
 
-[200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)——节点连通即是组成一个岛屿
+岛屿类
+
+[200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)——模板题，节点连通即是组成一个岛屿
+
+[1254. 统计封闭岛屿的数目](https://leetcode.cn/problems/number-of-closed-islands/)——排除靠边岛屿 先将沿岸岛屿淹没
 
 [695. 岛屿的最大面积](https://leetcode.cn/problems/max-area-of-island/)
+
+[1905. 统计子岛屿](https://leetcode.cn/problems/count-sub-islands/)——两个数组 排除不为子岛的岛屿
+
+图类
 
 [547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份
 
@@ -1252,8 +1301,6 @@ void traverse(Graph graph, int s) {
 
 
 
-
-
 ## 二分搜索
 
 > **搜索区间与 while 条件对应关系:**
@@ -1352,6 +1399,92 @@ return l;
  [875.爱吃香蕉的珂珂](https://leetcode.cn/problems/koko-eating-bananas/)
 
 [1011. 在 D 天内送达包裹的能力](https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/)
+
+
+
+## 滑动窗口
+
+### 单调队列
+
+**使用场景：**满足元素先进先出，能维护队列中最值
+
+**框架：**
+
+```java
+function maxSlidingWindow(nums: number[], k: number): number[] {
+    const window = new MonotonicQueue();    
+    const res: number[] = [];
+    for (let i = 0; i < nums.length; i++) {
+        const cur = nums[i];
+        if (i < k - 1) {    // 先填k-1个元素
+            window.push(cur);
+        } else {
+            window.push(cur);   // 得到完整的一个窗口
+            res.push(window.max()); // 获取此时窗口最大值
+            window.pop(nums[i + 1 - k]);    // 弹出窗口左边
+        }
+    }
+    return res;
+};
+// 单调队列
+class MonotonicQueue {
+    private queue = [];
+    private peek() {/*...*/}
+
+    push(val) {	// 向窗口加入元素
+        // 删除比val小的元素
+        while (this.queue.length > 0 && this.peek() < val) {
+            this.queue.pop();
+        }
+        this.queue.push(val);
+    }
+
+    pop(val) {	// 弹出元素
+        if (val === this.queue[0]) {    // 不在优先级队列首则是已被push时移开
+            this.queue.shift();
+        }
+    }
+
+    max() {return this.queue[0];}
+
+}
+```
+
+[239. 滑动窗口最大值](https://leetcode.cn/problems/sliding-window-maximum/)——将窗口维护为单调队列
+
+
+
+## 单调栈
+
+**单调栈原理：**单调栈从后往前维护，对于当前元素来说，栈内只存储其后比它大的元素
+
+<img src="https://labuladong.github.io/algo/images/%e5%8d%95%e8%b0%83%e6%a0%88/1.jpeg" alt="img" style="zoom:33%;" />
+
+**模板：**
+
+```java
+int[] nextGreaterElement(int[] nums) {
+    int n = nums.length;
+    int[] res = new int[n];
+    Stack<Integer> s = new Stack<>(); 
+    // 倒着往栈里放
+    for (int i = n - 1; i >= 0; i--) {
+        // 判定个子高矮
+        while (!s.isEmpty() && s.peek() <= nums[i]) {
+						// 移走比它矮的
+            s.pop();
+        }
+        // nums[i] 身后的更大元素
+        res[i] = s.isEmpty() ? -1 : s.peek();
+        s.push(nums[i]);
+    }
+    return res;
+}
+```
+
+[496. 下一个更大元素 I](https://leetcode.cn/problems/next-greater-element-i/)
+
+[739. 每日温度](https://leetcode.cn/problems/daily-temperatures/)
 
 
 
