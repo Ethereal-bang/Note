@@ -1029,30 +1029,43 @@ import axios from 'taro-axios'
 
 ## 小程序组件
 
-+ <span style="font-size:20px">scroll-view:——可滚动视图区域</span>
+<span style="font-size:20px">view, text:</span>
 
-    ```vue
-    <scroll-view
-    	class="scroll-tag"
-      style="width: 100%"
-      :scroll-x="true"
-      @scroll="scroll"
-    >
-      <AtTag
-        v-for="genre in tags"
-        :key="genre.key"
-        :name="genre.name"
-      >
-        {{ genre.title }}
-    	</AtTag>
-    </scroll-view>
-    
-    <style>
-      .scroll-tag {
-          white-space: nowrap;
-      }
-    </style>
-    ```
+text 组件文本内遇到 \n 才能换行，view 不支持
+
+```jsx
+<text>
+  内容：{{ "\n" }}
+  。。。
+</text>
+```
+
+
+
+<span style="font-size:20px">scroll-view:——可滚动视图区域</span>
+
+```vue
+<scroll-view
+	class="scroll-tag"
+  style="width: 100%"
+  :scroll-x="true"
+  @scroll="scroll"
+>
+  <AtTag
+    v-for="genre in tags"
+    :key="genre.key"
+    :name="genre.name"
+  >
+    {{ genre.title }}
+	</AtTag>
+</scroll-view>
+
+<style>
+  .scroll-tag {
+      white-space: nowrap;
+  }
+</style>
+```
 
 ## API
 

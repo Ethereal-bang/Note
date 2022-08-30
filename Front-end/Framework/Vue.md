@@ -732,7 +732,7 @@ Vue 中，一个组件本质上是一个拥有预定义选项的 Vue 实例
 
 每个 Vue 应用都是通过`new Vue`创建新的 Vue 实例开始：
 
-```vue
+```jsx
 let vm = new Vue({
 	// 选项
 })
@@ -752,7 +752,10 @@ Vue 实例被创建时，将`data`对象中所有 property 加入到 Vue 的**�
 
 ```js
 // 数据对象
-let data = { a: 1 }
+let data = { 
+  a: 1, 
+	fn,	// 可以是一个函数
+}
 
 // 该对象加入到 Vue 实例
 let vm = new Vue({
