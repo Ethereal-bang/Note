@@ -1015,7 +1015,16 @@ import axios from 'taro-axios'
 
 在 Taro 中可以像使用 [Webpack](https://webpack.js.org/) 那样自由地`import`或`require`等引用静态资源，而且不需要安装任何 Loaders
 
-+ **引用本地资源：**==？==
+**引用本地资源：**
+
+```js
+import icons from "../../assets/icons.png";
+export default {
+  data() {return {
+    icons,
+  }},
+}
+```
 
 
 

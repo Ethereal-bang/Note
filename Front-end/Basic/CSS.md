@@ -81,32 +81,49 @@
 
 ## CSS 属性
 
-+ <span style="font-size:20px">[border](https://developer.mozilla.org/zh-CN/docs/Web/CSS) 、[outline](https://developer.mozilla.org/zh-CN/docs/Web/CSS/outline)：</span>
+<span style="font-size:20px">[border](https://developer.mozilla.org/zh-CN/docs/Web/CSS) 、[outline](https://developer.mozilla.org/zh-CN/docs/Web/CSS/outline)：</span>
 
-  border 和 outline 很类似，但有如下区别：
-  
-  - outline不占据空间，绘制于元素内容周围。
-  - 根据规范，outline通常是矩形，但也可以是非矩形的。
-  
-  >  如图黑色的就是 input 的默认 outline 轮廓：
-  >
-  > ![image-20220407133048136](https://gitee.com/ethereal-bang/images/raw/master/20220407133055.png)   
+border 和 outline 很类似，但有如下区别：
 
-+ <span style="font-size:20px">[box-sizing](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-sizing)</span>
+- outline不占据空间，绘制于元素内容周围。
+- 根据规范，outline通常是矩形，但也可以是非矩形的。
 
-    定义如何计算一个元素的总宽度和总高度
+>  如图黑色的就是 input 的默认 outline 轮廓：
+>
+> ![image-20220407133048136](https://gitee.com/ethereal-bang/images/raw/master/20220407133055.png)   
 
-    + border-box：会包括 border 宽度
+<span style="font-size:20px">[box-sizing](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-sizing)</span>
 
-+ <span style="font-size:20px">background:</span>
+定义如何计算一个元素的总宽度和总高度
 
-    元素默认背景色是 transparent 透明，意味着如果不设置元素背景色将会显示为下方元素（*z-index*) 的颜色
-    
-+ <span style="font-size:20px">cursor:</span>
+border-box：会包括 border 宽度
 
-    + pointer：鼠标指向变小手
+<span style="font-size:20px">background:</span>
 
-        > 通过这种方式美化交互按钮
+元素默认背景色是 transparent 透明，意味着如果不设置元素背景色将会显示为下方元素（*z-index*) 的颜色
+
+### 颜色
+
+<span style="font-size:20px">透明 </span>
+
+**opacity**——不透明度，默认 1; **transparent**——透明
+
+```css
+#demo {
+ opacity: 0;	// 元素完全透明 不可见
+ background: transparent;	// 背景透明
+}
+```
+
+
+
+<span style="font-size:20px">cursor:</span>
+
++ pointer：鼠标指向变小手
+
+    > 通过这种方式美化交互按钮
+
+
 
 
 

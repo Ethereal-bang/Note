@@ -718,16 +718,22 @@ Extends 自 Tapable 的对象，用来注册和调用插件
 
 # DEBUG
 
-+ 输出文件内容为空：
+<span style="color: red">输出文件内容为空：</span>
 
-    ```js
-    const fn = () => {
-      console.log("你好babel");
-    }
-    console.log(fn) // 不能调用/不使用
-    // webpack不会编译未使用的代码
-    ```
-    
+```js
+const fn = () => {
+  console.log("你好babel");
+}
+console.log(fn) // 不能调用/不使用
+// webpack不会编译未使用的代码
+```
+
+<span style="color: red">编译警告 [Webpack: "there are multiple modules with names that only differ in casing" but modules referenced are identical](https://stackoverflow.com/questions/47534267/webpack-there-are-multiple-modules-with-names-that-only-differ-in-casing-but): </span>
+
+```js
+// when引用时大小写乱用
+import Vue from "vue"
+```
 
 
 
