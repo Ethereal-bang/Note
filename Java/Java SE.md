@@ -185,30 +185,6 @@ public class Hello {
     | `nextLong()`    | Reads a `long` value from the user    |
     | `nextShort()`   | Reads a `short` value from the user   |
 
-
-
-## 运算符
-
-+ <span style="font-size:20px">位运算:</span>
-
-    + &：按位与
-
-    + |：按位或
-
-    + ~：按位非
-
-    + ^：按位异或
-
-    + <<：左位移运算符
-
-    + \>>：右位移运算符
-
-    + <<<：无符号右移运算符
-
-    均是转换为二进制计算
-
-
-
 ## 数据结构
 
 ### Arrays
@@ -546,27 +522,28 @@ Integer i = new Integer(1);
 
 
 
-+ <span style="font-size:20px">Integer：</span>
-  
+<span style="font-size:20px">Integer：</span>
+
 + Integer.MIN_VALUE
   
-+ <span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
 
-    经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
-    
+<span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
+
+经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
+
+```java
+StringBuffer res = new StringBuffer();
+```
+
++ Eg：利用 StringBuilder 翻转 int 类型
+
     ```java
-    StringBuffer res = new StringBuffer();
+    int reversedNum = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString())
     ```
-    
-    + Eg：利用 StringBuilder 翻转 int 类型
-    
-        ```java
-        int reversedNum = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString())
-        ```
-    
-        > + Integer.parseInt 将其他类型转换为 int
-        > + new StringBuilder(string: <>) 获得一个 StringBuilder 对象
-        > + toString() 将 StringBuilder 转换为 String 类型
+
+    > + Integer.parseInt 将其他类型转换为 int
+    > + new StringBuilder(string: <>) 获得一个 StringBuilder 对象
+    > + toString() 将 StringBuilder 转换为 String 类型
 
 
 
@@ -576,6 +553,7 @@ Integer i = new Integer(1);
 
 + Math.exp()——e 的参数次方
 + Math.PI——圆周率
++ Math.min()
 
 <span style="font-size:20px">Pattern：</span>
 
@@ -885,6 +863,7 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
     
     ## 类的关键字
     
