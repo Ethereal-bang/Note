@@ -242,8 +242,6 @@ position 属性
 
 ## Flexbox
 
-<img src="https://gitee.com/ethereal-bang/images/raw/master/20220407144736.png" alt="image-20220407144736277" style="zoom:70%;" />
-
 + **align-content、align-items**——分别定义了<span style="color: orange">主轴</span>和<span style="color: orange">交叉轴</span>上对齐方式
 
 

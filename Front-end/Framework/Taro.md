@@ -1011,7 +1011,17 @@ import axios from 'taro-axios'
 
 
 
-# 静态资源引用
+# 静态资源
+
+## 图片尺寸
+
+px 在小程序中自动转换成 rpx 单位。想要不自动转换将单位写为 Px
+
+> Eg:
+>
+> `width: 50px` 编译后变为 50rpx，实际显示尺寸为 25px
+
+## 引用
 
 在 Taro 中可以像使用 [Webpack](https://webpack.js.org/) 那样自由地`import`或`require`等引用静态资源，而且不需要安装任何 Loaders
 
