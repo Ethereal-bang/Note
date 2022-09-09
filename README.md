@@ -87,7 +87,7 @@
 ## Computer Basics
 + [Algorithm and Data Structure.md](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/AlgorithmAndDataStructrue.md)
 
-+ [Operating System.md](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/OperatingSystem.md)
++ [OS](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/OS)
 
 + [DataBase](https://github.com/Ethereal-bang/Note/tree/master/ComputerBasics/DataBase)
 
@@ -97,7 +97,7 @@
 
 + [Complier.md](https://github.com/Ethereal-bang/Note/blob/master/Computer%20Basics/Complier.md)
 
-+ [Algorithms Basic.md](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/AlgorithmsBasic.md)
++ [Algorithm](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/Algorithm)
 
 ## C
 

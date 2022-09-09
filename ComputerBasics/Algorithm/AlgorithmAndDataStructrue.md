@@ -2,21 +2,21 @@
 
 <span style="font-size:20px">反转链表:</span>
 
-**迭代:** 
+迭代: 
 
 >  保存 next 节点快照后更改 next 指向
 
-**递归**——反转以 `head`  为起点的链表
+递归——反转以 `head`  为起点的链表
 
 > 比起迭代空间复杂度更高，重在递归思想
 
-+ 图解：
+图解：
 
-    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/2.jpg" alt="img" style="zoom:25%;" />
+<img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/2.jpg" alt="img" style="zoom:25%;" />
 
-    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/4.jpg" alt="img" style="zoom:25%;" />
+<img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/4.jpg" alt="img" style="zoom:25%;" />
 
-    <img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/5.jpg" alt="img" style="zoom:25%;" />
+<img src="https://labuladong.github.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/5.jpg" alt="img" style="zoom:25%;" />
 
 [206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)
 
@@ -28,11 +28,11 @@
 
 **倒数第 k 个节点:**
 
-+ 思路——<span style="color:orange">快慢指针相距 k 步</span>
+思路——<span style="color:orange">快慢指针相距 k 步：</span>
 
-    <img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom: 25%;" />
+<img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom: 25%;" />
 
-    <img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom:25%;" />
+<img src="https://labuladong.github.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/2.jpeg" alt="img" style="zoom:25%;" />
 
 [19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)——找倒数 N+1 节点
 
@@ -45,6 +45,8 @@
 **链表的环：**
 
 + 是否有环——`slow` 每走一步 `fast` 走两步，相遇即有环
+
+    K 是环的整数倍
 
     ![img](https://labuladong.github.io/algo/images/%e5%8f%8c%e6%8c%87%e9%92%88/3.jpeg)
 
@@ -855,11 +857,62 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 
 
-# ==整数?==
+# 数学
+
+## 位运算
+
+基于整数的二进制表示进行的运算（均是转换为二进制计算）
+
+<span style="font-size:20px">位操作符: </span>
+
+<span style="color:orange">**& | ~ ^**</span>: 按位 与 或 非 异或
+
+```
+  111
+& 010
+= 010
+```
+
+<span style="color:orange">**<< >>**</span>: 移位（可用于对 2 次方数的运算）
+
+对于右移，有符号数补符号位（负数补码运算
+
+```
+unsigned int a = 4; a >> 2 = 1;	// 右移两位相当于除以2^2
+Before:  0100
+After:   0001
+
+int b = -4; b >> 1 = -2;
+B: 11011
+A: 11101
+```
+
+
+
+## ==整数?==
 
 [剑指Offer001.整数除法](https://leetcode-cn.com/problems/xoh6Oh/)
 
 二分
+
+
+
+# LRU
+
+LRU (*Least Recently Used* ) 是一种缓存淘汰策略
+
+**特征：**
+
++ 元素有顺序——以区分最近使用和久未使用，容量满时删除最久未使用
+
++ 查找元素 O(1)
++ O(1) 下插入、删除元素——每次访问 Cache 将该 key 元素变为最近使用
+
+**数据结构：**
+
+哈希链表 LinkedHashMap——Hash（快速查找）+ LinkedList（有顺序）
+
+<img src="https://labuladong.github.io/algo/images/LRU%e7%ae%97%e6%b3%95/4.jpg" alt="img" style="zoom:40%;" />
 
 
 
@@ -1399,6 +1452,32 @@ return l;
  [875.爱吃香蕉的珂珂](https://leetcode.cn/problems/koko-eating-bananas/)
 
 [1011. 在 D 天内送达包裹的能力](https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/)
+
+
+
+### 不完全有序
+
+<img src="https://pic.leetcode-cn.com/1608987789-aGIDWv-file_1608987789057" alt="img" style="zoom:33%;" />
+
+看作两个有序数组的拼接，切数组 2 最大值小于数组 1 的最小值
+
+**思路：**——分情况移动边界
+
+1. mid 几种情况——于 left/right 在同一数组：
+
+    ![mid值情况](https://pic.leetcode-cn.com/1608987789-igcnYQ-file_1608987789058)
+
+2. mid 数组 1 (与 left 在同一数组) 时，target 几种情况：
+
+    <img src="https://pic.leetcode-cn.com/1608987789-XiztGV-file_1608987789059" alt="left左" style="zoom:43%;" />
+
+3. mid 数组 2 (与 right在同一数组) 时，target 几种情况：
+
+    ![right右](https://pic.leetcode-cn.com/1608987789-DyzcDG-file_1608987789060)
+
+[33. 搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
+
+[81. 搜索旋转排序数组 II](https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/)——含重复元素。
 
 
 
