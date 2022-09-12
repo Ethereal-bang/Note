@@ -882,52 +882,54 @@ Taro 中，路由功能默认自带（Taro 默认根据配置路径生成了 Rou
 
 可通过 Taro 提供的 API 来跳转到目的页面
 
-+ Taro.navigateTo()、Taro.redirectTo
+**Taro.navigateTo()、Taro.redirectTo**
 
-    ```jsx
-    // 跳转到目的页面，打开新页面（相当于`history.push`，能回退）
-    Taro.navigateTo({
-      url: '/pages/page/path/name'
-    })
-    
-    // 跳转到目的页面，在当前页面打开（回退要重新加载
-    Taro.redirectTo(/*...*/)
-    ```
-    
-    注意区别和路径。
+```jsx
+// 跳转到目的页面，打开新页面（相当于`history.push`，能回退）
+Taro.navigateTo({
+  url: '/pages/page/path/name'
+})
 
-    ```vue
-    <view :on-click="clickTo"></view>
-    
-    <script>
-      export default {
-        methods: {
-      	  clickTo() {
-        	  wx.navigateTo({
-          	  url: 					`../../pages/bookDetail/bookDetail`,
-          })
-        }
-    		}
-      }
-    </script>
-    ```
-    
-    
-    
-+ 内置 navigator 组件：
+// 跳转到目的页面，在当前页面打开（回退要重新加载
+Taro.redirectTo(/*...*/)
+```
 
-    ```vue
-    <navigator
-    		url="/pages/bookList/bookList"
-        open-type="navigate"
-    >
-      全部书籍
-    </navigator>
-    ```
-    
-    > openType 值：
-    >
-    > navigate 默认，switchTab 跳转到 tab
+注意区别和路径。
+
+```vue
+<view :on-click="clickTo"></view>
+
+<script>
+  export default {
+    methods: {
+  	  clickTo() {
+    	  wx.navigateTo({
+      	  url: 					`../../pages/bookDetail/bookDetail`,
+      })
+    }
+		}
+  }
+</script>
+```
+
+**Taro.reLaunch():**
+
+关闭当前所有页面，打开该页面（回退首页）
+
+**内置 navigator 组件：**
+
+```vue
+<navigator
+		url="/pages/bookList/bookList"
+    open-type="navigate"
+>
+  全部书籍
+</navigator>
+```
+
+> openType 值：
+>
+> navigate 默认，switchTab 跳转到 tab
 
 
 
