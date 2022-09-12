@@ -88,32 +88,17 @@
 
 # 栈和队列
 
-## 栈——Stack
+## 栈
 
-+ **后进先出**
-+ **栈也是线性表：**栈是仅限在表尾进行插入或删除元素的线性表
-+ **表尾称为栈顶：**相应地，表头称为栈底。
-
-### 单调栈
-
-+ **单调栈：**栈内顺序要么从大到小、要么从小到大
-+ **使用场景：**通常一维数组，要寻找任一元素的右/左边第一个比自己大/小的元素位置时。
-
-+ **本质：**空间换时间
-
-+ **注意：**
-    + 单调栈里存放的元素——数组下标
-    + 单调栈里元素递增/递减——从栈头到栈底
+**表尾称为栈顶：**相应地，表头称为栈底。
 
 ## 队列
-
-### 单调队列
 
 
 
 # 串
 
-## 数组填充
+## 数组填充 ==?==
 
 + **预先**给数组**扩容**带填充后的大小，然后在**从后向前**进行操作：
 
@@ -230,13 +215,13 @@ KMP 主要用在字符串匹配
 
 <span style="font-size:22px">分类：</span>
 
-+ **满二叉树：**
+**满二叉树：**
 
-    每一层结点数都达到最大值——结点总数 <span style="color:red">2^k - 1</span>(k 层数)
+每一层结点数都达到最大值——结点总数 <span style="color:red">2^k - 1</span>(k 层数)
 
-+ **完全二叉树：**
+**完全二叉树：**
 
-    满二叉树是完全二叉树的特殊形态——除了最后一层之外其他的每一层都被完全填充，并且所有的节点都向左对齐
+满二叉树是完全二叉树的特殊形态——除了最后一层之外其他的每一层都被完全填充，并且所有的节点都向左对齐
 
 <span style="font-size:20px">存储方式：</span>
 
@@ -248,72 +233,58 @@ KMP 主要用在字符串匹配
 
 ### 二叉树的遍历
 
-<span style="font-size:20px">遍历方式：</span>
+<span style="font-size:20px">前后序:</span>
 
-主要有两种遍历方式：
+**前中后序位置**——处理每一节点的时间点
 
-+ 深度优先遍历（递归法、迭代法）：前序遍历、中序遍历、后序遍历
+```java
+void traverse(TreeNode root) {
+ if (root == null) return;
+ // 前序位置
+ traverse(root.left);
+ // 中序位置
+ traverse(root.right);
+ // 后序位置
+}
+```
 
-    <img src="https://labuladong.github.io/algo/images/%e4%ba%8c%e5%8f%89%e6%a0%91%e7%b3%bb%e5%88%972/1.jpeg" alt="img" style="zoom:35%;" />
++ 前序位置代码——刚刚进入一个二叉树节点的时执行
++ 中序位置代码——一个二叉树节点左子树都遍历完，即将开始遍历右子树的时执行
++ 后序位置代码——将要离开一个二叉树节点的时执行
 
-    从递归的角度看，这三种算法的访问路径是相同的，只是访问结点的时机不同。
-    
-    > **前中后序位置**——处理每一节点的时间点
-    >
-    > ```java
-    > void traverse(TreeNode root) {
-    >     if (root == null) return;
-    >     // 前序位置
-    >     traverse(root.left);
-    >     // 中序位置
-    >     traverse(root.right);
-    >     // 后序位置
-    > }
-    > ```
-    >
-    > + 前序位置代码——刚刚进入一个二叉树节点的时执行
-    >+ 中序位置代码——一个二叉树节点左子树都遍历完，即将开始遍历右子树的时执行
-    > + 后序位置代码——将要离开一个二叉树节点的时执行
-    >
-    > **前中后序位置使用场景：**
-    >
-    > + 中序——BST 二叉搜索树遍历有序数组
-    >
-    > + 前序
-    >
-    > + 后序——只有后序才能通过返回值获取子树的信息
-    >
-    >     > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
-    
-+ 广度优先遍历（迭代法）
+**前中后序位置使用场景：**
 
-    + 层次遍历
++ 中序——BST 二叉搜索树遍历有序数组
 
-        沿着树的宽度遍历树的节点(*横向* )
++ 前序
 
-<span style="font-size:20px">二叉树的迭代遍历：</span>
++ 后序——只有后序才能通过返回值获取子树的信息
 
-用 Stack 实现。
+    > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
+
+<span style="font-size:20px">DFS</span>
+
+<img src="https://labuladong.github.io/algo/images/%e4%ba%8c%e5%8f%89%e6%a0%91%e7%b3%bb%e5%88%972/1.jpeg" alt="img" style="zoom:35%;" />
+
+从递归的角度看，这三种算法的访问路径是相同的，只是访问结点的时机不同。
+
+<span style="font-size:20px">BFS</span>（迭代法）
+
+
+
+<span style="font-size:20px">二叉树的迭代：</span>(Stack 实现)
 
 前序遍历：（中-左-右，入栈顺序 中-右-左）
 
 ```java
 TreeNode node = root;
 stack.add(node);
-while (node != null) {  // 每一次循环：将中节点弹出并存入，左右节点入栈
-  res.add(stack.pop().val);   // 中 出栈
-  // 将左右孩子压入栈（先右后栈从而使出栈顺序中左右
-  if (node.right != null)
-    stack.add(node.right);
-  if (node.left != null)
-    stack.add(node.left);
-  if (stack.isEmpty())
-    break;
-  node = stack.peek();
+while (node != null) {  
+  // ...每一次循环：将中节点弹出并存入，左右节点入栈
 }
 ```
 
-中序遍历：（左-中-右，入栈顺序 
+==中序遍历?==：（左-中-右，入栈顺序 
 
 ```java
 TreeNode curNode = root;
@@ -455,23 +426,53 @@ Trie是一种树状信息检索数据结构
 
 字典树设计的核心思想是空间换时间，所以数据结构本身比较消耗空间。但它利用了字符串的**共同前缀（Common Prefix）**作为存储依据，以此来节省存储空间，并加速搜索时间。Trie 的字符串搜索时间复杂度为 **O(m)**，m 为最长的字符串的长度，其查询性能与集合中的字符串的数量无关。其在搜索字符串时表现出的高效，使得特别适用于构建文本搜索和词频统计等应用
 
-+ 字典树的**性质**：
-    + Root 不含字符，除 root 外每个节点含一个字符
-    + 根节点到某一节点路径上所经过字符连接，为该节点对应字符串
-    + 任意节点所有子节点包含字符各不相同
+字典树的**性质**：
++ Root 不含字符，除 root 外每个节点含一个字符
++ 根节点到某一节点路径上所经过字符连接，为该节点对应字符串
++ 任意节点所有子节点包含字符各不相同
 
 <img src="https://images0.cnblogs.com/blog/175043/201410/242258574966066.jpg" alt="img" style="zoom:50%;" />
 
-+ Trie **关键词查找过程：**
-    1. 根节点开始搜索
-    2. 获取关键词第一字符，选择对应子节点，转到该子节点继续检索
-    3. 迭代
-    4. 某节点处，关键词所有字母已被取出，读取附在该节点上信息，查找完成
-+ **应用：**
-    + 字符串检索
-    + 字符串最长公共前缀
-    + 排序——先序遍历后便是字典序排序结果
-    + 其他数据结构和算法的辅助结构——后缀树，AC 自动机等
+Trie **实现：**
+
+```js
+Trie.prototype.insert = function(word) {
+    let node = this.children;	// new时新建this.children = {}
+    for (let ch of word) {
+        if (!node[ch]) {    // 没有节点则新建分支
+            node[ch] = {};
+            node = node[ch];
+        } else {    // 存在该分支则沿分支继续存储
+            node = node[ch];
+        }
+    }
+    node.isEnd = true;
+};
+```
+
+> Why `isEnd`:
+>
+> isEnd 表示该节点为单词结尾，不用 `Object.keys(node).length` 是因为单词结尾不一定没有子节点。Eg：insert app, apple
+
+Trie **关键词查找过程：**
+
+1. 根节点开始搜索
+2. 获取关键词第一字符，选择对应子节点，转到该子节点继续检索
+3. 迭代
+4. 某节点处，关键词所有字母已被取出，读取附在该节点上信息，查找完成
+
+**应用：**
+
++ 字符串检索
++ 字符串最长公共前缀
++ 排序——先序遍历后便是字典序排序结果
++ 其他数据结构和算法的辅助结构——后缀树，AC 自动机等
+
+
+
+[剑指 Offer II 062. 实现前缀树](https://leetcode.cn/problems/QC3q1f/)——搜索单词，前缀
+
+[211. 添加与搜索单词 - 数据结构设计](https://leetcode.cn/problems/design-add-and-search-words-data-structure/)==?==——搜索时存在适配符 '.' 
 
 
 
@@ -490,7 +491,7 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 递归调用节点的邻节点（根节点 -> 邻节点1 -> 邻节点1的邻接点 -> ...）
 
-### 广度优先 WFS
+### 广度优先 BFS
 
 遍历邻节点（根节点 -> 邻接点1 -> 邻接点2 -> 邻接点1的邻接点 -> ...）
 
@@ -516,106 +517,96 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 （以从小到大为例）
 
-+ <span style="font-size:20px">冒泡排序——重复访问数列，两两比较交换顺序：</span>
+<span style="font-size:20px">冒泡排序——重复访问数列，两两比较交换顺序：</span>
 
-    **主要代码：**
+**主要代码：**
 
-    ```java
-    // 外层——比较len-1次
-    for (int i = 0; i < len - 1; i++) {
-      // 内层——每一遍循环需两两比较的次数
-      for (int j = 0; j < len - i；j++) {
-    		// ...
-      }
+```java
+// 外层——第i次比较 得到len-1个最值
+for (int i = 0; i < len - 1; i++) {
+  // 内层——每一遍循环得到最值需两两比较的次数
+  for (int j = 0; j < len - i；j++) {
+		// ...
+  }
+}
+```
+
++ 每一次外层循环得到的都是最大值，将其放到末尾。
+
+<span style="font-size:20px">直接插入排序——后续元素依次与前面有序数列比较、插入：</span>
+
+```java
+// 从下标1开始为待插入数列:
+for (int i = 1; i < arr.length; i++) {
+	// 从后往前遍历找到应插位置j——j-1对应小于该数的位置:
+  int j = i;
+  while (j > 0 && arr[j - 1] > temp) {
+		// ...待插位置之后元素后移一位
+  }
+  // 插入：
+  arr[j] = temp;
+```
+
++ `temp`记录待插数（不然会被前面后移来的元素覆盖）
++ `while`循环找待插位置时要首先满足`j>0`
+
+<span style="font-size:20px">快速排序——分治基于基准左右排序：</span>
+
+```java
+public static void quickSort(int[] arr, int left, int right) {
+  // ...递归终止条件 left >= right
+  int mid = partition(arr, left, right);	// 以mid大小划分出两区域
+  // 递归对基准左右两边重复以上操作
+  quickSort(arr, left, mid - 1);
+  quickSort(arr, mid + 1, right);
+}
+
+// 分治——使基准数左边全是小于的数、右边全是大于的数
+private static int partition(int[] arr, int left, int right) { // 分治法
+  int temp = arr[left];   // 基准数
+  while (left < right) {
+    // 由后向前找比基准数小的数填入坑arr[left]:
+    while (temp <= arr[right] && left < right) {
+      right--;
     }
-    ```
-
-    + 每一次外层循环得到的都是最大值，将其放到末尾。
-
-+ <span style="font-size:20px">直接插入排序——后续元素依次与前面有序数列比较、插入：</span>
-
-    ```java
-    // 从下标1开始为待插入数列:
-    for (int i = 1; i < arr.length; i++) {
-    	// 从后往前遍历找到应插位置j——j-1对应小于该数的位置:
-      int j = i;
-      while (j > 0 && arr[j - 1] > temp) {
-    		// ...待插位置之后元素后移一位
-      }
-      // 插入：
-      arr[j] = temp;
-    ```
-
-    + `temp`记录待插数（不然会被前面后移来的元素覆盖）
-    + `while`循环找待插位置时要首先满足`j>0`
-
-+ <span style="font-size:20px">快速排序——分治基于基准左右排序：</span>
-
-    ```java
-    public static void quickSort(int[] arr, int left, int right) {
-      // ...递归终止条件 left >= right
-      
-      int mid = partition(arr, left, right);
-      // 递归对基准左右两边重复以上操作
-      quickSort(arr, left, mid - 1);
-      quickSort(arr, mid + 1, right);
+    arr[left] = arr[right];
+    // 由前向后找比基准数大的数填入坑a[right]
+    while (target >= nums[left] && left < right) {
+      left++;      
     }
-    
-    // 分治——使基准数左边全是小于的数、右边全是大于的数
-    private static int partition(int[] arr, int left, int right) { // 分治法
-      int temp = arr[left];   // 基准数
-      while (left < right) {
-        // 由后向前找比基准数小的数填入坑arr[left]:
-        while (temp <= arr[right] && left < right) {
-          right--;
-        }
-        // 基准数大于arr[right]，填坑入left
-        if (left < right) { // 不加这个条件left可能导致left>right使最后赋值temp的left位置错误
-          arr[left] = arr[right];
-          left++;
-        }
-    
-        // ...由前向后找比基准数大的数填入坑a[right]
-        
-      }
-      // left==right说明已经分治完毕
-      arr[left] = temp;
-      return left;
-    }
-    ```
-  
-  + 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
-  
-  + 每一次 partition 的过程：以初始 left 值为基准，后往前、前往后交替填坑直到遍历完所有数并移入相应位置
-  
-      ![image-20220322103338717](https://gitee.com/ethereal-bang/images/raw/master/20220322124056.png)
-  
-  + 19 行判断语句的必要性：
-  
-      例如数组`{5, 4, 3, 2, 1}`，没有条件判断：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208130603.png" alt="image-20211208130556482" style="zoom:53%;" />
-  
-      有条件判断：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208130618.png" alt="image-20211208130618651" style="zoom:50%;" />
-  
-+ <span style="font-size:20px">归并排序——重复将两个有序表合成新有序表：</span>
+    arr[right] = arr[left];
+  }
+  // left==right说明已经分治完毕
+  arr[left] = temp;
+  return left;
+}
+```
 
-    <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:40%;" >
++ 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
++ 每一次 partition 的过程：以初始 left 值为基准，后往前、前往后交替填坑直到遍历完所有数并移入相应位置
 
-    ```java
-    public static int[] mergeSort(int[] arr) {
-      // 1....递归终止:
-      // 2...切割成两子序列:
-      int[] left = Arrays.copyOfRange(arr, 0, middle);
-      // 3.递归切割合并：
-      return mergeTwo(mergeSort(left), mergeSort(right));
-    }
-    private static int[] mergeTwo(int[] left, int[] right) {
-      // 申请空间
-      int[] res = new int[left.length + right.length];
-      
-      // ...依次选取两序列中较小值不断放入新数组
-    }
-    ```
-    
+
+
+<span style="font-size:20px">归并排序——重复将两个有序表合成新有序表：</span>
+
+<img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:40%;" >
+
+```java
+public static int[] mergeSort(int[] arr) {
+  // 1....递归终止:
+  // 2...切割成两子序列:
+  int[] left = Arrays.copyOfRange(arr, 0, middle);
+  // 3.递归切割合并：
+  return mergeTwo(mergeSort(left), mergeSort(right));
+}
+private static int[] mergeTwo(int[] left, int[] right) {
+  // 申请空间
+  int[] res = new int[left.length + right.length];
+  
+  // ...依次选取两序列中较小值不断放入新数组
+}
+```
+
 + <span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
 
     ```java
@@ -654,63 +645,55 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
       // ...最大元素交换到此树杈的根位置：
     ```
 
-
-
-# 查找算法
-
-+ <span style="font-size:22px">线性查找：</span>
-
-+ <span style="font-size:22px">二分查找：</span>
-
-    
+  
 
 
 # 哈希表
 
 ## 理论基础
 
-+ <span style="font-size:22px">概念：</span>
+<span style="font-size:22px">概念：</span>
 
-    哈希表是根据关键码的值而直接进行访问的数据结构
+哈希表是根据关键码的值而直接进行访问的数据结构
 
-    其实数组就是一张哈希表。哈希表中关键码就是数组的索引下标，然后通过下标直接访问数组中的元素
+其实数组就是一张哈希表。哈希表中关键码就是数组的索引下标，然后通过下标直接访问数组中的元素
 
 下面将会以储存学生姓名为例。只需初始化把学生名字都存在哈希表，查询时直接通过索引（复杂度O(n)）。
 
-+ <span style="font-size:22px">哈希函数：</span>
+<span style="font-size:22px">哈希函数：</span>
 
-    + **hashCode**——通过特定编码方式，将其他数据格式转化为不同数值
++ **hashCode**——通过特定编码方式，将其他数据格式转化为不同数值
 
-    将学生姓名映射到哈希表就涉及到 hash function。
+将学生姓名映射到哈希表就涉及到 hash function。
 
-    如下图，通过 hashCode 把名字转化为数值，hash function 把学生的姓名直接映射为哈希表上的索引。
+如下图，通过 hashCode 把名字转化为数值，hash function 把学生的姓名直接映射为哈希表上的索引。
 
-    ![img](https://img-blog.csdnimg.cn/2021010423484818.png)
+![img](https://img-blog.csdnimg.cn/2021010423484818.png)
 
-    + hashCode() 数值大于 tableSize——为保证映射出的索引数值都落于哈希表，再次对数值做<span style="color:red">取模</span>的操作
-    + 学生数量 dataSize大于 tableSize——就算 hash function 计算再均匀，也避免不了几位同学同时映射到统一索引，所以需要**哈希碰撞**
++ hashCode() 数值大于 tableSize——为保证映射出的索引数值都落于哈希表，再次对数值做<span style="color:red">取模</span>的操作
++ 学生数量 dataSize大于 tableSize——就算 hash function 计算再均匀，也避免不了几位同学同时映射到统一索引，所以需要**哈希碰撞**
 
-+ <span style="font-size:22px">哈希碰撞：</span>
+<span style="font-size:22px">哈希碰撞：</span>
 
-    <img src="https://img-blog.csdnimg.cn/2021010423494884.png" alt="img" style="zoom:43%;" />
+<img src="https://img-blog.csdnimg.cn/2021010423494884.png" alt="img" style="zoom:43%;" />
 
-    一般有两种解决方法：拉链法、线性探测法
+一般有两种解决方法：拉链法、线性探测法
 
-    + <span style="font-size:20px">拉链法：</span>
+<span style="font-size:20px">拉链法：</span>
 
-        <img src="https://img-blog.csdnimg.cn/20210104235015226.png" alt="img" style="zoom:40%;" />
+<img src="https://img-blog.csdnimg.cn/20210104235015226.png" alt="img" style="zoom:40%;" />
 
-        发生冲突元素存储在链表
+发生冲突元素存储在链表
 
-        拉链法就是要选择适当的哈希表的大小，这样既不会因为数组空值而浪费大量内存，也不会因为链表太长而在查找上浪费太多时间
+拉链法就是要选择适当的哈希表的大小，这样既不会因为数组空值而浪费大量内存，也不会因为链表太长而在查找上浪费太多时间
 
-    + <span style="font-size:20px">线性探测法：</span>
+<span style="font-size:20px">线性探测法：</span>
 
-        + **前提：**tableSize > dataSize —— 依靠哈希表空位解决碰撞问题
++ **前提：**tableSize > dataSize —— 依靠哈希表空位解决碰撞问题
 
-+ <span style="font-size:20px">常见哈希结构：</span>
+<span style="font-size:20px">常见哈希结构：</span>
 
-    数组、Set——集合、Map——映射
+数组、Set——集合、Map——映射
 
 
 
@@ -1061,6 +1044,8 @@ function slidingWindow(s) {
 [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)
 
 [322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——稍复杂的状态转移方程
+
+[983. 最低票价](https://leetcode.cn/problems/minimum-cost-for-tickets/)——哪些天买持续几天的火车通行证
 
 
 
@@ -1535,6 +1520,17 @@ class MonotonicQueue {
 
 ## 单调栈
 
+**单调栈：**栈内顺序要么从大到小、要么从小到大
+
+**使用场景：**通常一维数组，要寻找任一元素的右/左边第一个比自己大/小的元素位置时。
+
+**本质：**空间换时间
+
+**注意：**
+
++ 单调栈里存放的元素——数组下标
++ 单调栈里元素递增/递减——从栈头到栈底
+
 **单调栈原理：**单调栈从后往前维护，对于当前元素来说，栈内只存储其后比它大的元素
 
 <img src="https://labuladong.github.io/algo/images/%e5%8d%95%e8%b0%83%e6%a0%88/1.jpeg" alt="img" style="zoom:33%;" />
@@ -1580,7 +1576,7 @@ int[] nextGreaterElement(int[] nums) {
 ```python
 def backtrack(路径, 选择列表):
     if 满足结束条件:
-        result.add(路径)
+        res.add(路径)
         return
     
     for 选择 in 选择列表:

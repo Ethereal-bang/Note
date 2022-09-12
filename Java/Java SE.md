@@ -287,13 +287,9 @@ public class Hello {
 
 
 
-### 集合
+### Colection
 
 #### List
-
-+ **集合框架：**
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211203212945.png" height="250px">
 
 集合类中，List 是最基础的一种集合——有序列表。
 
@@ -301,14 +297,11 @@ public class Hello {
 List<List<Integer>> list = new ArrayList<>();
 ```
 
+add(), get(), remove(), size()
+
 + <span style="font-size:22px">ArrayList——数组队列：</span>
 
-    ArrayList 类是一个可以动态修改的数组队列，与普通数组的区别就是它是没有固定大小的限制，可以添加或删除元素
-
     + **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
-
-    + 添加元素：`add()`
-    + 访问元素：`get()`
 
 + <span style="font-size:22px">LinkedList——链表：</span>
 
@@ -318,14 +311,18 @@ List<List<Integer>> list = new ArrayList<>();
 
 
 
-### Set
+### Set (Abstract)
 
 `Set`用于存储不重复的元素集合
+
+**接口：**
 
 + set.add(): 
 + set.remove()
 + set.contains()
 + set.size()
+
+HashSet
 
 
 
@@ -863,6 +860,8 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
+    
     
     
     ## 类的关键字
