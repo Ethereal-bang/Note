@@ -384,6 +384,29 @@ ceoAxios.interceptors.response.use(response => {
 
 
 
+## 封装
+
+**Demo:**
+
+```js
+export const myAxios = axios.create({
+  baseURL: "https://bookchang.com:8443/api/sql",
+  method: "post",
+})
+
+myAxios.interceptors.request.use(
+  config => {
+    return config;
+  }, err => {
+    return Promise.reject(err);
+  }
+)
+
+myAxios.interceptors.response.use(response => {
+  return response.data;
+})
+```
+
 
 
 

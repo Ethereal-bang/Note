@@ -4,17 +4,17 @@
 
 # React 配置
 
-+ <span style="font-size:20px">学习用环境配置</span>
+<span style="font-size:20px">学习用环境配置</span>
 
-    7. 在`<head></head>`标签内插入以下 react 库：
+在`<head></head>`标签内插入以下 react 库：
 
-        ``` html
-        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-        ```
-        
-    8. 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
+``` html
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+```
+
++ 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
 ## React 脚手架
 
@@ -778,46 +778,46 @@ const Child = (props) => {
 
 # 样式
 
-+ <span style="font-size:20px">CSS in JS——样式的模块化：</span>
+<span style="font-size:20px">CSS in JS——样式的模块化：</span>
 
-    这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义，且避免全局样式冲突
+这样就可以在 CSS 中使用一些属于 JS 的诸如模块声明、变量定义、函数调用和条件判断等语言特性来提供灵活的可扩展的样式定义，且避免全局样式冲突
 
-    ```js
-    import styles from './hello.module.css'
-    
-    export default class Hello extends Component {
-      render() {
-        return <h2 className={styles.title}>
-          <i className={
-            check 
-            ? styles["checked"]
-      			: styles["check"]} />
-        </h2>	
-      }
-    }
-    ```
+```js
+import styles from './hello.module.css'
 
-    > **添加多个 class：**
-    >
-    > ```jsx
-    > <div className={styles["menu"] + " " + styles["genremenu"]} />	
-    > /*<div class=".menu .genremenu" />*/
-    > ```
+export default class Hello extends Component {
+  render() {
+    return <h2 className={styles.title}>
+      <i className={
+        check 
+        ? styles["checked"]
+  			: styles["check"]} />
+    </h2>	
+  }
+}
+```
 
-+ <span style="font-size:20px">内联样式 {{}} :</span>
+> **添加多个 class：**
+>
+> ```jsx
+> <div className={styles["menu"] + " " + styles["genremenu"]} />	
+> /*<div class=".menu .genremenu" />*/
+> ```
 
-    配合 JS：
+<span style="font-size:20px">内联样式 {{}} :</span>
 
-    ```jsx
-    {bannerData.map(item => {
-      return <li style={(item.key===cur) ? {backgroundColor:"#ff2832"} : {}} key={item.key}>{item.key}</li>
-    })}
-    ```
+配合 JS：
 
-    > **Note:**
-    >
-    > + `style={}` 内的中括号内会认为是 CSS 样式，因此这里条件语句没有用 `if() {}`。
-    > + CSS 代码 key: value 中 value 要加 `" "`
+```jsx
+{bannerData.map(item => {
+  return <li style={(item.key===cur) ? {backgroundColor:"#ff2832"} : {}} key={item.key}>{item.key}</li>
+})}
+```
+
+> **Note:**
+>
+> + `style={}` 内的中括号内会认为是 CSS 样式，因此这里条件语句没有用 `if() {}`。
+> + CSS 代码 key: value 中 value 要加 `" "`
 
 
 
@@ -852,6 +852,14 @@ const Child = (props) => {
     }
     ```
     
+
+
+
+## Sass
+
+```shell
+$yarn add node-sass
+```
 
 
 
@@ -1317,14 +1325,7 @@ export const counterSlice = createSlice({
 
 
 
-
 # Router
-
-> **React 路由框架：**
->
-> - 综合性路由框架：**react-router**（*最主流、完整的 React 路由解决方案*）
-> - 浏览器路由框架：react-keeper
-> - 手机 app 框架（*react-native*）：react-navigation
 
 **React-router-dom：**
 
@@ -1368,8 +1369,6 @@ function App() {
 ```
 
 > **Notes:**
->
-> + Route 组件内的写法有变动`element={<HomePage />}`，以前是`component={HomePage}`
 >
 > + BrowserRouter / HashRouter 内还要包裹一层 Routes 组件
 >
@@ -1578,8 +1577,11 @@ $npm i axios -S
     > Antd 默认支持基于 ES modules 的 tree shaking，对于 js 部分，直接引入 `import { Button } from 'antd'` 就会有按需加载的效果
     
     ```tsx
-    // App.tsx
+    // - App.tsx
     import 'antd/dist/antd.css';
+    
+    // - App.css
+    @import '~antd/dist/antd.css';
     ```
     
 
@@ -1694,6 +1696,44 @@ function App() {
 
 就是由 React Element 构成的一棵树。根据这个由 JavaScript 对象表示的树结构来构建一棵真正的 DOM 树
 
+**创建 VDOM：**
+
+```jsx
+class Element {
+    constructor(type, props, children) {
+        this.type = type;
+        this.props = props;
+        this.children = children;
+    }
+}
+function createElement(type, props, children) {
+    return new Element(type, props, children);
+}
+```
+
+**渲染 VDOM：**
+
+```jsx
+ReactDOM.myRender = (element, container) => {
+    // 根据type创造dom元素
+    const node = document.createElement(element.type);
+    // 遍历props对象 设置属性
+  	for (const key in element.props) {
+        if (key === "children") {
+            if (element.props[key]) {
+                // string类型不能直接被appendChild
+                const textNode = document.createTextNode(element.props[key]);
+                node.appendChild(textNode);
+            }
+        } else {
+            node.setAttribute(key, element.props[key]);
+        }
+    }
+    // 插入到页面
+  	container.appendChild(node);
+}
+```
+
 **Virtual DOM 算法: **
 
 > 当我们需要创建或更新元素时，React 首先会让这个 VitrualDOM 对象进行创建和更改，然后再将 VitrualDOM 对象渲染成真实 DOM；
@@ -1721,7 +1761,7 @@ function App() {
 
 <span style="font-size:22px">列表对比算法</span>
 
-<span style="font-size:22px">应用差异</span>
+<span style="font-size:22px">Patch 更新</span>
 
 
 

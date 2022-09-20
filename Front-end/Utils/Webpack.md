@@ -2,19 +2,19 @@
 
 Webpack 是一个**模块打包器**（*构建工具*）
 
-当 Webpack 处理应用程序时，会在内部从一个或多个入口点构建一个依赖图(*dependency praph*)，然后将项目中所需的每一个模块组合成一个或多个 bundles，均为静态资源，用于展示内容
+**作用：**
 
-主要目标是将 JS 文件打包在一起，打包后的文件用于在浏览器中使用，它同时也能够胜任 转换（*transform*）、打包（*bundle*）、包裹（*package*） 任何资源
++ 模块打包
 
-![image-20210301072300860](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210301072300860.png)
+    当 Webpack 处理应用程序时，会在内部从一个或多个入口点构建一个依赖图，然后将项目中所需的每一个模块组合成一个或多个 bundles，均为静态资源，用于展示内容
 
-将可扩展的语言转换成浏览器识别的语言，大大提高开发效率
+    ![image-20210301072300860](E:%5CTypora%5Cupload%5Cimage-20210301072300860.png)
 
++ 编译兼容——通过 Loader 机制
 
+    转换成浏览器识别的语言，提高开发效率
 
-Webpack 有以下**核心概念**：
-
-+ <a href="#entry">入口</a>
++ 能力扩展——Plugin
 
 
 
@@ -276,7 +276,12 @@ Webpack 只能理解 JS 和 JSON 文件，这是 webpack 开箱可用的自带�
     >
     > ![image-20220206165704537](https://gitee.com/ethereal-bang/images/raw/master/20220206165704.png)
     
-    
+
+
+
+# 配置
+
+
 
 # 搭建指南
 
@@ -622,25 +627,35 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 # 原理
 
-+ <span style="font-size:22px">Webpack 打包流程：</span>
+<span style="font-size:22px">Webpack 打包流程：</span>
 
-    1. 读取 Webpack **配置参数**
-    2. 启动 Webpack，**创建 Complier 对象**开始解析项目
-    3. 从入口文件 entry 开始解析，找到其导入依赖模块，递归遍历分析，形成**依赖关系树**
-    4. 不同依赖模块对应 **Loader** 进行编译，转为 JS 文件
-    5. 整个过程 Webpack 通过发布订阅模式向外抛出一些 hooks。而 webpack 的插件通过**监听这些关键事件节点执行插件任务**达到干预输出结果目的
+1. 读取 Webpack **配置参数**
+2. 启动 Webpack，**创建 Complier 对象**开始解析项目
+3. 从入口文件 entry 开始解析，找到其导入依赖模块，递归遍历分析，形成**依赖关系树**
+4. 不同依赖模块对应 **Loader** 进行编译，转为 JS 文件
+5. 整个过程 Webpack 通过发布订阅模式向外抛出一些 hooks。而 webpack 的插件通过**监听这些关键事件节点执行插件任务**达到干预输出结果目的
 
-    其中文件的解析与构建是一个比较复杂的过程，在 webpack 源码中主要依赖于 <span style="color:orange">compiler</span> 和 <span style="color:orange">compilation</span> 两个核心对象实现
+其中文件的解析与构建是一个比较复杂的过程，在 webpack 源码中主要依赖于 <span style="color:orange">compiler</span> 和 <span style="color:orange">compilation</span> 两个核心对象实现
 
-+ <span style="font-size:22px">complier 和 compilation：</span>
 
-    complier——全局单例，负责把控整个 Webpack 打包的构建流程
 
-    compliation——每一次构建的上下文对象，它包含了当次构建所需要的所有信息
+<span style="font-size:22px">文件解析与构建——complier, compilation：</span>
 
-    每次热更新和重新构建，compiler 都会重新生成一个新的 compilation 对象，负责此次更新的构建过程 
+complier——全局单例，负责把控整个 Webpack 打包的构建流程。暴露 Webpack 整个生命周期相关的钩子 [compiler-hooks](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.js.org%2Fapi%2Fcompiler-hooks%2F)
 
-## Tapable
+compliation——每一次构建的上下文对象，它包含了当次构建所需要的所有信息。暴露模块和依赖有关的粒度更小的事件钩子 [Compilation Hooks](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.js.org%2Fapi%2Fcompilation-hooks%2F)
+
+每次热更新和重新构建，compiler 都会重新生成一个新的 compilation 对象，负责此次更新的构建过程
+
+
+
+<span style="font-size:22px">模块间依赖关系——AST</span>
+
+ 每个模块文件在通过 `Loader` 解析完成之后，会通过 `acorn` 库生成模块代码的 AST 语法树，通过语法树就可以分析这个模块是否还有依赖的模块，进而继续循环执行下一个模块的编译解析
+
+
+
+## 事件机制——Tapable 事件流
 
 ![img](https://pic4.zhimg.com/80/v2-360b0b1bd8a6d5daffb6be712972b89f_720w.jpg)
 
@@ -689,6 +704,8 @@ myCar.hooks.brake.tap("WarningLampPlugin", () => warningLamp.on());
 
 ## Compiler
 
+负责把控整个 Webpack 打包的构建流程
+
 Extends 自 Tapable 的对象，用来注册和调用插件
 
 <span style="font-size:22px">钩子函数:</span>
@@ -706,13 +723,117 @@ Extends 自 Tapable 的对象，用来注册和调用插件
 
 
 
-## 自定义插件
+# 实现
+
+## Compiler 类
+
+**调用：**
+
+```js
+// lib/index.js
+const Compiler = require("./compiler");
+const options = require("../myWebpack.config");
+new Compiler(options).run();	// 开始编译
+```
+
+**主体结构：**
+
+```js
+module.exports = class Compiler {
+  // 接收配置参数
+  constructor(options) {
+    // ...entry, output
+    this.modules = [];
+  }
+  // 开始编译
+  run() {}
+  // 构建模块
+  buildModule(filename, isEntry) {}
+  // 输出文件
+  emitFiles() {}
+}
+```
+
+**run():**——开始编译
+
+```js
+run() {
+ 	// 1.加入入口文件到modules
+  this.modules.push(this.buildModule(this.entry, true));
+  // 2.递归加入依赖
+  this.modules.map((_module) => {
+    _module.dependencies.map(dependency => {
+      this.modules.push(this.buildModule(dependency, false));
+    })
+  })
+  // 3.输出文件
+  this.emitFiles();  
+}
+```
+
+**buildModule():**——构建模块
+
+```js
+buildModule(filename, isEntry) {
+  // ...将获取到的module转化成AST
+  return {
+    filename,
+    dependencies: getDepencies(ast),	// 依赖列表
+    transformCode: transform(ast),  // 转化后代码
+  }
+}
+```
+
+> getAst, getDependencies, transform 来自 parser.js
+
+**emitFiles():**——输出文件
+
+```js
+emitFiles() {
+  // 1.对每个module处理成该格式
+  this.modules.map((_module) => {
+    modules += `"${_module.filename}" : function(require, module, exports) {${_module.transformCode}},`;
+  });
+	// 2.输出内容为IIFE-匿名闭包函数
+  const bundle = `/*...*/`;
+  // 3.输出文件
+  fs.writeFileSync(outputPath, bundle, "utf-8");
+}
+```
+
+
+
+
+
+## Loader
+
+**开发原则：**
+
++ 返回值是标准的 JS 代码字符串——保证下一个 loader 能正常工作
++ 单一职责——只关心输入输出
+
+**this 对象：**
+
+loader 函数中的 `this` 上下文由 webpack 提供（ *指向一个叫`loaderContext` 的 `loader-runner` 特有对象* ），可以通过 `this` 对象提供的相关属性，获取当前 loader 需要的各种信息数据
+
+
+
+## Plugin
 
 使用阶段式的构建回调，可在 Webpack 构建流程中引入自定义行为
 
-+ **Plugin 的构成：**
-    1. JS 函数或类
-    2. 插件函数的 prototype 上定义一个 `apply` 方法
+**开发原则：**
+
++ 必须是一个函数或者是一个包含 `apply` 方法的对象——才能访问 compiler 实例
++ 不能修改传给 plugin 的 compiler, compilation 对象——传给每个插件的都是同一个引用，若在一个插件中修改了它们身上的属性，会影响后面的插件
++ 异步事件需在 plugin 处理完调用回调通知 webpack 进入下一流程——不然会卡住
+
+
+
+**Plugin 的构成：**
+
+1. JS 函数或类
+2. 插件函数的 prototype 上定义一个 `apply` 方法
 
 
 
