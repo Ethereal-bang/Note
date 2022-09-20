@@ -746,6 +746,8 @@ private static int[] mergeTwo(int[] left, int[] right) {
 
 [39. 组合总和](https://leetcode.cn/problems/combination-sum/)——元素无重可复选
 
+[22. 括号生成](https://leetcode.cn/problems/generate-parentheses/)
+
 > To **重复元素类型**：
 >
 > 1. 排序
@@ -780,7 +782,7 @@ private static int[] mergeTwo(int[] left, int[] right) {
 
 [46. 全排列](https://leetcode.cn/problems/permutations/)
 
-[47. 全排列 II](https://leetcode.cn/problems/permutations-ii/)——含重复元素
+[47. 全排列 II](https://leetcode.cn/problems/permutations-ii/)——含重复元素。列举位置
 
 > 1. 排序
 >
@@ -800,10 +802,11 @@ private static int[] mergeTwo(int[] left, int[] right) {
 
 选择每一阶段的局部最优，从而达到全局最优。
 
-+ **贪心算法步骤：**
-    1. 问题分解为若干子问题
-    2. 求解每一子问题最优解
-    3. 局部最优解堆叠成全局最优解
+**贪心算法步骤：**
+
+1. 问题分解为若干子问题
+2. 求解每一子问题最优解
+3. 局部最优解堆叠成全局最优解
 
 
 
@@ -931,29 +934,25 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 
 + 原地修改数组
 
-    [26. 删除有序数组中的重复项](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/)
-
-    <img src="https://labuladong.github.io/algo/images/%e6%95%b0%e7%bb%84%e5%8e%bb%e9%87%8d/1.gif" alt="img" style="zoom:25%;" />
-
     [27. 移除元素](https://leetcode.cn/problems/remove-element/)
 
     ```js
-    while (fast < nums.length) {
+while (fast < nums.length) {
       if (nums[fast] != val) {
-        nums[slow] = nums[fast];
+    nums[slow] = nums[fast];
         slow++;
       }
       fast++;
     }
     ```
-
-    [283. 移动零](https://leetcode.cn/problems/move-zeroes/)——移除元素的变种
-
-+ 数组值原地交换：
+    
+    [26. 删除有序数组中的重复项](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/)
+    
+    <img src="https://labuladong.github.io/algo/images/%e6%95%b0%e7%bb%84%e5%8e%bb%e9%87%8d/1.gif" alt="img" style="zoom:25%;" />
 
     [905.按奇偶排序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/sort-array-by-parity/submissions/)
 
-+ 滑动窗口==...==
++ 滑动窗口
 
 **左右指针**——常用于有序数组
 
@@ -982,7 +981,7 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 ```js
 function slidingWindow(s) {
   let window = new Map<string, number>();
-	let left = 0, right = 0;	// 滑动窗口[l,r)
+	let left = 0, right = 0;	// 滑动窗口[l,r) 元素个数r-l
 	while (right < s.length) {
   	let r = s.charAt(right);	// 将移入窗口字符
     right++;	// 增大窗口
@@ -1020,32 +1019,19 @@ function slidingWindow(s) {
 3. dp **数组初始化**
 4. 确定**遍历顺序**
 
-> Eg——斐波拉契：
->
-> ```js
-> // 1.确定dp数组
-> int[] db = new int[n + 1];
-> // 2.确定递推公式——db[i]= db[i-1]+db[i-2]
-> // 3.db初始化
-> db[0] = 0;
-> if (n > 0)
->   db[1] = 1;
-> // 4.确定遍历顺序
-> for (int i = 2; i <= n; i++) {
->   db[i] = db[i - 1] + db[i - 2];
-> }
-> return db[n];
-> ```
+**针对二维 dp 数组的空间压缩技巧——空间复杂度优化**==...==
+
+
 
 **例题：**
 
 [70.爬楼梯 - 力扣（LeetCode）](https://leetcode-cn.com/problems/climbing-stairs/submissions/)
 
-[198. 打家劫舍](https://leetcode.cn/problems/house-robber/)
+[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——一维 dp 稍复杂的状态转移方程
 
-[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——稍复杂的状态转移方程
+[198. 打家劫舍](https://leetcode.cn/problems/house-robber/)——简单的二维 dp
 
-[983. 最低票价](https://leetcode.cn/problems/minimum-cost-for-tickets/)——哪些天买持续几天的火车通行证
+[983. 最低票价](https://leetcode.cn/problems/minimum-cost-for-tickets/)——复杂一维，哪些天买持续几天的火车通行证
 
 
 
@@ -1057,7 +1043,7 @@ function slidingWindow(s) {
 
 > i——0 <= i <= n - 1 (n 为天数)
 >
-> k——1 <= k <= K (K 为允许交易的最大次数)
+> k——1 <= k <= K (K 为允许交易的最大次数) <span style="color:red">注意 k 表示当前最多还能交易 k 次，而不是当前剩几次</span>
 >
 > 01——当前是否持有股票 (buy, sell, rest)
 
@@ -1067,7 +1053,7 @@ function slidingWindow(s) {
 
 > ​				 max{ 今天 rest,       今天 sell                         }
 
-<span style="color:orange">dp\[i]\[k]\[1] = max{ dp\[i-1]\[k][1], dp\[i-1]\[k-1][0] - prices[i] }</span>——今天持有股票
+<span style="color:orange">dp\[i]\[k]\[1] = max{ dp\[i-1]\[k][1], dp\[i-1]<span style="color:red">\[k-1]</span>[0] - prices[i] }</span>——今天持有股票
 
 > ​                 max{ 今天 rest,       今天 buy                         }
 
@@ -1077,17 +1063,15 @@ dp\[-1]\[...][0] = dp\[...]\[0][0] = 0
 
 dp\[-1]\[...][1] = dp\[...]\[0][1] = -Infinity
 
-**状态压缩——空间复杂度优化**==...==
 
-
-
-[121. 买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)——K = 1
 
 [122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)——K = +∞
 
-[309. 最佳买卖股票时机含冷冻期](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/)——K = +∞，第 i 天 buy 时，从 i - 2 天转移
+[121. 买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)——K = 1 第二个状态省略
 
 [714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)——K = +∞，buy 时利润 - 手续费
+
+[309. 最佳买卖股票时机含冷冻期](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/)——K = +∞，第 i 天 buy 时，从 i - 2 天转移
 
 [123. 买卖股票的最佳时机 III](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/)——K = 2
 
@@ -1188,6 +1172,10 @@ function maxAreaOfIsland(grid: number[][]): number {
 图类
 
 [547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份
+
+<span style="font-size:20px">树:</span>
+
+[129. 求根节点到叶节点数字之和](https://leetcode.cn/problems/sum-root-to-leaf-numbers/)
 
 
 
@@ -1810,6 +1798,14 @@ function subarraySum(nums: number[], k: number): number {
 
 
 
+## To 括号匹配
+
+[20. 有效的括号](https://leetcode.cn/problems/valid-parentheses/)——{} () [] 的匹配，利用 ASCII 差的绝对值
+
+[678. 有效的括号字符串](https://leetcode.cn/problems/valid-parenthesis-string/)——'('  ')'  '*' 带有万能字符 * 的匹配
+
+
+
 ## To 田忌赛马
 
 [870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
@@ -1850,7 +1846,7 @@ function subarraySum(nums: number[], k: number): number {
     
     [堆排序就这么简单 - SegmentFault思否](https://segmentfault.com/a/1190000013960582)
 
-+ 题型：
++ Solution：
 
     [【蓄水池抽样】多语言入门「蓄水池抽样」知识点](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247490892&idx=1&sn=c1fe373edc88142cbabd383ef3c0669b)
 
