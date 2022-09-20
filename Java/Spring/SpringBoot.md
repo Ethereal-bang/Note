@@ -158,11 +158,7 @@ arr: [cat,dog]
 
 
 
-# 整合 MyBatis
-
-1. **新建项目：**
-
-    ![image-20220227102145301](https://gitee.com/ethereal-bang/images/raw/master/20220227102152.png)
+# 使用
 
 2. **导入持久层相关依赖：**
 
@@ -219,7 +215,7 @@ arr: [cat,dog]
     }
     ```
 
-5. ==Maven 资源过滤：什么用?==
+5. ==Maven 资源过滤：好像没用?==
 
     ```xml
     <resources>
@@ -243,14 +239,12 @@ arr: [cat,dog]
     @AllArgsConstructor
     @NoArgsConstructor
     public class User {
-    
         private Integer id;
         private String sex;
         private String username;
-    
     }
     ```
-
+    
 6. **创建接口类：**—— .mapper / .dao
 
     ```java
@@ -328,7 +322,7 @@ arr: [cat,dog]
       @Autowired
       UserService userService;
     
-      @Mapping("/register")
+      @RequestMapping("/register")
       public boolean isExistUser(@RequestParam("username") username) {
         if (userService.isExistUser(username)) {//...};
       }

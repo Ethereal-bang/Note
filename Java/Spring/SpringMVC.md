@@ -253,31 +253,31 @@
 
 + <span style="font-size:22px">域名称和处理方法参数名：</span>
 
-    1. 一致：
+    一致：
 
-        提交数据 : http://localhost:8080/hello?name=test
+    提交数据 : http://localhost:8080/hello?name=test
 
-        处理方法 :
+    处理方法 :
 
-        ```java
-        @RequestMapping("/hello")
-        public String hello(String name){
-           System.out.println(name);
-           return "hello";
-        }
-        ```
+    ```java
+    @RequestMapping("/hello")
+    public String hello(String name){
+       System.out.println(name);
+       return "hello";
+    }
+    ```
 
-    2. 不一致：
+    不一致：
 
-        http://localhost:8080/hello?username=test
+    http://localhost:8080/hello?username=test
 
-        ```java
-        @RequestMapping("/hello")
-        public String hello(@RequestParam("username") String name){
-           System.out.println(name);
-           return "hello";
-        }
-        ```
+    ```java
+    @RequestMapping("/hello")
+    public String hello(@RequestParam("username") String name){
+       System.out.println(name);
+       return "hello";
+    }
+    ```
 
 + <span style="font-size:22px">提交对象：</span>
 
@@ -365,10 +365,6 @@
 
 封装统一返回的数据结构
 
->  是与前端的一种约定，类似于：
->
-> ![image-20220311205810379](https://gitee.com/ethereal-bang/images/raw/master/20220311205817.png)
-
 1. **封装返回格式类：**
 
     ```java
@@ -434,38 +430,6 @@
     > 上例，如果有请求没有带参数，后端控制台抛出相应错误：![image-20220311105352191](https://gitee.com/ethereal-bang/images/raw/master/20220311105359.png)
     >
     > 而前端请求到的响应体会报 500 服务器出错。
-
-
-
-## 解决跨域
-
-跨域有很多解决方式，参考：[Spring Boot 解决跨域问题的 3 种方案！- Java技术栈 - 博客园](https://www.cnblogs.com/javastack/p/14255114.html)、[SpringBoot实战-跨域问题原理及解决 - 掘金](https://juejin.cn/post/6935985994386636831)
-
-+ <span style="font-size:22px">Filer：</span>
-
-    基于过滤器，在 response 写入响应头
-
-    ```java
-    package com.bei.loginserver.filter;
-    
-    import org.springframework.context.annotation.Configuration;
-    
-    import javax.servlet.*;
-    import javax.servlet.annotation.WebFilter;
-    import javax.servlet.http.HttpServletResponse;
-    import java.io.IOException;
-    
-    @WebFilter(filterName = "CorsFilter")
-    @Configuration
-    public class CorsFilter implements Filter {
-        @Override
-        public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-            HttpServletResponse response = (HttpServletResponse) res;
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            chain.doFilter(req, res);
-        }
-    }
-    ```
 
 
 
@@ -672,7 +636,7 @@
 3. **建立基本结构：**
 
     + dao
-    + domain
+    + domain / pojo
     + service
     + controller
 
@@ -980,6 +944,13 @@
 
 
 # DEBUG
+
+## Controller
+
+<span style="color:red">HttpMediaTypeNotAcceptableException: Could not find acceptable representation: </span>
+
++ Q_Desc: 请求报错
++ R: 返回的 Result 类 缺乏 Getter
 
 ## 整合 SSM 框架
 

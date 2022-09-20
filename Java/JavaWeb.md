@@ -135,6 +135,54 @@ Servlet——用 Java 编写的服务器端程序。其主要功能在于交互�
 
 
 
+# 跨域
+
+跨域有很多解决方式，参考：[Spring Boot 解决跨域问题的 3 种方案！- Java技术栈 - 博客园](https://www.cnblogs.com/javastack/p/14255114.html)、[SpringBoot实战-跨域问题原理及解决 - 掘金](https://juejin.cn/post/6935985994386636831)
+
+<span style="font-size:22px">Filer：</span>
+
+基于过滤器，在 response 写入响应头
+
+```java
+package com.bei.loginserver.filter;
+
+import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebFilter(filterName = "CorsFilter")
+@Configuration
+public class CorsFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) res;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        chain.doFilter(req, res);
+    }
+}
+```
+
+
+
+<span style="font-size:22px">全局配置同源 CORS:</span>
+
+```java
+@Configuration
+public class WebAppConfigurer implements WebMvcConfigurer {
+    @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    WebMvcConfigurer.super.addCorsMappings(registry);
+    registry.addMapping("/**")
+      .allowedOrigins("*");
+    }
+}
+```
+
+
+
 # REF
 
 + Servlet：
