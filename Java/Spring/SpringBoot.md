@@ -448,6 +448,33 @@ public class ForumServerApplication {
 
 
 
+# 静态资源访问
+
+## 默认资源映射
+
+**映射规则：**SpringBoot 默认将所有访问映射到:
+
+```
+classpath:/static
+classpath:/public
+classpath:/resources
+classpath:/META-INF/resources
+```
+
+**Eg:**
+
+在 /resources/static 存放图片 a.png
+
+访问 localhost:8080/a.png 得到该图片
+
+
+
+## 自定义资源映射
+
+> 虚拟的路径映射到我们服务器中图片的地址
+
+
+
 # Others
 
 ## 基于 QQ 邮箱的小体量认证
@@ -516,7 +543,8 @@ public class ForumServerApplication {
       return -1;
     ```
 
-    
+
+
 
 # REF
 

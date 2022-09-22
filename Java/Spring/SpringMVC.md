@@ -246,8 +246,20 @@
 
 
 
-
 ## 数据处理
+
+### 接收参数
+
+**POST 接收文件等类型时：**
+
+```java
+@PostMapping("/upload")
+public String uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+```
+
+> 这时不能通过 @RequestBody() 获取 JSON 的方式，因为不能转换文件形式
+
+
 
 ### 提交数据
 
@@ -951,6 +963,8 @@
 
 + Q_Desc: 请求报错
 + R: 返回的 Result 类 缺乏 Getter
+
+
 
 ## 整合 SSM 框架
 

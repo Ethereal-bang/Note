@@ -343,6 +343,18 @@ axios.post(url, data)
   })
 ```
 
+## Config
+
+**上传文件：**
+
+```js
+axios.post(url, formData, {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  }
+})
+```
+
 
 
 ## 拦截器
