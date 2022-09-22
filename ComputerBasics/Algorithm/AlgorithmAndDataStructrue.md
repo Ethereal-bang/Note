@@ -1171,7 +1171,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 图类
 
-[547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份
+[547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份 遍历节点不是边
 
 <span style="font-size:20px">树:</span>
 
