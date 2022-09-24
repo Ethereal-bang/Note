@@ -282,23 +282,32 @@ public void deleteByPrimaryKey(String id) {
 
 **Mapper 方法传值方式：**
 
-1. 简单类型参数对应：`(int id)`
+单个类型参数对应：`(int id)`
 
-    ```xml
-    <select id="select" parameterType="int" resultMap="BaseResultMap">
-    	select name from users where _id = #{id}
-    ```
+```xml
+<select id="select" parameterType="int" resultMap="BaseResultMap">
+	select name from users where _id = #{id}
+```
 
-2. 对象传值：`User user`
+@Param("") 对应参数 `(@Param("own") int id, @Param("contact") int contact)`
 
-    ```xml
-    <update id="update" parameterType="Users">
-      update users
-      set name = #{name},
-      where id = #{id};        
-    ```
+```xml
+<insert id="add">
+  insert into contact (own, contact)
+  value (#{own}, #{contact});
+</insert>
+```
 
-    
+对象传值：`User user`
+
+```xml
+<update id="update" parameterType="Users">
+  update users
+  set name = #{name},
+  where id = #{id};        
+```
+
+
 
 # result
 
@@ -369,18 +378,22 @@ public void deleteByPrimaryKey(String id) {
 
 # REF
 
-+ 总：
+总：
 
-    [【狂神说Java】Mybatis最新完整版IDEA版通俗易懂\_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1NE411Q7Nx)
+[【狂神说Java】Mybatis最新完整版IDEA版通俗易懂\_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1NE411Q7Nx)
 
-+ CRUD:
+CRUD:
 
-    [mybatis中的#{}和${}\$区别_u0135522450的专栏-CSDN博客](https://blog.csdn.net/u013552450/article/details/72528498)
+[mybatis中的#{}和${}\$区别_u0135522450的专栏-CSDN博客](https://blog.csdn.net/u013552450/article/details/72528498)
 
-    [java中Date类型存储到mysql_卓尔游侠-CSDN博客](https://blog.csdn.net/u010928364/article/details/50109193)
+[java中Date类型存储到mysql_卓尔游侠-CSDN博客](https://blog.csdn.net/u010928364/article/details/50109193)
 
-    [mybatis插入更新删除数据时，成功但是不能写入数据库-CSDN博客](https://blog.csdn.net/chenbetter1996/article/details/82727952)
+[mybatis插入更新删除数据时，成功但是不能写入数据库-CSDN博客](https://blog.csdn.net/chenbetter1996/article/details/82727952)
 
-+ resultMap: 
+Param:
 
-    [mybatis实践篇（三）—— ResultMap映射详细介绍 - CSDN博客](https://blog.csdn.net/zhoushimiao1990/article/details/100085411)
+[mybatis 传递参数的7种方法](https://www.cnblogs.com/cangqinglang/p/14237361.html)
+
+resultMap: 
+
+[mybatis实践篇（三）—— ResultMap映射详细介绍 - CSDN博客](https://blog.csdn.net/zhoushimiao1990/article/details/100085411)
