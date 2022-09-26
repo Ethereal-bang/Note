@@ -1505,6 +1505,29 @@ Eg——二级路由，一级路由无内容：
 
 
 
+## 路由鉴权 Auth
+
+```jsx
+// /componenets/auth/Auth.jsx
+export default function Auth(props) {
+    // 已登录
+    if (idGetter()) {
+        return <>{props.children}</>
+    }
+    // 未登录-重定向到login
+    else {
+        return <Navigate to={"/login"} replace />
+    }
+}
+
+// App.js
+<Route path={"/"} element={<Auth><Home /></Auth>} />
+```
+
+
+
+
+
 # 请求
 
 ## Axios
