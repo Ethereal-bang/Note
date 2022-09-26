@@ -1029,6 +1029,8 @@ function slidingWindow(s) {
 
 [322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——一维 dp 稍复杂的状态转移方程
 
+[96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——不容易想到的动态规划
+
 [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)——简单的二维 dp
 
 [983. 最低票价](https://leetcode.cn/problems/minimum-cost-for-tickets/)——复杂一维，哪些天买持续几天的火车通行证
@@ -1187,7 +1189,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 
 
-### To 二叉树
+## To 二叉树
 
 > **解题思维模式:** (不是拿递不递归区分)
 >
@@ -1204,7 +1206,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 
 
-#### To 二叉树构造
+### To 二叉树构造
 
 > 一般都是使用「分解问题」的思路：构造整棵树 = 根节点 + 构造左子树 + 构造右子树
 
@@ -1218,7 +1220,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 
 
-#### To 二叉搜索树 BST
+### To 二叉搜索树 BST
 
 + 利用**中序遍历特性**满足题目要求：
 
@@ -1226,7 +1228,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
     [538. 把二叉搜索树转换为累加树](https://leetcode.cn/problems/convert-bst-to-greater-tree/)
 
-+ 利用左小右大特性**优化**算法效率： 
++ 利用左小右大特性**优化**算法效率==?==： 
 
     每个 TreeNode 节点额外 `size` 字段维护以自己为根的这棵二叉树有多少个节点
 
@@ -1266,13 +1268,13 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 + ==**构造** BST:?==
 
-    [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——返回多少种
+    [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——返回多少种 动态规划
 
     [95. 不同的二叉搜索树 II](https://leetcode.cn/problems/unique-binary-search-trees-ii/)——返回所有 BST
 
 
 
-#### To 最近公共祖先==...==
+### To 最近公共祖先==...==
 
 
 
