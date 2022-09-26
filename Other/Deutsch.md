@@ -10,9 +10,9 @@ C ce
 
 D de
 
-E ei
+E
 
-F f
+F
 
 G gei *ge*
 
@@ -24,25 +24,25 @@ J yort *yi*
 
 K ka
 
-L
+L eir
 
-M 
+M enm
 
 N
 
-O [o] 哦
+O [o:] 哦(四声)
 
-P
+P pei
 
 Q ku
 
 R eir he (不弹)
 
-S si
+S
 
-T ti *t*
+T [te:] te *t*
 
-U wu
+U [u:] wu
 
 V fa-ao *f*
 
@@ -80,31 +80,53 @@ U yu
 
 
 
-<span style="font-size:20px; color:blue">作业</span>
+<span style="font-size:20px; color:blue">作业 1</span>
 
-1. 读出 30 个德语字母
+读出下列单词：
 
-2. 读出下列单词：
+> Panda: p a d a
+>
+> Affe: a f e
+>
+> Ananas:  a na na s
+>
+> Adler: a d l e r
+>
+> Paket: p a h e t
+>
+> Pokal: p o k a l
+>
+> abhalten: a b h l ten
+>
+> Nase: na s e
+>
+> klar: k l a e
+>
+> Tanne: ta ne 
 
-    > Panda: p a d a
-    >
-    > Affe: a f e
-    >
-    > Ananas:  a na na s
-    >
-    > Adler: a d l e r
-    >
-    > Paket: p a h e t
-    >
-    > Pokal: p o k a l
-    >
-    > abhalten: a b h l ten
-    >
-    > Nase: na s e
-    >
-    > klar: k l a e
-    >
-    > Tanne: ta ne 
+
+
+<span style="font-size:20px; color:blue">作业 2</span>
+
+> der Hund: der hund
+>
+> die Katze: di ka tcie
+>
+> der Vogel: der o gel
+>
+> das Pferd: das ferd
+>
+> die Kuh: di Ku
+>
+> der E*se*l: der e se
+>
+> die Hen*ne*: di he ne
+>
+> das S*ch*af: xi a f
+>
+> der Hase: ha se
+>
+> die Gans: ga n si
 
 
 
