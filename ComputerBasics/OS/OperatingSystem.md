@@ -81,8 +81,6 @@ Shell 接收到用户输入的命令，将命令送入操作系统执行，并�
 
 ## 目录结构
 
-![img](https://gitee.com/ethereal-bang/images/raw/master/20220513233158.jpeg)
-
 + /root——超级权限者的用户主目录
 + /home——用户主目录
 + /usr——很多应用程序和文件都放在这个目录下，类似于windows下的program files 目录
@@ -118,6 +116,18 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
 | passwd  | 修改用户密码（需 root               |
 | userdel | 删除用户（root                      |
 | su      | 切换用户                            |
+
++ [控制用户**对文件的权限**——chmod](https://www.runoob.com/linux/linux-comm-chmod.html)[^1]：
+
+    ```shell
+    chmod [ugoa][+-][rwx] <filename>
+    ```
+
+    > + who [ugoa]——修改指定用户类型对文件的访问权限。u 文件所有者，g 文件所有者所在组，o 所有其他用户，a 所有用户
+    > + operator [+-]——加减权限
+    > + permission [rwx]——可读、可写、可执行
+
+
 
 ### 文件
 
@@ -182,20 +192,20 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
 
 #### 常用模式
 
-+ <span style="font-size:20px">交互模式：</span>
+<span style="font-size:20px">交互模式：</span>
 
-    默认模式，执行 vim 后就进入该模式。
+默认模式，执行 vim 后就进入该模式。
 
-    + 不能输入文本
-    + 可以文本见移动、删除一行文本、复制粘贴文本、跳转到指定行、撤销等
++ 不能输入文本
++ 可以文本见移动、删除一行文本、复制粘贴文本、跳转到指定行、撤销等
 
-+ <span style="font-size:20px">插入模式：</span>
+<span style="font-size:20px">插入模式：</span>
 
-    按键 ”i“ 进入插入模式，退出只需按键 ”ESC“。
+按键 ”i“ 进入插入模式，退出只需按键 ”ESC“。
 
-+ <span style="font-size:20px">命令模式：</span>
+<span style="font-size:20px">命令模式：</span>
 
-    这个模式可以运行一些诸如 退出、保存 的命令。
+这个模式可以运行一些诸如 退出、保存 的命令。
 
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a06645b200354e56b8295751c8abac3f~tplv-k3u1fbpfcp-watermark.awebp" style="zoom:55%">
 
@@ -216,6 +226,8 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
 + <span style="font-size:20px">撤销操作：</span>
 
     <span style="color:red">ctrl + r</span>
+
+
 
 ### 系统
 
@@ -240,6 +252,57 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
     COMMAND   PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
     node    30611  www   18u  IPv6 1506246      0t0  TCP *:origo-native (LISTEN)
     ```
+
+
+
+## Shell 编程
+
+1. 新建脚本，使用 VIM：
+
+    ```shell
+    vi test.sh
+    ```
+
+2. 编辑脚本：
+
+    ```shell
+    #!/bin/bash
+    echo 系统变量 $HOME
+    
+    my_name=shen
+    Command=echo
+    $Command my name is $my_name
+    
+    arr=(1 2 3) # 这是注释
+    echo "数组的元素为: ${arr[*]}"
+    ```
+
+3. 执行脚本：
+
+    ```shell
+    # ./test.sh
+    bash: ./test.sh: Permission denied
+    ```
+
+
+
+### 变量
+
+**声明：**
+
+```shell
+Foo=1
+Command=echo
+Arr=(1 2 3)
+```
+
+**使用：**
+
+```shell
+echo $HOME
+$Command $Foo
+echo ${Arr[0]}
+```
 
 
 
@@ -354,3 +417,7 @@ Inter Process Communication——进程通信
     [《现代操作系统》]()
 
     [2.5w字 + 36 张图爆肝操作系统面试题，太牛逼了！- 掘金](https://juejin.cn/post/6934500044057870350)
+
+
+
+[^1]: change mode

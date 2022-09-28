@@ -60,7 +60,7 @@ A ei
 
 O 圆嘴发ei
 
-U yu
+ü yu
 
 β S+Z s cei t  (si)
 
@@ -104,9 +104,7 @@ U yu
 >
 > Tanne: ta ne 
 
-
-
-<span style="font-size:20px; color:blue">作业 2</span>
+<span style="font-size:20px; color:blue">作业 2</span> 动物
 
 > der Hund: der hund
 >
@@ -128,17 +126,37 @@ U yu
 >
 > die Gans: ga n si
 
+<span style="font-size:20px; color:blue">作业 3</span> 颜色
+
+> schwarz: xi wa z
+>
+> weiβ: vei s cei t
+>
+> lila: li la
+>
+> grün:  ge u n
+>
+> rot: o t
+>
+> dunkelgrün: du:n kel ge u n 
+>
+> orange: o  an ge
+>
+> braun: b a u n
+>
+> hellblau: hel b la u
+
 
 
 # 单词内发音
 
-ch: xi
+**ch**: xi
 
-ie: [i]
+**ie**: [i]
 
-be: be
+**be**: be
 
-<span style="font-size:20px">e:</span>
+<span style="font-size:20px">**e:**</span>
 
 [e:] 
 
@@ -162,4 +180,4 @@ Ich liebe dich! (I love u
 
 名词：大写
 
-动词：-ten
+动词：-en

@@ -351,6 +351,7 @@ HashMap 的 key 与 value 类型可以不同
     ```java
     sites.get(2);	// Zhihu
     sites.containsKey(3)// 检查是否存在指定的 key 对应的映射关系
+    sites.getOrDefault()
     ```
 
 + 删除元素——`remove(key)`
@@ -860,6 +861,7 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
     
     
     

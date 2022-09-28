@@ -1266,7 +1266,7 @@ function maxAreaOfIsland(grid: number[][]): number {
     >
     >     ![img](https://labuladong.github.io/algo/images/BST/bst_deletion_case_3.png)
 
-+ ==**构造** BST:?==
++ **构造** BST:
 
     [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——返回多少种 动态规划
 
@@ -1735,6 +1735,8 @@ function subarraySum(nums: number[], k: number): number {
 [560.和为k的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-sum-equals-k/)——pre 为 [0, i] 的和
 
 [1248. 统计「优美子数组」- 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/submissions/)——pre 统计奇数出现次数
+
+[525. 连续数组](https://leetcode.cn/problems/contiguous-array/)——不明显的满足条件
 
 
 
