@@ -46,6 +46,16 @@ SQLyog 是一款简洁高效、功能强大的<span style="color:red">图形化 
 
 
 
+# 数据类型
+
+`DECIMAL(M, D)`，M 表示总位数，D 表示小数点后位数，`NUMERIC`同。
+
+<span style="font-size:20px">时间:</span>
+
+timestamp: 可设默认值 CURRENT_TIME, eg:`2022-10-03 23:28:04`
+
+
+
 
 # 数据库
 
@@ -171,10 +181,6 @@ SQL——Structured Query Language：结构化查询语言
 
 ## DDL 作表结构
 
-+ <span style="font-size:20px">MySQL 数据类型：</span>
-
-    `DECIMAL(M, D)`，M 表示总位数，D 表示小数点后位数，`NUMERIC`同。
-    
 + <span style="font-size:22px">创建表——CREATE：</span>
 
     ```mysql
@@ -287,41 +293,41 @@ SQL——Structured Query Language：结构化查询语言
 
 ### 基本查询
 
-+ <span style='font-size:22px'>简单查询：</span>
+<span style='font-size:22px'>简单查询：</span>
 
-    ```mysql
-    # 查询表所有数据：
-    selsect * from `student`;	-- *表示所有列
-    
-    # 查询指定列：
-    select `name`, `age` from `student`;
-    
-    # 返回记录数
-    select COUNT(*) from `student`;
-    ```
+```mysql
+# 查询表所有数据：
+selsect * from `student`;	-- *表示所有列
 
-+ <span style="font-size:22px">指定列的别名进行查询：</span>
+# 查询指定列：
+select `name`, `age` from `student`;
 
-    使用别名的好处：显示时用新名字，而又不修改表的结构。
+# 返回记录数
+select COUNT(*) from `student`;
+```
 
-    ```mysql
-    # 表也使用别名：
-    select `name` as `姓名` , `age` as `年龄` from `student` as `学生`;
-    ```
+<span style="font-size:22px">指定列的别名进行查询：</span>
 
-+ <span style="font-size:22px">查询时清除重复值：</span>
+使用别名的好处：显示时用新名字，而又不修改表的结构。
 
-    ```mysql
-    select distinct address from `student`; 
-    ```
+```mysql
+# 表也使用别名：
+select `name` as `姓名` , `age` as `年龄` from `student` as `学生`;
+```
 
-+ <span style="font-size:22px">查询结果参与运算：</span>
+<span style="font-size:22px">查询时清除重复值：</span>
 
-+ <span style="font-size:22px">查询结果排序：</span>
+```mysql
+select distinct address from `student`; 
+```
 
-    ```mysql
-    SELECT * FROM goods WHERE TYPE = 'bookRanking' ORDER BY ranking ASC;
-    ```
+<span style="font-size:22px">查询结果参与运算：</span>
+
+<span style="font-size:22px">查询结果排序：</span>
+
+```mysql
+SELECT * FROM goods WHERE TYPE = 'bookRanking' ORDER BY ranking ASC;
+```
 
 
 

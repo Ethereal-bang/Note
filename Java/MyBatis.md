@@ -355,6 +355,7 @@ public void deleteByPrimaryKey(String id) {
 ```
 
 > + **id 标签**标识表中主键列和类中属性的对应关系
+> + **property** 对应 pojo 字段 
 > + 注意**sql 返回** `resultType` 和 `resultMap` 的区别
 
 + MySQL 内 **datetime 类型处理：**
