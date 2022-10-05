@@ -372,6 +372,8 @@ while (curNode != null || !stack.isEmpty()) {
 
 <span style="font-size:20px">实现优先级队列:</span>Priority Queue
 
+> 堆是优先队列的一种实现方式
+
 主要实现几个重要的 API——sink (*下沉* ) , swim (*上浮* ) , insert, delMax
 
 **sink, swim**——当 insert, del 时维护堆结构
@@ -415,6 +417,8 @@ delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让
 **常用方法**——构建优先队列、支持堆排序、快速找出一个集合中最值
 
 构建优先队列：
+
+[215. 数组中的第K个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array/)——（常考）小顶堆，筛掉小值，留下 k 个最大值
 
 [1845. 座位预约管理系统](https://leetcode.cn/problems/seat-reservation-manager/)
 
@@ -497,7 +501,7 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 
 
-# 排序算法
+# 排序
 
 > **排序算法**——交换——**冒泡排序**
 >
@@ -607,43 +611,47 @@ private static int[] mergeTwo(int[] left, int[] right) {
 }
 ```
 
-+ <span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
+<span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
 
-    ```java
-    // 1.遍历所有数
-    for (int i = 0; i < nums.length - 1; i++) {
-      // 2.遍历未排序列找出最小值
-      for (int j = i + 1; j < nums.length; j++) {
-    		// ...
-      }
-      // 3.得到的最小值与未排序列首部交换
-      swap(nums, minIndex, i);
-    }
-    ```
-    
-+ <span style="font-size:20px">堆排序——利用堆概念的选择排序：</span>
+```java
+// 1.遍历所有数
+for (int i = 0; i < nums.length - 1; i++) {
+  // 2.遍历未排序列找出最小值
+  for (int j = i + 1; j < nums.length; j++) {
+		// ...
+  }
+  // 3.得到的最小值与未排序列首部交换
+  swap(nums, minIndex, i);
+}
+```
 
-    1. 建立一个最大堆——最大值在堆的根节点
-    2. 数组根节点与末尾替换——把最大值放到后面，这样就完成了一趟排序
-    3. 重复以上步骤：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211208233135.png" alt="image-20211208233135322" style="zoom:53%;" />
+<span style="font-size:20px">堆排序——利用堆概念的选择排序：</span>
 
-    ```java
-    public static void heapSort(int[] arr) {
-      for (int cnt = 1; cnt < arr.length; cnt++) {
-        // 1.建初堆——构建最大堆:
-        buildMaxHeap(arr, arr.length - cnt + 1);
-        // 2.将最大元素交换到末尾:
-        swap(arr, 0, arr.length - 1 - cnt + 1);
-        // 3.每构建一次就相当于排好一个最大值
-        System.out.println("heapSort, " + Arrays.toString(arr));
-      }
-    }
-    private static void buildMaxHeap(int[] arr, int size) {
-      // ...从最后一个分支结点——n/2 开始按大小调整父子结点 构建最大堆
-    }
-    private static void adjustToMaxHeap(int[] arr, int curRootNode, int size) {
-      // ...最大元素交换到此树杈的根位置：
-    ```
+1. 建立一个最大堆——最大值在堆的根节点
+2. 数组根节点与末尾替换——把最大值放到后面，这样就完成了一趟排序
+3. 自上至下调整
+4. 重复以上步骤
+
+```java
+public static void heapSort(int[] arr) {
+  // 1.构造初堆
+  buildMaxHeap(arr, arr.length);
+  for (int sortedCnt = 0; sortedCnt < arr.length; cnt++) {
+    // 2.将最大元素交换到末尾(每构建一次就相当于排好一个最大值
+    swap(arr, 0, arr.length - sortedCnt - 1);
+    // 3.从上向下调整(sorted是上一轮 现在s+1)
+    adjustToHeap(arr, 0, arr.length - sortedCnt - 1);
+}
+private static void buildMaxHeap(int[] arr, int size) {
+  // ...从最后一个分支结点——n/2 开始按大小调整父子结点 构建最大堆:
+  for (int i = size - 2 >> 1; ) {adjustToHeap}
+}
+private static void adjustToHeap(int[] arr, int i, int size) {
+  // ...最大元素交换到此树杈的根位置：
+  if (max !=== i) {
+    adjustToHeap(arr, max, size);	// 继续向下调整
+  }
+```
 
   
 
@@ -937,7 +945,7 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
     [27. 移除元素](https://leetcode.cn/problems/remove-element/)
 
     ```js
-while (fast < nums.length) {
+    while (fast < nums.length) {
       if (nums[fast] != val) {
     nums[slow] = nums[fast];
         slow++;
@@ -945,12 +953,14 @@ while (fast < nums.length) {
       fast++;
     }
     ```
-    
+
     [26. 删除有序数组中的重复项](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/)
-    
+
     <img src="https://labuladong.github.io/algo/images/%e6%95%b0%e7%bb%84%e5%8e%bb%e9%87%8d/1.gif" alt="img" style="zoom:25%;" />
 
     [905.按奇偶排序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/sort-array-by-parity/submissions/)
+
+    [75. 颜色分类](https://leetcode.cn/problems/sort-colors/)——排序 0, 1, 2
 
 + 滑动窗口
 
@@ -1242,6 +1252,8 @@ function maxAreaOfIsland(grid: number[][]): number {
 
     [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)——参数传递节点值大小范围约束
 
+    [剑指 Offer 33. 二叉搜索树的后序遍历序列](https://leetcode.cn/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/)——由后序遍历验证是否满足 BST
+
     [700. 二叉搜索树中的搜索](https://leetcode.cn/problems/search-in-a-binary-search-tree/)
 
     <span style="color:blue">BST 中插入一个数: </span>——先找再改
@@ -1459,6 +1471,18 @@ return l;
 [33. 搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
 
 [81. 搜索旋转排序数组 II](https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/)——含重复元素。
+
+
+
+## 排序
+
+### 归并排序
+
+求逆序对：
+
+[剑指 Offer 51. 数组中的逆序对](https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
+
+[315. 计算右侧小于当前元素的个数](https://leetcode.cn/problems/count-of-smaller-numbers-after-self/)——上一题的基础上新增了索引数组，对索引数组排序，从而不改变原数组情况下能获得本来元素的下标
 
 
 

@@ -111,6 +111,8 @@ public class Hello {
 
 <span style="font-size:20px">String:</span>
 
++ length()
+
 + charAt(`index`):——取某位字符
 + String.valueOf()——返回其他类型的字符串表示形式
 
@@ -287,11 +289,23 @@ public class Hello {
 
 
 
-### Colection
+### Colection Interface
 
-#### List
++ <span style="font-size:22px">ArrayList——数组队列：</span>
 
-集合类中，List 是最基础的一种集合——有序列表。
+    **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
+
++ <span style="font-size:22px">LinkedList——链表：</span>
+
+    链表类似于 ArrayList，是一种常用的数据容器
+
+    **适用场景：**需要通过循环迭代访问列表中元素；频繁在列表开头、中间、末尾等位置添加删除元素操作
+
+
+
+#### List Interface
+
+有序列表
 
 ```java
 List<List<Integer>> list = new ArrayList<>();
@@ -299,19 +313,21 @@ List<List<Integer>> list = new ArrayList<>();
 
 add(), get(), remove(), size()
 
-+ <span style="font-size:22px">ArrayList——数组队列：</span>
-
-    + **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
-
-+ <span style="font-size:22px">LinkedList——链表：</span>
-
-    链表类似于 ArrayList，是一种常用的数据容器
-
-    + **适用场景：**需要通过循环迭代访问列表中元素；频繁在列表开头、中间、末尾等位置添加删除元素操作
+<span style="font-size:20px">ArrayList, LinkedList</span>
 
 
 
-### Set (Abstract)
+#### Queue Interface
+
+<span style="font-size:20px">ArrayList, LinkedList</span>
+
+<span style="font-size:20px">PriorityQueue: </span>
+
+优先队列（按顺序检索 默认小顶堆）
+
+
+
+#### Set Interface
 
 `Set`用于存储不重复的元素集合
 
@@ -322,11 +338,13 @@ add(), get(), remove(), size()
 + set.contains()
 + set.size()
 
-HashSet
+<span style="font-size:20px">HashSet</span>
 
 
 
-### HashMap
+### Map
+
+#### HashMap
 
 ![img](https://www.runoob.com/wp-content/uploads/2020/07/WV9wXLl.png)
 
@@ -578,7 +596,13 @@ fd.format(date);
 
 <span style="font-size:20px">Comparable\<T>:</span>
 
+自定义比较规则
+
 @Overrider compareTo(object p)——返回 -1，当前对象排到前面
+
+```java
+
+```
 
 
 
@@ -861,6 +885,9 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
+    
+    
     
     
     
