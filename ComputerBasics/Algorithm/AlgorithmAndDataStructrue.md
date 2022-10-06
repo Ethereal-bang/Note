@@ -4,7 +4,16 @@
 
 迭代: 
 
->  保存 next 节点快照后更改 next 指向
+```js
+let cur = head, pre = null;
+while (cur) {
+  const next = cur.next;
+	cur.next = pre;
+  pre = cur; cur = next;
+}
+```
+
+>  保存 next 节点快照后更改 cur.next 指向 pre
 
 递归——反转以 `head`  为起点的链表
 
@@ -21,6 +30,8 @@
 [206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)
 
 [92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)——反转部分链表
+
+[234. 回文链表](https://leetcode.cn/problems/palindrome-linked-list/)——快慢指针 + 反转部分
 
 [25. K 个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group/)
 
@@ -1345,6 +1356,12 @@ void traverse(Graph graph, int s) {
 
 
 
+## 贪心
+
+[122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)——不限交易次数股票问题的特例解法
+
+
+
 ## 二分搜索
 
 > **搜索区间与 while 条件对应关系:**
@@ -1783,6 +1800,10 @@ function subarraySum(nums: number[], k: number): number {
 > <img src="https://labuladong.github.io/algo/images/%e5%89%8d%e7%bc%80%e5%92%8c/5.jpeg" alt="img" style="zoom:25%;" />
 >
 > 以 preSum\[][] = 以原点为顶点矩阵元素和 
+
+
+
+### 离散化树状数组 ==...==
 
 
 
