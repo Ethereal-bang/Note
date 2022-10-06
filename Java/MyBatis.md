@@ -174,9 +174,26 @@
 
 # CRUD——增删改查
 
-+ 变量类型为 java 类型不是 Mysql
+**变量类型**为 java 类型不是 Mysql
 
-Create、Retrieve、Update、Delete
+**返回插入后主键 id：**
+
+```xml
+<insert id="add" parameterType="News" keyProperty="id" useGeneratedKeys="true">
+  insert into news (sender, receiver, word)
+  VALUE (#{sender}, #{receiver}, #{word});
+</insert>
+```
+
+```java
+newsService.send(news);
+return news.getId();	// 传进去的news没用id但调用后被赋值(Service内的news同理)
+```
+
++ <span style="color:orange">useGeneratedKeys</span>: 仅对 insert 和 update 有用。是否使用 JDBC 的 getGeneratedKeys 取出由数据库内部生成的键
++ <span style="color:orange">keyProperty</span>: 通过 getGeneratedKeys 返回值设置该属性的键值
+
+
 
 ## Select
 
@@ -234,6 +251,9 @@ Create、Retrieve、Update、Delete
     ```java
     sqlSession.commit();
     ```
+    
+
+
 
 ### 模糊查询
 

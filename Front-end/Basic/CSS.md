@@ -255,15 +255,15 @@ position 属性
 
 # Other
 
-+ <span style="font-size:20px">盒模型</span>
+<span style="font-size:20px">盒模型</span>
 
-    <img src="https://cdn.nlark.com/yuque/0/2020/gif/2617721/1603183304416-4a408d18-d3f9-4296-b153-ca22ea302eb0.gif#align=left&display=inline&height=289&margin=%5Bobject%20Object%5D&originHeight=289&originWidth=536&size=0&status=done&style=none&width=536" style="zoom: 33%;" />
+<img src="https://cdn.nlark.com/yuque/0/2020/gif/2617721/1603183304416-4a408d18-d3f9-4296-b153-ca22ea302eb0.gif#align=left&display=inline&height=289&margin=%5Bobject%20Object%5D&originHeight=289&originWidth=536&size=0&status=done&style=none&width=536" style="zoom: 33%;" />
 
 
 
-+ <span style="font-size:20px">Sprite</span>
+<span style="font-size:20px">Sprite</span>
 
-    又称雪碧图。把多张图片进行合成，使用时通过 css 进行定位从而减少请求次数的有效手段
+又称雪碧图。把多张图片进行合成，使用时通过 css 进行定位从而减少请求次数的有效手段
 
 
 
