@@ -36,7 +36,7 @@ P pei
 
 Q ku
 
-R eir he (不弹)
+R eir (hei)
 
 S
 
@@ -56,13 +56,13 @@ Z cei t *ci*
 
 
 
-A ei
+Ä ei
 
-O 圆嘴发ei
+Ö 圆嘴发ei
 
-ü yu
+Ü yu
 
-β S+Z s cei t  (si)
+ß S+Z s cei t  (si)
 
 > Ra d : he_a__d 
 
@@ -146,25 +146,105 @@ O 圆嘴发ei
 >
 > hellblau: hel b la u
 
+<span style="font-size:20px; color:blue">作业 4</span>食物
+
+> der Apfel
+>
+> die Nudeln
+>
+> die Banane
+>
+> das O:l
+>
+> das Bier
+>
+> die Pommesfrites: po mis 
+>
+> die Birne
+>
+> der Reis : hais
+>
+> das Brot
+>
+> der Saft
+>
+> das Bro:tchen : - xi en
+>
+> die Sahne : sa ne
+>
+> die Butter : bu ter
+>
+> der Salat
+>
+> das Ei : ai
+>
+> das Salz
+>
+> der Fisch
+>
+> der Schinken
+
 
 
 # 单词内发音
 
-**ch**: xi
+<span style="font-size:22px">e: </span>
 
-**ie**: [i]
+**[e:]**  
 
-**be**: be
+**[ε]**
 
-<span style="font-size:20px">**e:**</span>
+**[ə] : **ge-, be-
 
-[e:] 
 
-[] 前有其他元音不重读
 
-[(呃)] 非重读前后缀 ge-, be-,-er
+<span style="font-size:22px">s: </span>
 
-e 为第一个元音时发 [] (欸)
+**[z]  : **s 后元音
+
+**[s]**
+
+**[ts] : **(cei) z, tz, ts, ds 
+
+
+
+<span style="font-size:22px">r:</span>
+
+**[r] : **(he) r + 元音
+
+**[ə] : **(呃)
+
+
+
+## 元音组合
+
++ **[ai]**
+
+    ai, ay, ey, ei, eih
+
++ **[ao]**
+
+    au
+    
++ **[i]**
+
+    ie
+
+
+
+## 辅音组合
+
++ **[xi]**
+
+    ch, sch
+
+
+
+## 特殊
+
++ **[昂]** : -rn
+
+    
 
 
 
