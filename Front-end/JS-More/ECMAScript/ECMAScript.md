@@ -1612,22 +1612,21 @@ Set 数据结构类似于数组，但里面的值是唯一的
     设置键名`key`对应的键值为`value`，返回整个 Map 结构
 
     ```js
-    const map = new Map();
-    map.set('foo', true);
+    const map = new Map([["foo", true],]);
     map.set('bar', false);
     
     map.size  // 2
     ```
-
-    `set`返回的是当前的 Map 对象，因此可用链式写法
-
-    ```js
+    
+`set`返回的是当前的 Map 对象，因此可用链式写法
+    
+```js
     let map = new Map()
       .set(1, 'a')
       .set(2, 'b')
       .set(3, 'c');
     ```
-
+    
 - **get(key)**——找不到 `key` 返回 undefined
 
 - **has(key)**   返回布尔值

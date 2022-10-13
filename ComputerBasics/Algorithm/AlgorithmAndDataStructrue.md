@@ -1,4 +1,77 @@
+# 字符串
+
+## To 回文
+
+双指针
+
+[剑指 Offer II 018. 有效的回文](https://leetcode.cn/problems/XltzEq/)
+
+> **Tips：——判断是否属于数字或字母**
+>
+> Character.isLetterOrDigit(char ch)
+>
+> /[a-zA-Z0-9]/.test()
+
+[剑指 Offer II 019. 最多删除一个字符得到回文](https://leetcode.cn/problems/RQku0D/)——尝试删除一个字符判断
+
+
+
+## To 下一个字典序排列
+
+**字典序：**
+
+> Eg: [1,2,3] 的下一排列为 [1,3,2]。特殊地，[3,2,1] 的下一排列 为 [1,2,3]
+
+如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列
+
+**思路：**
+
+找到 ( 较小数, 较大数 ) 交换使序列变大，且要使变大幅度最小
+
+1. 从后往前<span style="color:orange">找较小数</span>：满足 arr[left] < arr[left + 1]
+
+2. 从 end -> left 找最靠右的<span style="color:orange">较大数</span>：满足 arr[right] > arr[left]
+
+    > 因为此时已有 arr[left] < arr[left + 1]，所以至少有一个 right = left + 1 满足，只是还要找尽可能靠右的使变大幅度尽可能小
+
+3. <span style="color:orange">交换</span> (arr[left], arr[right])
+
+4. 对 (left, end] 逆序翻转，使其变为<span style="color:orange">升序</span>
+
+    > 易得此时 (left, end] 为降序列，因此采用双指针翻转
+
+```java
+int i = nums.length - 2;
+while (i >= 0 && nums[i] >= nums[i + 1]) {	// 1.找left
+  i--;
+}
+if (i >= 0) {	// 小于0即说明此时已是最大序列,没找到满足的left
+  int j = nums.length - 1;	// 2.找right
+  while (j >= 0 && nums[i] >= nums[j]) {
+    j--;
+  }
+  swap(nums, i, j);	// 3.交换
+}
+reverse(nums, i + 1);	// 4.变为升序
+```
+
+
+
+[31. 下一个排列](https://leetcode.cn/problems/next-permutation/)
+
+[556. 下一个更大元素 III](https://leetcode.cn/problems/next-greater-element-iii/)
+
+
+
 # 链表
+
+**虚拟头节点：**简化创建或删除链表头结点时的特殊情况
+
+<span style="font-size:20px">指针指向:</span>
+
+[剑指 Offer II 026. 重排链表](https://leetcode.cn/problems/LGjMqU/)——交换链表节点
+
+[剑指 Offer II 028. 展平多级双向链表](https://leetcode.cn/problems/Qv1Da2/)——prev, next, child
 
 <span style="font-size:20px">反转链表:</span>
 
@@ -84,6 +157,12 @@ while (cur) {
 [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/)——合二为一
 
 [86. 分隔链表](https://leetcode.cn/problems/partition-list/)——一分为二
+
+<span style="font-size:20px">双向链表和循环链表:</span>
+
+循环链表的每一个节点都可做 HEAD
+
+[剑指 Offer II 029. 排序的循环链表](https://leetcode.cn/problems/4ueAj6/)——有序循环列表的插入操作
 
 
 
@@ -671,14 +750,6 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 ## 理论基础
 
-<span style="font-size:22px">概念：</span>
-
-哈希表是根据关键码的值而直接进行访问的数据结构
-
-其实数组就是一张哈希表。哈希表中关键码就是数组的索引下标，然后通过下标直接访问数组中的元素
-
-下面将会以储存学生姓名为例。只需初始化把学生名字都存在哈希表，查询时直接通过索引（复杂度O(n)）。
-
 <span style="font-size:22px">哈希函数：</span>
 
 + **hashCode**——通过特定编码方式，将其他数据格式转化为不同数值
@@ -862,7 +933,19 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 
 
-# 数学
+# 整数
+
+Java 为例
+
+int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>)
+
+有符号整数，最高位 0 为正 1 负
+
+
+
+[剑指 Offer II 001. 整数除法](https://leetcode.cn/problems/xoh6Oh/)——减法代替除法；时间复杂度优化——减去除数的次方；注意溢出
+
+
 
 ## 位运算
 
@@ -915,9 +998,14 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 
 **数据结构：**
 
-哈希链表 LinkedHashMap——Hash（快速查找）+ LinkedList（有顺序）
+哈希链表 LinkedHashMap——Hash<key, Node>（快速查找）+ 双向 LinkedList（有顺序）
 
 <img src="https://labuladong.github.io/algo/images/LRU%e7%ae%97%e6%b3%95/4.jpg" alt="img" style="zoom:40%;" />
+
++ Node {key, val, prev, next}
++ O(1) 插入、删除——采用<span style="color:orange">双向链表</span>才能快速获取 prev, next
+
+[剑指 Offer II 031. 最近最少使用缓存](https://leetcode.cn/problems/OrIXps/)
 
 
 
@@ -983,6 +1071,8 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 
     [167. 两数之和 II - 输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/)
 
+    [剑指 Offer II 007. 数组中和为 0 的三个数](https://leetcode.cn/problems/1fGaJU/)——固定 `i`, 移动 `left`, `right`
+
 + [344. 反转字符串](https://leetcode.cn/problems/reverse-string/)
 
 + [5. 最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)——中心向两边移动
@@ -996,6 +1086,10 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 > **O(n):**
 >
 > 因为数组中的每个元素都只会进入窗口一次，然后被移出窗口一次，不会说有某些元素多次进入和离开窗口
+>
+> **前提：**
+>
+> 所有数字均为正数，才保证右指针前进是增加，左指针前进减少
 
 **框架:**
 
@@ -1017,11 +1111,19 @@ function slidingWindow(s) {
 }
 ```
 
+**常用变量：**`window`——窗口内数据, `need`——所需数据, `valid`——已满足数据
+
++ **needed：**当题意是要找到满足字符出现次数时，可以只用一个哈希表 `need` 解决。加入一个字符时 need.get(ch) - 1，移走一个时 need.get(ch)++。不必担心 -1 时出现负数的情况，只需判断 = 0 时 valid +/- 即可
+
+
+
+[剑指 Offer II 008. 和大于等于 target 的最短子数组](https://leetcode.cn/problems/2VG8Kg/)——维护窗口内 sum
+
+[剑指 Offer II 009. 乘积小于 K 的子数组](https://leetcode.cn/problems/ZVAVXX/)——不那么常规的滑动窗口
+
 [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)——维护窗口内字符出现次数
 
-[567. 字符串的排列](https://leetcode.cn/problems/permutation-in-string/)——找到某定长窗口内指定字符组合
-
-[438. 找到字符串中所有字母异位词](https://leetcode.cn/problems/find-all-anagrams-in-a-string/)——找到全部定长窗口内指定字符组合
+[438. 找到字符串中所有字母异位词](https://leetcode.cn/problems/find-all-anagrams-in-a-string/)——找到全部定长窗口内指定字符组合（同 [567. 字符串的排列](https://leetcode.cn/problems/permutation-in-string/)）
 
 [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/)——维护窗口内含指定字符
 
@@ -1141,6 +1243,8 @@ while (queue.length !== 0) {
 **例:**
 
 [111. 二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)
+
+[279. 完全平方数](https://leetcode.cn/problems/perfect-squares/)——能凑成 n 的最少的平方数之和
 
 [752. 打开转盘锁](https://leetcode.cn/problems/open-the-lock/)——找到最少步骤
 
@@ -1359,6 +1463,8 @@ void traverse(Graph graph, int s) {
 ## 贪心
 
 [122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)——不限交易次数股票问题的特例解法
+
+[135. 分发糖果](https://leetcode.cn/problems/candy/)——两次遍历满足不同左右规则（思路难想到）
 
 
 
@@ -1736,11 +1842,18 @@ def backtrack(路径, 选择列表):
 
 ## 前缀和
 
+[剑指 Offer II 012. 左右两边子数组的和相等](https://leetcode.cn/problems/tvdfij/)——利用前缀和获取子数组和关系
+
+
+
 ### 前缀和 + 哈希表
 
 **步骤：**
 
 1. Map 维护各前缀和及其出现次数，pre 记录前缀和 [0,i]，res 记录满足 pre - key = k 的次数
+
+    > **重点：**目标等式 pre[i] - pre[key] = k => 求得 pre[key] 在哈希中的映射
+
 2. 遍历数组
     1. 更新 pre
     2. 存在 key = k-pre：res 累加该 pre 出现次数
@@ -1782,6 +1895,8 @@ function subarraySum(nums: number[], k: number): number {
 [560.和为k的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-sum-equals-k/)——pre 为 [0, i] 的和
 
 [1248. 统计「优美子数组」- 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/submissions/)——pre 统计奇数出现次数
+
+[剑指 Offer II 011. 0 和 1 个数相同的子数组](https://leetcode.cn/problems/A1NYOS/)——0 看作 -1，求 pre[i] - pre[target] = 0
 
 [525. 连续数组](https://leetcode.cn/problems/contiguous-array/)——不明显的满足条件
 

@@ -111,6 +111,8 @@ public class Hello {
 
 <span style="font-size:20px">String:</span>
 
+不可改变的类型，因此修改的方法都返回一个新字符串
+
 + length()
 
 + charAt(`index`):——取某位字符
@@ -314,6 +316,8 @@ List<List<Integer>> list = new ArrayList<>();
 add(), get(), remove(), size()
 
 <span style="font-size:20px">ArrayList, LinkedList</span>
+
+set() 替换指定索引内值
 
 
 
@@ -567,9 +571,11 @@ StringBuffer res = new StringBuffer();
 
 <span style="font-size:20px">Math:</span>
 
++ double Math.pow()——幂
 + Math.exp()——e 的参数次方
 + Math.PI——圆周率
 + Math.min()
++ Math.random()——[0,1)
 
 <span style="font-size:20px">Pattern：</span>
 
@@ -599,10 +605,6 @@ fd.format(date);
 自定义比较规则
 
 @Overrider compareTo(object p)——返回 -1，当前对象排到前面
-
-```java
-
-```
 
 
 
@@ -896,6 +898,11 @@ public class Soccer {
     
     
     
+    
+    
+    
+    
+    
     ## 类的关键字
     
     + **final：**表示不能被继承
@@ -1130,6 +1137,23 @@ int ch;
 while ((ch = fileReader.read()) != -1) {    // 返回-1说明已读到末尾
   System.out.println((char) ch);
 }
+```
+
+
+
+# Other
+
+## JSON 数据处理
+
+转换 JSON 需要提前创建一个类。处理 JSON 最好采用外部库 （此处使用 jackson）
+
+**Encode to JSON:**
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+ObjectMapper mapper = new ObjectMappper();
+String script = mapper.writeValueAsString(new Info(/*...*/));	// 已经转换成JSON格式的字符串
 ```
 
 
