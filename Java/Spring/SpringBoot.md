@@ -473,9 +473,82 @@ classpath:/META-INF/resources
 
 > 虚拟的路径映射到我们服务器中图片的地址
 
+1. WebAppConfiguer:
+
+    ```java
+    @Configuration
+    public class WebAppConfigure implements WebMvcConfigure {
+      @Override
+      public void addResourceHandlers(
+        ResourceHandlerRegistry registry
+      ) {
+        String filePath = "E:/pictures/server/";
+      WebMvcConfigurer.super.addResourceHandlers(registry);
+        registry.addResourceHandler("/images/**")      .addResourceLocations("classpath:/static/images/")
+          .addResourceLocations("file:" + filePath);
+      }
+    }
+    ```
+
+    > 设置后可从 localhost:8080/images/图片.png 访问到指定图片
+    >
+    > + `**` 指该路径下任意目录
+    > + classpath 对应 resources 包
+    > + 绝对路径前加上 `file:`
+
 
 
 # Others
+
+## 图片服务器
+
+**上传图片：**
+
+ImgController.java :
+
+```java
+@PostMapping("/upload")
+public Result uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+  if (multipartFile.isEmpty()) {
+    return Result.err().setMsg("文件为空");
+  } else {
+    String path = imgService.upload(multipartFile);
+    return path.length() > 0
+      ? Result.ok().setMsg("上传成功").data("path", path)
+      : Result.err().setMsg("上传失败");
+  }
+}
+```
+
+ImgServiceImpl.java :
+
+```java
+public String upload(MultipartFile multipartFile) {
+  // 获取源文件名称
+  String originalFilename = multipartFile.getOriginalFilename();
+  // 生成不重复标识
+  UUID uuid = UUID.randomUUID();
+  // 获取源文件后缀
+  assert originalFilename != null;
+  String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf('.'));
+  // 保存文件
+  String filesDir = "E:\\Pictures\\server\\";   // 放置图片的文件夹
+  File file = new File(filesDir + uuid + fileSuffix);
+  try {
+    multipartFile.transferTo(file);
+    return "http://localhost:8080/images/" + uuid + fileSuffix; // 返回图片完整访问路径
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+  return "";
+}
+```
+
+**访问图片：**
+
+参考静态资源访问/自定义资源映射
+
+
 
 ## 基于 QQ 邮箱的小体量认证
 

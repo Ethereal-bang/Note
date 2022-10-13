@@ -731,4 +731,3 @@ ORDER BY COUNT(carrier_id) desc	# 以carrier_id出现次数排序
 + Others：
 
     [MySQL字符集 GBK/GB2312/UTF8区别 解决 MYSQL中文乱码问题以及error 1406:data too long for column 'name' at row 1](https://blog.csdn.net/zsm653983/article/details/7970179)
-

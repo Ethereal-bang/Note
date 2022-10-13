@@ -184,14 +184,8 @@ return (
     </ul>
     ```
 
-+ <span style="font-size:18px">{}:</span>
++ <span style="font-size:18px">{}</span>
 
-    ```jsx
-    
-    ```
-    
-    
-    
 + <span style="font-size:18px">Map:</span>
 
     ```tsx
@@ -775,7 +769,6 @@ const Child = (props) => {
 
 
 
-
 # 样式
 
 <span style="font-size:20px">CSS in JS——样式的模块化：</span>
@@ -803,6 +796,8 @@ export default class Hello extends Component {
 > <div className={styles["menu"] + " " + styles["genremenu"]} />	
 > /*<div class=".menu .genremenu" />*/
 > ```
+
+> 最终渲染的 className = undefined ：如果 styles[] 对应的类在该 css 文件中不存在或内无内容
 
 <span style="font-size:20px">内联样式 {{}} :</span>
 
@@ -1837,8 +1832,104 @@ ReactDOM.myRender = (element, container) => {
 
 
 
-
 # Others
+
+## 自定义上下文菜单
+
+ContextMenu 即右键后出现的菜单
+
+**组件编写：**
+
+```jsx
+const ContextMenu = (props) => {
+  const {options, poi, isShow, id} = props;	// 菜单项,坐标,是否显示,回调所需参数
+	const style = {
+    position: fixed,
+    left: position.x,
+    top: position.y,
+    display: isShow ? "block" : "none",
+  }  
+  return <ul style={style}>{/*...*/}</ul>
+}
+```
+
+**组件引用：**
+
+```jsx
+const contextOptions = [
+  {key: 1, name: "删除", onClick:(id) => {/*...*/}},
+]
+return <>
+  <ContextMenu 
+    options={contextOptions} 
+    /*...*/
+    />
+  </>
+```
+
+**菜单触发：**
+
+```jsx
+<div onContextMenu={(e, id) => {
+	e.preventDefault();	// 阻止默认右键菜单
+  // ...显示自定义右键菜单
+  setId(id);	// 菜单项回调所用参数
+}} />
+```
+
+
+
+## 上传图片前裁剪
+
+**[antd-img-crop](https://github.com/nanxiaobei/antd-img-crop)**
+
+```shell
+$yarn add antd-img-crop -s
+```
+
+```jsx
+import ImgCrop from 'antd-img-crop';
+import { Upload } from 'antd';
+
+const Demo = () => (
+  <ImgCrop>
+    <Upload>Add image</Upload>
+  </ImgCrop>
+);
+```
+
+
+
+## Emoji 的展示与存储
+
+> **Emoji:**
+>
+> Emoji 是 Unicode 字符集中一部分，而 UTF-8 字符集不能存储 emoji，需使用 utf8m64
+
+1. 将含 emoji 的字符串**编码**后发送给后端：
+
+    ```js
+    import emojiRegex();
+    const regex = emojiRegex();
+    const encodedStr = str.replace(regex, p => `emoji(${p.codePointAt(0)}`);
+    ```
+
+    [emoji-regex](https://www.npmjs.com/package/emoji-regex), [String.prototype.codePointAt()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt)
+
+    > + 转换形式自定义，微信使用的是 [<码点>] 形式存储
+    >
+    > + 编码后字符串类似于 `I'm so emoji(55358)` 的格式
+
+2. 获取的编码后字符串**解码**后显示：
+
+    ```js
+    const emojiDecodeRegex = /emoji\(\d+\)/g/;
+    const decoded = str.replace(emojiDecoedRegex, p => {
+      return String.fromCodePoint(Number(p.replace(/[^\d]/g, '')));
+    })
+    ```
+
+    
 
 ## 渲染 .md 文件
 

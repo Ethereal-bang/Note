@@ -378,21 +378,44 @@ public void deleteByPrimaryKey(String id) {
 > + **property** 对应 pojo 字段 
 > + 注意**sql 返回** `resultType` 和 `resultMap` 的区别
 
-+ MySQL 内 **datetime 类型处理：**
 
-    ```xml
-    <resultMap id="BaseResultMap" type="Notices">
-      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    ```
 
-    ```java
-    // Pojo
-    private Date createTime;
-    public String getCreateTime() {
-      SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      return fd.format(createTime);
-    }
-    ```
+# Other
+
+## 时间
+
+<span style="font-size:20px">时区:</span>
+
+```yaml
+spring:
+	datasource:
+	  url: jdbc:mysql://localhost:3306/online_chat?serverTimezone=Asia/Shanghai
+```
+
+<span style="font-size:20px">Timestamp 处理: </span>
+
+```java
+// pojo
+public class Foo {
+  private Timestamp time;
+  public String getTime() {
+    SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	// H 24小时制, h 12
+    return fd.format(time);
+  }
+}
+```
+
+<span style="font-size:20px">datetime 类型处理: </span>
+
+```xml
+<resultMap id="BaseResultMap" type="Notices">
+  <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+```
+
+```java
+private Date time;
+public String getTime() {/*...*/}
+```
 
 
 
