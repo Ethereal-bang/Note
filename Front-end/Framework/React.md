@@ -1929,7 +1929,18 @@ const Demo = () => (
     })
     ```
 
-    
+
+
+
+## 富文本编辑
+
+### [react-quill](https://www.npmjs.com/package/react-quill)
+
+```shell
+$yarn add react-quill
+```
+
+
 
 ## 渲染 .md 文件
 
