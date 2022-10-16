@@ -182,6 +182,12 @@ while (cur) {
 
 **表尾称为栈顶：**相应地，表头称为栈底。
 
+[剑指 Offer II 036. 后缀表达式](https://leetcode.cn/problems/8Zf90G/)——数字压入栈，符号取出数字计算，运算结果压入栈
+
+[剑指 Offer II 037. 小行星碰撞](https://leetcode.cn/problems/XagZNi/)——与栈顶元素符号作判断
+
+
+
 ## 队列
 
 
@@ -350,6 +356,8 @@ void traverse(TreeNode root) {
 
 + 后序——只有后序才能通过返回值获取子树的信息
 
+    [剑指 Offer II 047. 二叉树剪枝](https://leetcode.cn/problems/pOCWxh/)——判断子树全为 0
+    
     > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
 
 <span style="font-size:20px">DFS</span>
@@ -374,7 +382,7 @@ while (node != null) {
 }
 ```
 
-==中序遍历?==：（左-中-右，入栈顺序 
+中序遍历：（左-中-右，入栈顺序  中-左-出栈-右入栈
 
 ```java
 TreeNode curNode = root;
@@ -390,7 +398,7 @@ while (curNode != null || !stack.isEmpty()) {
 }
 ```
 
-==后序遍历?==：（颠倒前序结果集）
+后序遍历：（颠倒前序结果集）
 
 <span style="font-size:20px">[二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)：</span>
 
@@ -1059,6 +1067,8 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 
     [905.按奇偶排序数组 - 力扣（LeetCode）](https://leetcode-cn.com/problems/sort-array-by-parity/submissions/)
 
+    [443. 压缩字符串](https://leetcode.cn/problems/string-compression/)——类似与 26，找重复项
+
     [75. 颜色分类](https://leetcode.cn/problems/sort-colors/)——排序 0, 1, 2
 
 + 滑动窗口
@@ -1244,6 +1254,8 @@ while (queue.length !== 0) {
 
 [111. 二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)
 
+[剑指 Offer II 043. 往完全二叉树添加节点](https://leetcode.cn/problems/NaqhDT/)——队列维护逻辑略为不同
+
 [279. 完全平方数](https://leetcode.cn/problems/perfect-squares/)——能凑成 n 的最少的平方数之和
 
 [752. 打开转盘锁](https://leetcode.cn/problems/open-the-lock/)——找到最少步骤
@@ -1308,6 +1320,8 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 [129. 求根节点到叶节点数字之和](https://leetcode.cn/problems/sum-root-to-leaf-numbers/)
 
+[剑指 Offer II 050. 向下的路径节点之和](https://leetcode.cn/problems/6eUYwP/)
+
 
 
 #### 后序遍历
@@ -1315,6 +1329,8 @@ function maxAreaOfIsland(grid: number[][]): number {
 > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
 
 [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree/)——任意两个结点路径长度中的最大值
+
+[剑指 Offer II 051. 节点之和最大的路径](https://leetcode.cn/problems/jC7MId/)——思路有点绕
 
 
 
@@ -1345,7 +1361,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 [106. 从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
-[297. 二叉树的序列化与反序列化](https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/)
+[剑指 Offer II 048. 序列化与反序列化二叉树](https://leetcode.cn/problems/h54YBf/)——前序遍历，并记录 null 子树 为 '#'
 
 
 
@@ -1704,6 +1720,10 @@ int[] nextGreaterElement(int[] nums) {
 
 [739. 每日温度](https://leetcode.cn/problems/daily-temperatures/)
 
+[剑指 Offer II 039. 直方图最大矩形面积](https://leetcode.cn/problems/0ynMMM/)——需要一点数学思维转换为单调栈问题
+
+[剑指 Offer II 040. 矩阵中最大的矩形](https://leetcode.cn/problems/PLYXKQ/)——以每一行为基线转化成上一问题
+
 
 
 ## 回溯法
@@ -1844,6 +1864,8 @@ def backtrack(路径, 选择列表):
 
 [剑指 Offer II 012. 左右两边子数组的和相等](https://leetcode.cn/problems/tvdfij/)——利用前缀和获取子数组和关系
 
+[238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self/)——左右前缀乘积数组
+
 
 
 ### 前缀和 + 哈希表
@@ -1979,6 +2001,31 @@ function subarraySum(nums: number[], k: number): number {
 ## To 田忌赛马
 
 [870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
+
+
+
+# Other
+
+## ACM 模式
+
+```java
+import java.util.*;
+public class Main{
+   public static void main(String[] args){
+   		Scanner sc = new Scanner(System.in);
+      while (sc.hasNext()) {
+      	String str = sc.nextLine();
+        String[] arr = str.split(" ");
+      }
+   }        
+}
+```
+
+```js
+while (line = readline()) {	// 任意行数输入
+  const arr = line.split(' ');
+}
+```
 
 
 

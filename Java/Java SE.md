@@ -323,6 +323,8 @@ set() 替换指定索引内值
 
 #### Queue Interface
 
+不抛异常：offer(), poll(), peek()
+
 <span style="font-size:20px">ArrayList, LinkedList</span>
 
 <span style="font-size:20px">PriorityQueue: </span>
@@ -887,6 +889,8 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
+    
     
     
     
