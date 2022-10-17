@@ -36,7 +36,7 @@ P pei
 
 Q ku
 
-R eir (hei)
+R he
 
 S
 
