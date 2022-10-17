@@ -346,15 +346,23 @@ set() 替换指定索引内值
 
 <span style="font-size:20px">HashSet</span>
 
+#### TreeSet
+
+平衡二叉树，查找、添加、删除 O(logn)
+
++ ceiling() 返回 >= 参数的最小键 / null
+
++ floor()  <=
++ higher() 返回 > 参数的最小键 / null
++ lower()   <
+
+[剑指 Offer II 057. 值和下标之差都在给定的范围内](https://leetcode.cn/problems/7WqeDu/)——法一：滑动窗口 + 有序集合
 
 
-### Map
+
+### Map Interface
 
 #### HashMap
-
-![img](https://www.runoob.com/wp-content/uploads/2020/07/WV9wXLl.png)
-
-HashMap 的 key 与 value 类型可以不同
 
 + 新建 HashMap 对象：
 
@@ -392,7 +400,23 @@ HashMap 的 key 与 value 类型可以不同
     for (String value: sites.values()) {
       System.out.print(value + ", ");
     }
+    
+    // 遍历键值对
+    for (Map.Entry<Integer, String> entry : map.entrySet()) {
+      // entry.getKey()  entry.getValue()
+    }
     ```
+
+
+
+#### TreeMap
+
+红黑树——平衡的 BST 实现
+
++ ceilingEntry() / ceilingKey()	映射 / 键
++ floorEntry() / floorKey()
++ higherEntry() / 
++ lowerEntry() /
 
 
 
@@ -889,6 +913,8 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
+    
     
     
     

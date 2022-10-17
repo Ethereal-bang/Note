@@ -437,7 +437,108 @@ myAxios.interceptors.response.use(response => {
     });
     ```
     
-    
+
+
+
+# Websocket 封装
+
+**Websocket 类基本功能：**
+
+```tsx
+export class Websocket {
+  private ws: Websocket;
+  private eventCenter: EventCenter = new EventCenter();	 // 事件中心
+  static instance: Websocket;    // 单例模式
+  
+	constructor() { this.create() }
+  
+  // 连接
+  create() {
+    this.ws = new WebSocket(`ws://localhost:8080/websocket/${idGetter()}`);
+    this.ws.onmessage = (event) => {
+      const data: WsNews = JSON.parse(event.data);    // 解析为JSON
+      this.eventCenter.emit(data.type, data.message, data.data);  // 发往消息中心
+    }
+    this.ws.onclose = () => {	// 重连
+      this.create();
+    }
+  }
+
+  static getInstance() {
+    if (!this.instance) {   // 第一次调用时
+      this.instance = new Websocket();
+    }
+    return this.instance;
+  }	// 实现单例模式
+  
+  subscribe(eventName: string, callback: Function) {
+    this.eventCenter.on(eventName, callback);
+  }
+
+  // 删除回调
+  off(eventName: string, callback: Function) {
+    this.eventCenter.off(eventName, callback);
+  }
+
+}
+```
+
+**消息管理中心类实现：**（通过事件类型管理不同事件回调）
+
+```tsx
+class EventCenter {
+    private events: any;    // {事件1: [回调1, ...], ..}
+
+    constructor() { this.events = {}; }
+
+    // 添加事件回调（同一事件有多个回调
+    on(eventName: string, callback: Function) {
+        const eventCallbacks: Function[] = this.events[eventName];
+        eventCallbacks    // 原先是否已加入其他回调
+            ? eventCallbacks.push(callback)
+            : this.events[eventName] = [callback];
+    }
+
+    // 触发事件回调
+    emit(eventName: string, message: string, data: any) {
+        const eventCallbacks: Function[] = this.events[eventName];
+        if (!eventCallbacks) return;
+        eventCallbacks.forEach(fn => {
+            fn(message, data);
+        })
+    }
+
+    // 删除回调
+    off(eventName: string, callback: Function) {
+        const eventCallbacks: Function[] = this.events[eventName];
+        this.events[eventName] = eventCallbacks.filter(fn => fn !== callback);
+    }
+
+}
+```
+
+**Websocket 使用：**
+
+```tsx
+if (login) {
+  Webscoket.getInstance();	// 第一次得到单例-连接ws
+}
+
+const ws = Websocket.getInstance();
+useEffect(() => {
+  // 回调接收的参数由EventCennter.emit调用时传参决定
+  const callback = (msg: string, data: any) => {
+    // ...处理data
+    return message.info(msg);
+  }
+ 	// 订阅
+  ws.subscribe("news", callback);
+  // 组件卸载时取消订阅
+  return () => { ws.off("news", callback)};	
+}, [])
+```
+
+
 
 # DEBUG
 
