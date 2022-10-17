@@ -370,7 +370,7 @@ void traverse(TreeNode root) {
 
 
 
-<span style="font-size:20px">二叉树的迭代：</span>(Stack 实现)
+<span style="font-size:20px">二叉树的迭代：</span>(Stack 实现) ==不太熟练==
 
 前序遍历：（中-左-右，入栈顺序 中-右-左）
 
@@ -397,6 +397,8 @@ while (curNode != null || !stack.isEmpty()) {
   }
 }
 ```
+
+[剑指 Offer II 055. 二叉搜索树迭代器](https://leetcode.cn/problems/kTOapQ/)
 
 后序遍历：（颠倒前序结果集）
 
@@ -449,6 +451,12 @@ while (curNode != null || !stack.isEmpty()) {
 
 + 任意节点，左子树上所有节点值均小于根节点，右子树上所有节点值均大于根节点
 + 中序遍历结果 为升序
+
+
+
+### 平衡二叉树 AVL
+
+左右子树深度插不超过 1
 
 
 
@@ -723,7 +731,11 @@ for (int i = 0; i < nums.length - 1; i++) {
 }
 ```
 
-<span style="font-size:20px">堆排序——利用堆概念的选择排序：</span>
+
+
+## 堆排序
+
+利用堆概念的选择排序
 
 1. 建立一个最大堆——最大值在堆的根节点
 2. 数组根节点与末尾替换——把最大值放到后面，这样就完成了一趟排序
@@ -752,6 +764,12 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 ```
 
   
+
+## 桶排序
+
+[剑指 Offer II 057. 值和下标之差都在给定的范围内](https://leetcode.cn/problems/7WqeDu/)——==不是很懂正负数怎么分桶?==
+
+
 
 
 # 哈希表
@@ -1418,6 +1436,14 @@ function maxAreaOfIsland(grid: number[][]): number {
     [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——返回多少种 动态规划
 
     [95. 不同的二叉搜索树 II](https://leetcode.cn/problems/unique-binary-search-trees-ii/)——返回所有 BST
+    
++ **平衡 BST**——Java TreeSet / TreeMap
+
+    涉及到大量查找 大于 / 小于 某值操作时
+
+    [剑指 Offer II 058. 日程表](https://leetcode.cn/problems/fi9suh/)
+
+    [剑指 Offer II 057. 值和下标之差都在给定的范围内](https://leetcode.cn/problems/7WqeDu/)
 
 
 
