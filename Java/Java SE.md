@@ -197,6 +197,13 @@ public class Hello {
 
     数组一旦初始化完成，其长度就确定了
 
++ **转换为列表：** Arrays.asList();
+
+    ```java
+    List<List<Integer>> res = new LinkedList<>();
+    res.add(Arrays.asList(arr[0], arr[1]));
+    ```
+
 + **打印数组：**
 
     ```java
@@ -913,6 +920,7 @@ public class Soccer {
         > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
+    
     
     
     

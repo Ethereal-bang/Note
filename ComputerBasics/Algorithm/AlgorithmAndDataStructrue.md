@@ -462,6 +462,8 @@ while (curNode != null || !stack.isEmpty()) {
 
 ## 堆
 
+**适用：**求一个动态集合中最值
+
 **堆: **存储在<span style="color:orange">数组</span>里的 具有<span style="color:orange">堆属性</span>的<span style="color:orange">完全二叉树</span>
 
 + 数组：
@@ -525,6 +527,8 @@ delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让
 构建优先队列：
 
 [215. 数组中的第K个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array/)——（常考）小顶堆，筛掉小值，留下 k 个最大值
+
+[剑指 Offer II 060. 出现频率最高的 k 个数字](https://leetcode.cn/problems/g5c51o/)——PriorityQueue<Map.Entry<Integer,Integer>>
 
 [1845. 座位预约管理系统](https://leetcode.cn/problems/seat-reservation-manager/)
 
@@ -2027,6 +2031,14 @@ function subarraySum(nums: number[], k: number): number {
 ## To 田忌赛马
 
 [870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
+
+
+
+## ==扫描线...==
+
+一般被用来解决图形面积，周长等问题
+
+[218. 天际线问题](https://leetcode.cn/problems/the-skyline-problem/)
 
 
 
