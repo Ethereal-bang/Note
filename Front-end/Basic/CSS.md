@@ -115,6 +115,20 @@ border-box：会包括 border 宽度
 }
 ```
 
+### 文本
+
+溢出后文本省略
+
+```css
+p {
+  width: 250px;
+	height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
 
 
 <span style="font-size:20px">cursor:</span>
