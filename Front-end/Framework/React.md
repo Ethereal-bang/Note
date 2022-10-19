@@ -1681,6 +1681,8 @@ return <Form form={form}>
 
 # 懒加载
 
+> 写在某文件下的组件即使未被调用，组件外的代码也会执行
+
 lazy 函数与 \<Suspense /> 组件
 
 ```tsx
