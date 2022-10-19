@@ -584,7 +584,15 @@ Trie **关键词查找过程：**
 
 
 
+<span style="color:blue">实现：</span>
+
 [剑指 Offer II 062. 实现前缀树](https://leetcode.cn/problems/QC3q1f/)——搜索单词，前缀
+
+<span style="color:blue">应用：</span>
+
+[剑指 Offer II 063. 替换单词](https://leetcode.cn/problems/UhWRSj/)——匹配前缀并替换
+
+[剑指 Offer II 064. 神奇的字典](https://leetcode.cn/problems/US1pGT/)
 
 [211. 添加与搜索单词 - 数据结构设计](https://leetcode.cn/problems/design-add-and-search-words-data-structure/)==?==——搜索时存在适配符 '.' 
 
