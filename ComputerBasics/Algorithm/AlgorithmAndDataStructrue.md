@@ -532,6 +532,8 @@ delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让
 
 [1845. 座位预约管理系统](https://leetcode.cn/problems/seat-reservation-manager/)
 
+[剑指 Offer II 078. 合并排序链表](https://leetcode.cn/problems/vvXgSW/)——K 个节点放入最小堆，每选取最小节点后加入其 next
+
 
 
 ## 字典树/前缀树
@@ -549,7 +551,19 @@ Trie是一种树状信息检索数据结构
 
 Trie **实现：**
 
+```java
+// java
+class TrieNode {
+  TrieNode children[];
+  boolean isWord;
+  public TrieNode() {
+    children = new TrieNode[26];
+  }
+}
+```
+
 ```js
+// js
 Trie.prototype.insert = function(word) {
     let node = this.children;	// new时新建this.children = {}
     for (let ch of word) {
@@ -592,7 +606,15 @@ Trie **关键词查找过程：**
 
 [剑指 Offer II 063. 替换单词](https://leetcode.cn/problems/UhWRSj/)——匹配前缀并替换
 
+[剑指 Offer II 065. 最短的单词编码](https://leetcode.cn/problems/iSwD2y/)——共同后缀 + DFS 计算单词长度
+
 [剑指 Offer II 064. 神奇的字典](https://leetcode.cn/problems/US1pGT/)
+
+[212. 单词搜索 II](https://leetcode.cn/problems/word-search-ii/)——Trie 匹配并剪枝 + DFS + 回溯，矩阵
+
+<span style="color:blue">非典型应用：</span>
+
+[剑指 Offer II 067. 最大的异或](https://leetcode.cn/problems/ms70jA/)==?==——位运算
 
 [211. 添加与搜索单词 - 数据结构设计](https://leetcode.cn/problems/design-add-and-search-words-data-structure/)==?==——搜索时存在适配符 '.' 
 
@@ -672,46 +694,31 @@ for (int i = 1; i < arr.length; i++) {
 + `temp`记录待插数（不然会被前面后移来的元素覆盖）
 + `while`循环找待插位置时要首先满足`j>0`
 
-<span style="font-size:20px">快速排序——分治基于基准左右排序：</span>
+
+
+<span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
 
 ```java
-public static void quickSort(int[] arr, int left, int right) {
-  // ...递归终止条件 left >= right
-  int mid = partition(arr, left, right);	// 以mid大小划分出两区域
-  // 递归对基准左右两边重复以上操作
-  quickSort(arr, left, mid - 1);
-  quickSort(arr, mid + 1, right);
-}
-
-// 分治——使基准数左边全是小于的数、右边全是大于的数
-private static int partition(int[] arr, int left, int right) { // 分治法
-  int temp = arr[left];   // 基准数
-  while (left < right) {
-    // 由后向前找比基准数小的数填入坑arr[left]:
-    while (temp <= arr[right] && left < right) {
-      right--;
-    }
-    arr[left] = arr[right];
-    // 由前向后找比基准数大的数填入坑a[right]
-    while (target >= nums[left] && left < right) {
-      left++;      
-    }
-    arr[right] = arr[left];
+// 1.遍历所有数
+for (int i = 0; i < nums.length - 1; i++) {
+  // 2.遍历未排序列找出最小值
+  for (int j = i + 1; j < nums.length; j++) {
+		// ...
   }
-  // left==right说明已经分治完毕
-  arr[left] = temp;
-  return left;
+  // 3.得到的最小值与未排序列首部交换
+  swap(nums, minIndex, i);
 }
 ```
 
-+ 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
-+ 每一次 partition 的过程：以初始 left 值为基准，后往前、前往后交替填坑直到遍历完所有数并移入相应位置
 
 
+## 归并排序
 
-<span style="font-size:20px">归并排序——重复将两个有序表合成新有序表：</span>
+重复将两个有序表合成新有序表
 
 <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/9/10/165c2d849cf3a4b6~tplv-t2oaga2asx-watermark.awebp" style="zoom:40%;" >
+
+**自顶向下：**
 
 ```java
 public static int[] mergeSort(int[] arr) {
@@ -729,19 +736,47 @@ private static int[] mergeTwo(int[] left, int[] right) {
 }
 ```
 
-<span style="font-size:20px">简单选择排序——未排序列中找到最小值排到序列首部</span>
+
+
+[剑指 Offer II 077. 链表排序](https://leetcode.cn/problems/7WHec2/)
+
+[剑指 Offer II 078. 合并排序链表](https://leetcode.cn/problems/vvXgSW/)——合并 k 个排序列表。每次 mergeTwo，逐步增大步长
+
+
+
+## 快速排序
+
+分治基于基准左右排序
 
 ```java
-// 1.遍历所有数
-for (int i = 0; i < nums.length - 1; i++) {
-  // 2.遍历未排序列找出最小值
-  for (int j = i + 1; j < nums.length; j++) {
-		// ...
+public static void quickSort(int[] arr, int left, int right) {
+  // ...递归终止条件 left >= right
+  int mid = partition(arr, left, right);	// 以mid大小划分出两区域
+  // 递归对基准左右两边重复以上操作
+  quickSort(arr, left, mid - 1);
+  quickSort(arr, mid + 1, right);
+}
+
+// 分治——使基准数左边全是小于的数、右边全是大于的数
+private static int partition(int[] arr, int left, int right) { // 分治法
+  int random = left + new Random(right - left + 1);
+  swap(nums, random, end);	// 基准交换到尾部
+  int small = left - 1;
+  // 小于基准的交换到前部
+  for (int i = left; i < right; i++) {
+		if (nums[i] < nums[right]) swap(nums, ++small, i);    
   }
-  // 3.得到的最小值与未排序列首部交换
-  swap(nums, minIndex, i);
+  // 基准交换到中间(大小)
+  small++;
+  swap(nums, small, right);
+  return small;
 }
 ```
+
+- 相当于每次基准按大小将整个数列分为左右两个数列——左数列都比基准小*但不一定依次*
+- 每一次 partition 的过程：以随机数下标为基准，基准交换到尾部，小于它的交换到前面
+
+[剑指 Offer II 076. 数组中的第 k 大的数字](https://leetcode.cn/problems/xx4gT2/)——基于快速排序的快速选择
 
 
 
@@ -781,6 +816,19 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 [剑指 Offer II 057. 值和下标之差都在给定的范围内](https://leetcode.cn/problems/7WqeDu/)——==不是很懂正负数怎么分桶?==
 
+
+
+## 计数排序
+
+**应用场景：**数组中最大最小整数差值 k 远小于 n （如排序员工年龄）
+
+**复杂度：**时间 O(n + k) 空间 O(k)
+
+**基本思想：**统计每个整数在数组中出现次数，以小到大顺序按照出现次数填入数组
+
+
+
+[剑指 Offer II 075. 数组相对排序](https://leetcode.cn/problems/0H97ZC/)
 
 
 
@@ -1549,7 +1597,9 @@ while (l <= r) {
 }
 ```
 
-[704.二分查找](https://leetcode.cn/problems/binary-search/)
+[剑指 Offer II 068. 查找插入位置](https://leetcode.cn/problems/N6YdxV/)——元素在有序数组中位置
+
+[剑指 Offer II 070. 排序数组中只出现一次的数字](https://leetcode.cn/problems/skFtm2/)——找数组规律转换为二分问题
 
 <span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>——寻找左/右边界
 
@@ -1585,7 +1635,7 @@ res[1] = r;
 
 [34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/)——找左边界+右边界
 
-
+[剑指 Offer II 071. 按权重生成随机数](https://leetcode.cn/problems/cuyjEf/)——前缀和 + 找到第一个 >= target
 
 ### 抽象二分
 
@@ -1890,11 +1940,17 @@ def backtrack(路径, 选择列表):
 
 
 
-### 带权重的随机选择==?==
+### 带权重的随机选择
 
 前缀和 + 二分
 
-1. 构造一个分布符合权重的序列
+<span style="color:blue">以权重数组 w: [1,2,3] 为例 :</span>
+
+1. 构造权重前缀和序列 [1, 3, 6]
+2. 随机数 p 从 [1, 10) 抽取
+3. 在 w[] 找到第一个 >= p 值的下标 
+
+[剑指 Offer II 071. 按权重生成随机数](https://leetcode.cn/problems/cuyjEf/)
 
 
 
@@ -2077,39 +2133,7 @@ while (line = readline()) {	// 任意行数输入
 
 # REF
 
-+ 总：
+[代码随想录](https://programmercarl.com/)
 
-    [代码随想录](https://programmercarl.com/)
-    
-    [labuladong 的算法小抄](https://labuladong.github.io/algo/)
-    
-+ 栈：
-
-    [《数据结构（C语言版）》——严蔚敏 吴伟民]()
-
-+ 树：
-
-    [满二叉树_百度百科](https://baike.baidu.com/item/%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91/7773283)
-
-    [完全二叉树_百度百科](https://baike.baidu.com/item/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/7773232)
-
-    [十二种排序算法包你满意（带GIF图解）- 排序数组 - 力扣（LeeCode）](https://leetcode-cn.com/problems/sort-an-array/solution/shi-er-chong-pai-xu-suan-fa-bao-ni-man-yi-dai-gift/)
-
-    [完全二叉树之堆 - 简书](https://www.jianshu.com/p/5e4d17271d52)
-
-    [字典树 - sangmado - 博客园](https://www.cnblogs.com/gaochundong/p/trie_tree.html)
-
-+ 排序算法：
-
-    [面试必备：八种排序算法原理及Java实现 - 掘金](https://juejin.cn/post/6844903687932887053)
-
-    [面试 12：玩转 Java 快速排序 - 掘金](https://juejin.cn/post/6844903642042990599)
-
-    [算法 | 菜鸟分类 | 菜鸟教程](https://www.runoob.com/w3cnote_genre/algorithm)
-    
-    [堆排序就这么简单 - SegmentFault思否](https://segmentfault.com/a/1190000013960582)
-
-+ Solution：
-
-    [【蓄水池抽样】多语言入门「蓄水池抽样」知识点](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247490892&idx=1&sn=c1fe373edc88142cbabd383ef3c0669b)
+[labuladong 的算法小抄](https://labuladong.github.io/algo/)
 

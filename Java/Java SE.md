@@ -322,6 +322,13 @@ List<List<Integer>> list = new ArrayList<>();
 
 add(), get(), remove(), size()
 
+**转换为 Arrays:**
+
+```java
+int[] res = new int[list.size()];
+return list.toArray(res);
+```
+
 <span style="font-size:20px">ArrayList, LinkedList</span>
 
 set() 替换指定索引内值
@@ -471,6 +478,14 @@ Stack<Integer> stack = new Stack<Integer>();
 
 
 
+## Set Interface
+
++ set.contains()
++ set.add()
++ set.remove()
+
+
+
 # 类与对象
 
 ## 属性和方法
@@ -582,12 +597,24 @@ Integer i = new Integer(1);
 
 <span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
 
-经常改变内容的字符串最好不使用`String`；字符串经常改变的情况可使用`StringBuffer`，更高效.
+经常改变内容的字符串最好不使用`String`；字符串经常改变的情况:
+
+StringBuilder 不是线程安全，但相比 StringBuffer 有速度优势
 
 ```java
 StringBuffer res = new StringBuffer();
 ```
 
++ API: 
+
+    sb.charAt()
+    
+    sb.append("test");
+
+    sb.insert(1, 'test');
+    
+    sb.delete(1, 3);
+    
 + Eg：利用 StringBuilder 翻转 int 类型
 
     ```java
@@ -779,6 +806,24 @@ import java.util.*;
 
 
 
+## Lambda 表达式
+
+重要用法是简化某些匿名内部类（`Anonymous Classes`）的写法
+
+```java
+// 原:
+Collections.sort(list, new Comparator<int[]>() {
+  @override
+  public int compare(int[] a1, int[] a2) {
+    return a1[0] - a2[0];
+  }
+})
+// 使用Lambda:
+Collections.sort(list, (a1, a2) -> a1[0] - a2[0]})
+```
+
+
+
 
 # 面向对象
 
@@ -915,32 +960,12 @@ public class Soccer {
     
     `Fruit fruit = new Apple()`，`Fruit`类型的对象指向了`Apple`对象的引用，这就是多态——父类引用指向子类对象，因为`Apple`继承于`Fruit`，且覆写了`eat`方法，所以能表现除多种状态的形式
         
-        属性是编译时静态绑定所以直接得到的是父类的，方法是运行期间动态绑定才有多态
-        
-        > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
+    
+    属性是编译时静态绑定所以直接得到的是父类的，方法是运行期间动态绑定才有多态
+    
+    > 执行的是 `Apple` 的构造函数，但属于 Fruit 类型。
     
      
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     ## 类的关键字
     
