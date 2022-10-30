@@ -80,117 +80,11 @@ Z cei t *ci*
 
 
 
-<span style="font-size:20px; color:blue">作业 1</span>
-
-读出下列单词：
-
-> Panda: p a d a
->
-> Affe: a f e
->
-> Ananas:  a na na s
->
-> Adler: a d l e r
->
-> Paket: p a h e t
->
-> Pokal: p o k a l
->
-> abhalten: a b h l ten
->
-> Nase: na s e
->
-> klar: k l a e
->
-> Tanne: ta ne 
-
-<span style="font-size:20px; color:blue">作业 2</span> 动物
-
-> der Hund: der hund
->
-> die Katze: di ka tcie
->
-> der Vogel: der o gel
->
-> das Pferd: das ferd
->
-> die Kuh: di Ku
->
-> der E*se*l: der e se
->
-> die Hen*ne*: di he ne
->
-> das S*ch*af: xi a f
->
-> der Hase: ha se
->
-> die Gans: ga n si
-
-<span style="font-size:20px; color:blue">作业 3</span> 颜色
-
-> schwarz: xi wa z
->
-> weiβ: vei s cei t
->
-> lila: li la
->
-> grün:  ge u n
->
-> rot: o t
->
-> dunkelgrün: du:n kel ge u n 
->
-> orange: o  an ge
->
-> braun: b a u n
->
-> hellblau: hel b la u
-
-<span style="font-size:20px; color:blue">作业 4</span>食物
-
-> der Apfel
->
-> die Nudeln
->
-> die Banane
->
-> das O:l
->
-> das Bier
->
-> die Pommesfrites: po mis 
->
-> die Birne
->
-> der Reis : hais
->
-> das Brot
->
-> der Saft
->
-> das Bro:tchen : - xi en
->
-> die Sahne : sa ne
->
-> die Butter : bu ter
->
-> der Salat
->
-> das Ei : ai
->
-> das Salz
->
-> der Fisch
->
-> der Schinken
-
-
-
 # 单词内发音
 
 <span style="font-size:22px">e: </span>
 
-**[e:]**  
+**[e:]**
 
 **[ε]**
 
@@ -218,25 +112,43 @@ Z cei t *ci*
 
 ## 元音组合
 
-+ **[ai]**
+**[ai]**
 
-    ai, ay, ey, ei, eih
+ai, ay, ey, ei, eih
 
-+ **[ao]**
+**[ao]**
 
-    au
-    
-+ **[i]**
+au
 
-    ie
+**[i]**
+
+ie
+
+**eu**——"oi 哦噫" 
 
 
 
 ## 辅音组合
 
-+ **[xi]**
+**ch** 
 
-    ch, sch
++ **[x]** "he" ch 在 a o u au 后
+
++ **[c]** "xi 裂开" 其他情况
+
+**ng**——[η] "与前一音组合读"
+
+**nk**——[ηk] "后鼻音"
+
+ **[∫]**
+
+sch; sp, st 词首 中的 s
+
+  
+
+## 元辅音组合
+
+**tion**——[tsion] "ci用"
 
 
 
@@ -244,15 +156,25 @@ Z cei t *ci*
 
 + **[昂]** : -rn
 
-    
+
+
+## 浊化
+
+sport: p -> b
+
+stadt: t -> d
 
 
 
 # 单词
 
-ich: i xi (我)
+**ich**: i xi (我)
 
 Ich liebe dich! (I love u
+
+**gern** 喜欢 副词
+
+**bin** be 动词
 
 
 
