@@ -631,13 +631,21 @@ boolean[][] matrix;	// 邻接矩阵 matrix[i][j]——i是否有一条边指向j
 
 借助哈希表来记录被遍历过的节点来避免陷入死循环
 
-### 深度优先 DFS
+<span style="font-size:20px">遍历方式:</span>
 
-递归调用节点的邻节点（根节点 -> 邻节点1 -> 邻节点1的邻接点 -> ...）
+DFS: 递归调用节点的邻节点（根节点 -> 邻节点1 -> 邻节点1的邻接点 -> ...）
 
-### 广度优先 BFS
+BFS: 遍历邻节点（根节点 -> 邻接点1 -> 邻接点2 -> 邻接点1的邻接点 -> ...）
 
-遍历邻节点（根节点 -> 邻接点1 -> 邻接点2 -> 邻接点1的邻接点 -> ...）
+<span style="font-size:20px">二分图:</span>
+
+图的节点集合分割成两个独立的子集 `A` 和 `B` ，并使图中的每一条边的两个节点一个来自 `A` 集合，一个来自 `B` 集合，就将这个图称为二分图
+
+> <span style="color:blue">Eg:</span> 
+>
+> <img src="https://assets.leetcode.com/uploads/2020/10/21/bi1.jpg" alt="img" style="zoom:25%;" />
+>
+> 节点能分成两组：{0, 2} 和 {1, 3}，因此是二分图
 
 
 
@@ -990,32 +998,26 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 > 可以优化重叠子问题
 
-## 背包
+> For: 解决问题需 n 步，每一步有多重选择。因为不列出所有方案因此用动规不是回溯
 
-+ **01 背包：**
+## 01 背包
 
-    每个物体数量只有一个（不选，选一个）
+> 每个物体数量只有一个（不选，选一个）
 
-+ **完全背包：**
+<span style="font-size:20px">二维 dp\[][] 数组:</span>
 
-    每个物体数量无数（不选，选几个）
+1. **数组含义：**dp\[i][j]——从下标 0~i 的物品里任取 放进容量为 j 的背包，达到的最大价值
 
-### 01 背包
+2. **状态转移方程：**
 
-+ <span style="font-size:20px">二维 dp\[][] 数组:</span>
+    1. 不放该物品： = dp\[i-1][j]
+    2. 放：= dp\[i - 1][j - w(i)] + v(i)
 
-    1. **数组含义：**dp\[i][j]——从下标 0~i 的物品里任取 放进容量为 j 的背包，达到的最大价值
+    ∴ dp\[i][j] = max(dp\[i - 1][j], dp\[i - 1][j - w(i)] + v(i))
 
-    2. **状态转移方程：**
+3. **初始化：**
 
-        1. 不放该物品： = dp\[i-1][j]
-        2. 放：= dp\[i - 1][j - w(i)] + v(i)
-
-        ∴ dp\[i][j] = max(dp\[i - 1][j], dp\[i - 1][j - w(i)] + v(i))
-
-    3. **初始化：**
-
-        dp\[0][j] = 0;	dp\[i][0] = 0;
+    dp\[0][j] = 0;	dp\[i][0] = 0;
 
 
 
@@ -1230,25 +1232,78 @@ function slidingWindow(s) {
 3. dp **数组初始化**
 4. 确定**遍历顺序**
 
-**针对二维 dp 数组的空间压缩技巧——空间复杂度优化**==...==
+对于 **dp[i] = {dp[i - 1], dp[i - 2]}** 类型的**空间复杂度优化 滚动数组**：
+
+对每个下标<span style="color:orange">执行 % 2 操作</span>，int[nums.length] 优化为 int[2] / 重新赋值
+
+```java
+dp[i % 2] = Math.max(dp[(i - 2) % 2] + nums[i], dp[(i - 1) % 2]);
+```
+
+**针对二维 dp 数组的空间压缩技巧——空间复杂度优化**
+
+> 以[剑指 Offer II 098. 路径的数目](https://leetcode.cn/problems/2AoeFn/)为例：
+>
+> dp\[i][j] 只与 `dp\[i][j-1]` (左) 和 `dp\[i -1][j]` (上) 有关，因此每遍历一个就覆盖一个
+
+```java
+for (int i = 0; i < m; i++) {	// 行
+  for (int j = 1; j <= n; j++) {	// 列
+    dp[j] = dp[j - 1] + dp[j];  // =左+上 并覆盖j(原上)
+  }
+}
+```
+
+For 特殊情况：dp[j] 仍可能被后序使用不能直接覆盖——从后往前遍历
+
+<span style="color:blue">进阶</span>：**输出路径**
 
 
 
-**例题：**
+<span style="color:blue">**例题：**</span>
 
 [70.爬楼梯 - 力扣（LeetCode）](https://leetcode-cn.com/problems/climbing-stairs/submissions/)
 
-[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)——一维 dp 稍复杂的状态转移方程
+[剑指 Offer II 089. 房屋偷盗](https://leetcode.cn/problems/Gu0c2T/)——不能偷相邻两家，可一维可二维。输出路径：利用最大金额对DP数组反推，每次找到上一次的最大金额和下标
 
 [96. 不同的二叉搜索树](https://leetcode.cn/problems/unique-binary-search-trees/)——不容易想到的动态规划
 
-[198. 打家劫舍](https://leetcode.cn/problems/house-robber/)——简单的二维 dp
-
 [983. 最低票价](https://leetcode.cn/problems/minimum-cost-for-tickets/)——复杂一维，哪些天买持续几天的火车通行证
 
-**More：**
+<span style="color:blue">矩阵路径:</span>
+
+[剑指 Offer II 098. 路径的数目](https://leetcode.cn/problems/2AoeFn/)——m x n 格子路径数。优化为一维 dp
+
+[剑指 Offer II 099. 最小路径之和](https://leetcode.cn/problems/0i0mDW/)
+
+[剑指 Offer II 100. 三角形中最小路径之和](https://leetcode.cn/problems/IlPe0q/)
+
+<span style="color:blue">字符串动态规划:</span>
+
++ [剑指 Offer II 095. 最长公共子序列](https://leetcode.cn/problems/qJnOS7/)——两个字符串找公共子序列。典型二维动规
++ [剑指 Offer II 092. 翻转字符](https://leetcode.cn/problems/cyJERH/)
++ [剑指 Offer II 096. 字符串交织](https://leetcode.cn/problems/IY6buf/)
++ [剑指 Offer II 097. 子序列的数目](https://leetcode.cn/problems/21dk04/)
+
+<span style="color:blue">01 背包: </span>
+
+[剑指 Offer II 101. 分割等和子集](https://leetcode.cn/problems/NUPfPr/)——分成元素和相等两部分
+
+[剑指 Offer II 102. 加减的目标值](https://leetcode.cn/problems/YaVDxD/)——+ / - 元素组合表达式结果 target 的不同式子数
+
+<span style="color:blue">完全背包:</span>
+
+[剑指 Offer II 103. 最少的硬币数目](https://leetcode.cn/problems/gaM7Ch/)——凑成目标金额最少数。一维 dp 稍复杂的状态转移方程。
+
+[剑指 Offer II 104. 排列的数目](https://leetcode.cn/problems/D0F0SV/)——与上一题同种状态转移方程.注意是排列不是组合。
+
+<span style="color:blue">More：</span>
+
+[剑指 Offer II 090. 环形房屋偷盗](https://leetcode.cn/problems/PzWKhm/)——打家劫舍进阶，拆分为两个打家劫舍问题，算前 n-1 与后 n-1 中更大值
 
 [413. 等差数列划分](https://leetcode.cn/problems/arithmetic-slices/)——数学
+
+[剑指 Offer II 093. 最长斐波那契数列](https://leetcode.cn/problems/Q91FMA/)——不易想到状态转移方程
 
 
 
@@ -1296,7 +1351,7 @@ dp\[-1]\[...][1] = dp\[...]\[0][1] = -Infinity
 
 
 
-## 树、图 遍历
+## DFS / BFS
 
 ### BFS
 
@@ -1342,7 +1397,7 @@ while (queue.length !== 0) {
 
 ### DFS
 
-<span style="font-size:20px">图:</span>
+<span style="font-size:20px; color:blue">To 图:</span>
 
 **思路: **
 
@@ -1380,7 +1435,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 **例题：**
 
-岛屿类
+<span style="color:blue">岛屿类:</span>
 
 [200.岛屿数量](https://leetcode.cn/problems/number-of-islands/)——模板题，节点连通即是组成一个岛屿
 
@@ -1390,11 +1445,13 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 [1905. 统计子岛屿](https://leetcode.cn/problems/count-sub-islands/)——两个数组 排除不为子岛的岛屿
 
-图类
+<span style="color:blue">图类==?==</span>
 
 [547. 省份数量](https://leetcode.cn/problems/number-of-provinces/)——节点连通即是组成一个省份 遍历节点不是边
 
-<span style="font-size:20px">树:</span>
+
+
+<span style="font-size:20px; color:blue">To 树:</span>
 
 [129. 求根节点到叶节点数字之和](https://leetcode.cn/problems/sum-root-to-leaf-numbers/)
 
@@ -1402,7 +1459,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 
 
-#### 后序遍历
+<span style="font-size:20px; color:blue">后序遍历:</span>
 
 > 题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码
 
@@ -1513,13 +1570,15 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 ## To 图
 
-<span style="font-size:20px">遍历: </span>
+<span style="font-size:20px; color:blue">图的搜索 ：</span>
+
+见 #[DFS / BFS]() 
 
 ```java
 boolean[] visited;	// 记录被遍历过的节点（无环则不用
 boolean[] onPath; 	// 记录从起点到当前节点的路径
 
-/* 图遍历框架 */
+/* 图遍历框架DFS */
 void traverse(Graph graph, int s) {
     if (visited[s]) return;
     // 经过节点 s，标记为已遍历
@@ -1535,6 +1594,12 @@ void traverse(Graph graph, int s) {
 ```
 
 [797. 所有可能的路径](https://leetcode.cn/problems/all-paths-from-source-to-target/)——无环，当作多叉树遍历邻接表
+
+[剑指 Offer II 107. 矩阵中的距离](https://leetcode.cn/problems/2bCMpM/)——0 1 矩阵找出每个1到 0 最小距离。<span style="color:orange">超级源点</span>——先加入所有 0 再遍历 queue。
+
+<span style="color:blue">二分图:</span>
+
+[剑指 Offer II 106. 二分图](https://leetcode.cn/problems/vEAB3K/)——验证是否构成二分图。涂色法。
 
 
 
@@ -1884,23 +1949,27 @@ def backtrack(路径, 选择列表):
 // 2.2 有重复 不复选
   nums.sort();
   function backtrack() {
-    for (let i = start; i < nums.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
       // 剪枝，跳过值相同的相邻树枝
   #   if (// 2.1 有重复 不复选
   nums.sort();
   function backtrack(start: number) {
-    for (let i = start; i < nums.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
       // 剪枝逻辑，跳过值相同的相邻树枝
   #   if (i > start && nums[i] == nums[i - 1]) continue;
       path.push(nums[i]); // 做选择
-      backtrack(i + 1);
+      backtrack();
       path.pop(); // 撤销选择
     }
   }
 // 3.2 无重复 可复选——1.2基础上删除去重剪枝
 ```
 
+<span style="color:blue">其他应用: </span>
 
+[剑指 Offer II 085. 生成匹配的括号](https://leetcode.cn/problems/IDBivT/)
+
+[剑指 Offer II 086. 分割回文子字符串](https://leetcode.cn/problems/M99OJA/)
 
 ## To 随机算法
 
@@ -2137,3 +2206,4 @@ while (line = readline()) {	// 任意行数输入
 
 [labuladong 的算法小抄](https://labuladong.github.io/algo/)
 
+[《剑指Offer：专项突破版. 数据结构与算法名企面试题精讲》 - 何海涛]()

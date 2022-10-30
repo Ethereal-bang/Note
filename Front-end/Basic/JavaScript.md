@@ -215,13 +215,23 @@ var arr = [1, 2];	// 字面量创建
 
 
 
-+ **二位数组初始化:**
++ **二维数组初始化:**
 
     ```js
     new Array(m).fill(0).map(() => new Array(n).fill(0)); 
     ```
 
     > 长度为 m×n 的二维矩阵。第一个 `fill(0)` 不可省略。
+    
+    > <span style="color:red">Notice: </span>
+    >
+    > 不可写成：
+    >
+    > ```js
+    > new Array(m).fill(new Array(n).fill(0));
+    > ```
+    >
+    > 这样第二维共享的是同一地址
 
 
 
@@ -520,6 +530,31 @@ window 对象提供 location 属性用于获取或设置窗体的URL，也可用
 - 对象包含用户（在浏览器窗口）访问过的URL
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607944297803-2e442824-f923-465b-a25d-d8023337071b.png)
+
+
+
+# Other
+
+## Scroll
+
+**scrollHeight, offsetHeight, clientHeight : **
+
+![img](https://harttle.land/assets/img/blog/css/height.png)
+
+**scrollTop: **滑动条位置
+
+判断是否 **totally scrolled:**
+
+```tsx
+const lazyLoadNews = (e: BaseSyntheticEvent) => {
+  const height = e.currentTarget.scrollHeight - e.currentTarget.clientHeight;
+  // @ts-ignore
+  if (height - dialogueRef.current.scrollTop < 0) {
+    console.log("load")
+  }	// 实现滑动到顶后 加载消息
+}
+<div onScroll={lazyLoadNews}>
+```
 
 
 

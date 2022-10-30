@@ -189,112 +189,99 @@ public class Hello {
     | `nextLong()`    | Reads a `long` value from the user    |
     | `nextShort()`   | Reads a `short` value from the user   |
 
+
+
 ## 数据结构
 
 ### Arrays
 
-+ **长度**：`.length`：
+**长度**：`.length`
 
-    数组一旦初始化完成，其长度就确定了
+**转换为列表：** Arrays.asList();
 
-+ **转换为列表：** Arrays.asList();
+```java
+List<List<Integer>> res = new LinkedList<>();
+res.add(Arrays.asList(arr[0], arr[1]));
+```
 
-    ```java
-    List<List<Integer>> res = new LinkedList<>();
-    res.add(Arrays.asList(arr[0], arr[1]));
-    ```
+**打印数组：**
 
-+ **打印数组：**
+```java
+Arrays.toString(arr);	// j
+```
 
-    ```java
-    Arrays.toString(arr);	// j
-    ```
-
-+ <span style="font-size:22px">一维数组：</span>
-
-    ```java
-    int arr;	// 声明
-    arr = new int[]{1001,1002,1003,1004};//静态初始化：数组的初始化和数组元素的赋值操作同时进行
-    
-    String[] arr = new String[5];//动态初始化：数组的初始化和数组元素的赋值操作分开进行（长5）
-    String arr[];
-    ```
-
-    数组元素**默认初始值**：
-
-    | 数组元素类型 |      默认初始化值      |
-    | :----------: | :--------------------: |
-    |     整型     |           0            |
-    |    浮点型    |          0.0           |
-    |    字符型    | 0（ASCII码）或'\u0000' |
-    |    布尔型    |         false          |
-    | 引用数据类型 |          null          |
-
-+ <span style="font-size:22px">二维数组：</span>
-
-    **初始化**：
-
-    ```java
-    //静态初始化
-    int[][] arr1 = new int[][]{{1,2,3},{4,5},{6,7,8}};
-    
-    //动态初始化
-    String[][] arr2 = new String[3][2];
-    String[][] arr2 = new String[3][];
-    ```
-
-    **默认初始化值**：
-
-    + 对于初始化方式一 `String[][] arr2 = new String[3][2]`：
-
-        外层元素的初始化值：地址值
-
-        内层元素的初始化值：与一维数组初始化情况相同
-
-    + 对于初始化方式二 `String[][] arr2 = new String[3][]`：
-
-        外层元素的初始化值：`null`
-
-        内层元素的初始化值：不能调用，否则报错
+**切割：** Arrays.copyOfRange(nums, from, to)
 
 
 
-+ **传值：**
+<span style="font-size:22px">一维数组：</span>
 
-    向函数传递时：
+```java
+int arr;	// 声明
+arr = new int[]{1001,1002,1003,1004};//静态初始化：数组的初始化和数组元素的赋值操作同时进行
 
-    ```java
-    zeroToRear({1, 2, 0, 3, 4});	// ×
-    
-    int nums[] = {1, 2, 0, 3, 4}
-    zeroToRear(nums);	// √
-    
-    zeroToRear(new int[]{1, 2, 0, 3, 4});	// √
-    ```
+String[] arr = new String[5];//动态初始化：数组的初始化和数组元素的赋值操作分开进行（长5）
+String arr[];
+```
 
-    
+数组元素 int 类型 **默认初始值 0**
 
-#### 数组遍历
 
-+ <span style="font-size:20px">for each：</span>
 
-    ```java
-    public static void zeroToRear(int[] nums) {
-      for (int n : nums) {
-        // 这里取得的`n`是数组元素而不是索引
-      }
-    ```
+<span style="font-size:22px">二维数组：</span>
 
-### 排序
+**初始化**：
 
-+ ```java
-    Arrays.sort(arr, new Comparator<int[]>() {
-      @Override
-      public int compare(int[] o1, int[] o2) {
-        return o1 - o2;   // 升序
-      }
-    });
-    ```
+```java
+//静态初始化
+int[][] arr1 = new int[][]{{1,2,3},{4,5},{6,7,8}};
+
+//动态初始化
+String[][] arr2 = new String[3][2];
+String[][] arr2 = new String[3][];
+```
+
+**默认初始化值**：
+
++ 对于初始化方式一 `String[][] arr2 = new String[3][2]`：
+
+    外层元素的初始化值：地址值
+
+    内层元素的初始化值：与一维数组初始化情况相同
+
++ 对于初始化方式二 `String[][] arr2 = new String[3][]`：
+
+    外层元素的初始化值：`null`
+
+    内层元素的初始化值：不能调用，否则报错
+
+
+
+<span style="font-size:20px">数组遍历:</span>
+
+**for each:**
+
+```java
+public static void zeroToRear(int[] nums) {
+  for (int n : nums) {
+    // 这里取得的`n`是数组元素而不是索引
+  }
+```
+
+
+
+<span style="font-size:20px">排序: </span>
+
+```java
+Arrays.sort(arr, new Comparator<int[]>() {
+  @Override
+  public int compare(int[] o1, int[] o2) {
+    return o1 - o2;   // 升序
+  }
+});
+```
+
+
 
 
 
@@ -478,7 +465,7 @@ Stack<Integer> stack = new Stack<Integer>();
 
 
 
-## Set Interface
+### Set Interface
 
 + set.contains()
 + set.add()
