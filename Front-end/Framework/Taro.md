@@ -566,7 +566,7 @@ Taro 中可以使用小程序规范的内置组件开发，如 `<View>`、`<Text
     1. 内置事件名`on`开头，遵从**小驼峰式**（camelCase）命名规范
     2. React 中点击事件使用`onClick`
 
-+ <span style="font-size:20px">示例代码==?==</span>
++ <span style="font-size:20px">示例代码</span>
 
     ```jsx
     function Comp () {
@@ -1134,9 +1134,7 @@ uploadPic(e) {  // 点击上传触发此事件
 },
 ```
 
-> 成功回调具有以下字段：
->
-> ![image-20220309170642945](https://gitee.com/ethereal-bang/images/raw/master/20220309170650.png)
+
 
 <span style="font-size:20px">获取节点：</span>
 

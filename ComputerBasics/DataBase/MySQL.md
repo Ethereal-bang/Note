@@ -329,6 +329,13 @@ select distinct address from `student`;
 SELECT * FROM goods WHERE TYPE = 'bookRanking' ORDER BY ranking ASC;
 ```
 
+<span style="font-size:22px">限制查询记录数: </span>
+
+```mysql
+SELECT * from `user` LIMIT 3;	# 返回1~3
+SELECT * from `user` LIMIT 1,3;	# 返回2~4
+```
+
 
 
 ### 条件查询

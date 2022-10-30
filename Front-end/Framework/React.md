@@ -1836,6 +1836,59 @@ ReactDOM.myRender = (element, container) => {
 
 # Others
 
+## 消息记录懒加载
+
+**节流的 onScroll 回调：**
+
+```tsx
+const throttle = (fn: Function, time: number, ...args: any) => {
+  let flag = false;   // 标志是否已触发（节流
+  return () => {
+    if (flag) return;
+    fn(...args);
+    flag = true;
+    setTimeout(() => flag = false, time);
+  }
+}
+// 对话框滚动到顶部后加载下一页记录
+const lazyLoadNews = (e: BaseSyntheticEvent) => {
+  const height = e.currentTarget.scrollHeight - e.currentTarget.clientHeight;
+  if (height - e.currentTarget.scrollTop < 25) {
+    (throttle(async () => {
+      const list = (await getDialogue(contactProfile.id, page + 1)).data.data;
+      setDialogue(d => {
+        return [...d, ...list];
+      })
+      setPage(p => p + 1);
+      // ...scrollTop设置到衔接位置
+    }, 2000,))()
+  }
+}
+```
+
+**HTML:**
+
+```tsx
+<div className={styles["dialogue"]}
+  onScroll={lazyLoadNews}
+  ref={dialogueRef}
+/>
+```
+
+**page state: **
+
+```tsx
+// 切换聊天联系人后 重置加载页数+滚动条位置
+useEffect(() => {
+  setPage(1);
+  if (dialogueRef) {
+    dialogueRef.current.scrollTop = 0;
+  }
+}, [contact, dialogueRef])
+```
+
+
+
 ## 自定义上下文菜单
 
 ContextMenu 即右键后出现的菜单
