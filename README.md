@@ -99,6 +99,9 @@
 
 + [Algorithm](https://github.com/Ethereal-bang/Note/blob/master/ComputerBasics/Algorithm)
 
+## Other
++ [Deutsch.md](https://github.com/Ethereal-bang/Note/blob/master/Other/Deutsch)
+
 ## C
 
 + [C.md](https://github.com/Ethereal-bang/Note/blob/master/C/C.md)
