@@ -114,9 +114,9 @@ public class Hello {
 不可改变的类型，因此修改的方法都返回一个新字符串
 
 + length()
-
 + charAt(`index`):——取某位字符
 + String.valueOf()——返回其他类型的字符串表示形式
++ String.substring()
 
 > **String 的存储：**
 >

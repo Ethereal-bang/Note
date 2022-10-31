@@ -1570,7 +1570,7 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 ## To 图
 
-<span style="font-size:20px; color:blue">图的搜索 ：</span>
+## 图的搜索
 
 见 #[DFS / BFS]() 
 
@@ -1595,7 +1595,15 @@ void traverse(Graph graph, int s) {
 
 [797. 所有可能的路径](https://leetcode.cn/problems/all-paths-from-source-to-target/)——无环，当作多叉树遍历邻接表
 
+<span style="color:blue">距离:</span>
+
+**时间优化: To 单一起始节点，单一目标节点的最短距离问题：==...==**
+
 [剑指 Offer II 107. 矩阵中的距离](https://leetcode.cn/problems/2bCMpM/)——0 1 矩阵找出每个1到 0 最小距离。<span style="color:orange">超级源点</span>——先加入所有 0 再遍历 queue。
+
+[剑指 Offer II 108. 单词演变](https://leetcode.cn/problems/om3reC/)——给定字典中单词演变的最少次数。可双向 BFS 优化
+
+[剑指 Offer II 109. 开密码锁](https://leetcode.cn/problems/zlDJc7/)——四位数切换。
 
 <span style="color:blue">二分图:</span>
 
