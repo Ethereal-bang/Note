@@ -1021,7 +1021,7 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 
 
-# 整数
+# 数学
 
 Java 为例
 
@@ -1065,11 +1065,64 @@ A: 11101
 
 
 
-## ==整数?==
+<span style="color:blue">题目：</span>
 
-[剑指Offer001.整数除法](https://leetcode-cn.com/problems/xoh6Oh/)
+[338. 比特位计数](https://leetcode.cn/problems/counting-bits/description/?favorite=2cktkvj)——动规推导得 1 的个数。偶数 `dp[i]=dp[i/2]`，奇数 `dp[i]=dp[i-1]+1`
 
-二分
+
+
+## 概率
+
+<span style="color:blue">RandA() -> RandB() :</span> 通过 RandA() 随机出 RandB() 的分布
+
+
+
+### 拒绝采样
+
+> **举例：**只要[1,n] 的结果就把 (n, m] 结果再次随机，从而使随机结果落在 [1, n]
+
+适用大多情况的构造方法——多次采样结果相乘得到的概率映射到目的区间
+
+（理论支撑——独立事件古典概型 P(AB) = P(A) * P(B)）
+
+
+
+<span style="color:blue">例解：</span>[470. 用 Rand7() 实现 Rand10()](https://leetcode.cn/problems/implement-rand10-using-rand7/description/)
+
+R(10) = 1/2 * 1/5
+
+```java
+public int rand10() {
+  int n1, n2;
+  while ((n1 = rand7()) > 6); // 第一次采样 拒绝7 奇数偶数作俩种结果
+  while ((n2 = rand7()) > 5); // 第二次采样 拒绝6/7 5种结果
+  return (n1 - 1) * 5 + n2; // 把两次的10种结果映射到[1,10]
+}
+```
+
+> **重点：**
+>
+> + 因子的选取（2, 5)：不能大于 A
+> + 拒绝采样（7 -> 5）：用 Rand7() 随机出 5 种结果
+> + 映射
+
+<span style="color:blue">例 2:</span>Rand7()实现Rand100()
+
+```java
+int rand100() {
+  int n1, n2, n3;
+  while ((n1 = rand7()) >4);
+  while ((n2 = rand7()) > 5);
+  while ((n3 = rand7()) > 5);
+  return (n1 - 1) * 25 + (n2 - 1) * 5 + n3;
+}
+```
+
+
+
+# 数据结构设计
+
+[705. 设计哈希集合](https://leetcode.cn/problems/design-hashset/description/)
 
 
 
@@ -1258,6 +1311,8 @@ For 特殊情况：dp[j] 仍可能被后序使用不能直接覆盖——从后�
 
 <span style="color:blue">进阶</span>：**输出路径**
 
+记录每步选择的上一节点
+
 
 
 <span style="color:blue">**例题：**</span>
@@ -1304,6 +1359,41 @@ For 特殊情况：dp[j] 仍可能被后序使用不能直接覆盖——从后�
 [413. 等差数列划分](https://leetcode.cn/problems/arithmetic-slices/)——数学
 
 [剑指 Offer II 093. 最长斐波那契数列](https://leetcode.cn/problems/Q91FMA/)——不易想到状态转移方程
+
+
+
+### 记忆化搜索
+
+**概念：**（与常规动规比较）
+
+记忆化搜索的编程模式是<span style="color:orange">递归</span>
+
+<span style="color:orange">自顶向下</span>，而常规动规自底向上
+
+不需严格<span style="color:orange">计算顺序</span>，而常规动规根据 base case 递推 DP table
+
+<span style="color:blue">**例解:**</span>——对于需频繁判断 [i, j] 是否回文
+
+```js
+// 记忆化搜索中，f[i][j] = 0 表示未搜索，1 表示是回文串，-1 表示不是回文串
+const isPalindrome = (i, j) => {
+  if (f[i][j] !== 0) {	// 已经搜索过 直接返回
+    return f[i][j];
+  }
+  if (i >= j) {
+    f[i][j] = 1;
+  } else if (s[i] === s[j]) {
+    f[i][j] = isPalindrome(i + 1, j - 1);	// 自顶向下
+  } else {
+    f[i][j] = -1;
+  }
+  return f[i][j];
+}
+```
+
+<span style="color:blue">题目：</span>
+
+[131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/description/)——分割成不同回文串的方案
 
 
 
@@ -1570,7 +1660,13 @@ function maxAreaOfIsland(grid: number[][]): number {
 
 ## To 图
 
-## 图的搜索
+**建图时的注意：**
+
+有些点不与其它点连通，不能用 putIfAbsent() 创建，而应先对每个节点执行 `graph.put(<>, new <>)`
+
+
+
+### 图的搜索
 
 见 #[DFS / BFS]() 
 
@@ -1601,37 +1697,150 @@ void traverse(Graph graph, int s) {
 
 [剑指 Offer II 107. 矩阵中的距离](https://leetcode.cn/problems/2bCMpM/)——0 1 矩阵找出每个1到 0 最小距离。<span style="color:orange">超级源点</span>——先加入所有 0 再遍历 queue。
 
+[剑指 Offer II 112. 最长递增路径](https://leetcode.cn/problems/fpTFWP/)——矩阵中最长递增路径。看作小值到大值单向边，转化为有向无环图遍历
+
 [剑指 Offer II 108. 单词演变](https://leetcode.cn/problems/om3reC/)——给定字典中单词演变的最少次数。可双向 BFS 优化
 
 [剑指 Offer II 109. 开密码锁](https://leetcode.cn/problems/zlDJc7/)——四位数切换。
 
+<span style="color:blue">有向图的环检测:</span> [207. 课程表](https://leetcode.cn/problems/course-schedule/)——建图 + DFS 环检测 
+
 <span style="color:blue">二分图:</span>
 
-[剑指 Offer II 106. 二分图](https://leetcode.cn/problems/vEAB3K/)——验证是否构成二分图。涂色法。
+[剑指 Offer II 106. 二分图](https://leetcode.cn/problems/vEAB3K/)——验证是否构成二分图。<span style="color:orange">涂色法</span>。
+
+<span style="color:blue">权：</span>
+
+[剑指 Offer II 111. 计算除法](https://leetcode.cn/problems/vlzXQL/)——建立并遍历有向带权图
 
 
 
-<span style="font-size:20px">特殊算法:</span>
+### 拓扑排序
 
-**有向图的环检测：**
+> **概念：**
+>
+> 对一个有向无环图排序得到的序列。A -> B 则序列中 A 在 B 前
 
-[207. 课程表](https://leetcode.cn/problems/course-schedule/)——建图 + DFS 环检测
+**思路：**
 
-**拓扑排序：**——根据节点间的依赖关系排序
+1. 取出入度 0 节点加入序列，删除该节点及其边
+2. 重复步骤 1，直到不存在入度 0
+3. 此时图空 => 有向无环 / 图不空 => 有环
+
+**实现：**
+
+DFS==。。。== 逆向思维
+
+BFS：(更易理解)
+
+```java
+// 1...加入所有入度0节点
+Map<Integer, List<Integer>> graph = new HashMap<>();
+Map<Integer, Integer> inDegree = new HashMap<>();
+// 2.BFS
+while (!queue.isEmpty()) {
+  int cur = queue.poll();
+  order.add(cur);	// 加入序列
+  // 邻接节点入度-1后为0的加入队列
+  for (int next : graph.get(cur)) {/*...*/}
+}
+```
+
+**用途：**
+
+还可用于判断有向图是否有环
+
+**题目：**
+
+<span style="color:blue">有向图环检测</span>：[207. 课程表](https://leetcode.cn/problems/course-schedule/)
+
+<span style="color:blue">排序:</span>
 
 [210. 课程表 II](https://leetcode.cn/problems/course-schedule-ii/)——返回正确的上课顺序（先修后修）
 
-**二分图**==...==
+[剑指 Offer II 114. 外星文字典](https://leetcode.cn/problems/Jf1JuT/)——由字典序得出依赖关系建图后拓扑排序
+
+[剑指 Offer II 115. 重建序列](https://leetcode.cn/problems/ur2n8P/description/)——不明显的拓扑排序序列问题。验证是否为唯一拓扑排序序列。
 
 
 
 ### 并查集 Union-Find
 
+**概念：**
+
+<span style="color:orange">树形</span>的数据结构，用来表示不相交集合的数据
+
+节点有一个指向<span style="color:orange">父节点的指针</span>，根节点指向自己
+
+<span style="color:orange">子集</span>用树的根节点代表
+
+两种<span style="color:orange">操作</span>：合并、查找
+
++ 合并——两个子集合并：将一个子集根节点指针指向另一子集根节点
+
++ 查找——元素处于哪个子集：元素节点沿父指针查找直到根节点。
+
+    常用于判断两元素是否属于同一个子集
+
+**技巧 路径压缩：**
+
+fathers 数组存储根节点。第一次查找到 i 的根后更新 i 和 i 到根路径上所有节点的父节点为根，避免后续重复查找
+
+**框架：**
+
+```java
+// 1.Init Union——均指向自身 各自为单独子集
+int[] fathers = new int[citys];   // fathers[i]——i所处子集的父节点 经过路径压缩优化后储存根节点
+for (int i = 0; i < citys; i++) {
+  fathers[i] = i;
+}
+// 2.连接并统计
+int cnt = citys;
+for (int i = 0; i < citys; i++) {
+  for (int j = i + 1; j < citys; j++) {
+    if (isConnected[i][j] == 1 && union(fathers, i, j)) {
+      cnt--;
+    }
+  }
+}
+return cnt;
+```
+
++ 合并：
+
+    ```java
+    // 合并
+    private boolean union(int[] fathers, int i, int j) {
+      int fatherI = findFather(fathers, i),
+      fatherJ = findFather(fathers, j);
+      if (fatherI == fatherJ) return false;   // 已处于同一子集
+      // 合并到同一子集
+      fathers[fatherI] = fatherJ; // 注意更改的是父节点的
+      return true;
+    }
+    ```
+
++ 查找 基于路径压缩
+
+    ```java
+    private int findFather(int[] fathers, int i) {
+      if (fathers[i] == i) return i;
+      fathers[i] = findFather(fathers, fathers[i]);   // i的父节点即i父节点的...的父节点(根)
+      return fathers[i]; 
+    }
+    ```
 
 
-### 最小生成树算法
 
-<span style="font-size:20px">Kruskal: </span>
+**<span style="color:blue">题目：</span>**
+
+[剑指 Offer II 116. 省份数量](https://leetcode.cn/problems/bLyHh0/description/)——<span style="color:blue">例题。</span>连通城市构成省份的数量。
+
+[剑指 Offer II 117. 相似的字符串](https://leetcode.cn/problems/H6lPxb/description/)——类似上一题，连通用相似自行判断。
+
+[剑指 Offer II 118. 多余的边](https://leetcode.cn/problems/7LpjUW/description/)——不明显的并查集问题，去掉哪条边能构成树。
+
+[剑指 Offer II 119. 最长连续序列](https://leetcode.cn/problems/WhsWhI/description/)——找未排序元素连续的最长序列。大小连续则合并子图，返回最大子图节点数。
 
 
 
@@ -2180,6 +2389,12 @@ function subarraySum(nums: number[], k: number): number {
 一般被用来解决图形面积，周长等问题
 
 [218. 天际线问题](https://leetcode.cn/problems/the-skyline-problem/)
+
+
+
+## 数学分析
+
+[754. 到达终点数字](https://leetcode.cn/problems/reach-a-number/description/)
 
 
 

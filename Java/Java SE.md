@@ -93,23 +93,15 @@ public class Hello {
 
 ## 数据类型
 
-+ **类型转换：**
+**类型转换：**
 
-    转换规则：从低位类型到高位类型自动转换；从高位类型到低位类型需要强制类型转换
+转换规则：从低位类型到高位类型自动转换；从高位类型到低位类型需要强制类型转换
 
-    ![image-20211106104104976](https://gitee.com/ethereal-bang/images/raw/master/20211106104112.png)
-    
-    + String + int => String
++ String + int => String
 
 
 
-+ **按值传递**：==?==
-
-    Java 是按值传递的，只不过对于对象参数，值的内容是对象的引用
-
-
-
-<span style="font-size:20px">String:</span>
+### String
 
 不可改变的类型，因此修改的方法都返回一个新字符串
 
@@ -118,26 +110,69 @@ public class Hello {
 + String.valueOf()——返回其他类型的字符串表示形式
 + String.substring()
 
-> **String 的存储：**
->
-> ```java
-> String a = "ab";
-> String b = "ab";	// a, b指向同一实例对象(a == b)
-> 
-> String x = "a", y = "b";
-> String c = x + y;	// a, c不指向同一
-> ```
->
-> ![String创建的字符串存储在公共池，new创建的字符串对象在堆](E:%5CTypora%5Cupload%5Cimage-20220630204836834.png)
 
-> **字符串比较：**
->
-> 第一个字符大小：
->
-> + 不相等——返回第一个字符 ASCII 码差值
-> + 相等：
->     + 依次比较直到字符不同
->     + 字符一样——返回长度差值
+
+<span style="font-size:20px">字符串与字符串：</span>
+
++ str1.equals(str2)
++ str1.startsWith()——是否前缀（包括相等
+
+
+
+<span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
+
+经常改变内容的字符串最好不使用`String`；字符串经常改变的情况:
+
+StringBuilder 不是线程安全，但相比 StringBuffer 有速度优势
+
+```java
+StringBuffer res = new StringBuffer();
+```
+
++ API: 
+
+    sb.charAt()
+
+    sb.append("test");
+
+    sb.insert(1, 'test');
+
+    sb.delete(1, 3);
+
++ Eg：利用 StringBuilder 翻转 int 类型
+
+    ```java
+    int reversedNum = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString())
+    ```
+
+    > + Integer.parseInt 将其他类型转换为 int
+    > + new StringBuilder(string: <>) 获得一个 StringBuilder 对象
+    > + toString() 将 StringBuilder 转换为 String 类型
+
+
+
+**String 的存储：**
+
+```java
+String a = "ab";
+String b = "ab";	// a, b指向同一实例对象(a == b)
+
+String x = "a", y = "b";
+String c = x + y;	// a, c不指向同一
+```
+
+![String创建的字符串存储在公共池，new创建的字符串对象在堆](E:%5CTypora%5Cupload%5Cimage-20220630204836834.png)
+
+
+
+**字符串比较：**
+
+第一个字符大小：
+
++ 不相等——返回第一个字符 ASCII 码差值
++ 相等：
+    + 依次比较直到字符不同
+    + 字符一样——返回长度差值
 
 
 
@@ -312,8 +347,8 @@ add(), get(), remove(), size()
 **转换为 Arrays:**
 
 ```java
-int[] res = new int[list.size()];
-return list.toArray(res);
+List<Integer> order = new LinkedList<>();
+return order.stream().mapToInt(i -> i).toArray();
 ```
 
 <span style="font-size:20px">ArrayList, LinkedList</span>
@@ -368,24 +403,17 @@ set() 替换指定索引内值
 + 新建 HashMap 对象：
 
     ```java
-    HashMap<Integer, String> sites = new HashMap<Integer, String>();
+    Map<Integer, String> sites = new HashMap<>();
     ```
 
-+ 添加元素（添加键值对 key-value）：
++ 添加元素（添加键值对 key-value）：put(); putIfAbsent()
 
     ```java
-    sites.put(1, "Google");
     sites.put(2, "Zhihu");
     System.out.println(sites);	// {1=Google, 2=Zhihu}
     ```
-
-+ 访问元素——`get(key)`、`containsKey(key)`：
-
-    ```java
-    sites.get(2);	// Zhihu
-    sites.containsKey(3)// 检查是否存在指定的 key 对应的映射关系
-    sites.getOrDefault()
-    ```
+    
++ 访问元素——`get(key)`、`containsKey(key)`、getOrDefault()
 
 + 删除元素——`remove(key)`
 
@@ -580,37 +608,10 @@ Integer i = new Integer(1);
 <span style="font-size:20px">Integer：</span>
 
 + Integer.MIN_VALUE
-  
 
-<span style="font-size:20px">String、StringBuffer、StringBuilder：</span>
+<span style="font-size:20px">Character: </span>
 
-经常改变内容的字符串最好不使用`String`；字符串经常改变的情况:
-
-StringBuilder 不是线程安全，但相比 StringBuffer 有速度优势
-
-```java
-StringBuffer res = new StringBuffer();
-```
-
-+ API: 
-
-    sb.charAt()
-    
-    sb.append("test");
-
-    sb.insert(1, 'test');
-    
-    sb.delete(1, 3);
-    
-+ Eg：利用 StringBuilder 翻转 int 类型
-
-    ```java
-    int reversedNum = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString())
-    ```
-
-    > + Integer.parseInt 将其他类型转换为 int
-    > + new StringBuilder(string: <>) 获得一个 StringBuilder 对象
-    > + toString() 将 StringBuilder 转换为 String 类型
++ Character.isLetterOrDigit()
 
 
 
