@@ -284,6 +284,15 @@ Linux 的包都存在一个仓库，叫做软件仓库，它可以使用 yum 来
     bash: ./test.sh: Permission denied
     ```
 
+**C 文件：**
+
+```shell
+thouch os.c
+vi os.c
+gcc os.c -lm -lpthread -o os
+./os
+```
+
 
 
 ### 变量
