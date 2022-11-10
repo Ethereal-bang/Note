@@ -245,7 +245,7 @@ res.add(Arrays.asList(arr[0], arr[1]));
 Arrays.toString(arr);	// j
 ```
 
-**切割：** Arrays.copyOfRange(nums, from, to)
+**切割：** Arrays.copyOfRange(nums, from, to) （`to` 不能省略
 
 
 

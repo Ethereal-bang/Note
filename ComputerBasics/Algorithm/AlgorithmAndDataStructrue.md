@@ -775,8 +775,7 @@ private static int partition(int[] arr, int left, int right) { // 分治法
 		if (nums[i] < nums[right]) swap(nums, ++small, i);    
   }
   // 基准交换到中间(大小)
-  small++;
-  swap(nums, small, right);
+  swap(nums, ++small, right);
   return small;
 }
 ```
@@ -1025,7 +1024,7 @@ private static void adjustToHeap(int[] arr, int i, int size) {
 
 Java 为例
 
-int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>)
+int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>) （十进制 8 位）
 
 有符号整数，最高位 0 为正 1 负
 
@@ -1041,7 +1040,7 @@ int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>)
 
 <span style="font-size:20px">位操作符: </span>
 
-<span style="color:orange">**& | ~ ^**</span>: 按位 与 或 非 异或
+<span style="color:orange">**& | ~ ^**</span>: 按位 与 或 非 异或(*相异为 1*)
 
 ```
   111
@@ -1065,7 +1064,29 @@ A: 11101
 
 
 
+**异或 性质:** [136. 只出现一次的数字](https://leetcode.cn/problems/single-number/description/?favorite=2ckc81c)
+
++ 交换律 a ^ b ^ c = a ^ c ^ b
++ 相同数异或为 0
++ 0 ^ n => n
+
+
+
 <span style="color:blue">题目：</span>
+
+[191. 位1的个数](https://leetcode.cn/problems/number-of-1-bits/description/)——与运算
+
+```java
+// 法一:循环遍历检查二进制位
+for (int i = 0; i < 32; ++i) {
+  if ((n & (1 << i)) != 0) ++cnt;	// ..01左移i位,i位为1则返回大于0
+}
+// 位运算优化:
+while (n != 0) {
+  n = n & (n - 1);    // 运算后最低位的1变0
+  ++cnt;
+}
+```
 
 [338. 比特位计数](https://leetcode.cn/problems/counting-bits/description/?favorite=2cktkvj)——动规推导得 1 的个数。偶数 `dp[i]=dp[i/2]`，奇数 `dp[i]=dp[i-1]+1`
 
@@ -1846,7 +1867,11 @@ return cnt;
 
 ## 贪心
 
+[334. 递增的三元子序列](https://leetcode.cn/problems/increasing-triplet-subsequence/description/)
+
 [122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/)——不限交易次数股票问题的特例解法
+
+[134. 加油站](https://leetcode.cn/problems/gas-station/description/?favorite=2ckc81c)——难想到
 
 [135. 分发糖果](https://leetcode.cn/problems/candy/)——两次遍历满足不同左右规则（思路难想到）
 
