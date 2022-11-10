@@ -46,6 +46,22 @@
 
 
 
+# [pnpm](https://pnpm.io)
+
+## Install
+
+```shell
+npm i -g pnpm
+```
+
+
+
+## Usage
+
+`pnpm install`
+
+
+
 
 # REF
 

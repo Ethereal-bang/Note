@@ -162,6 +162,16 @@
 
 # 远程仓库
 
+## Clone
+
+```shell
+$git clone https://github.com/<>/<>.git
+```
+
+就会在当前路径下新建对应文件夹
+
+
+
 ## 添加远程库
 
 + <span style="font-size:20px">使用场景</span>

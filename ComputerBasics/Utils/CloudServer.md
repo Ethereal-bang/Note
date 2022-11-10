@@ -4,13 +4,7 @@
 
 + <span style="font-size:20px">购买:</span>
 
-    实例名称：`iZuf6b87fb1fzd0htv51ccZ`。
-
-    IP 地址： `101.132.100.245`。
-
-    系统用户名： `root`。
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211102233808.png" alt="image-20211102233808525" style="zoom:150%;" />
+    IP 地址、系统用户名、密码。
 
 + <span style="font-size:20px">登录:</span>
 
@@ -38,7 +32,7 @@
 
 ### 宝塔
 
-> **前提：**
+> **前提 操作系统：**
 >
 > 1. 停止运行实例
 > 2. 更改操作系统，选择镜像市场，选择宝塔面板
