@@ -126,7 +126,7 @@ while (cur) {
 
 [876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)
 
-**链表的环：**
+**链表的环：**<span style="color:blue">Floyd 判圈法</span>
 
 + 是否有环——`slow` 每走一步 `fast` 走两步，相遇即有环
 
@@ -141,6 +141,8 @@ while (cur) {
     > 设相遇时 `slow` 走了 k 步，相遇点与环起点距离 m
 
 [剑指 Offer II 022. 链表中环的入口节点](https://leetcode.cn/problems/c32eOV/)
+
+[287. 寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number/description/)==?==——需转换成成环问题
 
 **链表相交：**
 
@@ -443,6 +445,8 @@ while (curNode != null || !stack.isEmpty()) {
     };-
     ```
 
+[236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/description/)——递归
+
 
 
 ### 二叉搜索树
@@ -555,7 +559,8 @@ Trie **实现：**
 // java
 class TrieNode {
   TrieNode children[];
-  boolean isWord;
+  boolean isWord = false;
+  
   public TrieNode() {
     children = new TrieNode[26];
   }
@@ -1050,7 +1055,10 @@ int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>) （十进制 8
 
 <span style="color:orange">**<< >>**</span>: 移位（可用于对 2 次方数的运算）
 
-对于右移，有符号数补符号位（负数补码运算
+对于右移，
+
++ 有符号数 算术右移：补符号位（负数补码运算）
++ 无符号数 逻辑右移：补 0  `>>>`
 
 ```
 unsigned int a = 4; a >> 2 = 1;	// 右移两位相当于除以2^2
@@ -1089,6 +1097,8 @@ while (n != 0) {
 ```
 
 [338. 比特位计数](https://leetcode.cn/problems/counting-bits/description/?favorite=2cktkvj)——动规推导得 1 的个数。偶数 `dp[i]=dp[i/2]`，奇数 `dp[i]=dp[i-1]+1`
+
+[190. 颠倒二进制位](https://leetcode.cn/problems/reverse-bits/description/?favorite=2ckc81c)
 
 
 
