@@ -140,6 +140,8 @@ while (cur) {
 
     > 设相遇时 `slow` 走了 k 步，相遇点与环起点距离 m
 
+[202. 快乐数](https://leetcode.cn/problems/happy-number/description/)——将检测死循环问题转换为检测环问题
+
 [剑指 Offer II 022. 链表中环的入口节点](https://leetcode.cn/problems/c32eOV/)
 
 [287. 寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number/description/)==?==——需转换成成环问题
@@ -1098,6 +1100,8 @@ while (n != 0) {
 
 [338. 比特位计数](https://leetcode.cn/problems/counting-bits/description/?favorite=2cktkvj)——动规推导得 1 的个数。偶数 `dp[i]=dp[i/2]`，奇数 `dp[i]=dp[i-1]+1`
 
+[371. 两整数之和](https://leetcode.cn/problems/sum-of-two-integers/description/?favorite=2ckc81c)——位运算实现加法。a ^ b (无进位相加) + ((a & b) << 1) (进位)
+
 [190. 颠倒二进制位](https://leetcode.cn/problems/reverse-bits/description/?favorite=2ckc81c)
 
 
@@ -1151,7 +1155,52 @@ int rand100() {
 
 
 
+### Knuth 洗牌算法
+
+随机乱置算法——将一个数组打乱后输出。
+
+**实现：**靠随机选取元素交换来获取随机性
+
+```js
+for (let i = 0; i < len; ++i) {	// 从[0,len)依次填充
+  const random = i + Math.floor((len - i) * Math.random());   // 从[i,len)抽取一个与i交换
+  [res[i], res[random]] = [res[random], res[i]];
+}
+```
+
+**验证：**产生 n! 种结果
+
+[384. 打乱数组](https://leetcode.cn/problems/shuffle-an-array)——洗牌算法模板题
+
+
+
+## 唯一分解定理
+
+又称算术基本定理
+
+**定理：**任何一个大于 1 的正整数可唯一分解成若干质数幂的乘积，称为标准分解式
+
+N = P~1~^α1^ P~2~^α2^ P~3~^α3^ ... P~k~^αk^ （其中 p1, p2, ... 依次表示 2, 3, 5 ... 等质数
+
+> <span style="color:blue">**Eg:**</span>
+>
+> 24 = 2^3^ x 3^1^ x 5^0^ x 7^0^
+>
+> 70 = 2^1^ x 3^0^ x 5^1^ x 7^1^
+
+
+
+<span style="color:blue">**整除:**</span>
+
+定理可用于判断 a 能否被 b 整除：a % b == 0 <=> 对于所有 i 有 α~i~ >= β~i~ 
+
+即将乘式化为标准分解式再比较指数大小
+
+
+
 # 数据结构设计
+
+[155.最小栈](https://leetcode.cn/problems/min-stack)——满足栈功能同时要能读取当前栈内最小值。栈内储存于最小值的差值 / 辅助栈储存当前最小值
 
 [705. 设计哈希集合](https://leetcode.cn/problems/design-hashset/description/)
 
@@ -2128,6 +2177,8 @@ int[] nextGreaterElement(int[] nums) {
 [剑指 Offer II 039. 直方图最大矩形面积](https://leetcode.cn/problems/0ynMMM/)——需要一点数学思维转换为单调栈问题
 
 [剑指 Offer II 040. 矩阵中最大的矩形](https://leetcode.cn/problems/PLYXKQ/)——以每一行为基线转化成上一问题
+
+[42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/description/)——柱形图问题
 
 
 

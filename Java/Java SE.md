@@ -318,8 +318,6 @@ Arrays.sort(arr, new Comparator<int[]>() {
 
 
 
-
-
 ### Colection Interface
 
 + <span style="font-size:22px">ArrayList——数组队列：</span>
@@ -359,17 +357,41 @@ set() 替换指定索引内值
 
 #### Queue Interface
 
+isEmpty()
+
 不抛异常：offer(), poll(), peek()
 
-<span style="font-size:20px">ArrayList, LinkedList</span>
+<span style="font-size:20px">Queue</span>
 
-<span style="font-size:20px">PriorityQueue: </span>
+```java
+Quequ<Number> queue = new LinkedList<Number>();
+```
 
-优先队列（按顺序检索 默认小顶堆）
++ queue.element(): 返回第一个元素，不允许为空（抛异常）
+
+<span style="font-size:20px">PriorityQueue: </span>优先队列（按顺序检索 默认小顶堆）
+
++ remove(object o)
+
+    ```java
+    // 2,1
+    pq.remove(1);	// 2
+    ```
+
+<span style="font-size:20px">Deque——双端队列</span>
+
+```java
+Deque<Integer> deque = new LinkedList<Number>();
+```
+
++ deque.getFirst()
++ deque.getLast()
++ deque.removeFirst()
++ deque.removeLast()
 
 
 
-#### Set Interface
+### Set Interface
 
 `Set`用于存储不重复的元素集合
 
@@ -393,6 +415,7 @@ set() 替换指定索引内值
 + lower()   <
 
 [剑指 Offer II 057. 值和下标之差都在给定的范围内](https://leetcode.cn/problems/7WqeDu/)——法一：滑动窗口 + 有序集合
+
 
 
 
@@ -449,35 +472,7 @@ set() 替换指定索引内值
 
 
 
-### 线性表
-
-+ isEmpty()
-
-#### 队列
-
-+ <span style="font-size:20px">Queue</span>
-
-    ```java
-    Quequ<Number> queue = new LinkedList<Number>();
-    ```
-
-    + queue.offer(1): 添加元素
-    + queue.poll(): 删除并返回第一个元素
-    + queue.element(): 返回第一个元素，不允许为空
-    + queue.peek(): 返回第一个元素
-
-+ <span style="font-size:20px">Deque——双端队列</span>
-
-    ```java
-    Deque<Integer> deque = new LinkedList<Number>();
-    ```
-
-    + deque.getFirst()
-    + deque.getLast()
-    + deque.removeFirst()
-    + deque.removeLast()
-
-### 栈
+### Stack
 
 栈是 Vector 的一个子类，它实现了一个标准的后进先出的栈。
 
