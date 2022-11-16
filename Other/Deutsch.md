@@ -158,6 +158,12 @@
 
 30: -ßig
 
+<span style="font-size:20px">整百:</span>
+
+100: hundert
+
+x00: -hundert
+
 
 
 <span style="font-size:20px">数字组合:</span>
@@ -168,3 +174,12 @@
 
 1100: tausendhundert
 
+
+
+<span style="font-size:20px">日期:</span>
+
+![image-20221115105610345](http://img.giantbear.top/img/20221115105620.png)
+
+月份：
+
+![image-20221115105726841](http://img.giantbear.top/img/20221115105729.png)
