@@ -194,6 +194,12 @@ while (cur) {
 
 ## 队列
 
+先进先出性质，适用找出第一个满足某个条件的元素
+
+**延迟删除**技巧：
+
+[387. 字符串中的第一个唯一字符](https://leetcode.cn/problems/first-unique-character-in-a-string)
+
 
 
 # 串
@@ -753,12 +759,6 @@ private static int[] mergeTwo(int[] left, int[] right) {
 
 
 
-[剑指 Offer II 077. 链表排序](https://leetcode.cn/problems/7WHec2/)
-
-[剑指 Offer II 078. 合并排序链表](https://leetcode.cn/problems/vvXgSW/)——合并 k 个排序列表。每次 mergeTwo，逐步增大步长
-
-
-
 ## 快速排序
 
 分治基于基准左右排序
@@ -1290,11 +1290,13 @@ LRU (*Least Recently Used* ) 是一种缓存淘汰策略
 
 + 二分查找
 
-+ 两数之和——通过调节 `left` 和 `right` 调整 `sum` 的大小
++ n 数之和——通过调节 `left` 和 `right` 调整 `sum` 的大小
 
     [167. 两数之和 II - 输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/)
 
     [剑指 Offer II 007. 数组中和为 0 的三个数](https://leetcode.cn/problems/1fGaJU/)——固定 `i`, 移动 `left`, `right`
+
+    [18. 四数之和](https://leetcode.cn/problems/4sum)——排序再双指针，剪枝
 
 + [344. 反转字符串](https://leetcode.cn/problems/reverse-string/)
 
@@ -2071,11 +2073,17 @@ return l;
 
 ### 归并排序
 
-求逆序对：
+<span style="color:blue">求逆序对：</span>
 
 [剑指 Offer 51. 数组中的逆序对](https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
 
 [315. 计算右侧小于当前元素的个数](https://leetcode.cn/problems/count-of-smaller-numbers-after-self/)——上一题的基础上新增了索引数组，对索引数组排序，从而不改变原数组情况下能获得本来元素的下标
+
+<span style="color:blue">链表排序:</span>
+
+[剑指 Offer II 077. 链表排序](https://leetcode.cn/problems/7WHec2/)
+
+[剑指 Offer II 078. 合并排序链表](https://leetcode.cn/problems/vvXgSW/)——合并 k 个排序列表。每次 mergeTwo，逐步增大步长
 
 
 

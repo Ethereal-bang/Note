@@ -176,11 +176,22 @@ String c = x + y;	// a, c不指向同一
 
 
 
+### 数
+
 <span style="font-size:20px">float:</span>
 
 + println 默认小数点后一位 (*即 1.0* )
 
 + printf %f 默认6位
+
+<span style="font-size:20px">long:</span>
+
+对于大数相加溢出 int 8 位情况：
+
+```java
+int n1 = 1000000000, n2 = 1000000000;
+long sum = (long) n1 + n2;	// 不能(long) (n1 + n2) 这样n1+2还是溢出
+```
 
 
 
@@ -305,7 +316,7 @@ public static void zeroToRear(int[] nums) {
 
 
 
-<span style="font-size:20px">排序: </span>
+<span style="font-size:20px">排序: </span>原地
 
 ```java
 Arrays.sort(arr, new Comparator<int[]>() {
