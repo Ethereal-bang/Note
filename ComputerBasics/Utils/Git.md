@@ -322,6 +322,24 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 
 
+# Commitizen
+
+**全局安装：**
+
+```shell
+$ npm i -g commitizen
+```
+
+**项目安装 Adapter：**==...==
+
+**使用：**
+
+```shell
+$ git cz
+```
+
+
+
 # WebStorm + Git
 
 + 推送到 GitHub：
