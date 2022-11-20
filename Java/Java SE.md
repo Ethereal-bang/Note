@@ -331,6 +331,10 @@ Arrays.sort(arr, new Comparator<int[]>() {
 
 ### Colection Interface
 
+Collections.sort(collect)
+
+
+
 + <span style="font-size:22px">ArrayList——数组队列：</span>
 
     **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
@@ -412,6 +416,8 @@ Deque<Integer> deque = new LinkedList<Number>();
 + set.remove()
 + set.contains()
 + set.size()
+
+**遍历：** `for (int n : set) {}`
 
 <span style="font-size:20px">HashSet</span>
 

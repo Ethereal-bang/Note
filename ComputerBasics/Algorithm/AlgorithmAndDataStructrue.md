@@ -536,7 +536,7 @@ delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让
 
 **常用方法**——构建优先队列、支持堆排序、快速找出一个集合中最值
 
-构建优先队列：
+<span style="color:blue">构建优先队列：</span>
 
 [215. 数组中的第K个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array/)——（常考）小顶堆，筛掉小值，留下 k 个最大值
 
@@ -544,7 +544,11 @@ delMax——堆定元素 `A` 与堆底最后元素 `B` 交换，删除 `A`，让
 
 [1845. 座位预约管理系统](https://leetcode.cn/problems/seat-reservation-manager/)
 
+<span style="color:blue">快速得出集合最值：</span>
+
 [剑指 Offer II 078. 合并排序链表](https://leetcode.cn/problems/vvXgSW/)——K 个节点放入最小堆，每选取最小节点后加入其 next
+
+[295. 数据流的中位数](https://leetcode.cn/problems/find-median-from-data-stream)——维护一个大顶堆储存有序列表前半部分，一个小顶堆储存后半部分
 
 
 
@@ -2478,11 +2482,15 @@ function subarraySum(nums: number[], k: number): number {
 
 
 
-## ==扫描线...==
+## 扫描线
 
 一般被用来解决图形面积，周长等问题
 
-[218. 天际线问题](https://leetcode.cn/problems/the-skyline-problem/)
+
+
+[218. 天际线问题](https://leetcode.cn/problems/the-skyline-problem/)——建筑轮廓。扫描 + 优先队列
+
+> 每一座建筑的左边缘信息只被用作加入优先队列时的依据，当其加入优先队列后，我们只需要用到其高度信息（对最大高度有贡献）以及其右边缘信息（弹出优先队列的依据）
 
 
 
