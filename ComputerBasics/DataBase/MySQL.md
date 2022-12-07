@@ -699,6 +699,14 @@ ORDER BY COUNT(carrier_id) desc	# 以carrier_id出现次数排序
 
 
 
+# 性能
+
+## SELECT
+
++ 指定返回具体字段而不是 `*`
+
+
+
 # REF 
 
 + ：

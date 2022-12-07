@@ -1521,8 +1521,6 @@ export default function Auth(props) {
 
 
 
-
-
 # 请求
 
 ## Axios
@@ -1683,26 +1681,60 @@ return <Form form={form}>
 
 > 写在某文件下的组件即使未被调用，组件外的代码也会执行
 
-lazy 函数与 \<Suspense /> 组件
+**优势：**打包代码时，可以显著减少主包的体积，加快加载速度，从而提升用户体验
+
+**\<Suspense>: **
+
+“等待” 某个异步操作结束渲染，而 fallback 指定等待时渲染的组件
+
+**用途—代码拆分：**
+
+<span style="color:blue">**Eg:**</span> 基于路由的代码分割。lazy 函数与 \<Suspense /> 组件
+
+> 当路由切换时，加载新的组件代码，此时就渲染 `Suspense fallback`，也就是 Loading，显式告诉用户正在加载，当代码加载完成就会展示 `A` 组件的内容，整个 loading 状态不用开发者去控制
 
 ```tsx
 import { lazy, Suspense } from "react";
-
-const Login = lazy(() => import("./login"))
+const A = lazy(() => import("./A"))
 
 function App() {
   return (
-  	<Suspense fallback={<Login />}>
-    	<Routes path="/home/*" 
-        element={<Auth>
-        	<Home />
-      	</Auth>}
-      />
-      <Routes path="/login" element={<Login />} />
+    <Suspense fallback={<Spinner />}>
+      <Routes path="/a" element={A} />
     </Suspense>
   )	
 }
 ```
+
+ **用途——异步加载数据:**
+
+```jsx
+function ProfileDetails() {
+  // 尝试读取用户信息，尽管该数据可能尚未加载
+  const user = resource.user.read();
+  return <h1>{user.name}</h1>;
+}
+function ProfilePage() {
+  return (
+    <Suspense fallback={<h1>Loading profile...</h1>}>
+      <ProfileDetails />
+      <Suspense fallback={<h1>Loading posts...</h1>}>
+        <ProfileTimeline />
+      </Suspense>
+    </Suspense>
+  );
+}
+```
+
+
+
+
+
+# [Error Boundary](https://zh-hans.reactjs.org/docs/error-boundaries.html)
+
+**场景**：部分 UI 的 JavaScript 错误导致整个应用崩溃
+
+**概念：** <span style="color:orange">捕获</span>发生在其子组件树任何位置的 JavaScript 错误，并<span style="color:orange">打印</span>这些错误，同时<span style="color:orange">展示降级 UI</span>，而并不会渲染那些发生崩溃的子组件树。
 
 
 
