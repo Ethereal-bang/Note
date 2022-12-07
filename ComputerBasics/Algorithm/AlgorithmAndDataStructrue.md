@@ -172,11 +172,40 @@ while (cur) {
 
 # 数组
 
-## To 二维数组花式遍历
+
+
+## 二维矩阵
+
+### To 二维数组历
+
+<span style="color:blue">**花式遍历:**</span>
 
 [48. 旋转图像](https://leetcode.cn/problems/rotate-image/)——原地顺时针旋转二维矩阵：依次沿做对角线和 y 轴翻转
 
 [54. 螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/) / [59. 螺旋矩阵 II](https://leetcode.cn/problems/spiral-matrix-ii/)——模拟形状 / 方向
+
+<span style="color:blue">**To 行列有序矩阵查找:**</span>
+
+<span style="color:blue">Z 字形查找:</span> 
+
+[240.搜索二维矩阵 II](https://leetcode.cn/problems/search-a-2d-matrix-ii)
+
+```java
+int x = 0, y = n - 1;	// 右上角开始 根据大小排除行列 (/左下角
+while (x < m && y > -1) {
+  if (matrix[x][y] == target) return true;
+  if (matrix[x][y] < target) {
+    ++x; // 作为本行最大值 则这行都小于t
+  } else {
+    --y; // 作为本列最小值 则这列都大于t
+  }
+}
+return false;	// 超出边界 说明不存在
+```
+
+<span style="color:blue">二分查找：</span>
+
+[74. 搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix)——每行升序；每行第一个整数大于前一行的最后一个整数。第一次二分确定行，第二次二分确定列。（也可用 Z 字形查找 但时间复杂度更高）
 
 
 
@@ -1973,7 +2002,7 @@ while (l <= r) {
 
 [剑指 Offer II 070. 排序数组中只出现一次的数字](https://leetcode.cn/problems/skFtm2/)——找数组规律转换为二分问题
 
-<span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>——寻找左/右边界
+<span style="font-size:20px">寻找最左 (/ 右)相等元素:</span>——寻找左-(最左的大于 t 元素) / 右边界-(最右的小于 t 元素)
 
 1. 寻找最左——区间向左收缩，正确下标 `l`
 2. 寻找最右——区间向右收缩，正确下标 `r`
@@ -2147,7 +2176,7 @@ class MonotonicQueue {
 
 **单调栈：**栈内顺序要么从大到小、要么从小到大
 
-**使用场景：**通常一维数组，要寻找任一元素的右/左边第一个比自己大/小的元素位置时。
+**使用场景：**通常一维数组，要寻找每一元素的右/左边第一个比自己大/小的元素位置时。
 
 **本质：**空间换时间
 
@@ -2186,7 +2215,19 @@ int[] nextGreaterElement(int[] nums) {
 
 [739. 每日温度](https://leetcode.cn/problems/daily-temperatures/)
 
-[剑指 Offer II 039. 直方图最大矩形面积](https://leetcode.cn/problems/0ynMMM/)——需要一点数学思维转换为单调栈问题
+<span style="color:blue">柱形问题：</span>
+
+[84. 柱状图中最大的矩形](https://leetcode.cn/problems/largest-rectangle-in-histogram)——数学思维转换为单调栈问题
+
+> **思考过程：**
+>
+> 求以每根柱子为顶的最大面积——h * (两侧延申至更矮柱)
+>
+> 要得每个元素左边第一个小于它的元素位置，单调递增栈。而让该元素弹出的位置即右边第一个小于它的。
+>
+> **Tips：**
+>
+> 数组前后末尾增加哨兵
 
 [剑指 Offer II 040. 矩阵中最大的矩形](https://leetcode.cn/problems/PLYXKQ/)——以每一行为基线转化成上一问题
 
@@ -2338,7 +2379,19 @@ def backtrack(路径, 选择列表):
 
 
 
-## 前缀和
+## To 数组区间
+
+**不同题目 方案的选择：**
+
++ <span style="color:blue">数组不变，求区间和：</span>「前缀和」、「树状数组」、「线段树」
++ <span style="color:blue">频繁修改某个数（单点），求区间和：</span>「树状数组」、「线段树」
++ <span style="color:blue">频繁修改某个区间，输出最终结果：</span>「差分」
++ <span style="color:blue">频繁修改某区间，求区间和：</span>「线段树」、「树状数组」（看修改区间范围大小）
++ <span style="color:blue">频繁将某个区间变成同一个数，求区间和：</span>「线段树」、「树状数组」（看修改区间范围大小）
+
+
+
+### 前缀和
 
 [剑指 Offer II 012. 左右两边子数组的和相等](https://leetcode.cn/problems/tvdfij/)——利用前缀和获取子数组和关系
 
@@ -2346,7 +2399,7 @@ def backtrack(路径, 选择列表):
 
 
 
-### 前缀和 + 哈希表
+#### 前缀和 + 哈希表
 
 **步骤：**
 
@@ -2402,7 +2455,7 @@ function subarraySum(nums: number[], k: number): number {
 
 
 
-### 前缀和数组
+#### 前缀和数组
 
 > **适用场景:**原始数组不会被修改的情况下，频繁查询某个区间的累加和
 
@@ -2418,11 +2471,7 @@ function subarraySum(nums: number[], k: number): number {
 
 
 
-### 离散化树状数组 ==...==
-
-
-
-## 差分数组
+### 差分数组
 
 > **适用场景:** 频繁对原始数组的某个区间的元素进行增减
 
@@ -2465,6 +2514,27 @@ function subarraySum(nums: number[], k: number): number {
 [1109. 航班预订统计](https://leetcode.cn/problems/corporate-flight-bookings/)——由参得出 diff 后反推出 nums
 
 [1094. 拼车](https://leetcode.cn/problems/car-pooling/)——由参得出 diff 后反推出 nums
+
+
+
+### 线段树
+
+> **选择用线段树：**代码很长，而且常数很大，实际表现不算很好。在不得不用的时候才考虑「线段树」。
+
+**Status:**
+
+```java
+//区间信息分别对应 左端点最大子段和 右端点最大子段和 最大子段和 区间和（不一定每题都需要这些字段
+public class Status { int lSum, rSum, mSum, iSum;}
+```
+
+**思路：**
+
+对每一个区间的检索分治为 [left, mid], (mid, right]。再通过分治返回的 `subL`, `subR` `Status` 得到当前区间的 `Status`
+
+
+
+[53. 最大子数组和](https://leetcode.cn/problems/maximum-subarray)
 
 
 

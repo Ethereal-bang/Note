@@ -246,8 +246,11 @@ long sum = (long) n1 + n2;	// 不能(long) (n1 + n2) 这样n1+2还是溢出
 **转换为列表：** Arrays.asList();
 
 ```java
+// Method_1:
 List<List<Integer>> res = new LinkedList<>();
 res.add(Arrays.asList(arr[0], arr[1]));
+// Method_2:
+Arrays.stream(arr).boxed().toList()
 ```
 
 **打印数组：**
@@ -333,48 +336,42 @@ Arrays.sort(arr, new Comparator<int[]>() {
 
 Collections.sort(collect)
 
-
-
-+ <span style="font-size:22px">ArrayList——数组队列：</span>
-
-    **适用场景：**频繁访问列表中元素；只需在列表末尾进行添加删除元素操作
-
-+ <span style="font-size:22px">LinkedList——链表：</span>
-
-    链表类似于 ArrayList，是一种常用的数据容器
-
-    **适用场景：**需要通过循环迭代访问列表中元素；频繁在列表开头、中间、末尾等位置添加删除元素操作
+Collections.reverse(list)
 
 
 
 #### List Interface
 
-有序列表
-
 ```java
 List<List<Integer>> list = new ArrayList<>();
 ```
 
-add(), get(), remove(), size()
+add(), get(), remove(), size(), set() 替换指定索引内值
 
 **转换为 Arrays:**
 
 ```java
 List<Integer> order = new LinkedList<>();
 return order.stream().mapToInt(i -> i).toArray();
+
+List<int[]> res = new LinkedList<>();
+return res.toArray(new int[res.size()][]);
 ```
 
-<span style="font-size:20px">ArrayList, LinkedList</span>
+<span style="font-size:20px">**LinkedList:**</span>
 
-set() 替换指定索引内值
++ LinkedList.getLast()
++ LinkedList.removeLast()
 
 
 
 #### Queue Interface
 
-isEmpty()
++ isEmpty()
 
-不抛异常：offer(), poll(), peek()
++ 不抛异常：offer(), poll(), peek()
+
++ addAll(Collection c)
 
 <span style="font-size:20px">Queue</span>
 
@@ -623,6 +620,7 @@ Integer i = new Integer(1);
 
 <span style="font-size:20px">Character: </span>
 
++ Character.isDigit()
 + Character.isLetterOrDigit()
 
 

@@ -310,6 +310,8 @@ every()——返回一个 boolean，判断每个元素是否符合 func 条件
 forEach()——没有返回值，只是针对每个元素调用 func
 reduce()——有返回值，重点是计算数组，返回一个值
 
+> Eg 计算数组和: `return nums.reduce((pre, cur) => pre + cur, 0)`
+
 sort()
 
 > 如果没有指定 compareFunction，转换成字符串排序。所以此时 80 会排在 9 前面
