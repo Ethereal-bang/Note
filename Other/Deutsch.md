@@ -176,10 +176,117 @@ x00: -hundert
 
 
 
-<span style="font-size:20px">日期:</span>
+<span style="font-size:20px">日期:</span> ZwÖlf 12
 
-![image-20221115105610345](http://img.giantbear.top/img/20221115105620.png)
+<img src="http://img.giantbear.top/img/20221115105620.png" alt="image-20221115105610345" style="zoom:43%;" />
 
-月份：
+月份：Oktober 十月
 
-![image-20221115105726841](http://img.giantbear.top/img/20221115105729.png)
+<img src="http://img.giantbear.top/img/20221115105729.png" alt="image-20221115105726841" style="zoom:43%;" />
+
+
+
+# 动词
+
+## 规则动词的现在时变位
+
+<span style="font-size:20px">人称代词:</span>
+
+| **人称**                  | machen                                     | lernen                                     | kommen                                   | tu<span style="color:orange">n</span>   |
+| ------------------------- | ------------------------------------------ | ------------------------------------------ | ---------------------------------------- | --------------------------------------- |
+| **ich**                   | mach<span style="color:orange">e</span>    | lern<span style="color:orange">e</span>    | komm<span style="color:orange">e</span>  | tu<span style="color:orange">e</span>   |
+| **du**  你                | mach<span style="color:orange">st  </span> | lern<span style="color:orange">st  </span> | komm<span style="color:orange">st</span> | tu<span style="color:orange">st</span>  |
+| **er/sie/es** 他她它      | mach<span style="color:orange">t</span>    | lern<span style="color:orange">t</span>    | komm<span style="color:orange">t</span>  | tu<span style="color:orange">t</span>   |
+| **wir**  我们             | <span style="color:orange">machen</span>   | <span style="color:orange">lernen</span>   | <span style="color:orange">kommen</span> | <span style="color:orange">tun  </span> |
+| **ihr**  你们             | mach<span style="color:orange">t</span>    | lern<span style="color:orange">t</span>    | komm<span style="color:orange">t</span>  | tu<span style="color:orange">t</span>   |
+| **sie** / **Sie** 他们 您 | <span style="color:orange">machen  </span> | <span style="color:orange">lernen</span>   | <span style="color:orange">kommen</span> | <span style="color:orange">tun </span>  |
+
+特殊变换：
+
++ 词干 **-t**, **-d**, **-ffn**, **-chn**, **-gn** 结尾：人称词尾 -st, -t 前加 <span style="color:orange">-e</span>
++ 词干 **-s**, **-ß**, **-x**, **-z** 结尾：du 只加 <span style="color:orange">-t</span>
+
+
+
+## 不规则动词
+
+| 人称          | sein (*be*) | haben (*have*) |
+| ------------- | ----------- | -------------- |
+| **ich**       | bin         | habe           |
+| **du**        | bist        | hast           |
+| **er/sie/es** | ist         | hat            |
+| **wir**       | sind        | haben          |
+| **ihr**       | seid        | habt           |
+| **sie/Sie**   | sind        | haben          |
+
+
+
+# 自我介绍
+
+**Eg:**
+
+Hello! Mein Name ist Karin.
+
+Ich bin 21 Jahre alt.
+
+Ich bin am 12.Oktober 2002 in Chongqing geboren.
+
+Mein Hobby ist Lesen. （我的爱好是阅读
+
+Ich komme aus China.
+
+Ich wohne in Chongqing.
+
+Ich bin Studenten. （我是学生
+
+
+
+**Name**
+
+Ich heiße *Hans*. 我叫
+
+Ich bin *Hans*.
+
+Mein Name ist *Hans*.
+
+
+
+**Alter** 年龄
+
+Ich bin Zwanzig (Jahre alt), geboren am ZwÖlf. Oktober. 我二十岁，10 月 12 日 出生。
+
+ZwÖlf. Oktober 十月十二
+
+
+
+**Land** 国家
+
+Ich komme aus *China*.
+
+
+
+**Wohnort** 居住地
+
+Ich wohne in *Chongqing*.
+
+
+
+**Hobby**
+
+Ich *singen* gern. （我爱
+
+Mein Hobby ist *Singen*.
+
+Meine Hobbys sind Singen und Schwimmen.
+
+
+
+**Sprachen** 语言
+
+Ich spreche ...
+
+
+
+**Beruf** 职业
+
+Ich bin *Studenten* von Beruf.
