@@ -68,6 +68,47 @@
 
 
 
+# Commit
+
+**git status:**
+
++ Changes to be committed——待提交
++ Changes not staged for commit——未加入暂存区的改动
++ Untracked files——未追踪文件
+
+## 暂存区
+
+**git add: **
+
+```shell
+$git add src/1.js src/2.js	# git add [file] [file]
+$git add .	# 添加所有文件
+```
+
+**撤销添加:**
+
+```shell
+git reset --mixed	# 所有退出暂存区 但修改保留
+```
+
+## Commit
+
+（Commitizen）
+
+```shell
+$git cz
+```
+
+
+
+# Push
+
+```shell
+$ git push -u origin <localBranch>:<remoteBranch> # -u即--set-upstream
+```
+
+
+
 # 恢复
 
 + <span style="font-size:20px">使用场景</span>
@@ -269,7 +310,7 @@ $ git pull origin main --alow-unrelated-histories
 
 
 
-# 分支管理
+# 分支
 
 ## 提交及使用分支
 
@@ -290,6 +331,14 @@ $ git pull origin main --alow-unrelated-histories
 2. `git rebase <目标分支>`
 
     取出一系列的提交记录并复制，创造更线性的提交历史
+
+
+
+## 删除
+
+```shell
+$ git branch -d dev-s	# -d表示仅当分支已完全合并到其上游分支中时才会删除该分支
+```
 
 
 
