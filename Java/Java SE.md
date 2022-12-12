@@ -137,7 +137,7 @@ StringBuffer res = new StringBuffer();
 
     sb.insert(1, 'test');
 
-    sb.delete(1, 3);
+    sb.deleteCharAt(0);
 
 + Eg：利用 StringBuilder 翻转 int 类型
 

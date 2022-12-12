@@ -144,7 +144,7 @@ while (cur) {
 
 [剑指 Offer II 022. 链表中环的入口节点](https://leetcode.cn/problems/c32eOV/)
 
-[287. 寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number/description/)==?==——需转换成成环问题
+[287. 寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number/description/)——需转换成成环问题
 
 **链表相交：**
 
