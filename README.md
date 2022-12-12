@@ -67,6 +67,8 @@
 
 + [Docker.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/Docker.md)
 
++ [i18n.md](https://github.com/Ethereal-bang/Note/blob/master/Front-end/Utils/i18n.md)
+
 ## Java
 + [Java SE.md](https://github.com/Ethereal-bang/Note/blob/master/Java/Java%20SE.md)
 
@@ -101,6 +103,8 @@
 
 ## Other
 + [Deutsch.md](https://github.com/Ethereal-bang/Note/blob/master/Other/Deutsch)
+
++ [LaTex.md](https://github.com/Ethereal-bang/Note/blob/master/Other/LaTex)
 
 ## C
 

@@ -51,6 +51,17 @@
 
 
 
+### 文本框
+
+```latex
+% 矩形 圆角 边框色 填充色
+\node[rectangle, rounded corners, draw=keywordBorderColor, fill=keywordcolor] (char) {\textcolor{black}{my text}}; % 字体颜色
+```
+
+
+
+
+
 ## 列表
 
 ```latex
@@ -71,6 +82,19 @@
 \RequirePackage{fontawesome}
 
 \faGithub\enspace\href{https://github.com/Ethereal-bang}{github.com/Ethereal-bang}
+```
+
+
+
+## Color
+
+```latex
+\usepackage{xcolor}
+% define color by rgb
+\definecolor{ultramarine}{RGB}{0,32,96}
+\definecolor{wrongultramarine}{rgb}{0.07, 0.04, 0.56}
+% use it
+\textcolor{ultramarine}{my text}
 ```
 
 
