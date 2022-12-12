@@ -84,7 +84,14 @@ HTTP1.X 版本的缺陷概括来说是：线程阻塞，在同一时间，同一
 
 # HTTP 无状态
 
-> Cookie，Session，JWT，Token针对HTTP无状态的解决方法，用来保存一些状态。例如保存登录状态，在一段时间内可以自动登录。本质上是在浏览器中存一个小文件，同一域名下发送请求都会自带Cookie，服务器可以通过`Set-Cookie`来进行设置
+> Cookie，Session，JWT，Token 针对 HTTP 无状态的解决方法，用来保存一些状态。例如保存登录状态，在一段时间内可以自动登录。本质上是在浏览器中存一个小文件，同一域名下发送请求都会自带Cookie，服务器可以通过`Set-Cookie`来进行设置
+
+**常见默认端口号：**
+
++ Tomcat——8080
++ mysql——3306
++ http——80
++ https——443
 
 ## Cookie
 
@@ -130,14 +137,6 @@ HTTP1.X 版本的缺陷概括来说是：线程阻塞，在同一时间，同一
         }
     })
     ```
-
-
-
-+ **常见默认端口号：**
-    + Tomcat——8080
-    + mysql——3306
-    + http——80
-    + https——443
 
 
 
@@ -238,6 +237,24 @@ JWT——JSON Web Token，代替传统 session 认证的解决方案
         ```
 
         > `req.user`实际就是上一步设置的 Token 的 payload 部分
+
+
+
+### 前端
+
+1. 从相应内容**获取 token**
+
+2. 对 **token 解码**（选用 `jwt-decode` 插件）：
+
+    ```shell
+    yarn add jwt-decode
+    ```
+
+    ```js
+    import jwt_decode from "jwt-decode";
+    const token = jwt_decode(jwt); // 即后端传递的payload
+    console.log(token.user)
+    ```
 
 
 
