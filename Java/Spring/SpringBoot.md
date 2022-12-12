@@ -550,7 +550,25 @@ public String upload(MultipartFile multipartFile) {
 
 
 
-## 基于 QQ 邮箱的小体量认证
+## 登录认证
+
+### JWT 单点登录
+
+1. **引入 JWT 依赖**：
+
+    ```xml
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    ```
+
+2. 编写 **Token 工具类**
+
+    
+
+### 基于 QQ 邮箱的小体量认证
 
 > 电子邮件的在网络中传输和网页一样需要遵从特定的协议，常用的电子邮件协议包括 SMTP，POP3，IMAP。其中邮件的创建和发送只需要用到 SMTP[^1] 协议
 
@@ -615,6 +633,12 @@ public String upload(MultipartFile multipartFile) {
       }
       return -1;
     ```
+
+
+
+## 集成 Redis
+
+见 `Redis.md`
 
 
 
