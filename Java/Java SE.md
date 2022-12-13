@@ -106,8 +106,13 @@ public class Hello {
 不可改变的类型，因此修改的方法都返回一个新字符串
 
 + length()
+
 + charAt(`index`):——取某位字符
+
 + String.valueOf()——返回其他类型的字符串表示形式
+
+    > **char[] -> String:** `String.valueOf(chars)`
+
 + String.substring()
 
 
@@ -173,6 +178,16 @@ String c = x + y;	// a, c不指向同一
 + 相等：
     + 依次比较直到字符不同
     + 字符一样——返回长度差值
+
+
+
+### char
+
+**char -> int:** `(int) 'a'`
+
+**int -> char:** `(char) 97 == 'a'`
+
+**HigherCase -> LowerCase:** `'A' + 32 == 'a'`
 
 
 
