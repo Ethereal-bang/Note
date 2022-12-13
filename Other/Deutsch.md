@@ -279,6 +279,8 @@ Mein Hobby ist *Singen*.
 
 Meine Hobbys sind Singen und Schwimmen.
 
+Zocken （玩游戏
+
 
 
 **Sprachen** 语言
