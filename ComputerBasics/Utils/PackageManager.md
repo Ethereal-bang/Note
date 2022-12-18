@@ -33,7 +33,10 @@
     ```shell
     $npm root -g
     ```
-+ npm5 之后的版本除了把包下载到 `node_modules/` 中还会修改 package.json。
+    
++ npm5 之后的版本默认带 -S
+
+
 
 # Yarn
 

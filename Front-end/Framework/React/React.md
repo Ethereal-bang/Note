@@ -16,24 +16,55 @@
 
 + 使用 jsx 语法需把`script`标签的`type`属性设置为`text/babel`
 
-## React 脚手架
-
-React 提供了一个用于创建 react 项目的脚手架库：create-react-app
-
-项目的整体技术架构为：react + webpack + es6 +eslint ...
 
 
+## Create React App
 
-### React 脚手架创建
+```shell
+npm i create-react-app # 官方建议不全局安装以此获取最新版本
 
-1. `npm i create-react-app`。（官方建议不全局安装以此获取最新版本）
+npx create-react-app myapp
+```
 
-2. `create-react-app my-appn start`
+<span style='font-size:20px'>TypeScript 配置</span>
+
+第二步改为 `npx create-react-app my-app --template typescript`
 
 
-+ <span style='font-size:20px'>TypeScript 配置</span>
 
-    第二步改为 `npx create-react-app my-app --template typescript`
+### craco
+
+> 对 cra 自定义配置
+
+1. `@craco/craco`
+
+2. `craco.config.ts`:
+
+    ```js
+    module.exports = {
+    		webpack: {
+          
+        },
+      	plugins: [
+        
+        ],
+        babel: {
+        
+        }
+    };
+    ```
+
+3. 修改 `package.json` 中的 `scripts`:
+
+    ```json
+    {
+      "scripts":{
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test"
+      }
+    }
+    ```
 
 
 
@@ -693,19 +724,18 @@ ReactDOM.render(<Login/>, document.getElementById('root'))
 
 ## Context
 
-Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法
-
 一般方法：<img src="https://i.loli.net/2021/05/28/z85k9BhIj2iArnu.png" alt="image-20210528204522678" style="zoom:50%;" />
 
 Context：<img src="https://i.loli.net/2021/05/28/NZePigDjxUQkra8.png" alt="image-20210528204602287" style="zoom:53%;" />
 
-**何时使用：**
-
-Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据。常见的使用场景是 theme。
+> **何时使用：**
+>
+> Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据。常见的使用场景是 theme。
 
 **Provider：**
 
-+ createContext 创建一个 Context 对象
++ **createContext(defaultValue)** 创建一个 Context 对象
++ **Context.Provider** 返回一个 Provider React 组件，`value prop` 传递给内层组件
 
 ```jsx
 const ThemeContext = createContext("light");
@@ -727,8 +757,6 @@ const GrandSon = () => {
     </>
 }
 ```
-
-
 
 
 
@@ -859,29 +887,6 @@ $yarn add node-sass
 
 
 # React Hooks
-
-+ <span style="font-size:20px">Why hooks</span>
-
-    现在，**React API 有两套**：类（*class*）API 和基于函数的钩子（*hooks*）API。
-
-    > 相比类，钩子更简洁，代码量少。而且钩子是函数，更符合 React 函数式的本质。
-    >
-    
-
-    
-+ **类和函数的差异**：
-  
-    类是数据和逻辑的封装，即组件的状态和操作方法是封装在一起的
-    
-    函数一般来说只应做一件事，就是返回一个值。数据的状态应该与操作方法分离。所以React 的函数组件只应做一件事，返回组件的 HTML 代码
-    
-    
-    
-+ **副效应**
-  
-    纯函数内部只能通过间接的手段（*即通过其他函数调用*）才能包含副效应
-
-
 
 ## useEffect())
 
@@ -1090,434 +1095,24 @@ const refContainer = useRef(initVal);
 
 ## useCallback
 
-传入 useCallback 返回该回调函数的 memoized 版本——仅在某个依赖项改变时才会更新
+**缓存函数：** 传入 useCallback 返回该回调函数的 memoized 版本——仅在某个依赖项改变时才会更新
+
+```jsx
+const memoizedCallback = useCallback( // return一个memoized回调函数
+  () => {
+    doSomething(a, b);
+  },
+  [a, b],
+);
+```
 
 **用途：**避免非必要渲染
 
 
 
-# Redux
+## useMemo
 
-**Redux 原理：**
-
-应用中所有的 <span style="color:red">state</span> 都以一个对象树的形式储存在一个单一的 <span style="color:red">store</span> 中。 惟一改变 state 的办法是触发 <span style="color:red">action</span>，一个描述发生什么的对象。 为了描述 action 如何改变 state 树，你需要编写 <span style="color:red">reducers</span>。
-
-![image-20210719161201719](https://camo.githubusercontent.com/c754e2b863804c2bc08ad8b500ce3a2e101c43bf8259d19e86e3ebf5479d9c88/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30372f32302f6f494a457141363352354d465156742e706e67)
-
-**配置：**
-
-```shell
-$yarn add react-redux
-```
-
-
-
-## Reducer
-
-Reducer——store 处理数据的方法
-
-+ **Reducer 的基本框架：**
-
-    ```js
-    (state, action) => {
-    	return state	// 应该返回新的状态，在这里暂时用就状态代替
-    }
-    ```
-
-    > **参数 state 和 action：**
-    >
-    > state 是 store 中的旧数据，而 action 是指挥 reducer 函数作数据变换的指令
-
-```typescript
-// 1.定义state接口
-interface CntState {	
-    cnt: number;
-    clickState: "low" | "high";
-}
-// 2.初始化默认state
-const defaultState: CntState = {	
-    cnt: 0,
-  	clickState: "low",
-}
-// 3.导出reducer
-const cntReducer = (state = defaultState, action) => {
-    return state;
-} 
-export default cntReducer;
-```
-
->  reducer 还是 action 都是**纯函数**，所以文件输出的最终结果就是一个函数，可以使用匿名函数的形式
-
-## Action
-
-```typescript
-export const CHANGE_CNT = "change_cnt";
-
-interface ChangeCntAction {
-    type: typeof CHANGE_CNT;
-    payload: number;
-}
-
-export const changeCntActionCreator = (num: number) : ChangeCntAction => {
-    return {
-        type: CHANGE_CNT,
-        payload: num,
-    }
-}
-```
-
-
-
-## Redux + **Redux-Toolkit**
-
-```shell
-$npm i @reduxjs/toolkit
-```
-
-### Slice
-
-使用 RTK 后自动包含 reducer 和 action 的映射关系，不再需要分别创建对应的 reducer 和 action 了
-
-```tsx
-interface CounterState {
-    cnt: number;
-    clickState: "low" | "high";
-}
-const initialState: CounterState = {
-    cnt: 0,
-    clickState: "low",
-}
-
-export const counterSlice = createSlice({
-    name: "counterSlice",
-    initialState,
-    reducers: {
-        addCnt: (state, action:PayloadAction<number>) => {
-            state.cnt += action.payload;
-        },
-        changeClickState: (state) => {
-            state.clickState = (state.clickState === "low") ? "high" : "low";
-        },
-    }
-})
-```
-
-> **action 的类型：**
->
-> RTK 已经定义好了 action 的类型`payload: any; type: string;`，如果需要自定义 action 类型可以使用`PayloadAction`
-
-### Store
-
-1. <span style="font-size:22px">创建 Store：</span>
-
-    ```ts
-    // /redux/store.ts
-    import {applyMiddleware, combineReducers} from "@reduxjs/toolkit";
-    
-    const rootReducer = combineReducers({
-        counter: counterSlice.reducer,
-    })
-    
-    const store = createStore(rootReducer);
-    
-    export default store;
-    ```
-+ <span style="font-size:22px">Middleware：</span>
-
-    以 log 功能为例——每次 state 改变打印 state：
-
-    ```typescript
-    // redux/middlewares/actionLog.ts
-    import {Middleware} from "@reduxjs/toolkit";
-    
-    export const actionLog : Middleware = (store) => {
-        return (next) => {
-            return (action) => {
-                console.log("state 当前：", store.getState());
-                next(action);
-                console.log("state 更新", store.getState());
-            }
-        }
-    }
-    ```
-
-    创建 store 时加入 middleware：
-
-    ```typescript
-    import {actionLog} from "./middlewares/actionLog";
-    import thunk from "redux-thunk";
-    
-    const store = createStore(rootReducer, applyMiddleware(thunk, actionLog));
-    ```
-
-2. <span style="font-size:22px">组件与 Store 的连接：</span>
-
-    1. **Provider 组件**包裹根组件，并传入 Store：`Provider`组件创建了一个 react-redux 上下文
-
-        ```tsx
-        function App() {
-            return (
-                <Provider store={store}>
-                    <Hello />
-                    <Counter />
-                </Provider>
-            );
-        }
-        ```
-        
-        > We recommend using the React-Redux hooks API as the default approach in your React components.
-        >
-        > The existing `connect` API still works and will continue to be supported, but the hooks API is simpler and works better with TypeScript.
-        
-    
-3. <span style="font-size:22px">访问组件:</span>
-
-    **useSelector()**——获得相应字段
-
-    ```tsx
-    export default function Counter() {
-      const cnt = useSelector(state => state.counter.cnt);
-      const clickState = useSelector(state => state.counter.clickState);
-    
-      return (
-        <div>
-          <p>Clicked {cnt} times.</p>
-          <p>It`s {clickState} state.</p>
-        </div>
-      )
-    }
-    ```
-
-    > **让 state 拥有智能联想：**
-    >
-    > ```typescript
-    > // redux/store.ts
-    > export type RootState = ReturnType<typeof store.getState>;
-    > ```
-    >
-    > ```ts
-    > // redux/hooks.ts
-    > import {
-    >     TypedUseSelectorHook,
-    >     useSelector as useReduxSelector,
-    > } from "react-redux";
-    > import {RootState} from "./store";
-    > 
-    > export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
-    > ```
-    >
-    > 然后引用 useSelector 时从上述文件引用。
-
-4. <span style="font-size:22px">Dispatch action：</span>
-
-    ```tsx
-    <button onClick={() => {
-        dispatch(counterSlice.actions.addCnt(2))
-    }}>
-      Click me!
-    </button>
-    ```
-
-
-
-# Router
-
-**React-router-dom：**
-
-用于浏览器，处理 Web App 的路由。会自动安装 React-router 核心框架
-
-- 使用`<Link />`组件可以渲染出`<a />`标签
-- `<BrowserRouter />`组件利用 H5 API 实现路由切换
-- `<HashRouter />`组件利用原生 JS 中`window.location.hash`实现路由切换
-
-> 其余扩展性框架：
->
-> - React-router-redux 提供路由中间件，处理 redux 的集成
-> - React-router-config 用来配置静态路由
-
-**BrowserRouter vs HashRouter:**
-
-BrowserRouter 使用 history api。意味着服务端需要支持返回每一路径对应的页面——服务端渲染
-
-HashRouter 使用 /# 拼接路径，利用锚点实现路由跳转
-
-
-
-## 路由配置
-
-<span style="font-size:20px">初始化: </span>
-
-```tsx
-function App() {
-    return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/show" element={<ShowPage />} />
-                    <Route path="*" element={<h1>404</h1>} />
-                </Routes>
-            </BrowserRouter>
-        </Provider>
-    );
-}
-```
-
-> **Notes:**
->
-> + BrowserRouter / HashRouter 内还要包裹一层 Routes 组件
->
-> + 没有 exact 属性，现在默认精准匹配路径
->
-> + Route 顺序在一下情况起作用：
->
->     ```jsx
->     <Route path={"/"} element={<h1>默认</h1>} />
->     <Route path={"*"} element={<h1>404</h1>} />
->     ```
-
-<span style="font-size:20px">子路由配置: </span>
-
-依旧用 Routes 组件包裹：
-
-```jsx
-<Routes>
-	<Route path="manage" element={<Manage />} />
-</Routes>
-```
-
-> 因为这里是 /home 的子路由，path 不需要写 /manage
-
-
-
-## 路由跳转
-
-+ 组件：
-
-    ```tsx
-    const ShowPage = () => {
-        return (
-            <>
-                <ShowCnt />
-                <Link to={"/"}>回到首页</Link>
-            </>
-        )
-    }
-    ```
-    
-+ JS：
-
-    ```js
-    import { useNavigate } from "react-router-dom";
-    
-    const navigate = useNavigate();
-    navigate("/path", {	// 路径不是相对于当前
-      replace: false,	// 默认false，true则不能回退
-    	state: { name: 'x' }	// 路由传参
-    })
-    navigate(-1);	// 回退，数字代表回退层数    
-    ```
-
-+ 重定向
-
-    ```jsx
-    <Route path='/' element={<Navigate to={"/home"} replace /> }/>
-    ```
-
-
-
-## 路由参数传递
-
-+ **路由匹配：**
-
-    ```tsx
-    {/* App.tsx */}
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/show" element={<ShowPage />}>
-          <Route path=":showId" element={<ShowPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    
-    // ShowPage.tsx
-    const ShowPage = () => {
-        const params = useParams();
-        return (
-            <>
-                <h2>{params.showId}</h2>
-                <Link to={"/"}>回到首页</Link>
-            </>
-        )
-    }
-    ```
-
-    > 效果：
-    >
-    > URL 为 "/show" 时不显示`<h2>`内容，为 "/show/2" 时显示出 2.
-
-+ 获取路由参数：
-
-    ```tsx
-    import {useLocation} from "react-router-dom";
-    
-    const location = useLocation();
-    ```
-
-    > 获取到的 location 有如下字段：`pathname`、`search`、`state`。
-
-
-
-## 获取路由
-
-**组件内监听路由：**
-
-```jsx
-const location = useLocation();
-// 监听路由
-useEffect(() => {
-  console.log(location.pathname)
-}, [location.pathname])
-```
-
-
-
-## 子路由渲染 \<Outlet />
-
-引入 Outlet 组件占位功能，更方便地配置路由结构
-
-Eg——二级路由，一级路由无内容：
-
-```jsx
-<Route path="manage" element={<Outlet/>}>
-  <Route path={"station"} element={<Station/>} />
-  <Route path={"director"} element={<Director/>} />
-</Route>
-```
-
-> 效果：'/manage'——空白页；'/manage/station' 显示对应组件
-
-
-
-## 路由鉴权 Auth
-
-```jsx
-// /componenets/auth/Auth.jsx
-export default function Auth(props) {
-    // 已登录
-    if (idGetter()) {
-        return <>{props.children}</>
-    }
-    // 未登录-重定向到login
-    else {
-        return <Navigate to={"/login"} replace />
-    }
-}
-
-// App.js
-<Route path={"/"} element={<Auth><Home /></Auth>} />
-```
+**缓存数据**
 
 
 
