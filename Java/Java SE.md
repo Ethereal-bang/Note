@@ -351,7 +351,7 @@ Arrays.sort(arr, new Comparator<int[]>() {
 
 Collections.sort(collect)
 
-Collections.reverse(list)
+Collections.reverse(list) （返回 void
 
 
 
