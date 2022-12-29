@@ -223,24 +223,6 @@ x00: -hundert
 
 # 自我介绍
 
-**Eg:**
-
-Hello! Mein Name ist Karin.
-
-Ich bin 21 Jahre alt.
-
-Ich bin am 12.Oktober 2002 in Chongqing geboren.
-
-Mein Hobby ist Lesen. （我的爱好是阅读
-
-Ich komme aus China.
-
-Ich wohne in Chongqing.
-
-Ich bin Studenten. （我是学生
-
-
-
 **Name**
 
 Ich heiße *Hans*. 我叫
@@ -292,3 +274,90 @@ Ich spreche ...
 **Beruf** 职业
 
 Ich bin *Studenten* von Beruf.
+
+
+
+## 介绍
+
+Hallo! Guten Tag.
+
+Ich heiße Shen ruofeng. 
+
+Ich komme aus China und wohne in Chongqing.
+
+> China: [xi] na; und: ng-d; wohne: wo ne
+
+Ich bin Zwanzig Jahre alt, geboren am ZwÖlf. Oktober.（我二十岁，10 月 12 日 出生
+
+> Zwanzig: ci; Jahre: ya hai; geboren: ge bo hen; Oktober: -ba
+
+Mein Muttersprache ist Chinesisch und Ich lerne gerade Deutsch.（母语 & 正在学习德语
+
+> Muttersprache: (mu ter xi pa he); Deutsch: (da-yi qi)
+
+Ich bin Studentin. （我是学生
+
+> Studentin: sdu den tin
+
+Meine Hobbys sind lesen und schwimmen. （我的爱好是阅读和游泳
+
+> Lesen: li sen
+
+Das wars.
+
+
+
+> name
+>
+> komme, wohne
+>
+> Zwanzig, genboren am Zwolf Oktober
+>
+> Muttersprache, Chinesisch, lerne gerade
+>
+> Studentin
+>
+> Hobbys, lesen
+
+## 问答
+
+**电话：**
+
+Meine Telefonnummer / Handynummber ist 
+
++ 1: eins
++ 5: fünf (fu-n f)
++ 0: null
++ 8: acht
++ 6: sechs: (se x)
++ 7: sieben
++ 9: neun
+
+**Familienname**
+
+Meine Familienname is
+
++ s: s
++ h: ha
++ e: ei
++ n: en
+
+**Email-Adresse** (e mei r)
+
+9: neun
+
+3: drei (d hai)
+
+8: acht
+
+4: vier (fi er)
+
+7: sieben
+
+5: fünf
+
+Q: ku
+
+
+
+**Dank**（谢谢
