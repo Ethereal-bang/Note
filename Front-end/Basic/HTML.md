@@ -19,11 +19,9 @@
 
 
 
-+ **结构语义化：**
+**结构语义化**
 
-    下图是一个典型的页面结构：
 
-    ![image-20220312154440690](https://gitee.com/ethereal-bang/images/raw/master/20220312154536.png)
 
 
 

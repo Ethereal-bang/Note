@@ -1207,6 +1207,31 @@ for (let i = 0; i < len; ++i) {	// 从[0,len)依次填充
 
 
 
+## 摩尔投票
+
+**对拼消耗原理**用 O(1) 空间复杂度得出众数
+
+<span style="color:blue">Eg——[169.多数元素](https://leetcode.cn/problems/majority-element)找出 nums 中出现次数最多元素:</span>
+
+```java
+public int majorityElement(int[] nums) {
+  int candidate = nums[0];
+  int cnt = 0;
+  for (int n : nums) {
+    // 若当前candidate票数为0，它来竞选
+    if (cnt == 0) {
+      candidate = n;
+    }
+    cnt += candidate == n ? 1 : -1; // 投票机制-相同则计票
+  }
+  return candidate;
+}
+```
+
+[229. 多数元素 II](https://leetcode.cn/problems/majority-element-ii)——三个不同元素相抵消
+
+
+
 ## 唯一分解定理
 
 又称算术基本定理

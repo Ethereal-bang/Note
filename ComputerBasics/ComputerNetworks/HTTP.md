@@ -10,14 +10,6 @@ HTTP 定义了浏览器如何向万维网服务器请求 www 文档，以及服�
 
 
 
-+ <span style="font-size:22px">请求流程：</span>
-    1. 浏览器发起 TCP 连接
-    2. 浏览器向万维网服务器发起浏览某页面请求
-    3. 服务器返回所请求页面作为响应
-    4. TCP 连接释放
-
-
-
 ## HTTP1.1
 
 + <span style="font-size:22px">长连接：</span>
@@ -47,14 +39,13 @@ HTTP1.X 版本的缺陷概括来说是：线程阻塞，在同一时间，同一
 2. 请求头 header——使用 key-value 形式更详细的说明报文：
 
     + HOST——指明主机域名 + 端口号
-    + Connection——告诉服务器是否使用持续连接
+    + Connection——Keep-Alive 告诉服务器是否使用持续连接
     + Content-Type——`application/json`、...
     + ...
 
-3. 请求体 body(*通常不用* )
+3. 请求体 body（消息正文）
 
 <hr>
-
 **响应报文：**
 
 + 响应行
@@ -65,20 +56,21 @@ HTTP1.X 版本的缺陷概括来说是：线程阻塞，在同一时间，同一
 
 + 响应头
     + Content-Type
-    + ...
+    + Server
+    + ..
 + 响应体
 
 
 
 + <span style="font-size:22px">状态码:</span>
 
-    | 状态码 | 说明       |
-    | ------ | ---------- |
-    | 1xx    | 一般       |
-    | 2xx    | 成功响应   |
-    | 3xx    | 重定向     |
-    | 400    | 客户端错误 |
-    | 5xx    | 服务端错误 |
+    | 状态码 | 说明                |
+    | ------ | ------------------- |
+    | 1xx    | 正在处理            |
+    | 2xx    | 成功 处理完毕       |
+    | 3xx    | 重定向              |
+    | 400    | 客户端错误 无法处理 |
+    | 5xx    | 服务端错误 处理出错 |
 
 
 
@@ -258,27 +250,9 @@ JWT——JSON Web Token，代替传统 session 认证的解决方案
 
 
 
-# 跨域
+# CORS
 
-+ <span style="font-size:22px">源：</span>
-
-    + **源 = 协议 + 域名 + 端口号**
-
-    + 两个 url 的协议、域名、端口号完全一致，那么这两个 url 就是同源的
-
-    + `window.origin`或`location.origin`得到当前源：
-
-        ![image-20220303191239857](https://gitee.com/ethereal-bang/images/raw/master/20220303191246.png)
-
-        ![image-20220303191411990](https://gitee.com/ethereal-bang/images/raw/master/20220303191412.png)
-
-    + **同源策略：**不同源之间的页面，不准互相访问数据
-
-+ <span style="font-size:22px">跨域：</span>
-
-    由于同源策略的限制，发出的请求服务端收到后的响应被浏览器拦截
-
-    解决方式：后端设置 Header 中 "Access-Control-Allow-Origin" 字段，`"*"`表示接受来自所有源的访问。
+Access-Control-Allow-Origin
 
 
 

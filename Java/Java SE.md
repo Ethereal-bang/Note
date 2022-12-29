@@ -201,6 +201,8 @@ String c = x + y;	// a, c不指向同一
 
 <span style="font-size:20px">long:</span>
 
+**赋值：** `long n = 1L;`
+
 对于大数相加溢出 int 8 位情况：
 
 ```java
@@ -358,7 +360,7 @@ Collections.reverse(list) （返回 void
 #### List Interface
 
 ```java
-List<List<Integer>> list = new ArrayList<>();
+List<Integer> list2 = new ArrayList<>(list1);	// 有时用于深拷贝
 ```
 
 add(), get(), remove(), size(), set() 替换指定索引内值
@@ -624,6 +626,7 @@ Integer i = new Integer(1);
     | ---- | --------- |
     | int  | Integer   |
     | char | Character |
+    | long | Long      |
 
 + **Type argument cannot be of primitive type**——类型参数不能是原始类型：见[Why don't Java Generics support primitive types? - Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types)
 

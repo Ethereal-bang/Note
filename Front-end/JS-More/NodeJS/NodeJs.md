@@ -163,39 +163,17 @@ fs.stat("./2.json")
 1. 创建服务器：服务器可以监听客户端的请求
 2. 接收请求与响应请求：客户端可以使用浏览器或终端发送 HTTP 请求，服务器接收请求后返回响应数据
 
-+ **.createServer() 创建服务器：**
++ **.createServer() 返回 server 对象：**
 
     ```js
     http.createServer(function (request, response) {
-    
-        // 发送 HTTP 头部 
-        // HTTP 状态值: 200 : OK
-        // 内容类型: text/plain
         response.writeHead(200, {'Content-Type': 'text/plain'});
-    
-        // 发送响应数据 "Hello World"
         response.end('Hello World\n');
-    }).listen(8888);
-    
-    // 终端打印如下信息
-    console.log('Server running at http://127.0.0.1:8888/');
+    })
+      .listen(8888);
     ```
 
-### 实现后端
 
-+ 服务端（==接口应该也是这样实现的吧？==：
-
-    服务端写好并运行后，浏览器里访问对应网址服务端会作出反应。
-
-    ![image-20220123150432201](https://gitee.com/ethereal-bang/images/raw/master/20220123150439.png)
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220123150800.png" alt="image-20220123150800534" style="zoom:53%;" />
-
-+ 客户端：
-
-    客户端是向服务端发送请求
-
-    
 
 ## buffer——缓冲区
 

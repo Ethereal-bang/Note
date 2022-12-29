@@ -1,5 +1,3 @@
-# Express
-
 Express 是最流行的 Node 框架，是许多其他流行 Node 框架的底层库
 
 Express 是一个功能极简，完全是路由和中间件构成的 Web 开发框架，从本质上来说，一个 express 应用就是在调用各种中间件
@@ -23,33 +21,20 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
 只有重启服务器才能看到 Express 网站所做的改动。 nodemon 是最简便的自动化工具之一。
 
-+ <span style="font-size:22px">安装</span>
-    + 全局安装——可以在命令行直接使用
+<span style="font-size:22px">使用</span>
 
-        ```shell
-        $ sudo npm install -g nodemon
-        ```
++ 命令行启动
 
-    + 添加到开发依赖——使用这个项目的开发人员只要安装这个应用就能自动获得
++ NPM 脚本中调用：
 
-        ```shell
-        $ npm install --save-dev nodemon
-        ```
+    package.json 的 `scripts` 部分添加如下：
 
-+ <span style="font-size:22px">使用</span>
-
-    + 命令行启动
-
-    + NPM 脚本中调用：
-
-        package.json 的 `scripts` 部分添加如下：
-
-        ```json
-        "scripts": {
-          "start": "node ./bin/www",
-          "devstart": "nodemon ./bin/www"
-        },
-        ```
+    ```json
+    "scripts": {
+      "start": "node ./bin/www",
+      "devstart": "nodemon ./bin/www"
+    },
+    ```
 
 
 
@@ -376,16 +361,25 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
 
 
+# 零、新建项目
+
+```shell
+npm i -g express express-generator
+
+express project
+```
+
+
+
 # 一、创建站点框架
 
 + <span style="font-size:20px">项目构成：</span>
 
-    <img src="https://mdn.mozillademos.org/files/16453/Express_MVC.png" alt="Express HTTP 请求/响应 路径" style="zoom:50%;" />
-
     + **路由：**把需要支持的请求（以及请求 URL 中包含的任何信息）转发到适当的控制器函数。
-    + **Controller:** 是实际的请求处理函数，与路由请求代码是分开的。
++ **Controller:** 是实际的请求处理函数，与路由请求代码是分开的。
+    
     + **视图：**供控制器用来渲染数据。
-
+    
 + <span style="font-size:20px">视图引擎 view</span>
 
     Express 应用生成器支持多款流行的视图/模板引擎，包括 [EJS](https://www.npmjs.com/package/ejs)、[Hbs](http://github.com/donpark/hbs)、[Pug](https://pugjs.org/api/getting-started.html) (Jade)、[Twig](https://www.npmjs.com/package/twig) 和 [Vash](https://www.npmjs.com/package/vash)，缺省选项是 Jade
@@ -400,23 +394,9 @@ Express 是一个功能极简，完全是路由和中间件构成的 Web 开发�
 
     Express 应用可以使用 Node 支持的所有 [数据库](https://expressjs.com/en/guide/database-integration.html)，Express 本身不提供数据库管理机制
 
-1. **WebStorm 直接选择新建 Express 项目**
 
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220121142835.png" alt="image-20220121142835129" style="zoom:43%;" />
 
-2. **运行骨架网站：**
-
-    ```
-    npm start
-    ```
-
-    进入`http://localhost:3000/`，终端显示：![image-20220121143846464](https://gitee.com/ethereal-bang/images/raw/master/20220121143846.png)
-
-3. **自动化更新服务器：**
-
-    找到 package.json 的 `scripts` 部分。在 `"start"` 添加 `"devstart"`，用`devstart`启动
-
-    现在，如果编辑项目中的任何文件，服务器将自动重启（或随时使用 rs 命令来重启）。查看更新后的页面需要刷新浏览器。
+3. **nodemon 自动化更新服务器**
 
 4. **添加新路由：**
 
@@ -492,22 +472,18 @@ db.on('error', console.error.bind(console, "MongoDB 连接错误："));
     const express = require('express');
     const router = express.Router();
     
-    // 主页路由
     router.get('/', (req, res) => {
       res.send('catalog 主页');
-    })
-    router.get('/about', (req, res) => {
-      res.send('关于');
     })
     
     module.exports = router;
     ```
-
+    
     这里的路由处理回调直接定义在了路由函数中，回调最好定义在单独的控制器模块 controller
-
+    
     > **[响应方法](https://expressjs.com/en/guide/routing.html#response-methods)：**
-    >
-    > 除了`res.send()`，可调用 `res.json()` 来发送 JSON 响应，或调用 `res.sendFile()` 来发送文件。常使用的响应方法是 `render()`——使用模板和数据创建并返回 HTML 文件
+>
+    > 除了`res.send()`，可调用 `res.json()` 来发送 JSON 响应，或调用 `res.sendFile()` 来发送文件， `render()`——使用模板和数据创建并返回 HTML 文件
 
 2. <span style="font-size:20px">主应用中使用该路由模块:</span>
 
@@ -663,139 +639,6 @@ db.on('error', console.error.bind(console, "MongoDB 连接错误："));
     ```
 
 
-
-# 五、==使用表单?== 
-
-## [express-validator](https://www.npmjs.com/package/express-validator)——表单数据的验证和消毒
-
-+ **验证和消毒:**
-
-    在储存表单中的数据之前，必须对其进行验证和消毒：
-
-    验证检查输入的值，适用于每个字段（范围，格式等），并且已为所有必填字段提供了值。
-
-    清理删除/替换数据中的字符，可能用于将恶意内容发送到服务器。
-
-+ 控制器中使用验证器，**从 "express-validator" 导入函数：**
-
-### 验证
-
-`body(fields[, message])`——验证`fields`字段，验证失败显示`message`：
-
-```js
-body('family_name')
-  .isLength({min: 1}).trim().withMessage('必须指定姓氏。')
-  .isAlphanumeric().withMessage('姓氏包含非字母数字字符。'),
-body('date_of_birth', '无效生辰日期').optional({checkFalsy: true}).isISO8601(),
-```
-
-+ 提供特定错误消息——菊花链式连接验证器，`.withMessage()`。
-+ 验证可选字段——`optional()`函数，仅在输入字段时运行后续验证
-
-### 消毒——无害化处理
-
-`sanitizeBody(fileds)`
-
-```js
-sanitizeBody('*').trim().escape(),	// 修剪、转义
-sanitizeBody('genre.*').escape(),
-```
-
-+ `*`通配符，一次性处理所有字段
-
-## 1.路由
-
-为了实现表单处理代码，需要 2 个具有相同 URL 模式的路由。
-
-1. GET 路由——显示创建对象的新空表单
-2. POST 路由——验证用户输入的数据，保存信息，重定向详细信息页面 或 重新显示有错的表单
-
-```js
-// GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
-router.get('/genre/create', genre_controller.genre_create_get);
-
-// POST request for creating Genre.
-router.post('/genre/create', genre_controller.genre_create_post);
-```
-
-## 2.控制器
-
-GET 路由——显示创建对象的新空表单：
-
-```js
-exports.genre_create_get = function(req, res, next) {
-    res.render('genre_form', { title: 'Create Genre' });
-};
-```
-
-<hr>
-
-POST 路由——处理创建操作：验证用户输入的数据，保存信息，重定向详细信息页面 或 重新显示有错的表单：
-
-```js
-exports.genre_create_post = [   // 指定一组中间件函数。数组传递给路由器函数，并按顺序调用每个方法。（注意每个方法间有,
-]
-```
-
-1. **运行验证器**——执行验证之前调用`trim()`，以删除任何尾随/前导空格：
-
-    ```js
-    // 验证器body——检查name字段是否为空
-    body('name', 'Genre name required').isLength({ min: 1 }).trim(),
-    ```
-
-2. **创建清理程序**——调用`trim()`修剪名称字段和调用`escape()`转义任何危险的 HTML 字符：
-
-    ```js
-    sanitizeBody("name").trim().escape(),
-    ```
-
-    > 验证期间运行的清洁器不会修改请求。所以必须在上面的两个步骤中调用`trim()`。
-
-3. **创建中间件函数检查错误**——来提取任何验证错误：
-
-    ```js
-    (req, res, next) => {
-      	// 提取错误信息
-        const errors = validationResult(req);
-    
-        var genre = new Genre(
-          { name: req.body.name }
-        );
-    
-        if (!errors.isEmpty()) {
-            res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.array()});
-    		    return;
-        }
-        else {
-        }
-    }
-    ```
-
-    + 如有错误：再次渲染表单，传入清理种类对象和错误消息的数组（`errors.array()`）
-
-    + 如种类名称数据有效，那么检查，是否已存在具有相同名称的种类`Genre`（因为我们不想创建重复项）
-        + 重复项：重定向到现有种类的详细信息页面。
-        + 未创建：保存新种类，并重定向到其详细信息页面。
-
-## 3.视图
-
-```js
-// GET情况下：
-res.render('genre_form', { title: 'Create Genre'});
-// POST情况下：
-res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors.array()});
-```
-
-+ <span style="font-size:20px">最终效果：</span>
-
-    GET 路由显示：
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220127141737.png" alt="image-20220127141729928" style="zoom:33%;" />
-
-    如果输入空格提交，将会显示错误信息：（POST 路由显示）
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220127141810.png" alt="image-20220127141810521" style="zoom:33%;" />
 
 # 六、部署生产环境
 

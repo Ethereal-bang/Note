@@ -124,21 +124,19 @@ SQL——Structured Query Language：结构化查询语言
 
 
 
-## DDL 操作数据库
+## 操作数据库
 
 + <span style="font-size:22px">创建数据库：</span>
 
     ```mysql
     -- 直接创建数据库 db1
     create database db1;
-    
     -- 不存在则创建数据库
     create database if not exists db2;
-    
     -- 创建数据库并指定字符集gbk
     create database db3 default character set gbk;
     ```
-
+    
 + <span style="font-size:22px">查看数据库：</span>
 
     ```mysql
@@ -179,7 +177,7 @@ SQL——Structured Query Language：结构化查询语言
 
 
 
-## DDL 作表结构
+## 操作表结构
 
 + <span style="font-size:22px">创建表——CREATE：</span>
 
@@ -297,7 +295,7 @@ SQL——Structured Query Language：结构化查询语言
 
 ```mysql
 # 查询表所有数据：
-selsect * from `student`;	-- *表示所有列
+select * from `student`;	-- *表示所有列
 
 # 查询指定列：
 select `name`, `age` from `student`;
