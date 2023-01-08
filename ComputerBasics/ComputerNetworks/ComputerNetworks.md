@@ -235,6 +235,26 @@ TCP 报文段分为首部与数据两部分
 
 
 
+# 无线网络和移动网络
+
+> 的**数据链路层**与传统有线互联网相差很大
+
+
+
+**设备：**
+
++ 集线机 / Hub：汇聚网线的中心
+
++ 交换机：信号转发，为接入的任意两个网络节点提供信号通路
+
+    <img src="https://picx.zhimg.com/80/v2-c373ac4ecd477da6dba19e39ebdda13d_720w.webp?source=1940ef5c" alt="img" style="zoom:63%;" />
+
+## MAC 层
+
+[有了 IP 地址，为什么还要用 MAC 地址 - 知乎](https://www.zhihu.com/question/21546408)
+
+
+
 # REF
 
 + 总：

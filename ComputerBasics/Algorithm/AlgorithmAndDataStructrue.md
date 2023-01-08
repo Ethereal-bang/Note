@@ -1115,7 +1115,13 @@ A: 11101
 
 
 
-<span style="color:blue">题目：</span>
+**取得 Low Bit：**最低位的 1 [x & -x 表示含义 - CSDN](https://blog.csdn.net/oyoung_2012/article/details/79932394)
+
+`x & -x`
+
+
+
+<span style="color:blue">**题目：**</span>
 
 [191. 位1的个数](https://leetcode.cn/problems/number-of-1-bits/description/)——与运算
 
@@ -1136,6 +1142,16 @@ while (n != 0) {
 [371. 两整数之和](https://leetcode.cn/problems/sum-of-two-integers/description/?favorite=2ckc81c)——位运算实现加法。a ^ b (无进位相加) + ((a & b) << 1) (进位)
 
 [190. 颠倒二进制位](https://leetcode.cn/problems/reverse-bits/description/?favorite=2ckc81c)
+
+<span style="color: blue">只出现一次的数字：</span>
+
+[136. 只出现一次的数字](https://leetcode.cn/problems/single-number/description/?favorite=2ckc81c)——其余 2 次，直接利用异或性质
+
+[137.只出现一次的数字 II](https://leetcode.cn/problems/single-number-ii)——其余 3 次。利用其余数都出现 3 次的特点，每一二进制位都是该位和 mod 3 得到的数
+
+[260.只出现一次的数字 III](https://leetcode.cn/problems/single-number-iii)——其余出现 2 次，找两个出现一次的数字。根据 （`x1 ^ x2` 的）low bit 将元素分为两类分别异或得到两元素
+
+
 
 
 
@@ -1253,6 +1269,14 @@ N = P~1~^α1^ P~2~^α2^ P~3~^α3^ ... P~k~^αk^ （其中 p1, p2, ... 依次表�
 定理可用于判断 a 能否被 b 整除：a % b == 0 <=> 对于所有 i 有 α~i~ >= β~i~ 
 
 即将乘式化为标准分解式再比较指数大小
+
+
+
+## 因子
+
+所有能整除该数的数
+
+`8: 1, 2, 4, 8`
 
 
 
@@ -1495,6 +1519,8 @@ For 特殊情况：dp[j] 仍可能被后序使用不能直接覆盖——从后�
 <span style="color:blue">More：</span>
 
 [剑指 Offer II 090. 环形房屋偷盗](https://leetcode.cn/problems/PzWKhm/)——打家劫舍进阶，拆分为两个打家劫舍问题，算前 n-1 与后 n-1 中更大值
+
+[337.打家劫舍 III](https://leetcode.cn/problems/house-robber-iii)——树形动规
 
 [413. 等差数列划分](https://leetcode.cn/problems/arithmetic-slices/)——数学
 

@@ -195,26 +195,6 @@ HOC——Higher-order function**一个函数接收另一个函数作为参数**�
 
 ## 数组
 
-数组的创建
-
-```js
-var arr = new Array();   // 创建一个新的空数组
-var arr = [1, 2];	// 字面量创建
-```
-
-
-
-> Eg——map 搭配箭头函数、三目运算符：
->
-> ```js
-> let score = [19, 85, 99, 25];
-> let result = score.map(item => item>=60 ? '及格' : '不及格'); 
-> console.log(score);   //19，   85，  99， 25
-> console.log(result);  //不及格，及格，及格，不及格
-> ```
-
-
-
 + **二维数组初始化:**
 
     ```js
