@@ -279,10 +279,6 @@ Webpack 只能理解 JS 和 JSON 文件，这是 webpack 开箱可用的自带�
 
 
 
-# 配置
-
-
-
 # 搭建指南
 
 ## Demo
@@ -531,16 +527,6 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
     npm install --save-dev webpack-dev-server
     ```
 
-    在`webpack.config.js`中设置`devTools`字段，告知 dev server，从什么位置查找文件：
-
-    ```js
-    devTools: {
-      static: './dist',
-    }
-    ```
-
-    以上配置告知 `webpack-dev-server`，将 `dist` 目录下的文件 serve(*将资源作为 server 的可访问文件* ) 到 `localhost:8080` 下。
-
     添加一个可以直接运行 dev server 的 script：
 
     ```json
@@ -548,14 +534,10 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "webpack serve --open",
       "build": "webpack"
-    },
+},
     ```
 
-    现在`npm start`：
 
-    ![image-20211030194925867](https://gitee.com/ethereal-bang/images/raw/master/20211030194925.png)
-
-    
 
 ## 5.代码分离
 
@@ -622,6 +604,50 @@ Webpack 提供几种可选方式，在代码发生变化后自动编译代码：
 
 
 + <span style="font-size:20px">SplitChunksPlugin：</span>
+
+
+
+# TS 项目
+
+[【TS】快速上手（五）使用webpack配置TS项目 - 掘金](https://juejin.cn/post/7036300546839412750)
+
+**Entry:**
+
+```js
+entry: "./src/index.ts",
+```
+
+**Loader:**
+
+```js
+module: {
+  rules: [
+    {
+      test: /.ts$/,
+      use: {
+        loader: "ts-loader",
+      },
+      exclude: /node-modules/,
+    }
+  ]
+},
+```
+
+**Resolve:** 解析——尝试按顺序解析这些后缀名
+
+```js
+resolve: {
+    extensions: [".ts", "..."],	// 可用'...'访问默认拓展名
+},
+```
+
+> **Reason:** Webpack does not look for `.ts` files by default.
+
+**tsconfig.json:** 配置文件
+
+```shell
+tsc --init
+```
 
 
 

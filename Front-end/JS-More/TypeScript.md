@@ -29,7 +29,7 @@
 
 **编译器**：ts-loader、awesome-typescript-loader、**babel-loader**。
 
-**编译器配置文件**：tsconfig.json（可显示声明文件）
+**编译器配置文件**：tsconfig.json（可显示声明文件）（`tsc --init` 创建）
 
 编译器启动时，首先读取`tsconfig.json`，以获取有关如何编译项目的说明
 
