@@ -61,16 +61,7 @@ timestamp: 可设默认值 CURRENT_TIME, eg:`2022-10-03 23:28:04`
 
 数据库——DataBase，用于存储、管理数据的仓库
 
-+ **特点：**
-    1. 持久化存储数据——本质上还是文件系统，以文件的方式存在服务器的电脑上
-    2. 方便存储和管理数据
-    3. 使用了统一的方式操作数据库：SQL——所有的关系型数据库都可以使用通用的 SQL 语句进行管理
 
-```sql
-CREATE TABLE `user` (
-  `user_id` INT AUTO_INCREMENT,
-  PRIMARY KEY (`user_id`));
-```
 
 
 
@@ -121,6 +112,14 @@ SQL——Structured Query Language：结构化查询语言
         ```
         
     4. [mysql中**\`**符号的用处](https://www.yisu.com/zixun/27328.html)： 数据库字段是 sql 保留的关键字，在写sql语句的时候，用到这些字段的时候需要用``包含起来，不然会报语法错误。
+
+
+
+## 连接
+
+```shell
+mysql -u root -p
+```
 
 
 

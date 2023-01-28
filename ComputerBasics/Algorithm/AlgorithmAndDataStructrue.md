@@ -807,8 +807,8 @@ public static void quickSort(int[] arr, int left, int right) {
 
 // 分治——使基准数左边全是小于的数、右边全是大于的数
 private static int partition(int[] arr, int left, int right) { // 分治法
-  int random = left + new Random(right - left + 1);
-  swap(nums, random, end);	// 基准交换到尾部
+  int random = left + new Random().nextInt(right - left + 1);
+  swap(nums, random, right);	// 基准交换到尾部
   int small = left - 1;
   // 小于基准的交换到前部
   for (int i = left; i < right; i++) {

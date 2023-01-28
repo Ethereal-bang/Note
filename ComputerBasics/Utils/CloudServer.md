@@ -1,34 +1,15 @@
-# 准备
+# 连接
 
-## 云服务器
+<span style="font-size:20px">Shell 登录：</span>
 
-+ <span style="font-size:20px">购买:</span>
-
-    IP 地址、系统用户名、密码。
-
-+ <span style="font-size:20px">登录:</span>
-
-    <span style="font-size:20px">Shell 登录：</span>
-
-    ```shell
-    ssh root@101.132.100.245
-    ```
-
-    <span style="font-size:20px">SSH 工具登录：</span>
-
-    1. 这里选择了 XShell、XFtp。
-
-    2. Xshell 中首次创建会话：
-
-        > 其中名称自定义，主机填公网 IP，其他默认。
-
-    3.  Xshell 中连接远程服务器：
-
-        > 首先出现 SSH 警告，点接受并保存。
+```shell
+ssh root@<ip> # 以root身份登录 
+ssh <ip> 
+```
 
 
 
-## 环境配置
+# 环境
 
 ### 宝塔
 
@@ -53,23 +34,9 @@
 
 
 
-### 在云服务器上安装 Node.js、Express
+### Node.js、Express 安装
 
 以下的操作都是在云服务器 CentOS 系统进行的。
-
-> **CentOS 与 Linux 关系：**
->
-> Linux 通常指的是 linux 内核
-
-> **Linux 常用指令:**
->
-> `ll`：当前目录下文件夹
->
-> `cd [目录名]`：进入(当前目录下的)指定文件夹
->
-> ![image-20211103200651164](https://gitee.com/ethereal-bang/images/raw/master/20211103200658.png)
->
-> 更多移步[Linux命令大全(手册)-真正好用的Linux命令在线查询网站](https://www.linuxcool.com/)
 
 
 
@@ -157,7 +124,7 @@
 1. 安装 express 框架：
 
     ```bash
-    # npm install -g express
+    npm install -g express
     ```
 
 2. 安装 express-generator：
@@ -165,115 +132,18 @@
     用于全局使用 express 命令。
 
     ```bash
-    # npm i -g express-generator
+    npm i -g express-generator
     ```
 
 3. 验证：
 
     ```bash
-    # express --version
+    express --version
     ```
 
 
 
-# 使用 Express 搭建简易服务器
-
-1. 创建 Express 项目：
-
-    这里在`usr/local`下创建项目`demo`
-
-    ```shell
-    # express demo
-    ```
-
-2. 进入`demo`安装依赖：
-
-    ```bash
-    # cd demo
-    # npm install
-    ```
-
-3. 文本编辑器编辑`app.js`：
-
-    ```shell
-    # vim app.js
-    ```
-
-    添加(80——端口号）：
-
-    ```js
-    app.listen(80, function () {
-        console.log("service is starting at 80")
-    });
-    ```
-
-    ESC，`:wq`保存并退出。
-
-4. 配置实例安全组：
-
-    ![image-20211104134213161](https://gitee.com/ethereal-bang/images/raw/master/20211104134220.png)
-
-5. 可以`# node app`开启服务器了：
-
-    `node app`后才能进入该网址。
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20211104134330.png" alt="image-20211104134329949" style="zoom:30%;" />
-
-
-
-# 在云服务器发布个人主页
-
-为方便操作可在本地电脑搭建一个 localhost 服务器，配置完成后再一次性上传到云服务器。
-
-完成前面的步骤后可以在 Xftp 中看到项目目录中有以下文件。
-
-![image-20211104134930158](https://gitee.com/ethereal-bang/images/raw/master/20211104134930.png)
-
-1. 调整`app.js`、`routes/index.js`==？==
-
-    调整后可以把 HTML 入口文件放在`routes`文件夹下了。
-
-2. 存放静态文件：
-
-    还有静态文件 css、js 等需存放在`pubic`文件夹下。
-
-    初始如下：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211104141020.png" alt="image-20211104141020581" style="zoom:73%;" />
-
-    把每个页面的响应文件存在对应页面文件夹，使其不相互影响。
-
-3. 引用静态文件：
-
-
-
-# Niginx
-
-非同步框架的网页伺服器，也可以用作反向代理、负载平衡器和 HTTP 快取
-
-Nginx可以作为一个HTTP服务器进行网站的发布处理
-
-
-
-# 部署前端
-
-1. 将 Express 项目复制到云服务器上，可以看到访问网站 IP：
-
-    这是存放于 public/images/ 文件夹下的文件，可以直接根据绝对路径访问：
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220207154927.png" alt="image-20220207154927079" style="zoom:43%;" />
-
-    <img src="https://gitee.com/ethereal-bang/images/raw/master/20220207154811.png" alt="image-20220207154811012" style="zoom:33%;" />
-
-+ **nohup** 守护后台进程：
-
-    ```shell
-    nohup node www
-    ```
-
-    > nohup 命令执行后显示："nohup: ignoring input and appending output to 'nohup.out'" 表示 ”忽略输入输出，将信息化信息记录到nohup.out文件中“
-
-
-
-## Github pages 部署
+# Github pages 部署
 
 > 要使用 GitHub Pages 功能实现全面效果，项目应该被构造为典型的网站——index.html 入口，原生 JS 等
 
@@ -287,21 +157,15 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 
 
-# 宝塔：前后端分离部署
-
-## 后端：发布 Node 项目
+# 发布 Node 项目
 
 > **入口：**Linux 面板 / 网站 / Node 项目 / 添加 Node 项目
 
-**添加项目:**
-
-![image-20220514111725307](https://gitee.com/ethereal-bang/images/raw/master/20220514111828.png)
+**添加项目**
 
 **添加子域名泛解析：**
 
 访问子域名时解析其指向同一 ip
-
-![image-20220515141515672](https://gitee.com/ethereal-bang/images/raw/master/20220515141546.png)
 
 **域名反向代理：**
 
@@ -317,9 +181,64 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 >         proxy_pass http://127.0.0.1:3001;
 > ```
 
-## 前端
 
 
+# 发布 Java 项目
+
+服务器上**创建数据库**并上传 SQL 文件与本地数据库同步
+
+1. **yum 安装 JDK：**
+
+    ```shell
+    yum search jdk
+    yum install java-1.8.0-openjdk.x86_64
+    java -version
+    ```
+
+    > yum 安装默认路径：`/usr/lib/jvm`
+
+2. **JDK 的安装路径加入到 JAVA_HOME：**
+
+    ```shell
+    vi /etc/profile
+    ```
+
+    文件末尾加入：
+
+    ```shell
+    set java environment
+    JAVA_HOME=/usr/local/java/jdk1.8.0_261        
+    JRE_HOME=/usr/local/java/jdk1.8.0_261/jre     
+    CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+    PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+    export JAVA_HOME JRE_HOME CLASS_PATH PATH
+    ```
+
+    让修改生效：
+
+    ```shell
+    source /etc/profile
+    ```
+
+    测试：
+
+    ```shell
+    echo $JAVA_HOME
+    ```
+
+3. **项目打包 jar / war 文件传入服务器：**
+
+    + Linux 命令行方式：
+
+        运行该 jar 程序：
+
+        ```shell
+        java -jar online_chat-0.0.1-SNAPSHOT.jar
+        ```
+
+    + 宝塔面板方式：
+
+        安装软件 “Java项目一键部署”
 
 
 
@@ -374,9 +293,21 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
     + Xftp：注意协议为 FTP（一般远程传输文件时使用的是 SFTP）
 
-        <img src="https://gitee.com/ethereal-bang/images/raw/master/20220520213429.png" alt="连接属性设置" />
-
     + 资源管理器
+
+
+
+# 命令
+
+## nohup
+
+守护后台进程：
+
+```shell
+nohup node www
+```
+
+> nohup 命令执行后显示："nohup: ignoring input and appending output to 'nohup.out'" 表示 ”忽略输入输出，将信息化信息记录到 nohup.out 文件中“
 
 
 
@@ -423,10 +354,14 @@ Nginx可以作为一个HTTP服务器进行网站的发布处理
 
 # DEBUG
 
-+ <span style="font-size:20px">[打开FTP服务器上的文件夹时发生错误。请检查是否有权限访问该文件夹](https://blog.51cto.com/u_15127679/4363643)</span>
+<span style="font-size:20px">[打开FTP服务器上的文件夹时发生错误。请检查是否有权限访问该文件夹](https://blog.51cto.com/u_15127679/4363643)</span>
 
-    Q_Desc：资源文件夹访问时报错如上。
+Q_Desc：资源文件夹访问时报错如上。
 
-    S：Internet 设置中取消勾选 “使用被动FTP(用于防火墙和DSL调制解调器的兼容)”
+S：Internet 设置中取消勾选 “使用被动FTP(用于防火墙和DSL调制解调器的兼容)”
 
-    ​	
+<span style="font-size:20px">访问 502:</span>
+
+Q_DESC: 后端项目部署后访问接口 502
+
+S：安全组规则里放开该 port

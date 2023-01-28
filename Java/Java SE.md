@@ -212,6 +212,15 @@ long sum = (long) n1 + n2;	// 不能(long) (n1 + n2) 这样n1+2还是溢出
 
 
 
+## Random
+
+```java
+Random r = new Random();
+int n = r.nextInt();
+```
+
+
+
 ## 输入输出
 
 + <span style="font-size:20px">输出：</span>

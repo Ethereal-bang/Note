@@ -498,6 +498,26 @@ classpath:/META-INF/resources
 
 
 
+# 打包
+
+mvn package / mvn install
+
++ package 将编译代码并打包
++ install 同样也会编译并打包。但之后还会将打好的包安装在本地仓库，供其他项目使用
+
+```xml
+<!--忽略测试失败直接打包-->
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <configuration>
+    <testFailureIgnore>true</testFailureIgnore>
+  </configuration>
+</plugin>
+```
+
+
+
 # Others
 
 ## 图片服务器
