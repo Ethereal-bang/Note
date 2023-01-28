@@ -286,42 +286,17 @@ var app = new Vue({
 
 ## data 数据对象
 
-在上文创建的第一个Vue程序里面，`data`属性只定义了一个基本数据类型字符串`message`。但`data`属性还可以支持复杂数据类型，如数组、对象。
-
-```html
-<body>
-    <div id="a">
-        {{ message }}	// Hello vue
-        {{ student[1] }}	// Jim
-        <h3>
-            {{ Mike.age }}	// 三级标题Mike
-        </h3>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-        let a = new Vue({
-            el:"#a",
-            data:{
-                message:"Hello vue",
-           			Mike:{
-                    name:"Mike",
-                    age:12
-                },
-                student:["Mike", "Jim", "Max"]
-            }
-        })
-    </script>
-</body>
+```vue
+<script>
+export default {
+data() {
+	return {
+		msg: "Foo",
+	}	
+}
+}
+</script>
 ```
-
-
-
-总结：
-
-+ Vue 中用到的数据定义在`data`中
-+ `data`中可以写复杂类型数据
-+ 渲染复杂数据类型时,遵守 js 的语法即可
 
 
 
@@ -574,45 +549,22 @@ var app = new Vue({
 
         
 
-+ <span style="font-size:22px">v-for 操纵列表：</span>
++ <span style="font-size:22px">v-for 列表渲染：</span>
 
     根据数据生成列表结构
 
     ``` vue
+    <template>
         <ul id="app">
           <li v-for="index in arr">
             {{ index }}
           </li>
         </ul>
-      
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-      let app = new Vue({
-        el:"#app",
-        data:{
-          arr:[				
-            {name: "a",	// 数组中的对象
-            age: 1
-            },
-            {name: "c",
-            age:2
-            }
-          ]
-        }
-      })
-    </script>
+    </template>
     ```
-
-    上面代码在浏览器中显示结果为![image-20210224211905327](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210224211905327.png)
-
-    将上面代码第3行改为`{{ index.name }}`，则浏览器中显示结果为![image-20210224212127737](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210224212127737.png)
-
     
-
-    更多见：[黑马程序员教学视频](https://www.bilibili.com/video/BV12J411m7MG?p=15)
-
     
-
+    
 + <span style="font-size:22px">v-model 双向数据绑定：</span>
 
     设置及获取表单元素的值
@@ -643,6 +595,23 @@ var app = new Vue({
     + `v-model`指令是为了便捷地设置和获取表单元素的值
     + 绑定的数据会和表单元素值相关联
     + 绑定的数据与表单元素值双向绑定
+
+
+
+## 方法
+
+```vue
+<script>
+export default {
+	methods: {
+        add() {}
+    },
+    mounted() {	// 可在生命周期中调用方法
+        this.add();
+    }
+}
+</script>
+```
 
 
 
@@ -908,24 +877,19 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 # .vue
 
-+ **页面构成：**
+## refs
 
-    不管是在 pages 中还是 component，.vue 组件的构成都是一样的：
+使用 ref 获取 DOM 元素
 
-    ```vue
-    <template>
-    </template>
-    
-    <script>
-    export default {
-    	name: "App",
-    	components: {},
-    }
-    </script>
-    
-    <style>
-    </style>
-    ```
+> VUE 不允许直接操作 DOM 元素
+
+```vue
+<!-- 设置dom元素,设置ref属性 -->
+<h3 ref="test">dom元素中的内容</h3>
+
+<!-- 在Vue方法中调用使用`this.$refs`来获取dom元素 -->
+this.$refs.test
+```
 
 
 
