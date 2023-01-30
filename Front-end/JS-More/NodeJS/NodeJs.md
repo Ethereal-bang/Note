@@ -1,25 +1,38 @@
 
 
-# Node.js 介绍
+# Node.js
 
-+ **Node 与浏览器运行 JS 的不同：**
+**更新 node 版本：**
 
-    Node.js 的组成分为：
++ Linux——n 模块
 
-    + ECMAScript：ES 的所有语法都可以在 Node 环境中使用
-+ Node 环境提供的一些**附加 API**（*包括文件、网络相关的 API*）
++ Windows：
 
-+ **更新 node 版本：**
+    ```shell
+    $ where node
+    ```
 
-    + Linux——n 模块
+    在该路径覆盖安装所需版本
 
-    + Windows：
 
-        ```shell
-        $ where node
-        ```
 
-        在该路径覆盖安装所需版本
+## 配置
+
+[下载 | Node.js](https://nodejs.org/zh-cn/download/)
+
+```shell
+node -v
+npm -v
+```
+
+
+
+**环境变量：**
+
+1. 添加 NODE_PATH 变量值指向安装目录
+2. Path 变量中添加 `%NODE_PATH%`
+
+> 不生效尝试重启
 
 
 

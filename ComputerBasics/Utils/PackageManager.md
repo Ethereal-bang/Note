@@ -38,6 +38,36 @@
 
 
 
+## 配置
+
+<span style="font-size:20px">修改全局包安装位置</span>
+
+**修改默认全局目录：**
+
+```shell
+npm config set prefix D:/nodejs/node_global
+npm config set cache D：/nodejs/node_cache
+```
+
+**环境变量：**
+
+用户变量下编辑 path，添加 global
+
+```shell
+PATH: D:\nodejs\node_global
+```
+
+
+
+<span style="font-size:20px">修改镜像源</span>
+
+```shell
+npm config get registry
+npm config set registry https://registry.npm.taobao.org
+```
+
+
+
 # Yarn
 
 + 初始化项目——`yarn init`
@@ -67,9 +97,3 @@ npm i -g pnpm
 
 
 # REF
-
-+ PackageManager：
-
-    [怎么知道依赖包需要安装到生产还是开发环境或者是安装到全局](https://yogwang.site/2019/nodejs-npm-save-dev-global/)
-    
-    [npm 的 --save 选项_sigmarising的博客-CSDN博客](https://blog.csdn.net/sigmarising/article/details/88532197?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_paycolumn_v3&utm_relevant_index=1)

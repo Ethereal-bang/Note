@@ -267,17 +267,17 @@ position 属性
 
 
 
-# Other
+# 滚动
 
-<span style="font-size:20px">盒模型</span>
+<span style="font-size:20px">滚动条隐藏</span>
 
-<img src="https://cdn.nlark.com/yuque/0/2020/gif/2617721/1603183304416-4a408d18-d3f9-4296-b153-ca22ea302eb0.gif#align=left&display=inline&height=289&margin=%5Bobject%20Object%5D&originHeight=289&originWidth=536&size=0&status=done&style=none&width=536" style="zoom: 33%;" />
+**[::-webkit-scrollbar 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar)：**（这个选择器只在 webkit 核心的浏览器中有效）
 
-
-
-<span style="font-size:20px">Sprite</span>
-
-又称雪碧图。把多张图片进行合成，使用时通过 css 进行定位从而减少请求次数的有效手段
+```css
+::-webkit-scrollbar {
+  display: none;
+}
+```
 
 
 
