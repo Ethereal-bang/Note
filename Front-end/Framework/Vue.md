@@ -989,21 +989,6 @@ this.$refs.test
 
 
 
-## style
-
-+ **引入 Sass：**
-
-    ```shell
-    npm i node-sass sass-loader -D
-    ```
-
-    ```vue
-    <style lang="scss">
-    </style>
-    ```
-
-    
-
 ## 组件基础
 
 + **组件是带有名字的可复用的 Vue 实例**：
@@ -1371,6 +1356,40 @@ Vue 将**`<slot>`**元素作为承载分发内容的出口
 ```
 
 这里将包含所有插槽 prop 的对象命名为`slotProps`，但也可以使用其他名字。
+
+
+
+# style
+
+**引入 Sass：**
+
+```shell
+npm i node-sass sass-loader -D
+```
+
+```vue
+<style lang="scss">
+</style>
+```
+
+
+
+<span style="font-size:20px">[Scoped CSS](https://vue-loader.vuejs.org/zh/guide/scoped-css.html)</span>
+
+scoped 属性的 `<style>` 标签的 CSS 只作用于当前组件中元素。父组件的样式将不会渗透到子组件中
+
+**深度作用选择器：**
+
+希望一个选择器作用得更深，影像子组件时
+
+```css
+.a >>> .b { /*...*/ }
+/* 编译为 .a[data-v-f3f3eg9] .b */
+```
+
+> **`/deep/` / `::v-deep`：**
+>
+> 有些 Sass 之类的预处理器无法正确解析 `>>>`，可用以上两种代替
 
 
 

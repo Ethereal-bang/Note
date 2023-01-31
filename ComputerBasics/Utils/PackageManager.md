@@ -26,15 +26,17 @@
 
 # npm
 
-+ 更新依赖——`npm update`
+更新依赖：`npm update`
 
-+ **查看 npm 全局安装位置：**
+**查看 npm 全局安装位置：**
 
-    ```shell
-    $npm root -g
-    ```
-    
-+ npm5 之后的版本默认带 -S
+```shell
+$npm root -g
+```
+
+npm5 之后的版本默认带 -S
+
+npm uninstall
 
 
 
