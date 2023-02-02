@@ -211,6 +211,8 @@ $git clone https://github.com/<>/<>.git
 
 就会在当前路径下新建对应文件夹
 
+**指定分支：** `-b develop`
+
 
 
 ## 添加远程库
@@ -368,6 +370,12 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 #### 强制修改分支位置
 
 使用相对移动最多的就是移动分支，可以直接使用`-f`选项让分支指向另一个提交
+
+
+
+# SSH
+
+[GitLab配置ssh key](https://www.cnblogs.com/hafiz/p/8146324.html)
 
 
 

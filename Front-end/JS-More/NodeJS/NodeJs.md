@@ -36,6 +36,40 @@ npm -v
 
 
 
+## nvm 管理 node 版本
+
+有些项目执行 `yarn install` 时会提示 "The engine "node" is incompatible with this module."。这时需要切换 node 版本
+
+nvm 是 Mac 下的 node 管理工具
+
+
+
+**安装：**
+
+1. 卸载全局安装的 node/npm（安装程序里选择 remove）
+2. Windows 下安装 [nvm-windows](https://github.com/coreybutler/nvm-windows)，选择 nvm-setup 免去自行配置（nvm -v 安装成功，不成功尝试重启）
+
+3. 设置 node & npm 镜像地址
+
+   在 nvm/settings.txt 文件添加：
+
+   ```
+   node_mirror: https://npm.taobao.org/mirrors/node/
+   npm_mirror: https://npm.taobao.org/mirrors/npm/
+   ```
+
+   
+
+<span style="font-size:20px">使用</span>
+
++ nvm ls available——显示可下载版本列表
++ nvm install <版本号>
++ nvm use <>——切换版本
++ nvm uninstall <>
++ nvm ls——列出已安装版本
+
+
+
 # 模块导入导出
 
  Node 环境中，一个`.js`文件就称为一个模块（*module*），遵循 CommonJS 语法
