@@ -1,10 +1,8 @@
 # Operating System
 
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c17c21686f21413085f3e32c85a19443~tplv-k3u1fbpfcp-watermark.awebp">
 
 
-
-## Shell
+# Shell
 
 Shell 原意是“外壳”，跟 kernel（内核）相对应，比喻内核外面的一层，即用户跟内核交互的对话界面
 
@@ -47,12 +45,6 @@ Shell 接收到用户输入的命令，将命令送入操作系统执行，并�
 
 # Ref
 
-+ Linux:
-
-    [2万字系统总结，带你实现 Linux 命令自由？- 掘金](https://juejin.cn/post/6938385978004340744)
-
-    [Linux 系统目录结构 | 菜鸟教程](https://www.runoob.com/linux/linux-system-contents.html)
-
 + 进程管理：
 
     [CS-Notes/计算机操作系统 - 进程管理](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md)
@@ -60,6 +52,7 @@ Shell 接收到用户输入的命令，将命令送入操作系统执行，并�
     [《现代操作系统》]()
 
     [2.5w字 + 36 张图爆肝操作系统面试题，太牛逼了！- 掘金](https://juejin.cn/post/6934500044057870350)
+
 
 
 

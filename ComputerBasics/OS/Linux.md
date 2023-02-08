@@ -340,3 +340,12 @@ echo $HOME
 $Command $Foo
 echo ${Arr[0]}
 ```
+
+
+
+# REF
+
+[2万字系统总结，带你实现 Linux 命令自由？- 掘金](https://juejin.cn/post/6938385978004340744)
+
+[Linux 系统目录结构 | 菜鸟教程](https://www.runoob.com/linux/linux-system-contents.html)
+
