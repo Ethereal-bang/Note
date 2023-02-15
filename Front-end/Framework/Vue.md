@@ -876,41 +876,23 @@ eg. `vm.$watch`
 
 
 
-**生命周期图示**：
-
-<img src="https://cn.vuejs.org/images/lifecycle.png" alt="img" style="zoom:33%;" />
-
 ## 计算属性 computed 和侦听器 watch
 
-### 计算属性 computed
+### 计算属性  computed
 
-模板表达的初衷是用于简单运算，模板中放入太多逻辑会让模板过重且难以维护
-
-例如：
-
-```jsx
-<div id="example">{{ message.split('').reverse().join('') }}</div>
-```
-
-在这里，模板不再是简单的声明式逻辑。所以对于任何复杂逻辑都应使用**计算属性**。
+所以对于任何复杂逻辑都应使用**计算属性**。
 
 如下例的`reversedMessage`即是我们声明的计算属性：
 
 ```html
-<div id="example">
-  <p>{{ message }}</p>
-  <p>{{ reversedMessage }}</p>
-</div>
+<p>{{ reversedMessage }}</p>
 ```
 
 ```jsx
 let vm = new Vue({
   el: '#example',
-  data: {
-    message: 'Hello',
-  },
   computed: {
-    reversedMessage: function() {
+    reversedMessage: function() {	// 为计算属性
       return this.message.split('').rever().join('');
     }
   }
@@ -919,9 +901,36 @@ let vm = new Vue({
 
 
 
-### 侦听器
+### 侦听器  watch
 
-==。。。==
+监听响应式变量的变化
+
+```vue
+<script>
+export default {
+	data() {
+        return {
+            foo: '',
+            obj: {
+                key: '',
+            }
+        }
+    },
+    watch: {
+        foo(newVal, oldVal) {},
+        'obj.key': function(newVal, oldVal) {},	// 对象属性的监听
+        obj: {	// 深度监听
+            handler(newVal, oldVal) {  
+            },
+            deep: true,
+        }
+    }
+}
+</script>
+<script setup>
+watch(obj, (newVal, oldVal) => {})	// 直接传入对象，隐式创建深层监听
+</script>
+```
 
 
 
