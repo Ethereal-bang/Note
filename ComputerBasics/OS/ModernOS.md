@@ -150,7 +150,11 @@
 
 ## 进程
 
-> 进程的基本概念、并发与并行
+> 1. 进程的基本概念、并发与并行
+>
+> 2. 进程的状态及其转换
+>
+> 3. 进程控制原语
 
 **进程：** **资源分配**的基本单位
 
@@ -165,6 +169,34 @@
 并行：同一时刻多个任务同时执行。多个 CPU 实现
 
 - 无竞争关系
+
+
+
+### 进程的状态及转换
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Process_states.svg/400px-Process_states.svg.png" alt="img" style="zoom:93%;" />
+
++ 就绪 **waiting**——等待调度；运行 **running**；阻塞 **blocked**——等待资源
+
+  waiting——可运行，但因为其他进程正在运行而暂时停止
+
+  runnning——占用 CPU
+
+  blocked——除非某种外部事件发生，否则进程不能运行
+
+<span style="color:blue;font-weight:bold">状态转换</span>
+
+
+
+### 进程控制原语
+
+进程创建 `create()`
+
+进程终止 `exit()`
+
+进程阻塞 `block()`
+
+进程唤醒 `wakeup()`
 
 
 
@@ -212,10 +244,10 @@
   - 代码段
 
   - 堆栈段——栈存储函数调用信息；堆存储动态分配的内存
-
 + 进程表表项（进程控制块 **PCB**）
-
 + 正在执行的进程和 CPU 现场
+
+
 
 <span style="font-size:20px">PCB 的实现</span>（Process Control Block）
 
@@ -230,37 +262,29 @@
 + 链接组织方式
 + 索引组织方式
 
+
+
 <span style="font-size:20px">线程的实现：</span>
 
 + 用户空间中实现
 + 内核中实现
 + 混合实现
 
+<span style="color:blue;font-weight:bold">用户态实现线程的优缺点：</span>
 
+优点：
 
-## 进程的状态及转换
+1. 调度速度快
+2. 内核对线程包一无所知，可在不支持多线程的操作系统实现多线程编程
+3. 允许每个进程有自己的调度算法
+4. 较好可扩展性，因无需内核空间支持
 
-![img](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Process_states.svg/400px-Process_states.svg.png)
+缺点：
 
-+ 就绪 **waiting**——等待调度；运行 **running**；阻塞 **blocked**——等待资源
-
-  waiting——可运行，但因为其他进程正在运行而暂时停止
-
-  runnning——占用 CPU
-
-  blocked——除非某种外部事件发生，否则进程不能运行
-
-
-
-## 进程控制原语
-
-进程创建 `create()`
-
-进程终止 `exit()`
-
-进程阻塞 `block()`
-
-进程唤醒 `wakeup()`
+1. 实现阻塞系统调用困难
+2. 效率低——缺页问题
+3. 易出现线程永久运行问题
+4. 对 CPU 繁忙型应用不利
 
 
 
@@ -270,7 +294,7 @@
 
 **临界资源：**一次只允许一个进程使用的 软硬件资源
 
-**临界区：**在每个进程中，访问临界资源（共享内存）的那部 分代码（那段程序）
+**临界区：**在每个进程中，访问临界资源（共享内存）的那部分代码（那段程序）
 
 
 
@@ -335,7 +359,7 @@ Inter Process Communication——进程通信
 
 
 
-## 调度
+## 处理机调度
 
 > 调度目标与常用的作业及进程调度算法
 
@@ -346,6 +370,16 @@ Inter Process Communication——进程通信
 + 高级调度 / 作业调度
 
 
+
+### 实时系统调度
+
+<span style="color:blue;font-weight:bold">判断某实时系统是否可调度:</span>
+
+$\sum^n \frac{C~i}{P~i} <= n(2^\frac{1}{n}-1)$ （n 个周期性任务；C~i~ 处理时间；P~i~ 周期时间）
+
+
+
+### 进程调度
 
 **性能评价指标：**
 
@@ -365,7 +399,7 @@ Inter Process Communication——进程通信
 
 **轮转调度 RR：**时间片 q
 
-**优先级调度**
+**优先级调度** （优先级高）
 
 **多级队列调度**
 
@@ -408,6 +442,8 @@ Inter Process Communication——进程通信
 ## 解决策略
 
 > 死锁问题的四个解决策略
+>
+> 安全状态的定义、银行家算法
 
 **鸵鸟算法：**（忽略死锁）
 
@@ -425,11 +461,29 @@ Inter Process Communication——进程通信
 
 破坏必要条件 **防止死锁** 产生
 
+### 死锁检测算法
+
+<span style="font-size:18px">每种类型一个资源</span> 的死锁检测 —— 检测有向图是否存在环
+
+<img src="https://camo.githubusercontent.com/5663be4d3b58da1b738412ca4854b61d255974230c1c88875f96511618a5bae0/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f62316661303435332d613462302d346561652d613335322d3438616363613866666637342e706e67" alt="img" style="zoom: 80%;" />
 
 
-## 安全状态，银行家算法
 
-> 安全状态的定义、银行家算法
+<span style="color:blue;font-size:20px">每种类型多个资源的死锁检测</span>
+
+**所需数据结构：**
+
+总资源向量 $\vec{E}$（$=\vec{A}+\vec{C}$）；可用资源向量 $\vec{A}$；分配给进程的资源数量 $\vec{C}$；进程请求数量 $\vec{R}$
+
+**算法过程：** 
+
+1. 寻找一没被标记进程 $P~i$，满足请求的资源 $<=\vec{A}$
+2.  找到：$A~i~ += C~i$，标记该进程 （执行 $P~i~$，释放所占资源 $C~i~$）
+3. 没找到：算法终止 —— 没被标记的进程都是死锁进程
+
+
+
+### 安全状态，银行家算法
 
 **安全状态：**现有的资源占有情况下，按照某推进顺序仍可使每个进程得到其对资源的最大需求
 
