@@ -876,32 +876,49 @@ eg. `vm.$watch`
 
 
 
-## 计算属性 computed 和侦听器 watch
+## 计算属性  computed
 
-### 计算属性  computed
-
-所以对于任何复杂逻辑都应使用**计算属性**。
-
-如下例的`reversedMessage`即是我们声明的计算属性：
-
-```html
-<p>{{ reversedMessage }}</p>
-```
+> 对于任何复杂逻辑都应使用计算属性。
 
 ```jsx
 let vm = new Vue({
   el: '#example',
   computed: {
-    reversedMessage: function() {	// 为计算属性
+    reversedMessage: function() {	// 为计算属性,使用同data
       return this.message.split('').rever().join('');
     }
   }
 })
 ```
 
+**setter, getter: **
+
+> 为计算属性赋值需设置 setter
+
+```vue
+<script setup>
+	const fullName = computed({
+        get() {
+            return firstName.value + ' ' + lastName.value;
+        },
+        set(newVal) {
+            [firstName.value, lastName.value] = newValue.split(' ');
+        },
+    })
+</script>
+<script>
+	computed: {
+        foo: {
+            get(){},
+            set(){},
+        }
+    }
+</script>
+```
 
 
-### 侦听器  watch
+
+## 侦听器  watch
 
 监听响应式变量的变化
 
@@ -1750,23 +1767,23 @@ Vue 结合网络数据开发应用
 
 # REF
 
-+ ：
+：
 
-    [介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
+[介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
 
-+ Vue 配置：
+Vue 配置：
 
-    [推荐-Vue项目目录结构 | springleo`s blog](https://lq782655835.github.io/blogs/team-standard/recommend-vue-project-structure.html)
+[推荐-Vue项目目录结构 | springleo`s blog](https://lq782655835.github.io/blogs/team-standard/recommend-vue-project-structure.html)
 
-    [VUE项目中，html 的CSS写在哪里比较好？- SegmentFault 思否](https://segmentfault.com/q/1010000022159166)
+[VUE项目中，html 的CSS写在哪里比较好？- SegmentFault 思否](https://segmentfault.com/q/1010000022159166)
 
-    [Vue 项目CSS组织 - 简书](https://www.jianshu.com/p/8defdc61ae00)
+[Vue 项目CSS组织 - 简书](https://www.jianshu.com/p/8defdc61ae00)
 
-    [vue.js - What is the purpose of main.js & App.vue in Vue App - Stack overflow](https://stackoverflow.com/questions/58972232/what-is-the-purpose-of-main-js-app-vue-in-vue-app)
-    
-    [Index.html 和 main.js是怎么关联起来的 - 中文 - Vue Forum](https://forum.vuejs.org/t/index-html-main-js/39778/5)
-    
-+ 规模化：
+[vue.js - What is the purpose of main.js & App.vue in Vue App - Stack overflow](https://stackoverflow.com/questions/58972232/what-is-the-purpose-of-main-js-app-vue-in-vue-app)
 
-    [Vue Router](https://router.vuejs.org/zh/guide/#html)
+[Index.html 和 main.js是怎么关联起来的 - 中文 - Vue Forum](https://forum.vuejs.org/t/index-html-main-js/39778/5)
+
+规模化：
+
+[Vue Router](https://router.vuejs.org/zh/guide/#html)
 
