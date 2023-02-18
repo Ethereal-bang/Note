@@ -211,6 +211,8 @@ $git clone https://github.com/<>/<>.git
 
 就会在当前路径下新建对应文件夹
 
+**指定分支：** `-b develop`
+
 
 
 ## 添加远程库

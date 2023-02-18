@@ -1,25 +1,72 @@
 
 
-# Node.js 介绍
+# Node.js
 
-+ **Node 与浏览器运行 JS 的不同：**
+**更新 node 版本：**
 
-    Node.js 的组成分为：
++ Linux——n 模块
 
-    + ECMAScript：ES 的所有语法都可以在 Node 环境中使用
-+ Node 环境提供的一些**附加 API**（*包括文件、网络相关的 API*）
++ Windows：
 
-+ **更新 node 版本：**
+    ```shell
+    $ where node
+    ```
 
-    + Linux——n 模块
+    在该路径覆盖安装所需版本
 
-    + Windows：
 
-        ```shell
-        $ where node
-        ```
 
-        在该路径覆盖安装所需版本
+## 配置
+
+[下载 | Node.js](https://nodejs.org/zh-cn/download/)
+
+```shell
+node -v
+npm -v
+```
+
+
+
+**环境变量：**
+
+1. 添加 NODE_PATH 变量值指向安装目录
+2. Path 变量中添加 `%NODE_PATH%`
+
+> 不生效尝试重启
+
+
+
+## nvm 管理 node 版本
+
+有些项目执行 `yarn install` 时会提示 "The engine "node" is incompatible with this module."。这时需要切换 node 版本
+
+nvm 是 Mac 下的 node 管理工具
+
+
+
+**安装：**
+
+1. 卸载全局安装的 node/npm（安装程序里选择 remove）
+2. Windows 下安装 [nvm-windows](https://github.com/coreybutler/nvm-windows)，选择 nvm-setup 免去自行配置（nvm -v 安装成功，不成功尝试重启）
+
+3. 设置 node & npm 镜像地址
+
+   在 nvm/settings.txt 文件添加：
+
+   ```
+   node_mirror: https://npm.taobao.org/mirrors/node/
+   npm_mirror: https://npm.taobao.org/mirrors/npm/
+   ```
+
+   
+
+<span style="font-size:20px">使用</span>
+
++ nvm ls available——显示可下载版本列表
++ nvm install <版本号>
++ nvm use <>——切换版本
++ nvm uninstall <>
++ nvm ls——列出已安装版本
 
 
 

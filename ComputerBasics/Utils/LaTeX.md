@@ -157,6 +157,20 @@
 
 
 
+# 数学公式
+
+[Markdown数学公式语法 - 简书](https://www.jianshu.com/p/e74eb43960a1)
+
+
+
+<span style="font-size:20px">上下标</span>
+
+上标 `x^4`
+
+下标 `y_2`
+
+
+
 # Resume
 
 ## Projects

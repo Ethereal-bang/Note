@@ -1066,6 +1066,8 @@ Java 为例
 
 int 32 位 (<span style="color:orange">-2^31^ ~ 2^31^ - 1</span>) （十进制 8 位）
 
+> 按照 Java 处理机制，超出 Integer.MAX_VALUE 后会变为 Integer.MIN_VALUE
+
 有符号整数，最高位 0 为正 1 负
 
 

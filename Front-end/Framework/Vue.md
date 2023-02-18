@@ -231,7 +231,96 @@
         })
         ```
 
-        
+
+
+
+# VUE3
+
+**API 风格：**
+
+V3 两种 API 风格。Options API VS Composition API，Options API 与 V2 差异不大，Composition API 与 React 风格类似
+
+
+
+**Composition API:**
+
+```vue
+<script setup>
+import { ref, onMounted } from 'vue'
+
+// 响应式状态
+const count = ref(0)
+
+// 修改状态、触发更新
+function increment() {
+  count.value++
+}
+
+// 生命周期钩子
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
+</script>
+
+<template>
+  <button @click="increment">Count is: {{ count }}</button>
+</template>
+```
+
+
+
+<span style="font-size:20px">script setup</span>
+
+**执行时机：**
+
++ `<script>`： 只在组件被首次引入的时候执行一次
+
++ `<script setup>` 每次组件实例被创建的时执行
+
+
+
+## Composition API
+
+使用导入的 API 函数来描述组件逻辑，通常与 [`<script setup>`](https://cn.vuejs.org/api/sfc-script-setup.html) 搭配使用
+
+### ref
+
+`ref()` 将传入参数的值包装为一个带 `.value` 属性的 ref 对象
+
+```vue
+<template>	
+	<div ref="el" />
+</template>
+
+<script setup>
+import{ ref } from "vue";
+    
+const cnt = ref(1);
+const el = ref();
+el.value // 该元素
+</script>
+```
+
+
+
+### 生命周期钩子
+
+<span style="font-size:20px">onMounted, onUnmounted</span>
+
+```vue
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const el = ref()
+onMounted(() => {
+  el.value // <div>
+})
+</script>
+
+<template>
+  <div ref="el"></div>
+</template>
+```
 
 
 
@@ -287,14 +376,21 @@ var app = new Vue({
 ## data 数据对象
 
 ```vue
+<!--Options API-->
 <script>
 export default {
-data() {
-	return {
-		msg: "Foo",
-	}	
+	data() {
+        return {
+            msg: "Foo",
+        }	
+    }
 }
-}
+</script>
+
+<!--Composition API-->
+<script setup>
+import { ref } from "vue";
+const msg = ref("Foo");
 </script>
 ```
 
@@ -780,52 +876,78 @@ eg. `vm.$watch`
 
 
 
-**生命周期图示**：
+## 计算属性  computed
 
-<img src="https://cn.vuejs.org/images/lifecycle.png" alt="img" style="zoom:33%;" />
-
-## 计算属性 computed 和侦听器 watch
-
-### 计算属性 computed
-
-模板表达的初衷是用于简单运算，模板中放入太多逻辑会让模板过重且难以维护
-
-例如：
-
-```jsx
-<div id="example">{{ message.split('').reverse().join('') }}</div>
-```
-
-在这里，模板不再是简单的声明式逻辑。所以对于任何复杂逻辑都应使用**计算属性**。
-
-如下例的`reversedMessage`即是我们声明的计算属性：
-
-```html
-<div id="example">
-  <p>{{ message }}</p>
-  <p>{{ reversedMessage }}</p>
-</div>
-```
+> 对于任何复杂逻辑都应使用计算属性。
 
 ```jsx
 let vm = new Vue({
   el: '#example',
-  data: {
-    message: 'Hello',
-  },
   computed: {
-    reversedMessage: function() {
+    reversedMessage: function() {	// 为计算属性,使用同data
       return this.message.split('').rever().join('');
     }
   }
 })
 ```
 
+**setter, getter: **
+
+> 为计算属性赋值需设置 setter
+
+```vue
+<script setup>
+	const fullName = computed({
+        get() {
+            return firstName.value + ' ' + lastName.value;
+        },
+        set(newVal) {
+            [firstName.value, lastName.value] = newValue.split(' ');
+        },
+    })
+</script>
+<script>
+	computed: {
+        foo: {
+            get(){},
+            set(){},
+        }
+    }
+</script>
+```
 
 
-### 侦听器
 
-==。。。==
+## 侦听器  watch
+
+监听响应式变量的变化
+
+```vue
+<script>
+export default {
+	data() {
+        return {
+            foo: '',
+            obj: {
+                key: '',
+            }
+        }
+    },
+    watch: {
+        foo(newVal, oldVal) {},
+        'obj.key': function(newVal, oldVal) {},	// 对象属性的监听
+        obj: {	// 深度监听
+            handler(newVal, oldVal) {  
+            },
+            deep: true,
+        }
+    }
+}
+</script>
+<script setup>
+watch(obj, (newVal, oldVal) => {})	// 直接传入对象，隐式创建深层监听
+</script>
+```
 
 
 
@@ -881,7 +1003,7 @@ Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定�
 
 使用 ref 获取 DOM 元素
 
-> VUE 不允许直接操作 DOM 元素
+> VUE 不建议直接操作 DOM 元素
 
 ```vue
 <!-- 设置dom元素,设置ref属性 -->
@@ -892,21 +1014,6 @@ this.$refs.test
 ```
 
 
-
-## style
-
-+ **引入 Sass：**
-
-    ```shell
-    npm i node-sass sass-loader -D
-    ```
-
-    ```vue
-    <style lang="scss">
-    </style>
-    ```
-
-    
 
 ## 组件基础
 
@@ -1278,6 +1385,40 @@ Vue 将**`<slot>`**元素作为承载分发内容的出口
 
 
 
+# style
+
+**引入 Sass：**
+
+```shell
+npm i node-sass sass-loader -D
+```
+
+```vue
+<style lang="scss">
+</style>
+```
+
+
+
+<span style="font-size:20px">[Scoped CSS](https://vue-loader.vuejs.org/zh/guide/scoped-css.html)</span>
+
+scoped 属性的 `<style>` 标签的 CSS 只作用于当前组件中元素。父组件的样式将不会渗透到子组件中
+
+**深度作用选择器：**
+
+希望一个选择器作用得更深，影像子组件时
+
+```css
+.a >>> .b { /*...*/ }
+/* 编译为 .a[data-v-f3f3eg9] .b */
+```
+
+> **`/deep/` / `::v-deep`：**
+>
+> 有些 Sass 之类的预处理器无法正确解析 `>>>`，可用以上两种代替
+
+
+
 # 可复用性 & 组合
 
 ## 混入 Mixin
@@ -1586,51 +1727,63 @@ Vue 结合网络数据开发应用
 
 
 
-## Element-UI
+## [Element Plus](https://element-plus.gitee.io/zh-CN)
 
-+ **安装：**`npm i element-ui -S`
+**安装：**`npm i element-plus`
 
-+ **完整引入：**
 
-+ <span style="font-size:20px">按需引入：</span>——借助 [babel-plugin-component](https://github.com/QingWei-Li/babel-plugin-component)，只引入需要组件，达到减小项目体积的目的。
 
-    1. **安装插件：** babel-plugin-component：`npm i babel-plugin-component -D`
+<span style="font-size:20px">按需引入：</span>
 
-    2. **修改 .babelrc：**
+1. **安装插件：** 
 
-        ```js
-        plugins: [
-          [
-            "component",
-            {
-              "libraryName": "element-ui",
-              "styleLibraryName": "theme-chalk"
-            }
-          ]
-        ],
-        ```
+    ```shell
+    npm install -D unplugin-vue-components unplugin-auto-import
+    ```
 
-    3. **main.js 中引入部分组件：**
+2. **修改配置文件：**
+
+    ```js
+    // vite.config.js
+    import AutoImport from 'unplugin-auto-import/vite'
+    import Components from 'unplugin-vue-components/vite'
+    import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+    
+    plugins: [
+      [
+          AutoImport({
+            resolvers: [ElementPlusResolver()],
+          }),
+          Components({
+            resolvers: [ElementPlusResolver()],
+          }),
+      ]
+    ],
+    ```
+
+3. **在 template 中直接使用组件**
+
+
 
 # REF
 
-+ ：
+：
 
-    [介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
+[介绍——Vue.js](https://cn.vuejs.org/v2/guide/)
 
-+ Vue 配置：
+Vue 配置：
 
-    [推荐-Vue项目目录结构 | springleo`s blog](https://lq782655835.github.io/blogs/team-standard/recommend-vue-project-structure.html)
+[推荐-Vue项目目录结构 | springleo`s blog](https://lq782655835.github.io/blogs/team-standard/recommend-vue-project-structure.html)
 
-    [VUE项目中，html 的CSS写在哪里比较好？- SegmentFault 思否](https://segmentfault.com/q/1010000022159166)
+[VUE项目中，html 的CSS写在哪里比较好？- SegmentFault 思否](https://segmentfault.com/q/1010000022159166)
 
-    [Vue 项目CSS组织 - 简书](https://www.jianshu.com/p/8defdc61ae00)
+[Vue 项目CSS组织 - 简书](https://www.jianshu.com/p/8defdc61ae00)
 
-    [vue.js - What is the purpose of main.js & App.vue in Vue App - Stack overflow](https://stackoverflow.com/questions/58972232/what-is-the-purpose-of-main-js-app-vue-in-vue-app)
-    
-    [Index.html 和 main.js是怎么关联起来的 - 中文 - Vue Forum](https://forum.vuejs.org/t/index-html-main-js/39778/5)
-    
-+ 规模化：
+[vue.js - What is the purpose of main.js & App.vue in Vue App - Stack overflow](https://stackoverflow.com/questions/58972232/what-is-the-purpose-of-main-js-app-vue-in-vue-app)
 
-    [Vue Router](https://router.vuejs.org/zh/guide/#html)
+[Index.html 和 main.js是怎么关联起来的 - 中文 - Vue Forum](https://forum.vuejs.org/t/index-html-main-js/39778/5)
+
+规模化：
+
+[Vue Router](https://router.vuejs.org/zh/guide/#html)
 

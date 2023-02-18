@@ -28,7 +28,7 @@
 ## 目录结构
 
 + /root——超级权限者的用户主目录
-+ /home——每个用户的私人目录，存放私人文件
++ /home——每个用户的私人目录，存放私人文件 （用 `~` 指向用户目录
 + /usr——很多应用程序和文件都放在这个目录下，类似于windows下的program files 目录。安装了大部分用户要调用的程序
 + /var——variable，表动态的，通常包含程序的数据如 log
 
@@ -340,3 +340,12 @@ echo $HOME
 $Command $Foo
 echo ${Arr[0]}
 ```
+
+
+
+# REF
+
+[2万字系统总结，带你实现 Linux 命令自由？- 掘金](https://juejin.cn/post/6938385978004340744)
+
+[Linux 系统目录结构 | 菜鸟教程](https://www.runoob.com/linux/linux-system-contents.html)
+
