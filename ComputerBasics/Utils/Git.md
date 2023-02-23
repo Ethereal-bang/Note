@@ -292,7 +292,7 @@ $git clone https://github.com/<>/<>.git
      * [new branch]      main       -> upstream/main
     ```
 
-3. 合并远程仓库的 master 分支==哪一个仓库？==。
+3. 合并远程仓库的 master 分支。
 
     ```
     $ git merge upstream/main
@@ -375,7 +375,15 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 # SSH
 
-[GitLab配置ssh key](https://www.cnblogs.com/hafiz/p/8146324.html)
+1. 生成 ssh key
+
+    ```shell
+    ssh-keygen -t rsa
+    ```
+
+2. GitHub New SSH key：
+
+    复制 id_rsa.pub 内容
 
 
 
