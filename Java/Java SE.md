@@ -644,6 +644,7 @@ Integer i = new Integer(1);
 <span style="font-size:20px">Integer：</span>
 
 + Integer.MIN_VALUE
++ Object.equals() 比较俩 Integer 值相等而不是指向同一对象
 
 <span style="font-size:20px">Character: </span>
 
