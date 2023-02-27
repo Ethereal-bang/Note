@@ -97,8 +97,6 @@ public class Hello {
 
 转换规则：从低位类型到高位类型自动转换；从高位类型到低位类型需要强制类型转换
 
-+ String + int => String
-
 
 
 ### String
@@ -113,7 +111,9 @@ public class Hello {
 
     > **char[] -> String:** `String.valueOf(chars)`
 
-+ String.substring()
++ str.substring()
+
++ str.trim()
 
 
 
@@ -142,7 +142,9 @@ StringBuffer res = new StringBuffer();
 
     sb.insert(1, 'test');
 
-    sb.deleteCharAt(0);
+    sb.delete(start, end) \ sb.deleteCharAt(0);
+
+    sb.replace(start, end, replacement)
 
 + Eg：利用 StringBuilder 翻转 int 类型
 
@@ -165,8 +167,6 @@ String b = "ab";	// a, b指向同一实例对象(a == b)
 String x = "a", y = "b";
 String c = x + y;	// a, c不指向同一
 ```
-
-![String创建的字符串存储在公共池，new创建的字符串对象在堆](E:%5CTypora%5Cupload%5Cimage-20220630204836834.png)
 
 
 
