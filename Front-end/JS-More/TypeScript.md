@@ -94,22 +94,6 @@
 
 + <span style="font-size:22px">Array：</span>
 
-    ```typescript
-    let list: number[] = [1, 2, 3];
-    
-    // Array<number>泛型语法：
-    let list: Array<number> = [1, 2, 3]; 
-    
-    // 二维数组
-    let list: Array<Array<number>>;
-    let list: number[][];
-    ```
-    
-    >  **`Array<number>`：**
-    >
-    > `Array`：![image-20211112141656652](https://gitee.com/ethereal-bang/images/raw/master/20211112141703.png)
-
-<hr>
 
 + <span style="font-size:22px">enum：</span>
 
@@ -125,9 +109,11 @@
       WEST,
     }
     let direc: Direction = Direction.NORTH;
-    ```
-
     
+    enum Num {
+      ZERO = 0,
+    }
+    ```
 
 + <span style="font-size:22px">any</span>
 
@@ -136,8 +122,6 @@
     就像所有类型都可以赋值给 `any`，所有类型也都可以赋值给 `unknown`。这使得 `unknown` 成为 TypeScript 类型系统的另一种顶级类型
 
     `any`类型允许更改，但类型设置为`unknown`后不允许再修改
-
-
 
 + <span style="font-size:22px">Tuple：</span>
 
@@ -165,8 +149,6 @@
     // Error: Property 'prop' does not exist on type '{}'.
     obj.prop = "semlinker";
     ```
-
-
 
 + <span style="font-size:22px">void：</span>
 

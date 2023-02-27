@@ -41,16 +41,15 @@ function sum(a, b) {
 
 ## 操作符 / 运算符
 
-+ **?? 空值合并运算符**——左边为 null、undefined 时返回右侧数，否则返回左边
++ **`??` `||` 空值合并运算符**，否则返回左边
 
     ```js
-    null ?? "foo"	// 1
-    0 ?? "bar"	// 0
+    // ?? 检测null、undefined
+    null ?? "foo"	// "foo"
+    
+    // || 转换为bool判断
+    0 || "bar"	// "bar"
     ```
-
-+ **比较运算符**：
-
-    ![image.png](https://cdn.nlark.com/yuque/0/2020/png/2617721/1607582362136-55308eac-4815-473b-8121-819f2f7aa94f.png)
 
 
 

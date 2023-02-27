@@ -1166,24 +1166,24 @@ this.$refs.test
 
 ## Props
 
-props 是包含有使用组件时附带属性的对象：
+与 TypeScript:
 
 ```vue
-<!--HelloWorld.vue-->
-<script>
-	export default {
-    name: "HelloWorld",
-    props: {
-      msg: String,
-    }
-  }
+<script setup lang="ts">
+interface Props {
+    foo: string,
+	bar?: number[],
+}
+const props1 = defineProps<Props>();
+// 声明默认值
+const props2 = widthDefaults(defineProps<Props>(), {
+    foo: 'foo',
+    bar: () => [0, 1],
+})        
 </script>
-
-<!--App.vue-->
-<template>
-	<HelloWorld msg="Welcome to Vue.js App"/>
-</template>
 ```
+
+
 
 
 
