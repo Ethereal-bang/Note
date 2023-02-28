@@ -400,68 +400,7 @@ const msg = ref("Foo");
 
 通过 Vue 提供的各种指令，在渲染的 DOM 上应用特殊地响应式行为
 
-
-
-+ <span style="font-size:22px">v-text	重置标签文本：</span>
-
-    在标签内部使用，重置标签的文本值(*textcontent*)
-
-    ```html
-    <div id="app">
-        <h2 v-text="message"></h2>
-    </div>
-    
-    <script>
-    	let app = new Vue({
-            el:"#app",
-            data:{
-                message:"v-text用来重置标签的文本"
-            }
-        })
-    </script>
-    ```
-
-    
-
-    但是使用`v-text`有一个缺点是，它会将原有的值也替换掉。
-
-    
-
-    如果只设置部分内容，可使用另一种写法，差值表达式 `{{ }}`，。根据需求选择。
-
-    ``` vue
-    <div id="app">
-        <h2>原有内容{{ message }}</h2>
-    </div>
-    
-    // 后面代码同
-    ```
-
-    
-
-    字符串拼接
-
-    ```vue
-    <div id="app">
-        <h2 v-text="message + '!'">原有内容</h2>	// 设置内容!
-        <h2>原有内容和{{ message + "!" }}</h2>	// 原有内容和设置内容!
-    </div>
-    
-    <script>
-    	let app = new Vue({
-            el:"#app",
-            data:{
-                message:"设置内容"
-            }
-        })
-    </script>
-    ```
-
-    
-
-+ <span style="font-size:22px">v-html 设置元素 innerHTML：</span>
-
-    `v-html `用来设置元素的`innerHTML`
++ <span style="font-size:20px">v-text  / v-html 设置 innerText / innerHTML：</span>
 
     ``` vue
     <body>
@@ -485,11 +424,9 @@ const msg = ref("Foo");
     </body>
     ```
 
-    由上面`v-text`与`v-html`的对比得出，`v-html`能解析html结构，而`v-text`只会解析文本
-
     
 
-+ <span style="font-size:22px">v-on 为元素绑定事件：</span>
++ <span style="font-size:22px">v-on / @ 为元素绑定事件：</span>
 
     作用：为元素绑定事件
 
@@ -501,52 +438,6 @@ const msg = ref("Foo");
         <input type="button" value="事件绑定" @click="show">
     </div>
     ```
-
-    `@`功能与之等同
-
-    
-
-    在`Vue`实例中设置`methods`属性
-
-    ``` vue
-    <div id="click">
-        <h2 @click="show">点击</h2>
-        {{ times }}{{ word }}
-      </div>  
-      
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script>
-          let show = new Vue({
-    		    el:"#click",
-            data:{
-                times:0,
-                word:"次"
-            },
-            methods:{
-                show:function(){
-                    console.log(this.times);
-                    this.times++;
-                }
-            }
-    	})
-      </script>
-    ```
-
-    可通过`this`指代`data`中定义的数据来达到更改数据的效果
-
-    上面的代码中，每次点击事件都改变了`times`的值。
-
-    
-
-    传自定义参数，事件修饰符：	**？**
-
-    详情见：[黑马程序员教程](https://www.bilibili.com/video/BV12J411m7MG?p=16&spm_id_from=pageDriver)
-
-    ``` vue
-    <input type="button" v-on:keyup.enter="show">	// keyup:按键触发
-    ```
-
-    
 
     总结：
 
@@ -560,56 +451,13 @@ const msg = ref("Foo");
 
 
 
-+ <span style="font-size:22px">v-show 切换元素显示状态：</span>
++ <span style="font-size:22px">v-if / v-show：</span>
 
-    根据表达式的真假，切换元素的显示和隐藏
-
-    ``` vue
-    <div id="a">
-        <input type="button" value="切换显示状态" @click="change">
-        <span v-show="state">被切换的一段文字</span>
-    </div>
-    
-    <script>
-    	let app = new Vue({
-            el:"#a",
-            data:{
-                state:true
-            },
-            methods:{
-            	change:function(){
-                    this.state = !this.state
-                }	
-        	}
-        })
-    </script>
-    ```
-
-    上面代码实现的功能是：点击按钮切换文字的显示状态。
-
-    
-
-+ <span style="font-size:22px">v-if 切换元素显示状态：</span>
-
-    根据表达式的真假，切换元素的显示和隐藏（操纵 dom 元素）
-
-    
-
-    与`v-show`的**本质区别**：
+    **本质区别**：
 
     `v-show`改变元素的`display`属性,而`v-if`通过直接增删 dom 元素实现
 
     `v-if`对性能消耗较大，需要频繁更改的元素则使用`v-show`。
-
-    
-
-    其值虽然在`""`里，但不是字符串
-
-    ```html
-    <h1>{{ msg }}</h1>
-    <h1 v-if="msg">Vue is awesome!</h1>
-    <h1 v-else>Oh no</h1>
-    ```
 
     
 
@@ -620,13 +468,13 @@ const msg = ref("Foo");
     语法：
 
     ```vue
-<img v-bind:src="imgSrc">
+    <img v-bind:src="imgSrc">
     // 代码略
     	data:{
     		imgSrc:"图片地址"
     	}
     ```
-    
+
     应用中，`v-bind`能省略不写，也就是`<img :src="imgSrc">`
 
     属性也可拼接字符串
@@ -658,39 +506,43 @@ const msg = ref("Foo");
         </ul>
     </template>
     ```
+
     
-    
-    
+
 + <span style="font-size:22px">v-model 双向数据绑定：</span>
 
-    设置及获取表单元素的值
+    **使用场景：**
+
+    用法1：设置及获取<span style="color:orange">表单元素</span>的值
+
+    用法2：<span style="color:orange">组件</span>
 
     ```vue
-    <div id="app">
-      <input type="text" v-model="message">
-      <h3>{{ message }}</h3>
-    </div>
-      
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-      let app = new Vue({
-        el:"#app",
-        data:{
-          message:"值"
-        },
-      })
+    <!-- CustomInput.vue -->
+    <script setup>
+    defineProps(['val'])
+    defineEmits(['update:val'])
     </script>
+    
+    <template>
+      <input
+        :value="val"
+        @input="$emit('update:val', $event.target.value)"
+      />
+    </template>
+    
+    <!-- Parent.vue -->
+    <CustomInput v-model="text" />
     ```
 
-    上面代码在浏览器中显示为![image-20210225183034792](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20210225183034792.png)，当我们修改文本框内容时，下面的`message`也会同步修改。同样，`message`值改变时，表单元素值也同步更改。因此，称为 双向数据绑定。
+    **多个 v-model 绑定**：
 
-    
-
-    总结：
-
-    + `v-model`指令是为了便捷地设置和获取表单元素的值
-    + 绑定的数据会和表单元素值相关联
-    + 绑定的数据与表单元素值双向绑定
+    ```vue
+    <UserName
+      v-model:first-name="first"
+      v-model:last-name="last"
+    />
+    ```
 
 
 
@@ -710,86 +562,6 @@ export default {
 ```
 
 
-
-## 组件化应用构建
-
-Vue 中，一个组件本质上是一个拥有预定义选项的 Vue 实例
-
-一个 Vue 应用由一个通过`new Vue`创建的**根 Vue 实例**，及可选的组件树组成
-
-
-
-+ **注册组件**：
-
-    `template`是“模板”的意思。
-
-    ```js
-    Vue.component('todo-item', {
-      template: '<li>这是个待办项</li>'
-    })
-    
-    let app = new Vue(...)
-    ```
-
-    
-
-+ **组件复用**：
-
-    ```js
-    <ol>
-      <!-- 创建一个 todo-item 组件的实例 -->
-      <todo-item></todo-item>
-    </ol>
-    ```
-
-    
-
-+ **从父作用域将数据`props`传到子组件**：
-
-    修改组件的定义，使它能接受一个`prop`：
-
-    ```js
-    Vue.component('todo-item', {
-      // todo-item 组件现在接受一个"prop"，类似于一个自定义 attribute。
-      props: ['todo'],
-      template: '<li>{{ todo.text }}</li>'
-    })
-    ```
-
-    
-
-+ **`v-bind`**将待办项传到**循环输出**的每个**组件**：
-
-    ```html
-    <div id="app">
-      <ol>
-      	<todo-item
-    			v-for="item in groceryList"
-          v-bind:todo="item"
-          v-bind:key="item.id"
-        ></todo-item>
-      </ol>
-    </div>
-    ```
-
-    ```vue
-    Vue.component('todo-item', {
-      props: ['todo'],
-      template: '<li>{{ todo.text }}</li>'
-    })
-    
-    let app = new Vue({
-    	el: '#app',
-    	data: {
-    		groceryList: [
-    			{ id: 0, text: '素菜' },
-    			{ id: 1, text: '荤菜' },
-        ]
-      }
-    })
-    ```
-
-    
 
 # Vue 实例
 
@@ -951,52 +723,6 @@ watch(obj, (newVal, oldVal) => {})	// 直接传入对象，隐式创建深层监
 
 
 
-# 模板语法
-
-Vue.js 使用**基于 HTML 的模板语法**，允许声明式地将 DOM 绑定至底层 Vue 实例的数据
-
-如果熟悉虚拟 DOM 可以不用模板，直接写 **render 函数**，使用可选的 **JSX** 语法
-
-
-
-## 插值
-
-+ <span style="font-size:18px; font-weight:bold">文本</span>
-
-    最常见形式是用“Mustache”语法 (*双大括号*)**`{{ }}`**的文本插值
-
-    ```js
-    <span>Message: {{ msg }}</span>
-    ```
-
-    Mustache 标签会被替代为对应数据对象上`msg` property 的值，且会随之更新
-
-    通过**`v-once`**也能执行**一次性插值**：
-
-    ```vue
-    <span v-once>这个将不会改变: {{ msg }}</span>
-    ```
-
-    
-
-+ <span style="font-size:18px; font-weight:bold">原始 HTML</span>
-
-    `{{ }}`会将数据解释为普通文本，而非 HTML 代码
-
-    输出真正的 HTML，需要使用`v-html`指令
-
-+ Attribute
-
-+ JS 表达式
-
-
-
-## template
-
-`template`的作用时**模板占位符**，帮助我们包裹元素，但不会被渲染到页面上
-
-
-
 # .vue
 
 ## refs
@@ -1016,57 +742,6 @@ this.$refs.test
 
 
 ## 组件基础
-
-+ **组件是带有名字的可复用的 Vue 实例**：
-
-    以下是一个 Vue 组件的示例：
-
-    ```jsx
-    // 定义一个名为 button-counter 的新组件
-    Vue.component('button-counter', {
-      data: function() {
-        return {
-          count: 0
-        }
-      },
-      template: 
-      	'<button v-on:click="count++">
-      		You clicked me {{ count }} times
-    		</button>'
-    })
-    ```
-
-+ 可以在一个通过<span style="color:red">`new Vue`创建的 Vue 根实例</span>中将这个组件**作为自定义元素使用**：
-
-    ```jsx
-    // HTML:
-    <div id="components-demo">
-      <button-counter></button-counter>	
-    </div>
-    
-    // JS
-    new Vue({ el: '#components-demo' })
-    ```
-
-+ 因为组件是可复用的 Vue 实例，它们**与`new Vue`接收相同选项**(*如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子* )，除了`el`这种根实例特有选项
-
-+ **`data`必须是个函数：**
-
-    这样规定保证每个实例可以维护一份<span style="color:red">被返回对象的独立拷贝</span>
-
-
-
-+ <span style="font-size:22px">组件的组织：</span>
-
-    通常一个应用会以一棵嵌套组件树形式来组织
-
-    例如：我们可能会有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件：<img src="https://gitee.com/ethereal-bang/images/raw/master/20211022224446.png" alt="image-20211022224446602" style="zoom:50%;" />
-
-    为了能在模板中使用，这些组件必须先注册以便 Vue 能够识别。组件有两种注册类型：<span style="color:red">全局注册</span>和<span style="color:red">局部注册</span>
-
-    **全局注册组件使用场景：**通过`Vue.component`全局注册的组件可以用作其被注册之后的任何 Vue 根实例==根实例不是有且仅有一个吗？==，也包括组件树中所有子组件模板中
-
-
 
 + <span style="font-size:22px">通过 Props 向子组件传递数据：</span>
 
@@ -1108,62 +783,6 @@ this.$refs.test
 
 
 
-## 组件注册
-
-+ <span style="font-size:22px">组件名：</span>
-
-    **直接在 DOM 中使用一个组件时** (而不是在字符串模板或[单文件组件](https://cn.vuejs.org/v2/guide/single-file-components.html)) ，Vue.js 强烈推荐遵循 [W3C 规范](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)中的自定义组件名 (**字母全小写且必须包含一个连字符**)。这会帮助避免和 HTML 元素相冲突
-
-    
-
-+ <span style="font-size:22px">全局注册</span>
-
-    例如：
-
-    ```jsx
-    Vue.component('component-a', { /* ... */ })
-    Vue.component('component-b', { /* ... */ })
-    Vue.component('component-c', { /* ... */ })
-    
-    new Vue({ el: '#app' })
-    
-    // HTML
-    <div id="app">
-      <component-a></component-a>
-      <component-b></component-b>
-      <component-c></component-c>
-    </div>
-    ```
-
-    这些组件是全局注册的，可以用在任何新创建的 Vue 根实例模板中，在其所有子组件中也是如此，（即三个组件各自内部也都可以相互使用）
-
-    **全局注册的行为必须在根 Vue 实例 (通过 `new Vue`) 创建之前发生**
-
-+ <span style="font-size:22px">局部注册：</span>
-
-    **全局注册往往不够理想：**意味着即使不再使用某一组件，其仍会被包含再最终 Webpack 构建结果，造成用户下载 JS 的无谓增加。
-
-    **定义局部注册的组件**：通过普通的 JS 对象定义：
-
-    ```jsx
-    let ComponentA = { /* ... */ }
-    let ComponentB = { /* ... */ }
-    
-    new Vue({
-      el: '#app',
-      components: {
-        'component-a': ComponentA,
-        'component-b': ComponentB
-      }
-    })
-    ```
-
-    对于**`components`对象**每个 property，property 名为自定义元素名，值为组件的选项对象
-
-​		局部注册组件**在其子组件不可用**
-
-
-
 ## Props
 
 与 TypeScript:
@@ -1185,47 +804,24 @@ const props2 = widthDefaults(defineProps<Props>(), {
 
 
 
-
-
 ## 自定义事件
 
-+ <Span style="font-size:22px">事件名：</span>
+推荐**使用 kebab-case 的事件名**
 
-    不同于组件和 Prop，事件名不存任何自动化大小写转换；又因为`v-on`在 DOM 模板会自动转换为小写
+<span style="color:blue">Eg:</span>
 
-    因此始终推荐**使用 kebab-case 的事件名**(*连字符* )
-
-
-
-+ <span style="font-size:22px">自定义组件的`v-model`：</span>==？==
-
-    一个组件上的 `v-model` 默认会利用名为 `value` 的 prop 和名为 `input` 的事件，但是像单选框、复选框等类型的输入控件可能会将 `value` attribute 用于不同的目的	==？==
-
-    **`model`选项**可用来避免这样的冲突：
-
-    ```vue
-    Vue.component('base-checkbox', {
-      model: {
-        prop: 'checked',
-        event: 'change',
-      },
-      props: {
-        checked: Boolean
-      },
-      template: `
-    		<input
-          type="checkbox"
-          v-bind:checked="checked"
-          v-on:change="$emit('change', $event.target.checked)"
-        >
-    	`
-    })
-    
-    // 现在在这个组件使用`v-model`时：
-    <base-checkbox v-model="lovingVue"></base-checkbox>
-    ```
-
-    这里的`loginVue`值会传入这个名为`checked`的 prop，同时`<base-checkbox>`会触发一个`change`事件并附带一个新的值时，这个`loginVue`的property 将被更新
+```vue
+<!-- Child.vue -->
+<script setup>
+const emit = defineEmits(["update"]);
+watch(
+	foo,
+    value => emit(value);
+)
+</script>
+<!-- Parent.vue -->
+<component @update="val => handleUpdate(val)"/>
+```
 
 
 
@@ -1239,7 +835,7 @@ Vue 将**`<slot>`**元素作为承载分发内容的出口
 
 + slot 已弃用
 
-==？==允许像这样合成组件：
+允许像这样合成组件：
 
 ```jsx
 <navigation-link url="/profile">
