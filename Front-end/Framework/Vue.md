@@ -690,35 +690,16 @@ let vm = new Vue({
 
 
 
-## 侦听器  watch
+## watch
 
 监听响应式变量的变化
 
-```vue
-<script>
-export default {
-	data() {
-        return {
-            foo: '',
-            obj: {
-                key: '',
-            }
-        }
-    },
-    watch: {
-        foo(newVal, oldVal) {},
-        'obj.key': function(newVal, oldVal) {},	// 对象属性的监听
-        obj: {	// 深度监听
-            handler(newVal, oldVal) {  
-            },
-            deep: true,
-        }
-    }
-}
-</script>
-<script setup>
-watch(obj, (newVal, oldVal) => {})	// 直接传入对象，隐式创建深层监听
-</script>
+默认数据源变化时执行回调，传入 `immediate: true` 获得初始数据 
+
+```js
+watch(source, (newValue, oldValue) => {
+  // 立即执行，且当 `source` 改变时再次执行
+}, { immediate: true })
 ```
 
 
@@ -825,162 +806,6 @@ watch(
 
 
 
-## 插槽
-
-Vue 将**`<slot>`**元素作为承载分发内容的出口
-
-
-
-### 插槽内容
-
-+ slot 已弃用
-
-允许像这样合成组件：
-
-```jsx
-<navigation-link url="/profile">
-  Your Profile
-</navigation-link>
-```
-
-然后在 `<navigation-link>` 的模板中可能会写为：
-
-```jsx
-<a
-  v-bind:href="url"
-  class="nav-link"
->
-  <slot></slot>
-</a>
-```
-
-当组件渲染时，`<slot></slot>`将会被替换成”Your Profile“。
-
-
-
-插槽内可包含任何模板代码，包括 HTML、其余组件
-
-
-
-### 默认内容
-
-有时给插槽设置具体默认内容是很有用的，它只会在没有提供内容的时候被渲染
-
-
-
-+ 例如在一个`<submit-button>`组件中：
-
-    我们希望这个`<button>`内绝大多数情况都渲染文本"Submit"，为了将其作为默认内容将它放入`<slot>`标签内：
-
-    ```jsx
-    <button type="submit">
-    	<slot>Submit</slot>
-    </button>
-    ```
-
-    现在在一个父级组件中使用`<submit-button>`且不提供任何插槽内容：
-
-    ```jsx
-    <submit-button></submit-button>
-    ```
-
-    后备内容”Submit“将会被渲染。
-
-
-
-### 具名插槽
-
-**使用场景：**有时一个组件内需要多个插槽：
-
-```jsx
-<div class="container">
-  <header>
-    <!-- 我们希望把页头放这里 -->
-  </header>
-  <main>
-    <!-- 我们希望把主要内容放这里 -->
-  </main>
-  <footer>
-    <!-- 我们希望把页脚放这里 -->
-  </footer>
-</div>
-```
-
-对于这样的情况，**`<slot>` 元素有一个特殊的 attribute：`name`**。这个 attribute 可以用来定义额外的插槽：
-
-```jsx
-<div class="container">
-  <header>
-    <slot name="header"></slot>
-  </header>
-  <main>
-    <slot></slot>
-  </main>
-  <footer>
-    <slot name="footer"></slot>
-  </footer>
-</div>
-```
-
-**向具名插槽提供内容**时：可以在一个`<template>` 元素上使用 **`v-slot`** 指令，并以 `v-slot` 的参数的形式提供其名称，任何没有包裹在带有 `v-slot` 的 `<template>` 中的内容都会被视为默认插槽的内容
-
-```jsx
-<base-layout>
-  <template v-slot:header>
-    <h1>Here might be a page title</h1>
-  </template>
-
-  <p>A paragraph for the main content.</p>
-  <p>And another one.</p>
-
-  <template v-slot:footer>
-    <p>Here's some contact info</p>
-  </template>
-</base-layout>
-```
-
-
-
-### 作用域插槽
-
-**使用场景：**让插槽内容能够访问子组件中才有的数据
-
-实例：
-
-使用含插槽的组件`<current-user>`时，
-
-```jsx
-<current-user>
-  {{ user.firstName }}
-</current-user>
-```
-
-上述代码不会正常工作，因为只有 `<current-user>` 组件可以访问到 `user`，而我们提供的内容是在父级渲染的。
-
-为了让`user`在父级的插槽中可用，将`user`作为`<slot>`元素的一个 attribute 绑定上去：
-
-```jsx
-<span>
-  <slot v-bind:user="user">
-    {{ user.lastName }}
-  </slot>
-</span>
-```
-
-绑定在`<slot>`元素上的 attribute 称为**插槽 prop**。现在在父级作用域中可以使用**`v-slot`**定义我们提供的插槽 prop 的名字：
-
-```jsx
-<current-user>
-  <template v-slot:default="slotProps">
-    {{ slotProps.user.firstName }}
-  </template>
-</current-user>
-```
-
-这里将包含所有插槽 prop 的对象命名为`slotProps`，但也可以使用其他名字。
-
-
-
 # style
 
 **引入 Sass：**
@@ -1017,20 +842,6 @@ scoped 属性的 `<style>` 标签的 CSS 只作用于当前组件中元素。父
 
 # 可复用性 & 组合
 
-## 混入 Mixin
-
-混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项
-
-
-
-## 自定义指令
-
-
-
-## 钩子函数
-
-
-
 ## 渲染函数 & JSX
 
 有时比起模板语法，使用 JS 的完全编程，`render`函数更合适。
@@ -1059,7 +870,6 @@ scoped 属性的 `<style>` 标签的 CSS 只作用于当前组件中元素。父
 ```
 
 ```jsx
-
 Vue.component('anchored-heading', {
   render: function (createElement) {
     return createElement(
@@ -1076,7 +886,31 @@ Vue.component('anchored-heading', {
 })
 ```
 
-可以看出，这个场景用模板代码冗长，且每一个级别的标题中重复书写了`<slot></slot>`。使用`render`函数精简很多，需要非常熟悉 Vue 的 [实例 property](https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B-property)。
+可以看出，这个场景用模板代码冗长，且每一个级别的标题中重复书写了`<slot></slot>`。使用`render`函数精简很多
+
+
+
+# 内置特殊元素
+
+## \<component>
+
+渲染动态组件，渲染的实际组件由 `is` prop 决定
+
+```typescript
+interface DynamicComponentProps {
+  is: string | Component
+}
+```
+
+<span style="color:blue">Eg:</span>
+
+```jsx
+<!-- 渲染组件 -->
+<component :is="Math.random() > 0.5 ? Foo : Bar" />
+
+<!-- 渲染组件 -->
+<component :is="href ? 'a' : 'span'" />
+```
 
 
 
