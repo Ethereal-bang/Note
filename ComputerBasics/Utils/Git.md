@@ -273,7 +273,7 @@ $git clone https://github.com/<>/<>.git
 
 
 
-## 与原仓库同步（Fetch）
+## Fetch
 
 1. 配置原仓库路径：
 
@@ -311,6 +311,12 @@ $ git pull origin main --alow-unrelated-histories
 > 解决: fatal: refusing to merge unrelated histories
 
 
+
+## Pull
+
+git fetch + git merge
+
+ 
 
 # 分支
 
