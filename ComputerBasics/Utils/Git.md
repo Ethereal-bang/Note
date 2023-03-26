@@ -421,7 +421,21 @@ $ git cz
 
 
 
+# ERROR
 
-# REF
+**443:** —— [更改 IP](https://juejin.cn/post/6844904193170341896) 解决 DNS 污染
 
-[Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
+查询对应 IP Address，本地设置直链 IP，不走运营商的 DNS:
+
+[github.com IP](https://www.ipaddress.com/site/github.com) —— 140.82.112.4
+
+[github.global.ssl.fastly.net IP](https://fastly.net.ipaddress.com/github.global.ssl.fastly.net#ipinfo) —— 151.101.1.6
+
+[assets-cdn.github.com](https://github.com.ipaddress.com/assets-cdn.github.com) —— 140.82.112.4
+
+```shell
+# github
+140.82.112.4 github.com
+151.101.1.6 github.global.ssl.fastly.net
+140.82.112.4 assets-cdn.github.com
+```
