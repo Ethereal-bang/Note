@@ -1055,19 +1055,30 @@ Action 函数接受一个与 store 实例具有相同方法和属性的 context 
 
 
 
-# Vue 的网络应用
+# [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
 
-现在很少有纯本地应用，或多或少都会进行网络数据的交互
+VUE + TS 开发时，使用装饰器简化书写的库
 
-Vue 结合网络数据开发应用
+```typescript
+import {Vue, Component} from "vue-property-decorator";
+@Component({})
+export default class Foo extends Vue {}
+```
 
+**computed:**
 
+```js
+get fullname() {
+    return this.familyName + this.lastName;
+}
+```
 
-## axios + Vue
+**watch:**
 
-首先打包，官网地址：
-
-`<script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"><script>`
+```js
+@Watch('modifyForm.color')
+onChange(newVal, val) {}
+```
 
 
 
