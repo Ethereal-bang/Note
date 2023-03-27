@@ -2635,6 +2635,8 @@ public class Status { int lSum, rSum, mSum, iSum;}
 
 ## ACM 模式
 
+**Java:**
+
 ```java
 import java.util.*;
 public class Main{
@@ -2648,10 +2650,17 @@ public class Main{
 }
 ```
 
+**JavaScript Node:**
+
 ```js
-while (line = readline()) {	// 任意行数输入
-  const arr = line.split(' ');
-}
+const rl = require("readline").createInterface({ input: process.stdin });
+var iter = rl[Symbol.asyncIterator]();
+const readline = async () => (await iter.next()).value;
+
+void async function () {
+  // Write your code here
+  const N = parseInt(await readline());
+}()
 ```
 
 

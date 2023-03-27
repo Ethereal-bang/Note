@@ -318,37 +318,54 @@ sort()
 
 
 
-## 节点
+## 节点 Node
+
+<span style="font-size:20px">属性</span>
+
+**nodeType:** 元素 1 | 属性 2 | 文本 3 | 注释 8
+
+**textContent:** ( 区分于 innerText / innerHTML )
+
+```html
+<div id="divA">This is <span>some</span> text!</div>
+
+<script>
+document.getElementById('divA').textContent;
+// 'This is some text!'
+</script>
+```
+
+
 
 ### 操作 DOM 节点——增删改查
 
-+ <span style="font-size:22px">获取：</span>
+<span style="font-size:22px">获取：</span>
 
-    + `getElementById`、`getElementsByTagName`、`getElementsByClassName`
++ `getElementById`、`getElementsByTagName`、`getElementsByClassName`
 
-    + HTML5 新增两种获取节点的方法：
++ HTML5 新增两种获取节点的方法：
 
-        `querySelector`、`querySelectorAll`参数都为CSS选择器字符串
+    `querySelector`、`querySelectorAll`参数都为CSS选择器字符串
 
-    + 获取完一次元素节点之后，我们还可以通过元素节点的**父子关系**，来更准确的获取元素节点：
++ 获取完一次元素节点之后，我们还可以通过元素节点的**父子关系**，来更准确的获取元素节点：
 
-        `.childNodes/children`、`.parentNode`、`.previousSibling`、`.firstChild`等。
+    `.childNodes/children`、`.parentNode`、`.previousSibling`、`.firstChild`等。
 
-+ <span style="font-size:22px">添加：</span>
+<span style="font-size:22px">添加：</span>
 
-    - `document.createElement()`创建一个元素节点
-    - `document.createTextNode()`创建一个文本节点
+- `document.createElement()`创建一个元素节点
+- `document.createTextNode()`创建一个文本节点
 
-    - `appendChild()`  向节点的子节点列表的末尾添加新的子节点
-    - `insertBefore()` 节点任意位置插入
+- `appendChild()`  向节点的子节点列表的末尾添加新的子节点
+- `insertBefore()` 节点任意位置插入
 
-+ <span style="font-size:22px">删除：</span>
+<span style="font-size:22px">删除：</span>
 
-    `parentNode.removeChild ()`返回被删除节点
+`parentNode.removeChild ()`返回被删除节点
 
-+ <span style="font-size:22px">修改：</span>
+<span style="font-size:22px">修改：</span>
 
-    替换内容：  `innerHTML`/`innerText`属性
+替换内容：  `innerHTML`/`innerText`属性
 
 
 
