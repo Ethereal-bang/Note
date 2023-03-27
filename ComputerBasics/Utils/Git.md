@@ -427,6 +427,14 @@ $ git cz
 
 
 
+# DEBUG
+
+<span style="font-size:18px">git clone 报错: `fatal: unable to access 'XXX': Recv failure: Connection was reset`:</span>
+
+[修改设置解除ssl验证：`git config --global http.sslVerify "false"`，然后重新clone](https://blog.csdn.net/hero_java/article/details/115036756)
+
+
+
 
 # REF
 

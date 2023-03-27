@@ -137,7 +137,7 @@
 
 + Join: 从两个关系的笛卡尔积中选取属性间满足一定条件的元组
 
-    ![image-20220629163202447](E:%5CTypora%5Cupload%5Cimage-20220629163202447.png)
+    ![img](https://img-blog.csdnimg.cn/2020052320433043.png)
 
 + Division: 同时从行和列角度进行运算
 
