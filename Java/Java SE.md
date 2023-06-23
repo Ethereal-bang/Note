@@ -646,6 +646,8 @@ Integer i = new Integer(1);
 
 + Integer.MIN_VALUE
 + Object.equals() 比较俩 Integer 值相等而不是指向同一对象
++ Integer.parseInt(String)
++ Integer.valueOf(String)
 
 <span style="font-size:20px">Character: </span>
 

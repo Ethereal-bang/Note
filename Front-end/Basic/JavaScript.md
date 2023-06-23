@@ -119,7 +119,7 @@ function sum(a, b, ...args) {
 
   
 
-#### String
+### String
 
 字符串的加减乘除
 
@@ -157,9 +157,9 @@ function sum(a, b, ...args) {
 
 
 
-## 函数
+### 函数
 
-### arguments：
+#### arguments：
 
 **特点**——伪数组，可遍历，具 length 属性，索引方式储存数据，不具有数组的 `push`，`pop` 等方法；
 
@@ -182,7 +182,7 @@ function sum(a, b, ...args) {
 
 
 
-### 高阶函数
+#### 高阶函数
 
 HOC——Higher-order function**一个函数接收另一个函数作为参数**，这种函数就称为高阶函数
 
@@ -197,67 +197,63 @@ HOC——Higher-order function**一个函数接收另一个函数作为参数**�
 
 
 
-## 数组
-
-+ **二维数组初始化:**
-
-    ```js
-    new Array(m).fill(0).map(() => new Array(n).fill(0)); 
-    ```
-
-    > 长度为 m×n 的二维矩阵。第一个 `fill(0)` 不可省略。
-    
-    > <span style="color:red">Notice: </span>
-    >
-    > 不可写成：
-    >
-    > ```js
-    > new Array(m).fill(new Array(n).fill(0));
-    > ```
-    >
-    > 这样第二维共享的是同一地址
+### Object.prototype
 
 
 
-## 对象
+#### []
 
-分为自定义对象、内置对象、浏览器对象
-
-+ <span style="font-size:20px">深拷贝、浅拷贝：</span>
-
-    浅拷贝——指向同一地址，深拷贝——不同地址
-
-    最简便的方法：`JSON.parse`&`JSON.stringify`——<span style="color:red">`undefined`会变成`null`</span>
+[Array.prototype.splice(start, deleteCount, ...items)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) —— 原地 删除/替换/添加
 
 
 
-+ [**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
+#### {}
 
-    允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。在引用为空([nullish](https://developer.mozilla.org/zh-CN/docs/Glossary/Nullish) ) ([`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
+<span style="font-size:20px">深拷贝、浅拷贝：</span>
+
+浅拷贝——指向同一地址，深拷贝——不同地址
+
+最简便的方法：`JSON.parse`&`JSON.stringify`——<span style="color:red">`undefined`会变成`null`</span>
 
 
 
-+ <span style="font-size:20px">对象属性的遍历：</span>
+[**可选链操作符 `?.`、`?.[]`、`?.()`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)：
 
-    + <span style="font-size:20px">[for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in)：</span>
+该表达式短路返回值是 `undefined`。与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
 
-        会遍历自身以及继承的可枚举属性，不包含 Symbol 属性。 
 
-    + <span style="font-size:20px">[Object.keys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)：</span>
 
-        遍历自身可枚举属性，不包含 Symbol 属性。
+<span style="font-size:20px">对象属性的遍历：</span>
 
-    + <span style="font-size:20px">[Object.getOwnPropertyNames()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames)：</span>
++ <span style="font-size:20px">[for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in)：</span>
 
-        返回对象所有自身属性键，包含不可枚举属性、Symbol 组成的数组。
+    会遍历自身以及继承的可枚举属性，不包含 Symbol 属性。 
 
-    + <span style="font-size:20px">[Reflect.ownKeys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)：</span>
++ <span style="font-size:20px">[Object.keys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)：</span>
 
-        返回对象所有自身键，包含不可枚举、Symbol 组成的数组
+    遍历自身可枚举属性，不包含 Symbol 属性。
 
-    + <span style="font-size:20px">[Object.getOwnPropertySymbols()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols)：</span>
++ <span style="font-size:20px">[Object.getOwnPropertyNames()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames)：</span>
 
-        返回所有 Symbol 属性的数组
+    返回对象所有自身属性键，包含不可枚举属性、Symbol 组成的数组。
+
++ <span style="font-size:20px">[Reflect.ownKeys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)：</span>
+
+    返回对象所有自身键，包含不可枚举、Symbol 组成的数组
+
++ <span style="font-size:20px">[Object.getOwnPropertySymbols()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols)：</span>
+
+    返回所有 Symbol 属性的数组
+
+
+
+<span style="font-size:20px">key</span>
+
+[Object.defineProperty(obj, prop, descriptor)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) —— 定义或修改属性
+
+[Object.prototype.hasOwnProperty(prop)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty) —— 对象是否具有指定键
+
+delete obj[key]
 
 
 

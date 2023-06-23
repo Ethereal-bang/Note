@@ -99,6 +99,8 @@
 
     TS 支持数字的和基于字符串的枚举
 
+    可 for...in 遍历
+
     枚举可以清晰定义一组用例：
 
     ```typescript
@@ -649,40 +651,40 @@ TS 引入了条件类型使得我们可以根据某些条件得到不同的类�
 
 ### Record
 
-+ <span style="font-size:20px">源码：</span>
+<span style="font-size:20px">源码</span>
 
-    **`Record<K extends keyof any, T>`**的作用是将`K`中所有属性的值转化为`T`类型。其中`T`表示传入的键（联合类型）、`K`表示键值的类型
+**`Record<K extends keyof any, T> `** 的作用是将 `K` 中所有属性的值转化为 `T` 类型
 
-    ```ts
-    type Record<T extends keyof any, K> = {
-      [p in T]: K;
-    }
-    ```
+索引 - 值 的类型（其中`T`表示传入的键（联合类型）、`K`表示键值的类型
 
-+ <span style="font-size:20px">使用：</span>
+```ts
+type Record<T extends keyof any, K> = {
+  [p in T]: K;
+}
+```
 
-    这里的`<"name" | "string">`就是生成类型的属性名。
+<span style="font-size:20px">使用</span>
 
-    ```ts
-    type E = Record<"name" | "age", string>
-    /* type E = {
-        name: string;
-        age: string;
-    } */
-    ```
+<span style="color:blue">EG1: 约束键对应值类型</span>
 
-    > **联合类型——>字面量类型：**
-    >
-    > `name` 的类型是 `string | undefined` 意味着可以是 `string` 或 `undefined` 的值。
-    >
-    > 有时，会有这样的用法：
-    >
-    > ```ts
-    > let num: 1 | 2 = 1;
-    > type EventNames = 'click' | 'scroll' | 'mousemove';
-    > ```
-    >
-    > 上例的`1`、`2`、`click`这些被称为**字面量类型**，用来约束取值只能是某几个值中的一个
+```ts
+type E = Record<"name" | "age", string>
+/* type E = {
+    name: string;
+    age: string;
+} */
+```
+
+<span style="color:blue">EG2: 代替 object</span>
+
+```typescript
+type E = Record<string, any>
+/**
+ * type E = {
+ *  [x: string]: any;
+ * }
+ */
+```
 
 
 

@@ -277,7 +277,7 @@ $git clone https://github.com/<>/<>.git
 
 
 
-## 与原仓库同步（Fetch）
+## Fetch
 
 1. 配置原仓库路径：
 
@@ -315,6 +315,12 @@ $ git pull origin main --alow-unrelated-histories
 > 解决: fatal: refusing to merge unrelated histories
 
 
+
+## Pull
+
+git fetch + git merge
+
+ 
 
 # 分支
 
@@ -480,25 +486,48 @@ package.json 配置:
 
 # ERROR
 
-**443:** —— [更改 IP](https://juejin.cn/post/6844904193170341896) 解决 DNS 污染
+`fatal: unable to access 'XXX': Recv failure: Connection was reset`:
+
+[修改设置解除ssl验证：`git config --global http.sslVerify "false"`，然后重新clone](https://blog.csdn.net/hero_java/article/details/115036756)
+
+
+
+**Failed to connect to github.com port 443:** —— [更改 IP](https://juejin.cn/post/6844904193170341896) 解决 DNS 污染
 
 先尝试 `ipconfig /flushdns`
 
 查询对应 IP Address，本地设置直链 IP，不走运营商的 DNS:
 
-[github.com IP](https://www.ipaddress.com/site/github.com) —— 140.82.112.4
+[github.com IP](https://www.ipaddress.com/site/github.com) —— 140.82.112.4 / 140.82.113.3
 
-[github.global.ssl.fastly.net IP](https://fastly.net.ipaddress.com/github.global.ssl.fastly.net#ipinfo) —— 151.101.1.6
+[github.global.ssl.fastly.net IP](https://fastly.net.ipaddress.com/github.global.ssl.fastly.net#ipinfo) —— IPv4:
+
+151.101.1.6
+
+151.101.65.6
+
+151.101.129.6
+
+151.101.193.6
 
 [assets-cdn.github.com](https://github.com.ipaddress.com/assets-cdn.github.com) —— 140.82.112.4
 
 ```shell
 # hosts文件
 # github
-140.82.112.4 github.com
+140.82.113.3 github.com
 151.101.1.6 github.global.ssl.fastly.net
+151.101.65.6 github.global.ssl.fastly.net
+151.101.129.6 github.global.ssl.fastly.net
+151.101.193.6 github.global.ssl.fastly.net
 140.82.112.4 assets-cdn.github.com
 ```
+
+```shell
+ipconfig /flushdns
+```
+
+
 
 **10054:** —— 关闭 SSL 验证
 
