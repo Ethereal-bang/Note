@@ -4,6 +4,10 @@
 
 
 
+**.gitignore** 
+
+
+
 # Git 安装
 
 1. 安装完成后在开始菜单找到 Git Bash，说明安装成功
@@ -387,23 +391,76 @@ HEAD 通常指向分支名，大多数修改提交树的 git 命令都是从改�
 
 
 
-# Commitizen
+# Husky
 
-**全局安装：**
+> [如何用 Husky 向 Git 添加 Commit Hooks 以实现代码任务的自动化](https://www.freecodecamp.org/chinese/news/how-to-add-commit-hooks-to-git-with-husky-to-automate-code-tasks)
 
-```shell
-$ npm i -g commitizen
-```
-
-**项目安装 Adapter：**==...==
-
-**使用：**
+Git Hook 工具，可以监听 git 的每一步操作
 
 ```shell
-$ git cz
+$ npm i husky -D
+$ npx husky install # 添加钩子
+$ # 创建钩子
 ```
 
 
+
+package.json 配置:
+
+```json
+"scripts": {
+  "prepare": "husky install"
+}
+```
+
+
+
+# Git Commit 规范提交
+
+> [规范化Commit Commitizen + Husky + commitlint](https://note.zhangjc.cn/src/6_%E5%B7%A5%E7%A8%8B%E5%8C%96/Git/commitizen&husky&commitlint.html)
+
+**Commitizen:** 基于 Node.js 的 `git commit` 命令行工具，辅助生成标准化规范化的 commit message
+
+**Commitizen Adapter:** 更换 commitizen 命令行工具的 交互方式 插件
+
+**[git-cz](https://github.com/streamich/git-cz):** 语义化 git commits 工具
+
+**[commitlint](https://commitlint.js.org):** git message 校验工具
+
+
+
+1. **commitizen 全局/项目 安装:**
+
+    ```shell
+    $ npm i -g commitizen
+    ```
+
+2. **初始化 Adapter:** [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)
+
+    ```shell
+    $ npx commitizen init cz-conventional-changelog --save-dev --save-exact
+    $ pnpm add -D -E cz-conventional-changelog
+    ```
+
+    ```json
+    "config": {
+      "commitizen": {
+        "path": "cz-conventional-changelog"
+      }
+    }
+    ```
+
+3. **git-cz 代替 git commit**
+
+
+
+1. **配置 commitlint** (要先安装 husky) 
+
+    ```
+    npm install -g @commitlint/cli @commitlint/config-conventional
+    ```
+
+    
 
 # WebStorm + Git
 
@@ -425,6 +482,8 @@ $ git cz
 
 **443:** —— [更改 IP](https://juejin.cn/post/6844904193170341896) 解决 DNS 污染
 
+先尝试 `ipconfig /flushdns`
+
 查询对应 IP Address，本地设置直链 IP，不走运营商的 DNS:
 
 [github.com IP](https://www.ipaddress.com/site/github.com) —— 140.82.112.4
@@ -434,8 +493,16 @@ $ git cz
 [assets-cdn.github.com](https://github.com.ipaddress.com/assets-cdn.github.com) —— 140.82.112.4
 
 ```shell
+# hosts文件
 # github
 140.82.112.4 github.com
 151.101.1.6 github.global.ssl.fastly.net
 140.82.112.4 assets-cdn.github.com
 ```
+
+**10054:** —— 关闭 SSL 验证
+
+```bash
+git config set --global http.SslVerify "false"
+```
+

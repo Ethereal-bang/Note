@@ -1339,53 +1339,7 @@ function ProfilePage() {
 
 ## Virtual DOM
 
-**VDOM:** 
-
-就是由 React Element 构成的一棵树。根据这个由 JavaScript 对象表示的树结构来构建一棵真正的 DOM 树
-
-**创建 VDOM：**
-
-```jsx
-class Element {
-    constructor(type, props, children) {
-        this.type = type;
-        this.props = props;
-        this.children = children;
-    }
-}
-function createElement(type, props, children) {
-    return new Element(type, props, children);
-}
-```
-
-**渲染 VDOM：**
-
-```jsx
-ReactDOM.myRender = (element, container) => {
-    // 根据type创造dom元素
-    const node = document.createElement(element.type);
-    // 遍历props对象 设置属性
-  	for (const key in element.props) {
-        if (key === "children") {
-            if (element.props[key]) {
-                // string类型不能直接被appendChild
-                const textNode = document.createTextNode(element.props[key]);
-                node.appendChild(textNode);
-            }
-        } else {
-            node.setAttribute(key, element.props[key]);
-        }
-    }
-    // 插入到页面
-  	container.appendChild(node);
-}
-```
-
 **Virtual DOM 算法: **
-
-> 当我们需要创建或更新元素时，React 首先会让这个 VitrualDOM 对象进行创建和更改，然后再将 VitrualDOM 对象渲染成真实 DOM；
->
-> 当我们需要对 DOM 进行事件监听时，首先对 VitrualDOM 进行事件监听，VitrualDOM 会代理原生的 DOM 事件从而做出响应
 
 1. JS 对象结构表示 DOM 树的结构，然后用这个树构建一个真正的 DOM 树，插到文档中
 2. Diff、Edition DIstance 算法——状态变更时，重新构建一颗新的对象树，比较新旧树差异
@@ -1409,55 +1363,6 @@ ReactDOM.myRender = (element, container) => {
 <span style="font-size:22px">列表对比算法</span>
 
 <span style="font-size:22px">Patch 更新</span>
-
-
-
-## React 的构建
-
-通过 [Babel 转换](https://www.babeljs.cn/repl)可以知道，ReactDOM.render 是由这个方法转义 JSX 代码的：(`ReactDOM.render(<div id="title">day</div>, document.getElementById("root"))`)
-
-![image-20220807174533506](http://img.giantbear.top/img/20220807174545.png)
-
-
-
-+ <Span style="font-size:20px">React.createElement(type,  props, children)：</span>
-
-    实质是返回一个 React 元素
-
-    打印`createElement`方法返回的元素：
-
-    ![image-20220808082708869](http://img.giantbear.top/img/20220808082711.png)
-
-    
-
-+ <span style="font-size:20px">组件：</span>
-
-    由 Babel 可以知道，组件渲染本质也是将组件转化为一个 React 元素：
-
-    ```jsx
-    // JSX
-    function App(props) {
-      return <h1>Hello, {props.name}</h1>
-    }
-    // JS
-    function App(props) {
-      return /*#__PURE__*/React.createElement("h1", null, "Hello, ", props.name);
-    }
-    ```
-
-    
-
-+ <Span style="font-size:20px">ReactDOM.render():</span>
-
-    将`React.createElement()`返回的元素渲染到页面
-
-    ```jsx
-    <script type="text/babel">
-        ReactDOM.render(<h1>try</h1>, document.getElementById("root"));
-    </script>
-    ```
-
-    只有含有`text/babel`时才能成功将 JSX 代码识别为 React 元素
 
 
 

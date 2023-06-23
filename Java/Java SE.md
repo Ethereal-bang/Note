@@ -34,11 +34,8 @@ $ java Hello
 
     ​	（如不遵守，编译亦可通过）
 
-    + 包名：多单词组成时所有字母都小写（xxxyyyzzz）
-    + 类名、接口名：多单词组成时，所有单词的首字母大写（XxxYyyZzz）
-    + 变量名、方法名：多单词组成时，第一个单词首字母小写，第二个单词开始每个单词首字母大写（xxxYyyZzz）
-    + 常量名：所有字母都大写。多单词时每个单词用下划线连接（XXX_YYY_ZZZ）
-    
+    常量名：所有字母都大写。多单词时每个单词用下划线连接（XXX_YYY_ZZZ）
+
 + <span style="font-size:20px">Doc 注释：</span>
 
     ```java
@@ -210,6 +207,10 @@ int n1 = 1000000000, n2 = 1000000000;
 long sum = (long) n1 + n2;	// 不能(long) (n1 + n2) 这样n1+2还是溢出
 ```
 
+<span style="font-size:20px">取模</span>
+
+取模的正负号与<span style="color:orange">被除数</span>同号
+
 
 
 ## Random
@@ -351,14 +352,14 @@ public static void zeroToRear(int[] nums) {
 Arrays.sort(arr, new Comparator<int[]>() {
   @Override
   public int compare(int[] o1, int[] o2) {
-    return o1 - o2;   // 升序
+    return o2 - o1;   // 降序
   }
 });
 ```
 
 
 
-### Colection Interface
+### Collection Interface
 
 Collections.sort(collect)
 
@@ -649,7 +650,8 @@ Integer i = new Integer(1);
 <span style="font-size:20px">Character: </span>
 
 + Character.isDigit()
-+ Character.isLetterOrDigit()
++ Character.<span style="color:orange">isLetterOrDigit()</span>
++ Character.toLowerCase()
 
 
 

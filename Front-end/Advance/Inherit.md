@@ -2,7 +2,11 @@
 
 # 概念：constructor、原型对象、实例
 
-constructor 通过`.prototype`引用与之关联的原型对象，原型对象也有一属性`constructor`指回 constructor，实例有一指针`__proto__`指向原型
+constructor 通过 `.prototype` 引用与之关联的原型对象，
+
+原型对象也有一属性 `constructor` 指回 constructor，
+
+实例有一指针 `__proto__` 指向原型
 
 + constructor 用来创建实例对象，原型对象上的属性和方法是所有实例共享的
 
@@ -185,18 +189,20 @@ function createAnother (original) {
 
 组合式继承也存效率问题，即父类构造函数会被调用两次。
 
-寄生式组合继承通过盗用构造函数继承属性，但使用混合式原型链继承方法。基本思路是不通过父类构造函数给子类原型赋值，而是取得父类原型的一个副本，即是使用寄生式继承来继承父类原型，将返回的新对象赋值给子类型原型。基本模式如下：
+**基本思路:** 不通过父类构造函数给子类原型赋值，而是取得父类原型的一个副本，即是使用寄生式继承来继承父类原型，将返回的新对象赋值给子类型原型
+
+**基本模式:**
 
 ```js
 function inheritPrototype(subType, superType) {
-  subType.prototype = Object.create(superType.prototype);	
-  subType.prototype.constructor = subType;	// 不然constructor会是superType
+  // 1.创建副本
+  const prototype = Object.create(superType.prototype);
+  // 2.赋值对象
+  subType.prototype = prototype;
+  // 3.还原对象(解决重写原型后constructor)
+  subType.prototype.constructor = subType;
 }
 ```
-
-+ 行 2 使用`Object.create`与直接赋值`superType.prototype`的区别：
-
-    直接赋值相当于父类、子类共用同一原型，`Object.create`是创建了父类原型的一个副本。
 
 
 

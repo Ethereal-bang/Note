@@ -28,14 +28,19 @@ JSDoc 注释：
  * Returns the sum of a and b
  * @param {number} a
  * @param {number} b
+ * @param {...number} args 表示类型为number[]
  * @returns {number}
  */
-function sum(a, b) {
+function sum(a, b, ...args) {
     return a + b;
 }
 ```
 
 > JSDoc 是一个根据javascript文件中注释信息，生成JavaScript应用程序或库、模块的API文档 的工具
+
+> 类型表示:
+>
+> `...*`: any[]
 
 
 
@@ -291,9 +296,11 @@ reduce()——有返回值，重点是计算数组，返回一个值
 
 > Eg 计算数组和: `return nums.reduce((pre, cur) => pre + cur, 0)`
 
-sort()
+[sort()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 
 > 如果没有指定 compareFunction，转换成字符串排序。所以此时 80 会排在 9 前面
+
+compareFn(a, b) 小于 0, a 在 b 前 
 
 
 
@@ -419,6 +426,36 @@ js 代码中只能执行捕获或冒泡其中的一个阶段
 + <span style="font-size:22px">e.target VS e.currentTarget：</span>
 
     target 指触发的元素，而 currentTarget 是绑定事件的元素
+
+
+
+## 设置 CSS
+
+直接设置 style 的属性:
+
+```js
+el.style.textAlign = 'center';
+```
+
+设置 style 属性:
+
+```js
+el.setAttribute("style", "height: 100px");
+```
+
+改变 class:
+
+```js
+el.className = "btn";
+```
+
+设置 cssText:
+
+```js
+el.style.cssText = "height: 100px";
+```
+
+
 
 
 

@@ -81,6 +81,16 @@
 
 ## CSS 属性
 
+<span style="font-size:20px">cursor:</span>
+
++ pointer：鼠标指向变小手
+
+    > 通过这种方式美化交互按钮
+
+
+
+### 盒子
+
 <span style="font-size:20px">[border](https://developer.mozilla.org/zh-CN/docs/Web/CSS) 、[outline](https://developer.mozilla.org/zh-CN/docs/Web/CSS/outline)：</span>
 
 border 和 outline 很类似，但有如下区别：
@@ -102,6 +112,8 @@ border-box：会包括 border 宽度
 
 元素默认背景色是 transparent 透明，意味着如果不设置元素背景色将会显示为下方元素（*z-index*) 的颜色
 
+
+
 ### 颜色
 
 <span style="font-size:20px">透明 </span>
@@ -114,6 +126,8 @@ border-box：会包括 border 宽度
  background: transparent;	// 背景透明
 }
 ```
+
+
 
 ### 文本
 
@@ -128,16 +142,6 @@ p {
   white-space: nowrap;
 }
 ```
-
-
-
-<span style="font-size:20px">cursor:</span>
-
-+ pointer：鼠标指向变小手
-
-    > 通过这种方式美化交互按钮
-
-
 
 
 
@@ -264,6 +268,26 @@ position 属性
 
 + `z-index` 控制重叠元素间 z-order
 + `z-index` 不能使 <span style="color:orange">Flow 布局</span>元素先于<span style="color:orange">脱离文档流的元素</span>显示
+
+
+
+# 伪类
+
+**[:root](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:root):**
+
+匹配文档树的根元素。表示 `<html>` 元素，但<span style="color:orange">优先级更高</span>
+
+主要用来**声明全局变量:**
+
+```css
+:root {
+  --main-color: hotpink;
+  --pane-padding: 5px 42px;
+}
+body {
+  color: rgb(var(--foreground-rgb));
+}
+```
 
 
 

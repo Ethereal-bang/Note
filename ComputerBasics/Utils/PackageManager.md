@@ -8,19 +8,27 @@
 
 
 
-+ <span style="font-size:22px">-S 选项——依赖包安装位置：</span>
+<span style="font-size:22px">-S 选项——依赖包安装位置：</span>
 
-    + --save-dev / -D：编辑代码的辅助工具——只在开发阶段起作用，开发完成后不需存在项目里
++ --save-dev / -D：编辑代码的辅助工具——只在开发阶段起作用，开发完成后不需存在项目里
 
-        > Eg：CSS 预处理器、语法规则检查工具 ESlint、打包工具  Webpack
+    > Eg：CSS 预处理器、语法规则检查工具 ESlint、打包工具  Webpack
 
-    + --save / -S：项目需要的依赖——缺少后项目报错
++ --save / -S：项目需要的依赖——缺少后项目报错
 
-        > Eg：前端框架 React、HTTP 请求库 axios、UI 组件库 BootStrap
+    > Eg：前端框架 React、HTTP 请求库 axios、UI 组件库 BootStrap
 
-    + --global / -g：不需再项目里就可能使用的工具依赖
++ --global / -g：不需再项目里就可能使用的工具依赖
 
-        > Eg：项目脚手架 Vue CLI、服务型工具依赖 http-server
+    > Eg：项目脚手架 Vue CLI、服务型工具依赖 http-server
+
+
+
+**-E / --save-exact:**
+
+> [What is the purpose of using --save-exact](https://stackoverflow.com/questions/58638817/what-is-the-purpose-of-using-save-exact)
+
+锁定依赖的版本号，也就是版本号中的 `^` 会消失，利于版本统一
 
 
 
@@ -70,6 +78,16 @@ npm config set registry https://registry.npm.taobao.org
 
 
 
+## npx
+
+软件包运行器，主要优势是能够执行没有安装的软件包，而不需全局安装
+
+```shell
+npx <pkg>
+```
+
+
+
 # Yarn
 
 + 初始化项目——`yarn init`
@@ -79,11 +97,21 @@ npm config set registry https://registry.npm.taobao.org
 + 删除依赖——`yarn remove`
 + 更新依赖——`yarn upgrade`
 
+更新 yarn: `npm upgrade yarn`
+
 
 
 # [pnpm](https://pnpm.io)
 
-## Install
+**Store + Links**
+
+特点: 每次安装依赖的时候，多个项目都用到相同版本同一依赖，则实际只用安装一次
+
+> 而在 npm 和 yarn 中，如何一个依赖被多个项目使用，会发生多次下载和安装
+
+
+
+## 配置
 
 ```shell
 npm i -g pnpm
@@ -95,6 +123,15 @@ npm i -g pnpm
 
 `pnpm install`
 
+`pnpm add <pkg>`
+
+
+
+## ERROR
+
+[ERR_PNPM_UNEXPECTED_STORE](https://pnpm.io/zh/errors#err_pnpm_unexpected_store):
+
+存在模块目录并链接到不同的存储目录
 
 
 
