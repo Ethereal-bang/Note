@@ -532,6 +532,6 @@ ipconfig /flushdns
 **10054:** —— 关闭 SSL 验证
 
 ```bash
-git config set --global http.SslVerify "false"
+git config --global http.SslVerify "false"
 ```
 
