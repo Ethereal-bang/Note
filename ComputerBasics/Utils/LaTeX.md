@@ -161,7 +161,13 @@
 
 [Markdown数学公式语法 - 简书](https://www.jianshu.com/p/e74eb43960a1)
 
+<<<<<<< HEAD
 **上下标**
+=======
+
+
+<span style="font-size:20px">上下标</span>
+>>>>>>> ca3b14a0e3f34bb04ab419c2540e95ad114f5b33
 
 上标 `x^4`
 
